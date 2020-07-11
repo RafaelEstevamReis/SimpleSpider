@@ -28,7 +28,12 @@ namespace Net.RafaelEstevam.Spider
         {
             get
             {
-                if (htmlCache == null) return HtmlContent(Encoding.Default);
+                if (htmlCache == null)
+                {
+                    var enc = Encoding.UTF8;
+                    // check ResponseHeaders for encoding
+                    return HtmlContent(enc);
+                }
                 return htmlCache;
             }
         }
