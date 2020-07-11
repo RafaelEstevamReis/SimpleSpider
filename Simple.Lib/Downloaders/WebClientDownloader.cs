@@ -46,7 +46,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
         public void Stop()
         {
             run = false;
-            thread.Abort();   
+            //thread.Interrupt();   
         }
         bool run;
         bool downloading;

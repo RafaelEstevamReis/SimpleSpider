@@ -13,6 +13,9 @@ namespace Net.RafaelEstevam.Spider
             this.Uri = Uri;
             this.SourceUri = SourceUri;
         }
-
+        public override string ToString()
+        {
+            return Uri.ToString();
+        }
     }
 }

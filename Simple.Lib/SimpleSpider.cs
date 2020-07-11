@@ -26,7 +26,7 @@ namespace Net.RafaelEstevam.Spider
         private ConcurrentQueue<Link> qDownload;
         private HashSet<string> hExecuted;
 
-        public SimpleSpider(string spiderName, Uri baseUri, InitializarionParams @params = null)
+        public SimpleSpider(string spiderName, Uri baseUri, InitializationParams @params = null)
         {
             this.SpiderName = spiderName;
             this.BaseUri = baseUri;
@@ -125,6 +125,7 @@ namespace Net.RafaelEstevam.Spider
         }
         private Link addPage(Uri pageToVisit, Uri sourcePage)
         {
+            if (pageToVisit.Host != BaseUri.Host) return null;
             if (alreadyExecuted(pageToVisit)) return null;
 
             var lnk = new Link(pageToVisit, sourcePage);
@@ -186,7 +187,7 @@ namespace Net.RafaelEstevam.Spider
                    + qDownload.Count;
         }
 
-        public class InitializarionParams
+        public class InitializationParams
         {
             public ICacher cacher { get; set; }
             public IDownloader downloader { get; set; }
