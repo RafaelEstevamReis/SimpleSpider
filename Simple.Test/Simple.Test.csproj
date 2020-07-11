@@ -6,4 +6,8 @@
     <RootNamespace>Net.RafaelEstevam.Spider.Lib</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Simple.Lib\Simple.Lib.csproj" />
+  </ItemGroup>
+
 </Project>

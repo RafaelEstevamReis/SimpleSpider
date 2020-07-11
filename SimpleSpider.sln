@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Lib", "Simple.Lib\Simple.Lib.csproj", "{99986C6B-D979-4AD0-AE8C-BDD0531DF497}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Lib", "Simple.Lib\Simple.Lib.csproj", "{99986C6B-D979-4AD0-AE8C-BDD0531DF497}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Test", "Simple.Test\Simple.Test.csproj", "{22894655-23F6-4DAF-B85E-C8EE3D315817}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Test", "Simple.Test\Simple.Test.csproj", "{22894655-23F6-4DAF-B85E-C8EE3D315817}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Text", "Text", "{78F66FBC-1B52-4851-89E3-798D6E6AE310}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

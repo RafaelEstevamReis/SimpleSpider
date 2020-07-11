@@ -1,4 +1,5 @@
-﻿using Net.RafaelEstevam.Spider.Interfaces;
+﻿using Net.RafaelEstevam.Spider.Cachers;
+using Net.RafaelEstevam.Spider.Interfaces;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -25,12 +26,13 @@ namespace Net.RafaelEstevam.Spider
         private ConcurrentQueue<Link> qDownload;
         private HashSet<string> hExecuted;
 
-        public SimpleSpider(string spiderName, Uri baseUri, ICacher cacher, IDownloader downloader)
+        public SimpleSpider(string spiderName, Uri baseUri, InitializarionParams @params = null)
         {
             this.SpiderName = spiderName;
             this.BaseUri = baseUri;
-            this.Cacher = cacher;
-            this.Downloader = downloader;
+
+            this.Cacher = @params?.cacher;
+            this.Downloader = @params?.downloader;
 
             this.Configuration = new Configuration();
 
@@ -39,33 +41,51 @@ namespace Net.RafaelEstevam.Spider
             qDownload = new ConcurrentQueue<Link>();
             hExecuted = new HashSet<string>();
 
-            cacher.Initialize(qCache, Configuration);
-            cacher.FetchCompleted += Cacher_FetchCompleted;
-            cacher.FetchFailed += Cacher_FetchFailed;
-            downloader.Initialize(qDownload, Configuration);
-            downloader.FetchCompleted += Downloader_FetchCompleted;
-            downloader.FetchFailed += Downloader_FetchFailed;
-        }
+            if (Cacher == null) Cacher = new NullCacher();
+            Cacher.Initialize(qCache, Configuration);
+            Cacher.FetchCompleted += Cacher_FetchCompleted;
+            Cacher.FetchFailed += Cacher_FetchFailed;
 
-        public SimpleSpider(string spiderName, Uri baseUri)
-            : this(spiderName, baseUri, null, null)
-        {
+            Downloader.Initialize(qDownload, Configuration);
+            Downloader.FetchCompleted += Downloader_FetchCompleted;
+            Downloader.FetchFailed += Downloader_FetchFailed;
         }
 
         public void Execute()
         {
+            Cacher.Start();
+            Downloader.Start();
+
+            int idleTimeout = 0;
             while (true)
             {
                 Thread.Sleep(10);
-                workQueue();
+
+                if (workQueue()) continue;
+
+                Thread.Sleep(90);
+                if (QueueFinished())
+                {
+                    if (idleTimeout++ > 10)
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    idleTimeout = 0;
+                }
             }
+
+            Cacher.Stop();
+            Downloader.Stop();
         }
 
-        private void workQueue()
+        private bool workQueue()
         {
             if (qAdded.TryDequeue(out Link lnk))
             {
-                if (alreadyExecuted(lnk.Uri)) return;
+                if (alreadyExecuted(lnk.Uri)) return true;
 
                 if (Cacher.HasCache(lnk.Uri))
                 {
@@ -75,7 +95,9 @@ namespace Net.RafaelEstevam.Spider
                 {
                     qDownload.Enqueue(lnk);
                 }
+                return true;
             }
+            return false;
         }
 
         public void AddPage(IEnumerable<Uri> PageToVisit, Uri SourcePage)
@@ -133,6 +155,26 @@ namespace Net.RafaelEstevam.Spider
             FetchCompleted?.Invoke(this, args);
         }
 
+        public bool QueueFinished()
+        {
+            if (qAdded.TryPeek(out _)) return false;
+            if (qCache.TryPeek(out _)) return false;
+            if (qDownload.TryPeek(out _)) return false;
 
+            // Count to be sure
+            return QueueSize() == 0;
+        }
+        public int QueueSize()
+        {
+            return qAdded.Count
+                   + qCache.Count
+                   + qDownload.Count;
+        }
+
+        public class InitializarionParams
+        {
+            public ICacher cacher { get; set; }
+            public IDownloader downloader { get; set; }
+        }
     }
 }
