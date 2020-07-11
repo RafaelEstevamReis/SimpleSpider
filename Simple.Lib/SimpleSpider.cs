@@ -1,4 +1,5 @@
 ﻿using Net.RafaelEstevam.Spider.Cachers;
+using Net.RafaelEstevam.Spider.Downloaders;
 using Net.RafaelEstevam.Spider.Interfaces;
 using System;
 using System.Collections.Concurrent;
@@ -20,7 +21,6 @@ namespace Net.RafaelEstevam.Spider
         public ICacher Cacher { get; }
         public IDownloader Downloader { get; }
 
-
         private ConcurrentQueue<Link> qAdded;
         private ConcurrentQueue<Link> qCache;
         private ConcurrentQueue<Link> qDownload;
@@ -36,12 +36,23 @@ namespace Net.RafaelEstevam.Spider
 
             this.Configuration = new Configuration();
 
+            initializeQueues();
+            // initialize read-only
+            if (Cacher == null) Cacher = new NullCacher();
+            if (Downloader == null) Downloader = new WebClientDownloader();
+
+            initializeFetchers();
+        }
+        private void initializeQueues()
+        {
             qAdded = new ConcurrentQueue<Link>();
             qCache = new ConcurrentQueue<Link>();
             qDownload = new ConcurrentQueue<Link>();
             hExecuted = new HashSet<string>();
+        }
 
-            if (Cacher == null) Cacher = new NullCacher();
+        private void initializeFetchers()
+        {
             Cacher.Initialize(qCache, Configuration);
             Cacher.FetchCompleted += Cacher_FetchCompleted;
             Cacher.FetchFailed += Cacher_FetchFailed;
@@ -100,20 +111,25 @@ namespace Net.RafaelEstevam.Spider
             return false;
         }
 
-        public void AddPage(IEnumerable<Uri> PageToVisit, Uri SourcePage)
+        public IEnumerable<Link> AddPage(IEnumerable<Uri> PageToVisit, Uri SourcePage)
         {
-            foreach (var p in PageToVisit) AddPage(p, SourcePage);
+            foreach (var p in PageToVisit)
+            {
+                var lnk = AddPage(p, SourcePage);
+                if (lnk != null) yield return lnk;
+            }
         }
-        public void AddPage(Uri PageToVisit, Uri SourcePage)
+        public Link AddPage(Uri PageToVisit, Uri SourcePage)
         {
-            addPage(PageToVisit, SourcePage);
+            return addPage(PageToVisit, SourcePage);
         }
-        private void addPage(Uri pageToVisit, Uri sourcePage)
+        private Link addPage(Uri pageToVisit, Uri sourcePage)
         {
-            if (alreadyExecuted(pageToVisit)) return;
+            if (alreadyExecuted(pageToVisit)) return null;
 
             var lnk = new Link(pageToVisit, sourcePage);
             qAdded.Enqueue(lnk);
+            return lnk;
         }
         private bool alreadyExecuted(Uri pageToVisit)
         {
@@ -146,7 +162,6 @@ namespace Net.RafaelEstevam.Spider
             args.Source = FetchEventArgs.EventSource.Cacher;
             fetchCompleted(args);
         }
-
 
         #endregion
 
