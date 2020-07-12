@@ -13,7 +13,7 @@ namespace Net.RafaelEstevam.Spider.Cachers
         private DirectoryInfo cacheDir;
         private ConcurrentQueue<Link> queue;
         private Configuration config;
-        private Thread thread;
+        private Thread[] thread;
 
         public bool IsProcessing { get; private set; }
 
@@ -29,7 +29,12 @@ namespace Net.RafaelEstevam.Spider.Cachers
 
             queue = WorkQueue;
             config = Config;
-            thread = new Thread(doStuff);
+            thread = new Thread[4];
+            for (int i = 0; i < thread.Length; i++)
+            {
+                thread[i] = new Thread(doStuff);
+                thread[i].Name = $"thdCache[{i}]";
+            }
         }
 
         public void GenerateCacheFor(FetchCompleteEventArgs FetchComplete)
@@ -46,23 +51,25 @@ namespace Net.RafaelEstevam.Spider.Cachers
         public void Start()
         {
             running = true;
-            thread.Start();
+
+            for (int i = 0; i < thread.Length; i++)
+                thread[i].Start();
         }
 
         public void Stop()
         {
             running = false;
-            thread.Interrupt();
+            for (int i = 0; i < thread.Length; i++)
+                thread[i].Interrupt();
         }
 
-        Link current;
         private void doStuff(object obj)
         {
             while (running)
             {
                 Thread.Sleep(10);
 
-                if (queue.TryDequeue(out current))
+                if (queue.TryDequeue(out Link current))
                 {
                     var args = new ShouldFetchEventArgs(current);
                     ShouldFetch(this, args);
