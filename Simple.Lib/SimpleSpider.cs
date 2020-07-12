@@ -86,6 +86,8 @@ namespace Net.RafaelEstevam.Spider
             Cacher.Start();
             Downloader.Start();
 
+            if (QueueSize() == 0) addPage(BaseUri, BaseUri);
+
             int idleTimeout = 0;
             while (true)
             {
