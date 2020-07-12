@@ -1,12 +1,17 @@
-﻿using System;
+﻿using Net.RafaelEstevam.Spider;
+using System;
+using System.Linq;
 
-namespace Simple.Test
+namespace Net.RafaelEstevam.Spider.Test
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Sample.BooksToScrape.run();
+
+            Console.WriteLine("-END-");
+            Console.ReadKey();
         }
     }
 }
