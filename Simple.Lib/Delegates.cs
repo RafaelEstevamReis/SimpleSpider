@@ -14,6 +14,7 @@ namespace Net.RafaelEstevam.Spider
         {
             Cacher,
             Downloader,
+            Scheduler,
         }
 
         public Link Link { get; set; }

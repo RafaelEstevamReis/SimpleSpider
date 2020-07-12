@@ -89,11 +89,9 @@ namespace Net.RafaelEstevam.Spider
             int idleTimeout = 0;
             while (true)
             {
-                Thread.Sleep(10);
-
                 if (workQueue()) continue;
 
-                Thread.Sleep(90);
+                Thread.Sleep(100);
                 if (QueueFinished())
                 {
                     if (idleTimeout++ > 10)
@@ -143,10 +141,15 @@ namespace Net.RafaelEstevam.Spider
         }
         private Link addPage(Uri pageToVisit, Uri sourcePage)
         {
-            if (pageToVisit.Host != BaseUri.Host) return null;
+            if (pageToVisit.Host != BaseUri.Host) return null;            
             if (alreadyExecuted(pageToVisit)) return null;
 
             var lnk = new Link(pageToVisit, sourcePage);
+
+            var args = new ShouldFetchEventArgs(lnk);
+            ShouldFetch?.Invoke(this, args);
+            if (args.Cancel) return null;
+
             qAdded.Enqueue(lnk);
             return lnk;
         }
@@ -159,6 +162,7 @@ namespace Net.RafaelEstevam.Spider
 
         private void Downloader_FetchFailed(object Sender, FetchFailEventArgs args)
         {
+            hExecuted.Add(args.Link.Uri.ToString());
             // TODO Log error
             args.Source = FetchEventArgs.EventSource.Downloader;
             FetchFailed?.Invoke(this, args);
@@ -182,18 +186,18 @@ namespace Net.RafaelEstevam.Spider
             fetchCompleted(args);
         }
 
-
         private void Cacher_ShouldFetch(object Sender, ShouldFetchEventArgs args)
         {
-            if (alreadyExecuted(args.Link))
-            {
-                args.Cancel = true;
-                args.Reason = ShouldFetchEventArgs.Reasons.AlreadyFetched;
-                return;
-            }
-            // Ask user
+            args.Source = FetchEventArgs.EventSource.Cacher;
+            shouldFetch(Sender, args);
         }
+
         private void Downloader_ShouldFetch(object Sender, ShouldFetchEventArgs args)
+        {
+            args.Source = FetchEventArgs.EventSource.Downloader;
+            shouldFetch(Sender, args);
+        }
+        private void shouldFetch(object Sender, ShouldFetchEventArgs args)
         {
             if (alreadyExecuted(args.Link))
             {
@@ -202,6 +206,8 @@ namespace Net.RafaelEstevam.Spider
                 return;
             }
             // Ask user
+            ShouldFetch?.Invoke(this, args);
+            if (args.Cancel) Console.WriteLine($"[USER CANCEL] {args.Link}");
         }
         #endregion
 
