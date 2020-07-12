@@ -29,6 +29,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
 
         public event FetchComplete FetchCompleted;
         public event FetchFail FetchFailed;
+        public event ShouldFetch ShouldFetch;
 
         public void Initialize(ConcurrentQueue<Link> WorkQueue, Configuration Config)
         {
@@ -37,6 +38,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
             thread = new Thread(doStuff);
         }
 
+        public bool IsProcessing => downloading;
         public void Start()
         {
             run = true;
@@ -57,30 +59,34 @@ namespace Net.RafaelEstevam.Spider.Downloaders
             while (run)
             {
                 Thread.Sleep(Math.Max(100, config.DownloadDelay));
-                
+
                 if (downloading) continue;
 
                 if (queue.TryDequeue(out current))
                 {
+                    var args = new ShouldFetchEventArgs(current);
+                    ShouldFetch(this, args);
+                    if (args.Cancel) continue;
+
                     downloading = true;
+                    Console.WriteLine($"[WEB] {current.Uri}");
                     webClient.DownloadDataAsync(current.Uri);
                 }
             }
         }
         private void WebClient_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
         {
-            downloading = false;
 
-            if (e.Error != null)
+            if (e.Error == null)
+            {
+                var responseHeaders = webClient.ResponseHeaders.AllKeys.Select(k => KeyValuePair.Create(k, webClient.ResponseHeaders.Get(k))).ToArray();
+                FetchCompleted(this, new FetchCompleteEventArgs(current, e.Result, responseHeaders));
+            }
+            else
             {
                 FetchFailed(this, new FetchFailEventArgs(current, e.Error));
-                return;
             }
-            var responseHeaders = webClient.ResponseHeaders.AllKeys.Select(k => KeyValuePair.Create(k, webClient.ResponseHeaders.Get(k))).ToArray();
-
-            FetchCompleted(this, new FetchCompleteEventArgs(current, e.Result, responseHeaders));
+            downloading = false;
         }
-
-
     }
 }

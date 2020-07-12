@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Net.RafaelEstevam.Spider
@@ -9,6 +10,7 @@ namespace Net.RafaelEstevam.Spider
         /// <summary>
         /// Time to wait in miliseconds between downloads
         /// </summary>
-        public int DownloadDelay { get; internal set; }
+        public int DownloadDelay { get; set; }
+        public DirectoryInfo SpiderDirectory { get; internal set; }
     }
 }

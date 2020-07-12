@@ -4,7 +4,10 @@ using Net.RafaelEstevam.Spider.Interfaces;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http.Headers;
+using System.Net.Mime;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 
@@ -14,6 +17,7 @@ namespace Net.RafaelEstevam.Spider
     {
         public event FetchComplete FetchCompleted;
         public event FetchFail FetchFailed;
+        public event ShouldFetch ShouldFetch;
 
         public Configuration Configuration { get;  }
         public string SpiderName { get; }
@@ -35,14 +39,27 @@ namespace Net.RafaelEstevam.Spider
             this.Downloader = @params?.downloader;
 
             this.Configuration = new Configuration();
-
+            initializeConfiguration(spiderName, @params);
+            
             initializeQueues();
             // initialize read-only
-            if (Cacher == null) Cacher = new NullCacher();
+            if (Cacher == null) Cacher = new ContentCacher();
             if (Downloader == null) Downloader = new WebClientDownloader();
 
             initializeFetchers();
         }
+
+        private void initializeConfiguration(string spiderName, InitializationParams init)
+        {
+            var dir = init?.SpiderDirectory;
+            if (dir == null) dir = new FileInfo(Assembly.GetEntryAssembly().Location).Directory;
+
+            var spiderPath = new DirectoryInfo(Path.Combine(dir.FullName, spiderName));
+            if (!spiderPath.Exists) spiderPath.Create();
+            Configuration.SpiderDirectory = spiderPath;
+
+        }
+
         private void initializeQueues()
         {
             qAdded = new ConcurrentQueue<Link>();
@@ -56,10 +73,12 @@ namespace Net.RafaelEstevam.Spider
             Cacher.Initialize(qCache, Configuration);
             Cacher.FetchCompleted += Cacher_FetchCompleted;
             Cacher.FetchFailed += Cacher_FetchFailed;
-
+            Cacher.ShouldFetch += Cacher_ShouldFetch;
+            
             Downloader.Initialize(qDownload, Configuration);
             Downloader.FetchCompleted += Downloader_FetchCompleted;
             Downloader.FetchFailed += Downloader_FetchFailed;
+            Downloader.ShouldFetch += Downloader_ShouldFetch;
         }
 
         public void Execute()
@@ -111,12 +130,11 @@ namespace Net.RafaelEstevam.Spider
             return false;
         }
 
-        public IEnumerable<Link> AddPage(IEnumerable<Uri> PageToVisit, Uri SourcePage)
+        public void AddPage(IEnumerable<Uri> PageToVisit, Uri SourcePage)
         {
             foreach (var p in PageToVisit)
             {
-                var lnk = AddPage(p, SourcePage);
-                if (lnk != null) yield return lnk;
+                AddPage(p, SourcePage);
             }
         }
         public Link AddPage(Uri PageToVisit, Uri SourcePage)
@@ -164,15 +182,40 @@ namespace Net.RafaelEstevam.Spider
             fetchCompleted(args);
         }
 
+
+        private void Cacher_ShouldFetch(object Sender, ShouldFetchEventArgs args)
+        {
+            if (alreadyExecuted(args.Link))
+            {
+                args.Cancel = true;
+                args.Reason = ShouldFetchEventArgs.Reasons.AlreadyFetched;
+                return;
+            }
+            // Ask user
+        }
+        private void Downloader_ShouldFetch(object Sender, ShouldFetchEventArgs args)
+        {
+            if (alreadyExecuted(args.Link))
+            {
+                args.Cancel = true;
+                args.Reason = ShouldFetchEventArgs.Reasons.AlreadyFetched;
+                return;
+            }
+            // Ask user
+        }
         #endregion
 
         private void fetchCompleted(FetchCompleteEventArgs args)
         {
+            hExecuted.Add(args.Link.Uri.ToString());
             FetchCompleted?.Invoke(this, args);
         }
 
         public bool QueueFinished()
         {
+            if (Cacher.IsProcessing) return false;
+            if (Downloader.IsProcessing) return false;
+
             if (qAdded.TryPeek(out _)) return false;
             if (qCache.TryPeek(out _)) return false;
             if (qDownload.TryPeek(out _)) return false;
@@ -191,6 +234,7 @@ namespace Net.RafaelEstevam.Spider
         {
             public ICacher cacher { get; set; }
             public IDownloader downloader { get; set; }
+            public DirectoryInfo SpiderDirectory { get; set; }
         }
     }
 }

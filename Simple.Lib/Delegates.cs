@@ -6,6 +6,7 @@ namespace Net.RafaelEstevam.Spider
 {
     public delegate void FetchComplete(object Sender, FetchCompleteEventArgs args);
     public delegate void FetchFail(object Sender, FetchFailEventArgs args);
+    public delegate void ShouldFetch(object Sender, ShouldFetchEventArgs args);
 
     public class FetchEventArgs : EventArgs
     {
@@ -58,6 +59,23 @@ namespace Net.RafaelEstevam.Spider
         {
             this.Link = link;
             this.Error = error;
+        }
+    }
+
+    public class ShouldFetchEventArgs : FetchEventArgs
+    {
+        public enum Reasons
+        {
+            AlreadyFetched,
+            UserCancelled,
+            None,
+        }
+        public bool Cancel { get; set; }
+        public Reasons Reason { get; set; } = Reasons.None;
+
+        public ShouldFetchEventArgs(Link link)
+        {
+            this.Link = link;
         }
     }
 }

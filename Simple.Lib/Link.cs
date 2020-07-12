@@ -17,5 +17,7 @@ namespace Net.RafaelEstevam.Spider
         {
             return Uri.ToString();
         }
+
+        public static implicit operator Uri(Link lnk) => lnk.Uri;
     }
 }
