@@ -5,4 +5,8 @@
     <RootNamespace>Net.RafaelEstevam.Spider</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.24" />
+  </ItemGroup>
+
 </Project>

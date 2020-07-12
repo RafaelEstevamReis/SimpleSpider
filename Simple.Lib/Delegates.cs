@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Net.RafaelEstevam.Spider.Helper;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Linq;
 
 namespace Net.RafaelEstevam.Spider
 {
@@ -37,6 +39,18 @@ namespace Net.RafaelEstevam.Spider
                     return HtmlContent(enc);
                 }
                 return htmlCache;
+            }
+        }
+        XElement xElement;
+        public XElement XElement
+        {
+            get
+            {
+                if (xElement == null)
+                {
+                    xElement = HtmlToEXelement.Parse(Html);
+                }
+                return xElement;
             }
         }
 

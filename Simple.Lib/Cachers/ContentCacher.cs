@@ -67,24 +67,32 @@ namespace Net.RafaelEstevam.Spider.Cachers
         {
             while (running)
             {
-                Thread.Sleep(10);
-
-                if (queue.TryDequeue(out Link current))
+                try
                 {
-                    var args = new ShouldFetchEventArgs(current);
-                    ShouldFetch(this, args);
-                    if (args.Cancel) continue;
+                    Thread.Sleep(10);
 
-                    IsProcessing = true;
-                    Console.WriteLine($"[CACHE] {current.Uri}");
+                    if (queue.TryDequeue(out Link current))
+                    {
+                        var args = new ShouldFetchEventArgs(current);
+                        ShouldFetch(this, args);
+                        if (args.Cancel) continue;
 
-                    // load file
-                    var bytes = File.ReadAllBytes(getCacheFileFullName(current));
-                    FetchCompleted(this, new FetchCompleteEventArgs(current, bytes, new KeyValuePair<string, string>[0]));
+                        IsProcessing = true;
+                        Console.WriteLine($"[CACHE] {current.Uri}");
 
-                    IsProcessing = false;
+                        // load file
+                        var bytes = File.ReadAllBytes(getCacheFileFullName(current));
+                        FetchCompleted(this, new FetchCompleteEventArgs(current, bytes, new KeyValuePair<string, string>[0]));
+
+                        IsProcessing = false;
+                    }
+                    else Thread.Sleep(100);
                 }
-                else Thread.Sleep(100);
+                catch (ThreadInterruptedException) { }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
         }
         private string getCacheFileFullName(Uri uri)
