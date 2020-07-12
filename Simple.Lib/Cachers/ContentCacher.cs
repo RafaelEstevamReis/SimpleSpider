@@ -10,6 +10,8 @@ namespace Net.RafaelEstevam.Spider.Cachers
 {
     public class ContentCacher : ICacher
     {
+        private const int ThreadCount = 4;
+
         private DirectoryInfo cacheDir;
         private ConcurrentQueue<Link> queue;
         private Configuration config;
@@ -29,7 +31,7 @@ namespace Net.RafaelEstevam.Spider.Cachers
 
             queue = WorkQueue;
             config = Config;
-            thread = new Thread[4];
+            thread = new Thread[ThreadCount];
             for (int i = 0; i < thread.Length; i++)
             {
                 thread[i] = new Thread(doStuff);
