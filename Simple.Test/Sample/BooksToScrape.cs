@@ -19,23 +19,19 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
         public static void run()
         {
             var spider = new SimpleSpider("BooksToScrape", new Uri("http://books.toscrape.com/"));
-            // callbacks
-            spider.FetchCompleted += fetchCompleted_items; // callback to gather items
-            spider.FetchCompleted += (s, a) => // callback to gather links
+            // callback to gather links
+            spider.FetchCompleted += (s, a) =>
             {
                 // Use a simple SubString-based split to get all "<a>" tags
                 var links = Helper.AnchorHelper.GetAnchors(a.Link.Uri, a.Html);
                 // Add the collected links to the queue
                 (s as SimpleSpider).AddPage(links, a.Link);
             };
-            // Ignore some pages
-            spider.ShouldFetch += (s, a) =>
-            {
-                if (a.Link.Uri.ToString().Contains("/reviews/"))
-                {
-                    a.Cancel = true;
-                }
-            };
+            // callback to gather items
+            spider.FetchCompleted += fetchCompleted_items;
+            // Ignore (cancel) the pages containing "/reviews/" 
+            spider.ShouldFetch += (s, a) => { a.Cancel = a.Link.Uri.ToString().Contains("/reviews/"); };
+            
             // execute from first page
             spider.Execute();
 
@@ -54,14 +50,12 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
             var articleProd = args.XElement.XPathSelectElement("//article[@class=\"product_page\"]");
             if (articleProd == null) return; // not a book
             // Book info
-            var sTitle = articleProd.XPathSelectElement("//h1").Value;
-            var sPrice = articleProd.XPathSelectElement("//p[@class=\"price_color\"]").Value;
-            var sStock = articleProd.XPathSelectElement("//p[@class=\"instock availability\"]").Value.Trim();
-            var sDesc = articleProd.XPathSelectElement("p")?.Value; // books can be descriptonless
+            string sTitle = articleProd.XPathSelectElement("//h1").Value;
+            string sPrice = articleProd.XPathSelectElement("//p[@class=\"price_color\"]").Value;
+            string sStock = articleProd.XPathSelectElement("//p[@class=\"instock availability\"]").Value.Trim();
+            string sDesc = articleProd.XPathSelectElement("p")?.Value; // books can be descriptionless
             // convert price to Decimal
             decimal.TryParse(sPrice, NumberStyles.Currency, new CultureInfo("en-GB", false), out decimal price);
-            // Product info table
-            var table = args.XElement.GetAllTables().First();
             
             lstBooks.Add(new BookData()
             {
@@ -69,7 +63,7 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
                 Price = price,
                 Description = sDesc,
                 StockInfo = sStock,
-                PrductInfoTable = table,
+                PrductInfoTable = args.XElement.GetAllTables().First(),
             });
         }
 
