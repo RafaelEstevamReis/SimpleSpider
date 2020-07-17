@@ -69,11 +69,11 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
 
         class BookData
         {
-            public string Title { get; internal set; }
-            public decimal Price { get; internal set; }
-            public string Description { get; internal set; }
-            public string StockInfo { get; internal set; }
-            public DataTable PrductInfoTable { get; internal set; }
+            public string Title { get; set; }
+            public decimal Price { get; set; }
+            public string Description { get; set; }
+            public string StockInfo { get; set; }
+            public DataTable PrductInfoTable { get; set; }
         }
     }
 }
