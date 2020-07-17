@@ -1,5 +1,6 @@
 ﻿using Net.RafaelEstevam.Spider.Cachers;
 using Net.RafaelEstevam.Spider.Downloaders;
+using Net.RafaelEstevam.Spider.Helper;
 using Net.RafaelEstevam.Spider.Interfaces;
 using System;
 using System.Collections.Concurrent;
@@ -10,6 +11,7 @@ using System.Net.Mime;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using System.Xml.Serialization;
 
 namespace Net.RafaelEstevam.Spider
 {
@@ -19,7 +21,7 @@ namespace Net.RafaelEstevam.Spider
             : base(spiderName, baseUri, @params) { }
     }
 
-    public class SimpleSpider<T>
+    public class SimpleSpider<T> where T : new()
     {
         public event FetchComplete FetchCompleted;
         public event FetchFail FetchFailed;
@@ -40,6 +42,11 @@ namespace Net.RafaelEstevam.Spider
 
         public SimpleSpider(string spiderName, Uri baseUri, InitializationParams @params = null)
         {
+            if (!typeof(T).IsSerializable)
+            {
+                throw new InvalidOperationException("T must be Serializable");
+            }
+
             this.SpiderName = spiderName;
             this.BaseUri = baseUri;
 
@@ -67,6 +74,12 @@ namespace Net.RafaelEstevam.Spider
             if (!spiderPath.Exists) spiderPath.Create();
             Configuration.SpiderDirectory = spiderPath;
 
+
+            var dataPath = new DirectoryInfo(Path.Combine(spiderPath.FullName, "Data"));
+            if (!dataPath.Exists) dataPath.Create();
+            Configuration.SpiderDataDirectory = dataPath;
+
+            //Configuration.Spider_SaveCollectedFile = Path.Combine(dataPath.FullName, "collected.xml");
         }
 
         private void initializeQueues()
@@ -118,6 +131,11 @@ namespace Net.RafaelEstevam.Spider
 
             Cacher.Stop();
             Downloader.Stop();
+
+            //if (!string.IsNullOrEmpty(Configuration.Spider_SaveCollectedFile))
+            //{
+            //    XmlSerializerHelper.SerializeToFile(CollectedItems(), Configuration.Spider_SaveCollectedFile);
+            //}
         }
 
         private bool workQueue()
@@ -178,7 +196,7 @@ namespace Net.RafaelEstevam.Spider
             lstCollected.Add(new CollectedData()
             {
                 Object = Object,
-                CollectedOn = CollectedOn,
+                CollectedOn = CollectedOn.ToString(),
                 CollectAt = DateTime.Now
             });
         }
@@ -272,7 +290,7 @@ namespace Net.RafaelEstevam.Spider
         public class CollectedData
         {
             public T Object { get; set; }
-            public Uri CollectedOn { get; set; }
+            public string CollectedOn { get; set; }
             public DateTime CollectAt { get; set; }
         }
     }

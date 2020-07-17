@@ -67,7 +67,7 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
             }, args.Link);
         }
 
-        class BookData
+        public class BookData
         {
             public string Title { get; set; }
             public decimal Price { get; set; }
