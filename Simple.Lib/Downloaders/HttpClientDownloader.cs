@@ -91,7 +91,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                     }
                     else
                     {
-                        FetchFailed(this, new FetchFailEventArgs(current, new HttpRequestException(resp.StatusCode.ToString()), reqHeaders));
+                        FetchFailed(this, new FetchFailEventArgs(current, new HttpRequestException(resp.ReasonPhrase), reqHeaders));
                     }
 
                     downloading = false;
