@@ -1,13 +1,9 @@
-﻿using Microsoft.VisualBasic.CompilerServices;
-using Net.RafaelEstevam.Spider.Interfaces;
+﻿using Net.RafaelEstevam.Spider.Interfaces;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Net;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading;
 
 namespace Net.RafaelEstevam.Spider.Downloaders
