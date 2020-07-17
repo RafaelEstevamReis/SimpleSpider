@@ -15,7 +15,6 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
     /// </summary>
     public class BooksToScrape
     {
-        static List<BookData> lstBooks = new List<BookData>();
         public static void run()
         {
             var spider = new SimpleSpider("BooksToScrape", new Uri("http://books.toscrape.com/"));
@@ -36,9 +35,10 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
             spider.Execute();
 
             // List all books
-            foreach (var b in lstBooks)
+            foreach (var b in spider.CollectedItems())
             {
-                Console.WriteLine($"{b.Price:C2} {b.Title}");
+                Console.WriteLine($"{b.CollectAt:g} {b.CollectedOn}");
+                Console.WriteLine($" > {((BookData)b.Object).Price:C2} {((BookData)b.Object).Title}");
             }
         }
         private static void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
@@ -56,15 +56,15 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
             string sDesc = articleProd.XPathSelectElement("p")?.Value; // books can be descriptionless
             // convert price to Decimal
             decimal.TryParse(sPrice, NumberStyles.Currency, new CultureInfo("en-GB", false), out decimal price);
-            
-            lstBooks.Add(new BookData()
+
+            (Sender as SimpleSpider).Collect(new BookData()
             {
                 Title = sTitle,
                 Price = price,
                 Description = sDesc,
                 StockInfo = sStock,
                 PrductInfoTable = args.XElement.GetAllTables().First(),
-            });
+            }, args.Link);
         }
 
         class BookData
