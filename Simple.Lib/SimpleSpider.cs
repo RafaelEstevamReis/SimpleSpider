@@ -13,7 +13,13 @@ using System.Threading;
 
 namespace Net.RafaelEstevam.Spider
 {
-    public class SimpleSpider
+    public class SimpleSpider : SimpleSpider<object>
+    {
+        public SimpleSpider(string spiderName, Uri baseUri, InitializationParams @params = null)
+            : base(spiderName, baseUri, @params) { }
+    }
+
+    public class SimpleSpider<T>
     {
         public event FetchComplete FetchCompleted;
         public event FetchFail FetchFailed;
@@ -30,6 +36,8 @@ namespace Net.RafaelEstevam.Spider
         private ConcurrentQueue<Link> qDownload;
         private HashSet<string> hExecuted;
 
+        private List<CollectedData> lstCollected;
+
         public SimpleSpider(string spiderName, Uri baseUri, InitializationParams @params = null)
         {
             this.SpiderName = spiderName;
@@ -38,6 +46,7 @@ namespace Net.RafaelEstevam.Spider
             this.Cacher = @params?.cacher;
             this.Downloader = @params?.downloader;
 
+            lstCollected = new List<CollectedData>();
             this.Configuration = new Configuration();
             initializeConfiguration(spiderName, @params);
             
@@ -160,6 +169,22 @@ namespace Net.RafaelEstevam.Spider
             return hExecuted.Contains(pageToVisit.ToString());
         }
 
+        public void Collect(IEnumerable<T> Object, Uri CollectedOn)
+        {
+            foreach (var o in Object) Collect(o, CollectedOn);
+        }
+        public void Collect(T Object, Uri CollectedOn)
+        {
+            lstCollected.Add(new CollectedData()
+            {
+                Object = Object,
+                CollectedOn = CollectedOn,
+                CollectAt = DateTime.Now
+            });
+        }
+
+        public CollectedData[] CollectedItems() { return lstCollected.ToArray();  }
+
         #region Scheduler
 
         private void Downloader_FetchFailed(object Sender, FetchFailEventArgs args)
@@ -243,6 +268,12 @@ namespace Net.RafaelEstevam.Spider
             public ICacher cacher { get; set; }
             public IDownloader downloader { get; set; }
             public DirectoryInfo SpiderDirectory { get; set; }
+        }
+        public class CollectedData
+        {
+            public T Object { get; set; }
+            public Uri CollectedOn { get; set; }
+            public DateTime CollectAt { get; set; }
         }
     }
 }
