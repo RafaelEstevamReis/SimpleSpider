@@ -11,11 +11,12 @@ namespace Net.RafaelEstevam.Spider
         /// Time to wait in miliseconds between downloads
         /// </summary>
         public int DownloadDelay { get; set; } = 5000;
-        public DirectoryInfo SpiderDirectory { get; set; }
+        public DirectoryInfo SpiderDirectory { get; internal set; }
+        public DirectoryInfo SpiderDataDirectory { get; internal set; }
+        public string Spider_SaveCollectedFile { get; internal set; }
         public bool Cookies_Enable { get; set; }
 
         public bool Cache_Enable { get; set; } = true;
         public TimeSpan? Cache_Lifetime { get; set; }
-
     }
 }
