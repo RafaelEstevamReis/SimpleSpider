@@ -46,7 +46,17 @@ namespace Net.RafaelEstevam.Spider.Cachers
 
         public bool HasCache(Uri uri)
         {
-            return File.Exists(getCacheFileFullName(uri));
+            if (!config.Cache_Enable) return false;
+
+            var fi = new FileInfo(getCacheFileFullName(uri));
+            if (!fi.Exists) return false;
+
+            if (config.Cache_Lifetime != null)
+            {
+                if (DateTime.Now - fi.LastWriteTime > config.Cache_Lifetime.Value) return false;
+            }
+
+            return true;
         }
 
         bool running = false;
@@ -84,7 +94,7 @@ namespace Net.RafaelEstevam.Spider.Cachers
 
                         // load file
                         var bytes = File.ReadAllBytes(getCacheFileFullName(current));
-                        FetchCompleted(this, new FetchCompleteEventArgs(current, bytes, new KeyValuePair<string, string>[0]));
+                        FetchCompleted(this, new FetchCompleteEventArgs(current, bytes, new KeyValuePair<string, string>[0], new KeyValuePair<string, string>[0]));
 
                         IsProcessing = false;
                     }

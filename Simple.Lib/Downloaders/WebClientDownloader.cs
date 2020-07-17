@@ -18,12 +18,11 @@ namespace Net.RafaelEstevam.Spider.Downloaders
         private Configuration config;
 
         Thread thread;
-        WebClient webClient;
-
+        CustomWebClient webClient;
 
         public WebClientDownloader()
         {
-            webClient = new WebClient();
+            webClient = new CustomWebClient();
             webClient.DownloadDataCompleted += WebClient_DownloadDataCompleted;
         }
 
@@ -70,23 +69,43 @@ namespace Net.RafaelEstevam.Spider.Downloaders
 
                     downloading = true;
                     Console.WriteLine($"[WEB] {current.Uri}");
+                    webClient.EnableCookies = config.Cookies_Enable;
                     webClient.DownloadDataAsync(current.Uri);
                 }
             }
         }
         private void WebClient_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
         {
-
             if (e.Error == null)
             {
                 var responseHeaders = webClient.ResponseHeaders.AllKeys.Select(k => KeyValuePair.Create(k, webClient.ResponseHeaders.Get(k))).ToArray();
-                FetchCompleted(this, new FetchCompleteEventArgs(current, e.Result, responseHeaders));
+                FetchCompleted(this, new FetchCompleteEventArgs(current, e.Result, webClient.LastRequestHeaders, responseHeaders));
             }
             else
             {
-                FetchFailed(this, new FetchFailEventArgs(current, e.Error));
+                FetchFailed(this, new FetchFailEventArgs(current, e.Error, webClient.LastRequestHeaders));
             }
             downloading = false;
+        }
+
+        class CustomWebClient : WebClient
+        {
+            public bool EnableCookies { get; set; }
+            public CookieContainer CookieContainer { get; }
+            public KeyValuePair<string, string>[] LastRequestHeaders { get; private set; }
+
+            public CustomWebClient()
+            {
+                CookieContainer = new CookieContainer();
+            }
+            protected override WebRequest GetWebRequest(Uri address)
+            {
+                var request = (HttpWebRequest)base.GetWebRequest(address);
+                if(EnableCookies) request.CookieContainer = CookieContainer;
+                //LastRequestHeaders = request.Headers.AllKeys.Select(k => KeyValuePair.Create(k, request.Headers.Get(k))).ToArray();
+
+                return request;
+            }
         }
     }
 }
