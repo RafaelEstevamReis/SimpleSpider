@@ -14,17 +14,48 @@ using Serilog.Core;
 
 namespace Net.RafaelEstevam.Spider
 {
-    public class SimpleSpider
+    /// <summary>
+    /// Simple spider class
+    /// </summary>
+    public sealed class SimpleSpider
     {
+        /// <summary>
+        /// Resource fetched completed
+        /// </summary>
         public event FetchComplete FetchCompleted;
+        /// <summary>
+        /// Resource fetched failed
+        /// </summary>
         public event FetchFail FetchFailed;
+        /// <summary>
+        /// Check if some resource should be fetched
+        /// Used to block list urls
+        /// </summary>
         public event ShouldFetch ShouldFetch;
 
+        /// <summary>
+        /// Spider configurations and parameters
+        /// </summary>
         public Configuration Configuration { get; }
+        /// <summary>
+        /// Name of the spider
+        /// </summary>
         public string SpiderName { get; }
+        /// <summary>
+        /// Base Uri to fetch, resources outside this host will not be fetched
+        /// </summary>
         public Uri BaseUri { get; }
+        /// <summary>
+        /// Current Cacher
+        /// </summary>
         public ICacher Cacher { get; }
+        /// <summary>
+        /// Current Downloader
+        /// </summary>
         public IDownloader Downloader { get; }
+        /// <summary>
+        /// Current Parsers
+        /// </summary>
         public List<IParserBase> Parsers { get; }
 
         private ConcurrentQueue<Link> qAdded;
@@ -33,7 +64,7 @@ namespace Net.RafaelEstevam.Spider
         private HashSet<string> hExecuted;
 
         private List<CollectedData> lstCollected;
-        private Logger log;
+        private Logger log; // short reference, is accessible through configuration
 
         public SimpleSpider(string spiderName, Uri baseUri, InitializationParams @params = null)
         {
@@ -100,7 +131,9 @@ namespace Net.RafaelEstevam.Spider
             Downloader.FetchFailed += Downloader_FetchFailed;
             Downloader.ShouldFetch += Downloader_ShouldFetch;
         }
-
+        /// <summary>
+        /// Main execution loop, returns once finished
+        /// </summary>
         public void Execute()
         {
             Cacher.Start();
@@ -150,13 +183,24 @@ namespace Net.RafaelEstevam.Spider
             return false;
         }
 
-        public void AddPage(IEnumerable<Uri> PageToVisit, Uri SourcePage)
+        /// <summary>
+        /// Add page to fetch
+        /// </summary>
+        /// <param name="PagesToVisit">Uris to fetch</param>
+        /// <param name="SourcePage">Uri where all the PagesToVisit was found</param>
+        public void AddPage(IEnumerable<Uri> PagesToVisit, Uri SourcePage)
         {
-            foreach (var p in PageToVisit)
+            foreach (var p in PagesToVisit)
             {
                 AddPage(p, SourcePage);
             }
         }
+        /// <summary>
+        /// Add page to fetch
+        /// </summary>
+        /// <param name="PageToVisit">Uri to fetch</param>
+        /// <param name="SourcePage">Uri where the PageToVisit was found</param>
+        /// <returns>Link object</returns>
         public Link AddPage(Uri PageToVisit, Uri SourcePage)
         {
             return addPage(PageToVisit, SourcePage);
@@ -179,21 +223,28 @@ namespace Net.RafaelEstevam.Spider
         {
             return hExecuted.Contains(pageToVisit.ToString());
         }
-
-        public void Collect(IEnumerable<object> Object, Uri CollectedOn)
+        /// <summary>
+        /// Add items to Collected collection
+        /// </summary>
+        /// <param name="Objects">Objects collected</param>
+        /// <param name="CollectedOn">Uri where the Object was found</param>
+        public void Collect(IEnumerable<object> Objects, Uri CollectedOn)
         {
-            foreach (var o in Object) Collect(o, CollectedOn);
+            foreach (var o in Objects) Collect(o, CollectedOn);
         }
+        /// <summary>
+        /// Add item to Collected collection
+        /// </summary>
+        /// <param name="Object">Object collected</param>
+        /// <param name="CollectedOn">Uri where the Object was found</param>
         public void Collect(object Object, Uri CollectedOn)
         {
-            lstCollected.Add(new CollectedData()
-            {
-                Object = Object,
-                CollectedOn = CollectedOn.ToString(),
-                CollectAt = DateTime.Now
-            });
+            lstCollected.Add(new CollectedData(Object: Object, CollectedOn: CollectedOn.ToString()));
         }
-
+        /// <summary>
+        /// Get array of Collected Objects
+        /// </summary>
+        /// <returns></returns>
         public CollectedData[] CollectedItems() { return lstCollected.ToArray(); }
 
         #region Scheduler
@@ -270,7 +321,10 @@ namespace Net.RafaelEstevam.Spider
                 }
             }
         }
-
+        /// <summary>
+        /// All queues finished ?
+        /// </summary>
+        /// <returns>Whenever the queues finished</returns>
         public bool QueueFinished()
         {
             if (Cacher.IsProcessing) return false;
@@ -283,6 +337,10 @@ namespace Net.RafaelEstevam.Spider
             // Count to be sure
             return QueueSize() == 0;
         }
+        /// <summary>
+        /// Current queues size
+        /// </summary>
+        /// <returns>Returns the size of the queue</returns>
         public int QueueSize()
         {
             return qAdded.Count
@@ -299,9 +357,16 @@ namespace Net.RafaelEstevam.Spider
         }
         public class CollectedData
         {
-            public object Object { get; set; }
-            public string CollectedOn { get; set; }
-            public DateTime CollectAt { get; set; }
+            public CollectedData(object Object, string CollectedOn)
+            {
+                this.Object = Object;
+                this.CollectedOn = CollectedOn;
+                this.CollectAt = DateTime.Now;
+            }
+
+            public object Object { get;  }
+            public string CollectedOn { get;  }
+            public DateTime CollectAt { get; }
         }
     }
 }
