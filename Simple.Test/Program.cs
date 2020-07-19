@@ -11,7 +11,12 @@ namespace Net.RafaelEstevam.Spider.Test
         {
             //Sample.BooksToScrape.run();
             //Sample.QuotesToScrape_Scroll.run();
-            QuotesToScrape_Scroll_Advanced.run();
+            //QuotesToScrape_Scroll_Advanced.run();
+
+            // IgnoreMe file to internal screwing around
+            //  Add a file named IgnoreMe.cs with a static void run() on it to play arround with the spider
+            //IgnoreMe.run();
+
 
             Console.WriteLine("-END-");
             Console.ReadKey();
