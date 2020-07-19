@@ -1,10 +1,10 @@
-﻿using Net.RafaelEstevam.Spider.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading;
+using Net.RafaelEstevam.Spider.Interfaces;
 
 namespace Net.RafaelEstevam.Spider.Cachers
 {
@@ -94,7 +94,25 @@ namespace Net.RafaelEstevam.Spider.Cachers
 
                         // load file
                         var bytes = File.ReadAllBytes(getCacheFileFullName(current));
-                        FetchCompleted(this, new FetchCompleteEventArgs(current, bytes, new KeyValuePair<string, string>[0], new KeyValuePair<string, string>[0]));
+                        var textContent = Encoding.UTF8.GetString(bytes, 0, 64);
+
+                        // don't know, so we guess
+                        string cType = null;
+                        if (textContent[0] == '{' && textContent.Contains(":")) cType = "application/json";
+                        else
+                        {
+                        }
+
+                        var rHrd = new List<KeyValuePair<string, string>>();
+                        if (cType != null)
+                        {
+                            rHrd.Add(new KeyValuePair<string, string>("Content-Type", cType));
+                        }
+
+                        FetchCompleted(this, new FetchCompleteEventArgs(current, 
+                                                                        bytes, 
+                                                                        new KeyValuePair<string, string>[0], 
+                                                                        rHrd.ToArray()));
 
                         IsProcessing = false;
                     }
@@ -114,7 +132,7 @@ namespace Net.RafaelEstevam.Spider.Cachers
         private static string getCacheFileName(Uri uri)
         {
             var remove = Path.GetInvalidFileNameChars();
-            string url = uri.AbsolutePath;
+            string url = uri.PathAndQuery;
             foreach (var c in remove)
             {
                 if (url.Contains(c))
