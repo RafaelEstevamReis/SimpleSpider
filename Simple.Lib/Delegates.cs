@@ -1,8 +1,8 @@
-﻿using Net.RafaelEstevam.Spider.Helper;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
+using Net.RafaelEstevam.Spider.Helper;
 
 namespace Net.RafaelEstevam.Spider
 {
@@ -42,17 +42,15 @@ namespace Net.RafaelEstevam.Spider
                 return htmlCache;
             }
         }
+
         XElement xElement;
-        public XElement XElement
+        public XElement GetXElement()
         {
-            get
+            if (xElement == null)
             {
-                if (xElement == null)
-                {
-                    xElement = HtmlToEXelement.Parse(Html);
-                }
-                return xElement;
+                xElement = HtmlToEXelement.Parse(Html);
             }
+            return xElement;
         }
 
         public string HtmlContent(Encoding enc)
