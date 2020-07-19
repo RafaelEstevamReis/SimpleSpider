@@ -87,7 +87,7 @@ void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
 * CSV helper: Read csv files even compressed without exernal libraries
 * XElement to Stuff: Extract tables from page in DataTable
 
-## Giant shoulders
+## Giants' shoulders
 * Html parsing with [Html Agility Pack](https://html-agility-pack.net/)
 * Json parsing with [Newtonsoft](https://www.newtonsoft.com/json)
 * Logging with [Serilog](https://serilog.net/)
