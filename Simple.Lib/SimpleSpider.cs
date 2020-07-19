@@ -50,7 +50,7 @@ namespace Net.RafaelEstevam.Spider
             if (Downloader == null) Downloader = new WebClientDownloader();
 
             initializeFetchers();
-            Parsers = new List<IParserBase>();
+            Parsers = new List<IParserBase>() { new HtmlXElementParser(), new XmlXElementParser(), new JsonParser() };
         }
 
         private void initializeConfiguration(string spiderName, InitializationParams init)
