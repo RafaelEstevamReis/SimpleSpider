@@ -13,6 +13,8 @@ Some advantages
 * Modular Caching engine (you can add your own!)
 * Modular Downloader engine (you can add your own!)
 
+Easy import with [NuGet](https://www.nuget.org/packages/Net.RafaelEstevam.Spider.Simple.Lib)
+
 ## Samples
 
 Inside Simple.Tests are some spiders to show to crawl and collect data
