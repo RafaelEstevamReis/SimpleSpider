@@ -63,8 +63,8 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                     ShouldFetch(this, args);
                     if (args.Cancel) continue;
 
-                    downloading = true;
-                    Console.WriteLine($"[WEB] {current.Uri}");
+                    downloading = true; 
+                    config.Logger.Information($"[WEB] {current.Uri}");
                     webClient.EnableCookies = config.Cookies_Enable;
                     webClient.DownloadDataAsync(current.Uri);
                 }

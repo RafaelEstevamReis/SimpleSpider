@@ -64,7 +64,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                     if (args.Cancel) continue;
 
                     downloading = true;
-                    Console.WriteLine($"[WEB] {current.Uri}");
+                    config.Logger.Information($"[WEB] {current.Uri}");
 
                     var req = new HttpRequestMessage(HttpMethod.Get, current.Uri);
                     var resp = httpClient.SendAsync(req).Result;

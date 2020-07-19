@@ -90,7 +90,7 @@ namespace Net.RafaelEstevam.Spider.Cachers
                         if (args.Cancel) continue;
 
                         IsProcessing = true;
-                        Console.WriteLine($"[CACHE] {current.Uri}");
+                        config.Logger.Information($"[CACHE] {current.Uri}");
 
                         // load file
                         var bytes = File.ReadAllBytes(getCacheFileFullName(current));
