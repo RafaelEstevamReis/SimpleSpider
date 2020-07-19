@@ -8,7 +8,8 @@ namespace Net.RafaelEstevam.Spider.Test
     {
         static void Main(string[] args)
         {
-            Sample.BooksToScrape.run();
+            //Sample.BooksToScrape.run();
+            Sample.QuotesToScrape_Scroll.run();
 
             Console.WriteLine("-END-");
             Console.ReadKey();
