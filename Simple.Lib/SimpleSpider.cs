@@ -15,13 +15,7 @@ using System.Xml.Serialization;
 
 namespace Net.RafaelEstevam.Spider
 {
-    public class SimpleSpider : SimpleSpider<object>
-    {
-        public SimpleSpider(string spiderName, Uri baseUri, InitializationParams @params = null)
-            : base(spiderName, baseUri, @params) { }
-    }
-
-    public class SimpleSpider<T> where T : new()
+    public class SimpleSpider
     {
         public event FetchComplete FetchCompleted;
         public event FetchFail FetchFailed;
@@ -42,11 +36,6 @@ namespace Net.RafaelEstevam.Spider
 
         public SimpleSpider(string spiderName, Uri baseUri, InitializationParams @params = null)
         {
-            if (!typeof(T).IsSerializable)
-            {
-                throw new InvalidOperationException("T must be Serializable");
-            }
-
             this.SpiderName = spiderName;
             this.BaseUri = baseUri;
 
@@ -54,7 +43,7 @@ namespace Net.RafaelEstevam.Spider
             this.Downloader = @params?.downloader;
 
             lstCollected = new List<CollectedData>();
-            this.Configuration = new Configuration();
+            this.Configuration = @params?.ConfigurationPrototype ?? new Configuration();
             initializeConfiguration(spiderName, @params);
             
             initializeQueues();
@@ -131,11 +120,6 @@ namespace Net.RafaelEstevam.Spider
 
             Cacher.Stop();
             Downloader.Stop();
-
-            //if (!string.IsNullOrEmpty(Configuration.Spider_SaveCollectedFile))
-            //{
-            //    XmlSerializerHelper.SerializeToFile(CollectedItems(), Configuration.Spider_SaveCollectedFile);
-            //}
         }
 
         private bool workQueue()
@@ -187,11 +171,11 @@ namespace Net.RafaelEstevam.Spider
             return hExecuted.Contains(pageToVisit.ToString());
         }
 
-        public void Collect(IEnumerable<T> Object, Uri CollectedOn)
+        public void Collect(IEnumerable<object> Object, Uri CollectedOn)
         {
             foreach (var o in Object) Collect(o, CollectedOn);
         }
-        public void Collect(T Object, Uri CollectedOn)
+        public void Collect(object Object, Uri CollectedOn)
         {
             lstCollected.Add(new CollectedData()
             {
@@ -286,10 +270,11 @@ namespace Net.RafaelEstevam.Spider
             public ICacher cacher { get; set; }
             public IDownloader downloader { get; set; }
             public DirectoryInfo SpiderDirectory { get; set; }
+            public Configuration ConfigurationPrototype { get; set; }
         }
         public class CollectedData
         {
-            public T Object { get; set; }
+            public object Object { get; set; }
             public string CollectedOn { get; set; }
             public DateTime CollectAt { get; set; }
         }
