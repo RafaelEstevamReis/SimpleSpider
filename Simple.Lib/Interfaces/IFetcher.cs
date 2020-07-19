@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Text;
+﻿using System.Collections.Concurrent;
 
 namespace Net.RafaelEstevam.Spider.Interfaces
 {

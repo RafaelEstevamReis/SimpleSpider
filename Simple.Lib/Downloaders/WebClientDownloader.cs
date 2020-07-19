@@ -1,10 +1,10 @@
-﻿using Net.RafaelEstevam.Spider.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading;
+using Net.RafaelEstevam.Spider.Interfaces;
 
 namespace Net.RafaelEstevam.Spider.Downloaders
 {
@@ -97,7 +97,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
             protected override WebRequest GetWebRequest(Uri address)
             {
                 var request = (HttpWebRequest)base.GetWebRequest(address);
-                if(EnableCookies) request.CookieContainer = CookieContainer;
+                if (EnableCookies) request.CookieContainer = CookieContainer;
                 //LastRequestHeaders = request.Headers.AllKeys.Select(k => KeyValuePair.Create(k, request.Headers.Get(k))).ToArray();
 
                 return request;

@@ -1,12 +1,10 @@
 ﻿using System;
+using System.Data;
+using System.Globalization;
 using System.Linq;
-using System.Collections.Generic;
-using System.Text;
 using System.Xml.Linq;
 using System.Xml.XPath;
-using System.Globalization;
 using Net.RafaelEstevam.Spider.Extensions;
-using System.Data;
 using Net.RafaelEstevam.Spider.Helper;
 
 namespace Net.RafaelEstevam.Spider.Test.Sample

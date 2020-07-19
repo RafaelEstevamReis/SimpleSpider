@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 using System.Xml.Linq;
 
 namespace Net.RafaelEstevam.Spider.Helper
@@ -12,7 +9,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         {
             // Static configs
             HtmlAgilityPack.HtmlNode.ElementsFlags.Remove("form");
-            
+
             var doc = new HtmlAgilityPack.HtmlDocument();
             doc.OptionOutputAsXml = true;
             doc.OptionFixNestedTags = true;

@@ -1,11 +1,10 @@
-﻿using Net.RafaelEstevam.Spider.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
+using Net.RafaelEstevam.Spider.Interfaces;
 
 namespace Net.RafaelEstevam.Spider.Downloaders
 {
@@ -84,7 +83,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                             .Select(o => new KeyValuePair<string, string>(o.Key, string.Join(",", o.Value)))
                             .ToArray();
 
-                        FetchCompleted(this, new FetchCompleteEventArgs(current, 
+                        FetchCompleted(this, new FetchCompleteEventArgs(current,
                                           resp.Content.ReadAsByteArrayAsync().Result,
                                           reqHeaders,
                                           respHeaders));

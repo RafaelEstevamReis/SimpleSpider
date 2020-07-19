@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Net.RafaelEstevam.Spider
 {
@@ -18,5 +16,6 @@ namespace Net.RafaelEstevam.Spider
 
         public bool Cache_Enable { get; set; } = true;
         public TimeSpan? Cache_Lifetime { get; set; }
+
     }
 }
