@@ -1,17 +1,14 @@
-﻿using Net.RafaelEstevam.Spider.Cachers;
-using Net.RafaelEstevam.Spider.Downloaders;
-using Net.RafaelEstevam.Spider.Helper;
-using Net.RafaelEstevam.Spider.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http.Headers;
-using System.Net.Mime;
+using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading;
-using System.Xml.Serialization;
+using Net.RafaelEstevam.Spider.Cachers;
+using Net.RafaelEstevam.Spider.Downloaders;
+using Net.RafaelEstevam.Spider.Interfaces;
+using Net.RafaelEstevam.Spider.Parsers;
 
 namespace Net.RafaelEstevam.Spider
 {
@@ -21,11 +18,12 @@ namespace Net.RafaelEstevam.Spider
         public event FetchFail FetchFailed;
         public event ShouldFetch ShouldFetch;
 
-        public Configuration Configuration { get;  }
+        public Configuration Configuration { get; }
         public string SpiderName { get; }
         public Uri BaseUri { get; }
         public ICacher Cacher { get; }
         public IDownloader Downloader { get; }
+        public List<IParserBase> Parsers { get; }
 
         private ConcurrentQueue<Link> qAdded;
         private ConcurrentQueue<Link> qCache;
@@ -45,13 +43,14 @@ namespace Net.RafaelEstevam.Spider
             lstCollected = new List<CollectedData>();
             this.Configuration = @params?.ConfigurationPrototype ?? new Configuration();
             initializeConfiguration(spiderName, @params);
-            
+
             initializeQueues();
             // initialize read-only
             if (Cacher == null) Cacher = new ContentCacher();
             if (Downloader == null) Downloader = new WebClientDownloader();
 
             initializeFetchers();
+            Parsers = new List<IParserBase>();
         }
 
         private void initializeConfiguration(string spiderName, InitializationParams init)
@@ -62,7 +61,6 @@ namespace Net.RafaelEstevam.Spider
             var spiderPath = new DirectoryInfo(Path.Combine(dir.FullName, spiderName));
             if (!spiderPath.Exists) spiderPath.Create();
             Configuration.SpiderDirectory = spiderPath;
-
 
             var dataPath = new DirectoryInfo(Path.Combine(spiderPath.FullName, "Data"));
             if (!dataPath.Exists) dataPath.Create();
@@ -85,7 +83,7 @@ namespace Net.RafaelEstevam.Spider
             Cacher.FetchCompleted += Cacher_FetchCompleted;
             Cacher.FetchFailed += Cacher_FetchFailed;
             Cacher.ShouldFetch += Cacher_ShouldFetch;
-            
+
             Downloader.Initialize(qDownload, Configuration);
             Downloader.FetchCompleted += Downloader_FetchCompleted;
             Downloader.FetchFailed += Downloader_FetchFailed;
@@ -154,7 +152,7 @@ namespace Net.RafaelEstevam.Spider
         }
         private Link addPage(Uri pageToVisit, Uri sourcePage)
         {
-            if (pageToVisit.Host != BaseUri.Host) return null;            
+            if (pageToVisit.Host != BaseUri.Host) return null;
             if (alreadyExecuted(pageToVisit)) return null;
 
             var lnk = new Link(pageToVisit, sourcePage);
@@ -185,7 +183,7 @@ namespace Net.RafaelEstevam.Spider
             });
         }
 
-        public CollectedData[] CollectedItems() { return lstCollected.ToArray();  }
+        public CollectedData[] CollectedItems() { return lstCollected.ToArray(); }
 
         #region Scheduler
 
@@ -244,6 +242,22 @@ namespace Net.RafaelEstevam.Spider
         {
             hExecuted.Add(args.Link.Uri.ToString());
             FetchCompleted?.Invoke(this, args);
+
+            var contentType = args.ResponseHeaders.FirstOrDefault(h => h.Key == "Content-Type");
+            if (!string.IsNullOrEmpty(contentType.Value))
+            {
+                foreach (var p in Parsers)
+                {
+                    try
+                    {
+                        if (p.MimeTypes.Any(m => m.Equals(contentType.Value, StringComparison.InvariantCultureIgnoreCase)))
+                        {
+                            p.Parse(this, args);
+                        }
+                    }
+                    catch { }
+                }
+            }
         }
 
         public bool QueueFinished()
