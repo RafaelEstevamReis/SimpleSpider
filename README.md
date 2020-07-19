@@ -5,7 +5,7 @@
 A simple and modular web spider writen in C# .Net Core
 
 Some advantages
-* Very simple to use and operate
+* Very simple to use and operate, ideal to personal or one of projects
 * Internal conversion from html to XElement, no need to external tools on use
 * Automatic Json parser to JObject
 * Automatic Json deserialize <T>
@@ -18,7 +18,7 @@ Some advantages
 Inside Simple.Tests are some spiders to show to crawl and collect data
 
 ### Use Json to parse Quotes
-
+[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_Scroll_Advanced.cs)
 ```C#
 void run()
 {
@@ -47,7 +47,7 @@ void parsedResult_event(object sender, Interfaces.ParserEventArgs<QuotesObject> 
 ```
 
 ### Use XPath to select content
-
+[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/BooksToScrape.cs)
 ```C#
 void run()
 {
@@ -80,6 +80,10 @@ void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
 }
 ```
 
+## Some Helpers
+* XmlSerializer helper: Generic class to serialize and deserialzie stuff using Xml, easy way to save what you collected without any database
+* CSV helper: Read csv files even compressed without exernal libraries
+* XElement to Stuff: Extract tables from page in DataTable
 
 ## Giant shoulders
 * Html parsing with [Html Agility Pack](https://html-agility-pack.net/)
