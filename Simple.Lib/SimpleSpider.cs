@@ -9,6 +9,8 @@ using Net.RafaelEstevam.Spider.Cachers;
 using Net.RafaelEstevam.Spider.Downloaders;
 using Net.RafaelEstevam.Spider.Interfaces;
 using Net.RafaelEstevam.Spider.Parsers;
+using Serilog;
+using Serilog.Core;
 
 namespace Net.RafaelEstevam.Spider
 {
@@ -31,6 +33,7 @@ namespace Net.RafaelEstevam.Spider
         private HashSet<string> hExecuted;
 
         private List<CollectedData> lstCollected;
+        private Logger log;
 
         public SimpleSpider(string spiderName, Uri baseUri, InitializationParams @params = null)
         {
@@ -66,7 +69,15 @@ namespace Net.RafaelEstevam.Spider
             if (!dataPath.Exists) dataPath.Create();
             Configuration.SpiderDataDirectory = dataPath;
 
-            //Configuration.Spider_SaveCollectedFile = Path.Combine(dataPath.FullName, "collected.xml");
+
+            Configuration.Spider_LogFile = Path.Combine(spiderPath.FullName, $"{ spiderName }.log");
+            log = new LoggerConfiguration()
+               .MinimumLevel.Debug()
+               .WriteTo.Console()
+               .WriteTo.File(Configuration.Spider_LogFile, rollingInterval: RollingInterval.Day)
+               .CreateLogger();
+            Configuration.Logger = log;
+            log.Information("Initialization complete");
         }
 
         private void initializeQueues()
@@ -234,7 +245,7 @@ namespace Net.RafaelEstevam.Spider
             }
             // Ask user
             ShouldFetch?.Invoke(this, args);
-            if (args.Cancel) Console.WriteLine($"[USER CANCEL] {args.Link}");
+            if (args.Cancel) log.Information($"[USER CANCEL] {args.Link}");
         }
         #endregion
 
