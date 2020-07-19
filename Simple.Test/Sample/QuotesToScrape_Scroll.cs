@@ -13,24 +13,29 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
             // add callback to json pages
             spider.Parsers.OfType<JsonParser>().First().ParsedData += json_ParsedData;
             // add first
-            spider.AddPage(new Uri("http://quotes.toscrape.com/api/quotes?page=1"), spider.BaseUri);
+            spider.AddPage(buildPageUri(1), spider.BaseUri);
             // execute
             spider.Execute();
         }
 
         private static void json_ParsedData(object sender, Interfaces.ParserEventArgs<JObject> args)
         {
+            // add next
             if ((bool)args.ParsedData["has_next"])
             {
-                var url = args.FetchInfo.Link.ToString();
-                var pageAtual = int.Parse(url.Split('=')[1]);
-                ((SimpleSpider)sender).AddPage(new Uri($"{ url.Split('=')[0] }={ pageAtual + 1 }"), args.FetchInfo.Link);
+                int currPage = (int)args.ParsedData["page"];                
+                ((SimpleSpider)sender).AddPage(buildPageUri(currPage + 1), args.FetchInfo.Link);
             }
-
+            // process data (show on console)
             foreach (var j in args.ParsedData["quotes"])
             {
                 Console.WriteLine($"{ (string)j["author"]["name"] }: { (string)j["text"] }");
             }
+        }
+        public static Uri buildPageUri(int page)
+        {
+            string url = $"http://quotes.toscrape.com/api/quotes?page={ page }";
+            return new Uri(url);
         }
     }
 }
