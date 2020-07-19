@@ -207,7 +207,11 @@ namespace Net.RafaelEstevam.Spider
         }
         private Link addPage(Uri pageToVisit, Uri sourcePage)
         {
-            if (pageToVisit.Host != BaseUri.Host) return null;
+            if (pageToVisit.Host != BaseUri.Host)
+            {
+                log.Warning($"[WRN] Host Violation {pageToVisit}");
+                return null;
+            }
             if (alreadyExecuted(pageToVisit)) return null;
 
             var lnk = new Link(pageToVisit, sourcePage);
@@ -252,7 +256,7 @@ namespace Net.RafaelEstevam.Spider
         private void Downloader_FetchFailed(object Sender, FetchFailEventArgs args)
         {
             hExecuted.Add(args.Link.Uri.ToString());
-            // TODO Log error
+            log.Error($"[ERR] {args.Error.Message} {args.Link}");
             args.Source = FetchEventArgs.EventSource.Downloader;
             FetchFailed?.Invoke(this, args);
         }
