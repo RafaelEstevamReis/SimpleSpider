@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 
 namespace Net.RafaelEstevam.Spider
 {
@@ -9,13 +8,33 @@ namespace Net.RafaelEstevam.Spider
         /// Time to wait in miliseconds between downloads
         /// </summary>
         public int DownloadDelay { get; set; } = 5000;
-        public DirectoryInfo SpiderDirectory { get; internal set; }
-        public DirectoryInfo SpiderDataDirectory { get; internal set; }
-        public string Spider_SaveCollectedFile { get; internal set; }
+        /// <summary>
+        /// Spider main directory
+        /// </summary>
+        public System.IO.DirectoryInfo SpiderDirectory { get; internal set; }
+        /// <summary>
+        /// Spider data directory
+        /// </summary>
+        public System.IO.DirectoryInfo SpiderDataDirectory { get; internal set; }
+        /// <summary>
+        /// Spider log file
+        /// </summary>
+        public string Spider_LogFile { get; internal set; }
+        /// <summary>
+        /// Standard log
+        /// </summary>
+        public Serilog.ILogger Logger { get; internal set; }
+        /// <summary>
+        /// Are cookies enabled? IDownloader must support
+        /// </summary>
         public bool Cookies_Enable { get; set; }
-
+        /// <summary>
+        /// Are caching enabled? ICacher must support
+        /// </summary>
         public bool Cache_Enable { get; set; } = true;
+        /// <summary>
+        /// How long cache files are valid?  ICacher must support
+        /// </summary>
         public TimeSpan? Cache_Lifetime { get; set; }
-
     }
 }
