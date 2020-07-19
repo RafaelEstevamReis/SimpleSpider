@@ -255,7 +255,10 @@ namespace Net.RafaelEstevam.Spider
 
         private void Downloader_FetchFailed(object Sender, FetchFailEventArgs args)
         {
-            hExecuted.Add(args.Link.Uri.ToString());
+            lock (hExecuted)
+            {
+                hExecuted.Add(args.Link.Uri.ToString());
+            }
             log.Error($"[ERR] {args.Error.Message} {args.Link}");
             args.Source = FetchEventArgs.EventSource.Downloader;
             FetchFailed?.Invoke(this, args);
@@ -306,7 +309,11 @@ namespace Net.RafaelEstevam.Spider
 
         private void fetchCompleted(FetchCompleteEventArgs args)
         {
-            hExecuted.Add(args.Link.Uri.ToString());
+            lock (hExecuted) // Hashsets are not threadsafe
+            {
+                hExecuted.Add(args.Link.Uri.ToString());
+            }
+
             FetchCompleted?.Invoke(this, args);
 
             var contentType = args.ResponseHeaders.FirstOrDefault(h => h.Key == "Content-Type");
