@@ -7,6 +7,7 @@ using System.Xml.XPath;
 using System.Globalization;
 using Net.RafaelEstevam.Spider.Extensions;
 using System.Data;
+using Net.RafaelEstevam.Spider.Helper;
 
 namespace Net.RafaelEstevam.Spider.Test.Sample
 {
@@ -46,8 +47,9 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
             // ignore all pages except the catalogue
             if (!args.Link.ToString().Contains("/catalogue/")) return;
 
+            var XElement = HtmlToEXelement.Parse(args.Html);
             // collect book data
-            var articleProd = args.XElement.XPathSelectElement("//article[@class=\"product_page\"]");
+            var articleProd = XElement.XPathSelectElement("//article[@class=\"product_page\"]");
             if (articleProd == null) return; // not a book
             // Book info
             string sTitle = articleProd.XPathSelectElement("//h1").Value;
@@ -63,7 +65,7 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
                 Price = price,
                 Description = sDesc,
                 StockInfo = sStock,
-                PrductInfoTable = args.XElement.GetAllTables().First(),
+                PrductInfoTable = XElement.GetAllTables().First(),
             }, args.Link);
         }
 
