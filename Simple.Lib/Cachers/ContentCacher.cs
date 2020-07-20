@@ -92,6 +92,7 @@ namespace Net.RafaelEstevam.Spider.Cachers
                         IsProcessing = true;
                         config.Logger.Information($"[CACHE] {current.Uri}");
 
+                        current.FetchStart = DateTime.Now;
                         // load file
                         var bytes = File.ReadAllBytes(getCacheFileFullName(current));
                         var textContent = Encoding.UTF8.GetString(bytes, 0, 64);
@@ -109,7 +110,7 @@ namespace Net.RafaelEstevam.Spider.Cachers
                         {
                             rHrd.Add(new KeyValuePair<string, string>("Content-Type", cType));
                         }
-
+                        current.FetchEnd = DateTime.Now;
                         FetchCompleted(this, new FetchCompleteEventArgs(current, 
                                                                         bytes, 
                                                                         new KeyValuePair<string, string>[0], 

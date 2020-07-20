@@ -16,10 +16,13 @@ namespace Net.RafaelEstevam.Spider.Downloaders
         Thread thread;
         CustomWebClient webClient;
 
+        public List<TimeSpan> FetchTempo { get;  }
+
         public WebClientDownloader()
         {
             webClient = new CustomWebClient();
             webClient.DownloadDataCompleted += WebClient_DownloadDataCompleted;
+            FetchTempo = new List<TimeSpan>();
         }
 
         public event FetchComplete FetchCompleted;
@@ -66,12 +69,20 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                     downloading = true; 
                     config.Logger.Information($"[WEB] {current.Uri}");
                     webClient.EnableCookies = config.Cookies_Enable;
+                    current.FetchStart = DateTime.Now;
                     webClient.DownloadDataAsync(current.Uri);
                 }
             }
         }
         private void WebClient_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
         {
+            current.FetchEnd = DateTime.Now;
+            FetchTempo.Add(current.FetchEnd - current.FetchStart);
+            if (FetchTempo.Count > 1000)
+            {
+                while (FetchTempo.Count > 980)
+                    FetchTempo.RemoveRange(0, 25);
+            }
             if (e.Error == null)
             {
                 var responseHeaders = webClient.ResponseHeaders.AllKeys.Select(k => KeyValuePair.Create(k, webClient.ResponseHeaders.Get(k))).ToArray();

@@ -66,6 +66,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                     downloading = true;
                     config.Logger.Information($"[WEB] {current.Uri}");
 
+                    current.FetchStart = DateTime.Now;
                     var req = new HttpRequestMessage(HttpMethod.Get, current.Uri);
                     var resp = httpClient.SendAsync(req).Result;
 
@@ -75,6 +76,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                         .Select(o => new KeyValuePair<string, string>(o.Key, string.Join(",", o.Value)))
                         .ToArray();
 
+                    current.FetchEnd = DateTime.Now;
                     if (resp.IsSuccessStatusCode)
                     {
                         var respHeaders = resp
