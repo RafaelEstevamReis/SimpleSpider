@@ -62,6 +62,7 @@ namespace Net.RafaelEstevam.Spider
         private ConcurrentQueue<Link> qCache;
         private ConcurrentQueue<Link> qDownload;
         private HashSet<string> hExecuted;
+        private HashSet<string> hVioleted;
 
         private List<CollectedData> lstCollected;
         private Logger log; // short reference, is accessible through configuration
@@ -87,17 +88,7 @@ namespace Net.RafaelEstevam.Spider
             FetchCompleted += fetchCompleted_AutoCollect;
             Parsers = new List<IParserBase>() { new HtmlXElementParser(), new XmlXElementParser(), new JsonParser() };
         }
-        private void fetchCompleted_AutoCollect(object Sender, FetchCompleteEventArgs args)
-        {
-            if (!Configuration.Auto_AnchorsLinks) return;
-            if (string.IsNullOrEmpty(args.Html)) return;
-            if (args.Html[0] != '<') return;
-
-            var links = Helper.AnchorHelper.GetAnchors(args.Link.Uri, args.Html);
-            // Add the collected links to the queue
-            this.AddPage(links, args.Link);
-        }
-
+        
         private void initializeConfiguration(string spiderName, InitializationParams init)
         {
             var dir = init?.SpiderDirectory;
@@ -128,6 +119,7 @@ namespace Net.RafaelEstevam.Spider
             qCache = new ConcurrentQueue<Link>();
             qDownload = new ConcurrentQueue<Link>();
             hExecuted = new HashSet<string>();
+            hVioleted = new HashSet<string>();
         }
 
         private void initializeFetchers()
@@ -142,6 +134,25 @@ namespace Net.RafaelEstevam.Spider
             Downloader.FetchFailed += Downloader_FetchFailed;
             Downloader.ShouldFetch += Downloader_ShouldFetch;
         }
+        private void fetchCompleted_AutoCollect(object Sender, FetchCompleteEventArgs args)
+        {
+            try
+            {
+                if (!Configuration.Auto_AnchorsLinks) return;
+                if (string.IsNullOrEmpty(args.Html)) return;
+                if (args.Html[0] != '<') return;
+
+                var links = Helper.AnchorHelper.GetAnchors(args.Link.Uri, args.Html);
+                // Add the collected links to the queue
+                this.AddPage(links, args.Link);
+            }
+            catch (Exception ex)
+            {
+                Configuration.Auto_AnchorsLinks = false;
+                log.Error(ex, "Failed while auto-collecting links. Auto-collection disabled");
+            }
+        }
+
         /// <summary>
         /// Main execution loop, returns once finished
         /// </summary>
@@ -220,7 +231,15 @@ namespace Net.RafaelEstevam.Spider
         {
             if (pageToVisit.Host != BaseUri.Host)
             {
-                log.Warning($"[WRN] Host Violation {pageToVisit}");
+                string host = pageToVisit.Host;
+                if (!hVioleted.Contains(host)) // ignore the entire domain
+                {
+                    lock (hVioleted)
+                    {
+                        hVioleted.Add(host);
+                    }
+                    log.Warning($"[WRN] Host Violation {pageToVisit}");
+                }
                 return null;
             }
             if (alreadyExecuted(pageToVisit)) return null;
