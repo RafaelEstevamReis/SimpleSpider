@@ -84,7 +84,18 @@ namespace Net.RafaelEstevam.Spider
             if (Downloader == null) Downloader = new WebClientDownloader();
 
             initializeFetchers();
+            FetchCompleted += fetchCompleted_AutoCollect;
             Parsers = new List<IParserBase>() { new HtmlXElementParser(), new XmlXElementParser(), new JsonParser() };
+        }
+        private void fetchCompleted_AutoCollect(object Sender, FetchCompleteEventArgs args)
+        {
+            if (!Configuration.Auto_AnchorsLinks) return;
+            if (string.IsNullOrEmpty(args.Html)) return;
+            if (args.Html[0] != '<') return;
+
+            var links = Helper.AnchorHelper.GetAnchors(args.Link.Uri, args.Html);
+            // Add the collected links to the queue
+            this.AddPage(links, args.Link);
         }
 
         private void initializeConfiguration(string spiderName, InitializationParams init)

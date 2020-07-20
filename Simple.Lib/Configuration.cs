@@ -36,5 +36,9 @@ namespace Net.RafaelEstevam.Spider
         /// How long cache files are valid?  ICacher must support
         /// </summary>
         public TimeSpan? Cache_Lifetime { get; set; }
+        /// <summary>
+        /// Enable auto colelction of html Anchors tags
+        /// </summary>
+        public bool Auto_AnchorsLinks { get; set; } = true;
     }
 }
