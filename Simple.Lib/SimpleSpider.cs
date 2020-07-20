@@ -32,6 +32,10 @@ namespace Net.RafaelEstevam.Spider
         /// Used to block list urls
         /// </summary>
         public event ShouldFetch ShouldFetch;
+        /// <summary>
+        /// Allow change the Uri just before it is added to the queue
+        /// </summary>
+        public event FetchRewrite FetchRewrite;
 
         /// <summary>
         /// Spider configurations and parameters
@@ -140,7 +144,7 @@ namespace Net.RafaelEstevam.Spider
             {
                 if (!Configuration.Auto_AnchorsLinks) return;
                 if (string.IsNullOrEmpty(args.Html)) return;
-                if (args.Html[0] != '<') return;
+                //if (args.Html[0] != '<') return;
 
                 var links = Helper.AnchorHelper.GetAnchors(args.Link.Uri, args.Html);
                 // Add the collected links to the queue
@@ -242,6 +246,17 @@ namespace Net.RafaelEstevam.Spider
                 }
                 return null;
             }
+
+            if (FetchRewrite != null)
+            {
+                var ev = new FetchRewriteEventArgs(pageToVisit);
+                FetchRewrite(this, ev);
+                if (ev.NewUri != null)
+                {
+                    pageToVisit = ev.NewUri; // Pass HostViolation check
+                }
+            }
+
             if (alreadyExecuted(pageToVisit)) return null;
 
             var lnk = new Link(pageToVisit, sourcePage);
@@ -331,9 +346,18 @@ namespace Net.RafaelEstevam.Spider
                 args.Reason = ShouldFetchEventArgs.Reasons.AlreadyFetched;
                 return;
             }
+
             // Ask user
             ShouldFetch?.Invoke(this, args);
-            if (args.Cancel) log.Information($"[USER CANCEL] {args.Link}");
+            if (args.Cancel)
+            {
+                if (args.Reason == ShouldFetchEventArgs.Reasons.None) args.Reason = ShouldFetchEventArgs.Reasons.UserCancelled;
+
+                if (args.Reason == ShouldFetchEventArgs.Reasons.UserCancelled)
+                {
+                    log.Information($"[USER CANCEL] {args.Link}");
+                }
+            }
         }
         #endregion
 

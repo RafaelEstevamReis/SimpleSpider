@@ -8,6 +8,7 @@ namespace Net.RafaelEstevam.Spider
 {
     public delegate void FetchComplete(object Sender, FetchCompleteEventArgs args);
     public delegate void FetchFail(object Sender, FetchFailEventArgs args);
+    public delegate void FetchRewrite(object Sender, FetchRewriteEventArgs args);
     public delegate void ShouldFetch(object Sender, ShouldFetchEventArgs args);
 
     public class FetchEventArgs : EventArgs
@@ -84,6 +85,7 @@ namespace Net.RafaelEstevam.Spider
         {
             AlreadyFetched,
             UserCancelled,
+            UserCancelledSilent,
             None,
         }
         public bool Cancel { get; set; }
@@ -93,5 +95,14 @@ namespace Net.RafaelEstevam.Spider
         {
             this.Link = link;
         }
+    }
+    public class FetchRewriteEventArgs : EventArgs
+    {
+        public FetchRewriteEventArgs(Uri CurrentUri)
+        {
+            this.CurrentUri = CurrentUri;
+        }
+        public Uri CurrentUri{ get; }
+        public Uri NewUri { get; set; }
     }
 }
