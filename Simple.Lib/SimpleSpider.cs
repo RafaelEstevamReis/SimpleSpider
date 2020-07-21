@@ -76,8 +76,8 @@ namespace Net.RafaelEstevam.Spider
             this.SpiderName = spiderName;
             this.BaseUri = baseUri;
 
-            this.Cacher = @params?.cacher;
-            this.Downloader = @params?.downloader;
+            this.Cacher = @params?.Cacher;
+            this.Downloader = @params?.Downloader;
 
             lstCollected = new List<CollectedData>();
             this.Configuration = @params?.ConfigurationPrototype ?? new Configuration();
@@ -411,14 +411,6 @@ namespace Net.RafaelEstevam.Spider
             return qAdded.Count
                    + qCache.Count
                    + qDownload.Count;
-        }
-
-        public class InitializationParams
-        {
-            public ICacher cacher { get; set; }
-            public IDownloader downloader { get; set; }
-            public DirectoryInfo SpiderDirectory { get; set; }
-            public Configuration ConfigurationPrototype { get; set; }
         }
         public class CollectedData
         {
