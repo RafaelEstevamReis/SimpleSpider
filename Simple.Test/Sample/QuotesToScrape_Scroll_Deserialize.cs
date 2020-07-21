@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Net.RafaelEstevam.Spider.Test.Sample
 {
-    public class QuotesToScrape_Scroll_Advanced
+    public class QuotesToScrape_Scroll_Deserialize
     {
         public static void run()
         {
