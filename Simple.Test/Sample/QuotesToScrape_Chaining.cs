@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Net.RafaelEstevam.Spider.Cachers;
 using Net.RafaelEstevam.Spider.Downloaders;
 
