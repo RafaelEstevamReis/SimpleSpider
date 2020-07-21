@@ -25,7 +25,7 @@ Inside Simple.Tests are some spiders to show to crawl and collect data
 void run()
 {
     var spider = new SimpleSpider("QuotesToScrape", new Uri("http://quotes.toscrape.com/"));
-    // createa json parser for our QuotesObject class
+    // create a json parser for our QuotesObject class
     spider.Parsers.Add(new Parsers.JsonDeserializeParser<QuotesObject>(parsedResult_event))
     // add first
     spider.AddPage( buildPageUri(1), spider.BaseUri);

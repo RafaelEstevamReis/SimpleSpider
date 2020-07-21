@@ -9,7 +9,7 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
         public static void run()
         {
             var spider = new SimpleSpider("QuotesToScrape", new Uri("http://quotes.toscrape.com/"));
-            // createa json parser for our QuotesObject class
+            // create a json parser for our QuotesObject class
             var parser = new Parsers.JsonDeserializeParser<QuotesObject>(parsedResult_event);
             spider.Parsers.Add(parser);
 
