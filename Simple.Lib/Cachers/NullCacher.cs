@@ -10,9 +10,11 @@ namespace Net.RafaelEstevam.Spider.Cachers
 {
     public class NullCacher : ICacher
     {
+#pragma warning disable 67
         public event FetchComplete FetchCompleted;
         public event FetchFail FetchFailed;
         public event ShouldFetch ShouldFetch;
+#pragma warning restore 67
 
         public void GenerateCacheFor(FetchCompleteEventArgs FetchComplete) { }
 
