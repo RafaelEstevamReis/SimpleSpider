@@ -14,12 +14,13 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>spider</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.4.45</Version>
+    <Version>0.4.76</Version>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Description>A simple web spider
 (work in progress)</Description>
-    <PackageReleaseNotes>Work in progress</PackageReleaseNotes>
-    <AssemblyVersion>0.4.45.0</AssemblyVersion>
+    <PackageReleaseNotes>Work in progress
+Commit 61a64a6</PackageReleaseNotes>
+    <AssemblyVersion>0.4.76.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
