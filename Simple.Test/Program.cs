@@ -1,7 +1,4 @@
-﻿using Net.RafaelEstevam.Spider;
-using Net.RafaelEstevam.Spider.Test.Sample;
-using System;
-using System.Linq;
+﻿using System;
 
 namespace Net.RafaelEstevam.Spider.Test
 {
