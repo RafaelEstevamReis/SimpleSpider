@@ -13,8 +13,7 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
             var init = new InitializationParams()
                 .SetCacher(new ContentCacher())
                 .SetDownloader(new WebClientDownloader())
-                .SetSpiderStarupDirectory(null) // Default directory
-                                                // create a json parser for our QuotesObject class
+                // create a json parser for our QuotesObject class
                 .AddParser(new Parsers.JsonDeserializeParser<QuotesObject>(parsedResult_event))
                 .SetConfig(c => c.Enable_Caching()
                                  .Disable_Cookies()

@@ -82,6 +82,33 @@ void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
 }
 ```
 
+
+### Easy initialization with chaining
+[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_Chaining.cs)
+```C#
+void run()
+{
+    var init = new InitializationParams()
+        .SetCacher(new ContentCacher())
+        .SetDownloader(new WebClientDownloader())
+        .SetSpiderStarupDirectory(@"D:\spiders\") // Default directory
+        // create a json parser for our QuotesObject class
+        .AddParser(new Parsers.JsonDeserializeParser<QuotesObject>(parsedResult_event))
+        .SetConfig(c => c.Enable_Caching()
+                         .Disable_Cookies()
+                         .Disable_AutoAnchorsLinks()
+                         .Set_CachingNoLimit()
+                         .Set_DownloadDelay(5000));
+
+    var spider = new SimpleSpider("QuotesToScrape", new Uri("http://quotes.toscrape.com/"), init);
+
+    // add first
+    spider.AddPage(buildPageUri(1), spider.BaseUri);
+    // execute
+    spider.Execute();
+}
+```
+
 ## Some Helpers
 * XmlSerializer helper: Generic class to serialize and deserialzie stuff using Xml, easy way to save what you collected without any database
 * CSV helper: Read csv files even compressed without exernal libraries

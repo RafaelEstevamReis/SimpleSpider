@@ -19,6 +19,16 @@ namespace Net.RafaelEstevam.Spider
         public DirectoryInfo SpiderDirectory { get; set; }
         public Configuration ConfigurationPrototype { get; set; }
 
+        public InitializationParams SetSpiderStarupPath(string Path)
+        {
+            if (string.IsNullOrEmpty(Path)) throw new ArgumentNullException(Path);
+            var dir = new DirectoryInfo(Path);
+            // Typo detection
+            if (!dir.Exists) throw new DirectoryNotFoundException($"Path '{Path}' not found");
+
+            this.SpiderDirectory = dir;
+            return this; // Chaining
+        }
         public InitializationParams SetSpiderStarupDirectory(DirectoryInfo Directory)
         {
             this.SpiderDirectory = Directory;
