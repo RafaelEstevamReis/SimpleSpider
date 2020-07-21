@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Net.RafaelEstevam.Spider.Interfaces;
 
@@ -6,8 +7,15 @@ namespace Net.RafaelEstevam.Spider
 {
     public class InitializationParams
     {
+        public InitializationParams()
+        {
+            Parsers = new List<IParserBase>();
+            ConfigurationPrototype = new Configuration();
+        }
+
         public ICacher Cacher { get; set; }
         public IDownloader Downloader { get; set; }
+        public List<IParserBase> Parsers { get; }
         public DirectoryInfo SpiderDirectory { get; set; }
         public Configuration ConfigurationPrototype { get; set; }
 
@@ -26,7 +34,11 @@ namespace Net.RafaelEstevam.Spider
             this.Downloader = Downloader;
             return this; // Chaining
         }
-
+        public InitializationParams AddParser<T>(IParser<T> Parser)
+        {
+            Parsers.Add(Parser);
+            return this; // Chaining
+        }
         public InitializationParams SetConfig(Action<Configuration> Action)
         {
             Action(this.ConfigurationPrototype);

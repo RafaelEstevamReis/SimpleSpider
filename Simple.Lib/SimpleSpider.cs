@@ -91,6 +91,7 @@ namespace Net.RafaelEstevam.Spider
             initializeFetchers();
             FetchCompleted += fetchCompleted_AutoCollect;
             Parsers = new List<IParserBase>() { new HtmlXElementParser(), new XmlXElementParser(), new JsonParser() };
+            if (@params.Parsers != null) Parsers.AddRange(@params.Parsers);
         }
         
         private void initializeConfiguration(string spiderName, InitializationParams init)
