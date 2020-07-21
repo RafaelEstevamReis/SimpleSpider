@@ -17,10 +17,12 @@ Easy import with [NuGet](https://www.nuget.org/packages/Net.RafaelEstevam.Spider
 
 ## Samples
 
-Inside Simple.Tests are some spiders to show to crawl and collect data
+Inside Simple.Tests are various samples, these are some of them:
 
 ### Use Json to parse Quotes
-[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_Scroll_Deserialize.cs)
+
+Json response? Get a event with your data already deserialized
+
 ```C#
 void run()
 {
@@ -47,9 +49,12 @@ void parsedResult_event(object sender, Interfaces.ParserEventArgs<QuotesObject> 
     }
 }
 ```
+[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_Scroll_Deserialize.cs)
 
 ### Use XPath to select content
-[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/BooksToScrape.cs)
+
+Use XPath to select elements and filter data
+
 ```C#
 void run()
 {
@@ -81,10 +86,13 @@ void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
     string sDesc = articleProd.XPathSelectElement("p")?.Value; // books can be descriptionless
 }
 ```
+[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/BooksToScrape.cs)
 
 
 ### Easy initialization with chaining
-[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_Chaining.cs)
+
+Initialzie your spider easly with chaining 
+
 ```C#
 void run()
 {
@@ -108,6 +116,27 @@ void run()
     spider.Execute();
 }
 ```
+[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_Chaining.cs)
+
+
+### Easy single resource fetch
+
+Easy API pooling for updates
+```C#
+void run()
+{
+    var uri = new Uri("http://quotes.toscrape.com/api/quotes?page=1");
+    var quotes = FetchHelper.FetchResourceJson<QuotesObject>(uri);
+    // show the quotes deserialized
+    foreach (var quote in quotes.quotes)
+    {
+        Console.WriteLine($"Quote: {quote.text}");
+        Console.WriteLine($"       - {quote.author.name}");
+        Console.WriteLine();
+    }
+}
+```
+[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/ApiPooler_FetcherHelper.cs)
 
 ## Some Helpers
 * XmlSerializer helper: Generic class to serialize and deserialzie stuff using Xml, easy way to save what you collected without any database
