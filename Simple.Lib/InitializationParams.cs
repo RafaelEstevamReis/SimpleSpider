@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Net.RafaelEstevam.Spider.Downloaders;
 using Net.RafaelEstevam.Spider.Interfaces;
 
 namespace Net.RafaelEstevam.Spider
@@ -43,6 +44,10 @@ namespace Net.RafaelEstevam.Spider
         {
             this.Downloader = Downloader;
             return this; // Chaining
+        }
+        public InitializationParams SetOfflineMode()
+        {
+            return SetDownloader(new NullDownloader());
         }
         public InitializationParams AddParser<T>(IParser<T> Parser)
         {
