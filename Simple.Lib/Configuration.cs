@@ -40,5 +40,59 @@ namespace Net.RafaelEstevam.Spider
         /// Enable auto colelction of html Anchors tags
         /// </summary>
         public bool Auto_AnchorsLinks { get; set; } = true;
+
+        public Configuration Set_DownloadDelay(TimeSpan Delay)
+        {
+            DownloadDelay = (int)Delay.TotalMilliseconds;
+            return this; // Chaining
+        }
+        public Configuration Set_DownloadDelay(int Delay)
+        {
+            DownloadDelay = Delay;
+            return this; // Chaining
+        }
+        public Configuration Enable_Cookies()
+        {
+            Cookies_Enable = true;
+            return this; // Chaining
+        }
+        public Configuration Disable_Cookies()
+        {
+            Cookies_Enable = false;
+            return this; // Chaining
+        }
+
+        public Configuration Enable_Caching()
+        {
+            Cache_Enable = true;
+            return this; // Chaining
+        }
+        public Configuration Disable_Caching()
+        {
+            Cache_Enable = false;
+            return this; // Chaining
+        }
+
+        public Configuration Set_CachingTTL(TimeSpan timeSpan)
+        {
+            Cache_Lifetime = timeSpan;
+            return this; // Chaining
+        }
+        public Configuration Set_CachingNoLimit()
+        {
+            Cache_Lifetime = null;
+            return this; // Chaining
+        }
+
+        public Configuration Enable_AutoAnchorsLinks()
+        {
+            Auto_AnchorsLinks = true;
+            return this; // Chaining
+        }
+        public Configuration Disable_AutoAnchorsLinks()
+        {
+            Auto_AnchorsLinks = false;
+            return this; // Chaining
+        }
     }
 }
