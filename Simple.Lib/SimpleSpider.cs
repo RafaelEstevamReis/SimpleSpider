@@ -107,13 +107,15 @@ namespace Net.RafaelEstevam.Spider
             if (!dataPath.Exists) dataPath.Create();
             Configuration.SpiderDataDirectory = dataPath;
 
-
-            Configuration.Spider_LogFile = Path.Combine(spiderPath.FullName, $"{ spiderName }.log");
-            log = new LoggerConfiguration()
-               .MinimumLevel.Debug()
-               .WriteTo.Console()
-               .WriteTo.File(Configuration.Spider_LogFile, rollingInterval: RollingInterval.Day)
-               .CreateLogger();
+            if (Configuration.Logger == null)
+            {
+                Configuration.Spider_LogFile = Path.Combine(spiderPath.FullName, $"{ spiderName }.log");
+                log = new LoggerConfiguration()
+                   .MinimumLevel.Debug()
+                   .WriteTo.Console()
+                   .WriteTo.File(Configuration.Spider_LogFile, rollingInterval: RollingInterval.Day)
+                   .CreateLogger();
+            }
             Configuration.Logger = log;
             log.Information("Initialization complete");
         }
