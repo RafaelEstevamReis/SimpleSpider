@@ -13,11 +13,11 @@ Some advantages
 * Modular Caching engine (you can add your own!)
 * Modular Downloader engine (you can add your own!)
 
-Easy import with [NuGet](https://www.nuget.org/packages/Net.RafaelEstevam.Spider.Simple.Lib)
+Easy **import with [NuGet](https://www.nuget.org/packages/Net.RafaelEstevam.Spider.Simple.Lib)**
 
 ## Samples
 
-Inside Simple.Tests are various samples, these are some of them:
+Inside the [Simple.Tests](https://github.com/RafaelEstevamReis/SimpleSpider/tree/master/Simple.Test/Sample) folders are various samples, these are some of them:
 
 ### Use Json to parse Quotes
 
@@ -51,7 +51,7 @@ void parsedResult_event(object sender, Interfaces.ParserEventArgs<QuotesObject> 
     }
 }
 ```
-[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_Scroll_Deserialize.cs)
+*[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_Scroll_Deserialize.cs)*
 
 ### Use XPath to select content
 
@@ -88,7 +88,7 @@ void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
     string sDesc = articleProd.XPathSelectElement("p")?.Value; // books can be descriptionless
 }
 ```
-[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/BooksToScrape.cs)
+*[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/BooksToScrape.cs)*
 
 
 ### Easy initialization with chaining
@@ -118,7 +118,7 @@ void run()
     spider.Execute();
 }
 ```
-[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_Chaining.cs)
+*[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_Chaining.cs)*
 
 
 ### Easy single resource fetch
@@ -138,12 +138,13 @@ void run()
     }
 }
 ```
-[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/ApiPooler_FetcherHelper.cs)
+*[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/ApiPooler_FetcherHelper.cs)*
 
-## Some Helpers
-* XmlSerializer helper: Generic class to serialize and deserialzie stuff using Xml, easy way to save what you collected without any database
-* CSV helper: Read csv files even compressed without exernal libraries
-* XElement to Stuff: Extract tables from page in DataTable
+## Some [Helpers](https://github.com/RafaelEstevamReis/SimpleSpider/tree/master/Simple.Lib/Helper)
+* [FormsHelper](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Lib/Helper/FormsHelper.cs): Deserialize html forms to easy manipulate data and create new requests
+* [XmlSerializerHelper](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Lib/Helper/XmlSerializerHelper.cs): Generic class to serialize and deserialzie stuff using Xml, easy way to save what you collected without any database
+* [CSV Helper](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Lib/Helper/CSVHelper.cs): Read csv files even compressed without exernal libraries
+* XElement to Stuff: Extract [tables](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Lib/Helper/XElementHelper.cs#L17) from page in DataTable
 
 ## Giants' shoulders
 * Html parsing with [Html Agility Pack](https://html-agility-pack.net/)
