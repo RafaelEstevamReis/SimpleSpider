@@ -10,10 +10,16 @@ namespace Net.RafaelEstevam.Spider.Helper
 {
     public class FormsHelper
     {
+        /// <summary>
+        /// Enumarate all forms
+        /// </summary>
         public static IEnumerable<XElement> GetForms(XElement Root)
         {
             return Root.XPathSelectElements(".//form");
         }
+        /// <summary>
+        /// Construct a FormTag from a Form XElement
+        /// </summary>
         public static FormTag GetFormTag(XElement Form)
         {
             if (Form.Name.LocalName != "form") throw new ArgumentException("Element is not a form");
@@ -21,6 +27,9 @@ namespace Net.RafaelEstevam.Spider.Helper
         }
 
     }
+    /// <summary>
+    /// Class to represent a HtmlForm
+    /// </summary>
     public class FormTag
     {
         internal FormTag(XElement element)
@@ -50,16 +59,30 @@ namespace Net.RafaelEstevam.Spider.Helper
             Get,
             Post
         }
+        /// <summary>
+        /// Original XElement parsed
+        /// </summary>
         public XElement Element { get; }
         public string Id { get; }
         public string Name { get; }
         public string Action { get; }
         public string Class { get; }
+        /// <summary>
+        /// Classes splitted by a Space
+        /// </summary>
         public string[] Classes { get; }
         public Methods Method { get; }
-
+        /// <summary>
+        /// All inputs elements parsed as InputTag
+        /// </summary>
         public InputTag[] Inputs { get; }
+        /// <summary>
+        /// All buttons XElement
+        /// </summary>
         public XElement[] Buttons { get; }
+        /// <summary>
+        /// Collection of the Hidden fields
+        /// </summary>
         public NameValueCollection Hiddens { get; }
 
         public override string ToString()
@@ -67,6 +90,9 @@ namespace Net.RafaelEstevam.Spider.Helper
             return $"Form Name={Name} Method={Method} Action={Action}";
         }
     }
+    /// <summary>
+    /// Class to represent a InputTag
+    /// </summary>
     public class InputTag
     {
         internal InputTag(XElement element)
