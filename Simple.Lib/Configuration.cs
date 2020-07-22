@@ -113,7 +113,6 @@ namespace Net.RafaelEstevam.Spider
             return this; // Chaining
         }
 
-
         #endregion
     }
 }

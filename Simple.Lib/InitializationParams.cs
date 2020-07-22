@@ -4,6 +4,7 @@ using System.IO;
 using Net.RafaelEstevam.Spider.Cachers;
 using Net.RafaelEstevam.Spider.Downloaders;
 using Net.RafaelEstevam.Spider.Interfaces;
+using Serilog;
 
 namespace Net.RafaelEstevam.Spider
 {
@@ -54,6 +55,11 @@ namespace Net.RafaelEstevam.Spider
         {
             Parsers.Add(Parser);
             return this; // Chaining
+        }
+        public InitializationParams SetLogger(ILogger logger)
+        {
+            ConfigurationPrototype.Logger = logger;
+            return this;
         }
         public InitializationParams SetConfig(Action<Configuration> Action)
         {
