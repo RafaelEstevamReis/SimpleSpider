@@ -56,7 +56,9 @@ namespace Net.RafaelEstevam.Spider.Downloaders
             downloading = false;
             while (run)
             {
-                Thread.Sleep(Math.Max(100, config.DownloadDelay));
+                int delay = config.DownloadDelay;
+                if (FetchTempo.Count > 0) delay -= (int)FetchTempo[^1].TotalMilliseconds;
+                Thread.Sleep(Math.Max(100, delay));
 
                 if (downloading) continue;
 
