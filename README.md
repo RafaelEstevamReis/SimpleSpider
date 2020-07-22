@@ -23,6 +23,8 @@ Inside Simple.Tests are various samples, these are some of them:
 
 Json response? Get a event with your data already deserialized
 
+( yes, these few lines below are full functional exemples! )
+
 ```C#
 void run()
 {

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace Net.RafaelEstevam.Spider.Helper
 {
@@ -29,6 +31,18 @@ namespace Net.RafaelEstevam.Spider.Helper
                 catch { continue; }
                 yield return new Uri(request, href);
             }
+        }
+        /// <summary>
+        /// Get all anchors ('a' tag) and convertoto Uri
+        /// </summary>
+        public static IEnumerable<Uri> GetAnchors(Uri request, XElement root)
+        {
+            return root
+                .XPathSelectElements(".//a")
+                .Select(x => x.Attribute("href"))
+                .Where(att => att != null)
+                .Where(at => !at.Value.Contains("javascript:"))
+                .Select(at => new Uri(request, at.Value));
         }
     }
 }
