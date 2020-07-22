@@ -165,13 +165,21 @@ namespace Net.RafaelEstevam.Spider
         /// </summary>
         public void Execute()
         {
+            Execute(CancellationToken.None);
+        }
+        /// <summary>
+        /// Main execution loop, returns once finished or cancelled
+        /// </summary>
+        /// <param name="cancellationToken">Cancelation token to prematurely stop</param>
+        public void Execute(CancellationToken cancellationToken)
+        {
             Cacher.Start();
             Downloader.Start();
 
             if (QueueSize() == 0) addPage(BaseUri, BaseUri);
 
             int idleTimeout = 0;
-            while (true)
+            while (cancellationToken.IsCancellationRequested)
             {
                 if (workQueue()) continue;
 
