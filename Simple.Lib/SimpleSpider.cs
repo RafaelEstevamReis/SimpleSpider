@@ -181,6 +181,12 @@ namespace Net.RafaelEstevam.Spider
             int idleTimeout = 0;
             while (cancellationToken.IsCancellationRequested)
             {
+                if (Configuration.Paused)
+                {
+                    Thread.Sleep(500);
+                    continue;
+                }
+
                 if (workQueue()) continue;
 
                 Thread.Sleep(100);

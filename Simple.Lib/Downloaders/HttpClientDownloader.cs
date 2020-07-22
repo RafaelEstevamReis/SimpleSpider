@@ -57,6 +57,12 @@ namespace Net.RafaelEstevam.Spider.Downloaders
 
                 if (downloading) continue;
 
+                if (config.Paused || config.Paused_Downloader)
+                {
+                    Thread.Sleep(500);
+                    continue;
+                }
+
                 if (queue.TryDequeue(out current))
                 {
                     var args = new ShouldFetchEventArgs(current);

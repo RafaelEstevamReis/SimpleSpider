@@ -83,6 +83,12 @@ namespace Net.RafaelEstevam.Spider.Cachers
                 {
                     Thread.Sleep(10);
 
+                    if (config.Paused || config.Paused_Cacher)
+                    {
+                        Thread.Sleep(500);
+                        continue;
+                    }
+
                     if (queue.TryDequeue(out Link current))
                     {
                         var args = new ShouldFetchEventArgs(current);

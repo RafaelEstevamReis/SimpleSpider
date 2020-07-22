@@ -95,6 +95,23 @@ namespace Net.RafaelEstevam.Spider
 
         #endregion
 
+        #region Pause Downloader AND Cacher
+
+        /// <summary>
+        /// Inform all components to temporarily pause
+        /// </summary>
+        public bool Paused { get; set; }
+        /// <summary>
+        /// Inform cacher to temporarily pause
+        /// </summary>
+        public bool Paused_Cacher { get; set; }
+        /// <summary>
+        /// Inform downloader to temporarily pause
+        /// </summary>
+        public bool Paused_Downloader { get; set; }
+
+        #endregion
+
         #region Spider Pós-processing
 
         /// <summary>
