@@ -93,12 +93,15 @@ namespace Net.RafaelEstevam.Spider.Downloaders
             }
             if (e.Error == null)
             {
-                var responseHeaders = webClient.ResponseHeaders.AllKeys.Select(k => KeyValuePair.Create(k, webClient.ResponseHeaders.Get(k))).ToArray();
-                FetchCompleted(this, new FetchCompleteEventArgs(current, e.Result, webClient.LastRequestHeaders, responseHeaders));
+                FetchCompleted(this, 
+                               new FetchCompleteEventArgs(current, 
+                                                          e.Result, 
+                                                          new HeaderCollection(webClient.LastRequestHeaders), 
+                                                          new HeaderCollection(webClient.ResponseHeaders)));
             }
             else
             {
-                FetchFailed(this, new FetchFailEventArgs(current, e.Error, webClient.LastRequestHeaders));
+                FetchFailed(this, new FetchFailEventArgs(current, e.Error, new HeaderCollection(webClient.LastRequestHeaders)));
             }
             downloading = false;
         }

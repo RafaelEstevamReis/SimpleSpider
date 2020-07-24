@@ -20,14 +20,14 @@ namespace Net.RafaelEstevam.Spider
             Scheduler,
         }
 
-        public KeyValuePair<string, string>[] RequestHeaders { get; protected set; }
+        public HeaderCollection RequestHeaders { get; protected set; }
         public Link Link { get; protected set; }
         public EventSource Source { get; set; }
     }
     public class FetchCompleteEventArgs : FetchEventArgs
     {
         public byte[] Result { get; }
-        public KeyValuePair<string, string>[] ResponseHeaders { get; }
+        public HeaderCollection ResponseHeaders { get; }
 
         string htmlCache;
         public string Html
@@ -59,7 +59,7 @@ namespace Net.RafaelEstevam.Spider
             return htmlCache = enc.GetString(Result);
         }
 
-        public FetchCompleteEventArgs(Link current, byte[] result, KeyValuePair<string, string>[] requestHeaders, KeyValuePair<string, string>[] responseHeaders)
+        public FetchCompleteEventArgs(Link current, byte[] result, HeaderCollection requestHeaders, HeaderCollection responseHeaders)
         {
             this.Link = current;
             this.Result = result;
@@ -71,7 +71,7 @@ namespace Net.RafaelEstevam.Spider
     {
         public Exception Error { get; }
 
-        public FetchFailEventArgs(Link link, Exception error, KeyValuePair<string, string>[] requestHeaders)
+        public FetchFailEventArgs(Link link, Exception error, HeaderCollection requestHeaders)
         {
             this.Link = link;
             this.Error = error;

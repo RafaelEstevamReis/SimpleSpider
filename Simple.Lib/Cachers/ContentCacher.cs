@@ -117,10 +117,10 @@ namespace Net.RafaelEstevam.Spider.Cachers
                             rHrd.Add(new KeyValuePair<string, string>("Content-Type", cType));
                         }
                         current.FetchEnd = DateTime.Now;
-                        FetchCompleted(this, new FetchCompleteEventArgs(current, 
-                                                                        bytes, 
-                                                                        new KeyValuePair<string, string>[0], 
-                                                                        rHrd.ToArray()));
+                        FetchCompleted(this, new FetchCompleteEventArgs(current,
+                                                                        bytes,
+                                                                        new HeaderCollection(),
+                                                                        new HeaderCollection(rHrd)));
 
                         IsProcessing = false;
                     }

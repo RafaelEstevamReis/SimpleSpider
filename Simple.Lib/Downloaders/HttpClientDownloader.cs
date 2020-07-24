@@ -79,8 +79,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                     var reqHeaders = req
                         .Headers
                         .Cast<KeyValuePair<string, IEnumerable<string>>>()
-                        .Select(o => new KeyValuePair<string, string>(o.Key, string.Join(",", o.Value)))
-                        .ToArray();
+                        .Select(o => new KeyValuePair<string, string>(o.Key, string.Join(",", o.Value)));
 
                     current.FetchEnd = DateTime.Now;
                     if (resp.IsSuccessStatusCode)
@@ -88,17 +87,16 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                         var respHeaders = resp
                             .Headers
                             .Cast<KeyValuePair<string, IEnumerable<string>>>()
-                            .Select(o => new KeyValuePair<string, string>(o.Key, string.Join(",", o.Value)))
-                            .ToArray();
+                            .Select(o => new KeyValuePair<string, string>(o.Key, string.Join(",", o.Value)));
 
                         FetchCompleted(this, new FetchCompleteEventArgs(current,
                                           resp.Content.ReadAsByteArrayAsync().Result,
-                                          reqHeaders,
-                                          respHeaders));
+                                          new HeaderCollection(reqHeaders),
+                                          new HeaderCollection(respHeaders)));
                     }
                     else
                     {
-                        FetchFailed(this, new FetchFailEventArgs(current, new HttpRequestException(resp.ReasonPhrase), reqHeaders));
+                        FetchFailed(this, new FetchFailEventArgs(current, new HttpRequestException(resp.ReasonPhrase), new HeaderCollection(reqHeaders)));
                     }
 
                     downloading = false;

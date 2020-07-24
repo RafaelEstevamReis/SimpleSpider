@@ -49,14 +49,14 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                     FetchFailed?.Invoke(this,
                                         new FetchFailEventArgs(l,
                                                                new Exception("NullDownloader:DiscardModeTypes.Fail"),
-                                                               new System.Collections.Generic.KeyValuePair<string, string>[0]));
+                                                               new HeaderCollection()));
                     break;
                 case DiscardModeTypes.CompleteEmpty:
                     FetchCompleted?.Invoke(this,
                                            new FetchCompleteEventArgs(l,
                                                                       new byte[0],
-                                                                      new System.Collections.Generic.KeyValuePair<string, string>[0],
-                                                                      new System.Collections.Generic.KeyValuePair<string, string>[0]));
+                                                                      new HeaderCollection(),
+                                                                      new HeaderCollection()));
                     break;
                 case DiscardModeTypes.Ingore:
                 default:
