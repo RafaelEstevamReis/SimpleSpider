@@ -16,7 +16,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>0.4.104</Version>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Description>A simple to use web spider
+    <Description>A simple to use web spider with a example rich GitHub repository
 (work in progress)</Description>
     <PackageReleaseNotes>Work in progress
 Commit 07d79fa</PackageReleaseNotes>
