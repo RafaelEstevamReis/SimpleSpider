@@ -13,7 +13,7 @@ namespace Net.RafaelEstevam.Spider.Test
             //QuotesToScrape_Scroll_Advanced.run();
 
             // Helper Samples
-            ApiPooler_FetcherHelper.run();
+            //ApiPooler_FetcherHelper.run();
 
             // IgnoreMe file to internal screwing around
             //  Add a file named IgnoreMe.cs with a static void run() on it to play arround with the spider
