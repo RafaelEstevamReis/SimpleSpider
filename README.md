@@ -30,13 +30,13 @@ void run()
 {
     var spider = new SimpleSpider("QuotesToScrape", new Uri("http://quotes.toscrape.com/"));
     // create a json parser for our QuotesObject class
-    spider.Parsers.Add(new Parsers.JsonDeserializeParser<QuotesObject>(parsedResult_event))
+    spider.Parsers.Add(new JsonDeserializeParser<QuotesObject>(parsedResult_event))
     // add first
-    spider.AddPage( buildPageUri(1), spider.BaseUri);
+    spider.AddPage(buildPageUri(1), spider.BaseUri);
     // execute
     spider.Execute();
 }
-void parsedResult_event(object sender, Interfaces.ParserEventArgs<QuotesObject> args)
+void parsedResult_event(object sender, ParserEventArgs<QuotesObject> args)
 {
     // add next
     if (args.ParsedData.has_next)
@@ -103,7 +103,7 @@ void run()
         .SetDownloader(new WebClientDownloader())
         .SetSpiderStarupDirectory(@"D:\spiders\") // Default directory
         // create a json parser for our QuotesObject class
-        .AddParser(new Parsers.JsonDeserializeParser<QuotesObject>(parsedResult_event))
+        .AddParser(new JsonDeserializeParser<QuotesObject>(parsedResult_event))
         .SetConfig(c => c.Enable_Caching()
                          .Disable_Cookies()
                          .Disable_AutoAnchorsLinks()
