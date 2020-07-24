@@ -75,7 +75,10 @@ namespace Net.RafaelEstevam.Spider
         {
             return dicValues.GetEnumerator();
         }
-
+        public override string ToString()
+        {
+            return $"HeaderCollection[{dicValues.Count}]";
+        }
     }
     public class SerializableKeyValuePair
     {
@@ -89,6 +92,10 @@ namespace Net.RafaelEstevam.Spider
         public static implicit operator SerializableKeyValuePair(KeyValuePair<string, string> pair)
         {
             return new SerializableKeyValuePair() { Key = pair.Key, Value = pair.Value };
+        }
+        public override string ToString()
+        {
+            return $"{Key}: {Value}";
         }
     }
 }
