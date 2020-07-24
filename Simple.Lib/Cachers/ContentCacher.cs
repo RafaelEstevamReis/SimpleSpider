@@ -95,34 +95,14 @@ namespace Net.RafaelEstevam.Spider.Cachers
                         ShouldFetch(this, args);
                         if (args.Cancel) continue;
 
-                        IsProcessing = true;
-                        config.Logger.Information($"[CACHE] {current.Uri}");
-
-                        current.FetchStart = DateTime.Now;
-                        // load file
-                        var bytes = File.ReadAllBytes(getCacheFileFullName(current));
-                        var textContent = Encoding.UTF8.GetString(bytes, 0, 64);
-
-                        // don't know, so we guess
-                        string cType = null;
-                        if (textContent[0] == '{' && textContent.Contains(":")) cType = "application/json";
-                        if (textContent[0] == '<' && textContent.ToLower().Contains("html")) cType = "text/html";
-                        else
+                        try
                         {
+                            fetch(current);
                         }
-
-                        var rHrd = new List<KeyValuePair<string, string>>();
-                        if (cType != null)
+                        catch (Exception ex)
                         {
-                            rHrd.Add(new KeyValuePair<string, string>("Content-Type", cType));
+                            FetchFailed(this, new FetchFailEventArgs(current, ex, new HeaderCollection()));
                         }
-                        current.FetchEnd = DateTime.Now;
-                        FetchCompleted(this, new FetchCompleteEventArgs(current,
-                                                                        bytes,
-                                                                        new HeaderCollection(),
-                                                                        new HeaderCollection(rHrd)));
-
-                        IsProcessing = false;
                     }
                     else Thread.Sleep(100);
                 }
@@ -133,6 +113,39 @@ namespace Net.RafaelEstevam.Spider.Cachers
                 }
             }
         }
+
+        private void fetch(Link current)
+        {
+            IsProcessing = true;
+            config.Logger.Information($"[CACHE] {current.Uri}");
+
+            current.FetchStart = DateTime.Now;
+            // load file
+            var bytes = File.ReadAllBytes(getCacheFileFullName(current));
+            var textContent = Encoding.UTF8.GetString(bytes, 0, 64);
+
+            // don't know, so we guess
+            string cType = null;
+            if (textContent[0] == '{' && textContent.Contains(":")) cType = "application/json";
+            if (textContent[0] == '<' && textContent.ToLower().Contains("html")) cType = "text/html";
+            else
+            {
+            }
+
+            var rHrd = new List<KeyValuePair<string, string>>();
+            if (cType != null)
+            {
+                rHrd.Add(new KeyValuePair<string, string>("Content-Type", cType));
+            }
+            current.FetchEnd = DateTime.Now;
+            FetchCompleted(this, new FetchCompleteEventArgs(current,
+                                                            bytes,
+                                                            new HeaderCollection(),
+                                                            new HeaderCollection(rHrd)));
+
+            IsProcessing = false;
+        }
+
         private string getCacheFileFullName(Uri uri)
         {
             return Path.Combine(cacheDir.FullName, getCacheFileName(uri));
