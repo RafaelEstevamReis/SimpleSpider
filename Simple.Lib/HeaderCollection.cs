@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Security.Cryptography.X509Certificates;
@@ -13,6 +14,16 @@ namespace Net.RafaelEstevam.Spider
     {
         Dictionary<string, string> dicValues;
 
+        public HeaderCollection(IEnumerable<KeyValuePair<string,string>> kvp)
+           : this()
+        {
+            foreach (var pair in kvp) this[pair.Key] = pair.Value;
+        }
+        public HeaderCollection(NameValueCollection nvc)
+            : this()
+        {
+            foreach (var k in nvc.AllKeys) this[k] = nvc[k];
+        }
         public HeaderCollection()
         {
             dicValues = new Dictionary<string, string>();
