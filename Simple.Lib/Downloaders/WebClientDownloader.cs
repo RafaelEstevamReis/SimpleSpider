@@ -96,12 +96,12 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                 FetchCompleted(this, 
                                new FetchCompleteEventArgs(current, 
                                                           e.Result, 
-                                                          new HeaderCollection(webClient.LastRequestHeaders), 
+                                                          new HeaderCollection(webClient.Headers), 
                                                           new HeaderCollection(webClient.ResponseHeaders)));
             }
             else
             {
-                FetchFailed(this, new FetchFailEventArgs(current, e.Error, new HeaderCollection(webClient.LastRequestHeaders)));
+                FetchFailed(this, new FetchFailEventArgs(current, e.Error, new HeaderCollection(webClient.Headers)));
             }
             downloading = false;
         }
@@ -110,8 +110,6 @@ namespace Net.RafaelEstevam.Spider.Downloaders
         {
             public bool EnableCookies { get; set; }
             public CookieContainer CookieContainer { get; }
-            public KeyValuePair<string, string>[] LastRequestHeaders { get; private set; }
-
             public CustomWebClient()
             {
                 CookieContainer = new CookieContainer();
@@ -120,7 +118,6 @@ namespace Net.RafaelEstevam.Spider.Downloaders
             {
                 var request = (HttpWebRequest)base.GetWebRequest(address);
                 if (EnableCookies) request.CookieContainer = CookieContainer;
-                //LastRequestHeaders = request.Headers.AllKeys.Select(k => KeyValuePair.Create(k, request.Headers.Get(k))).ToArray();
 
                 return request;
             }
