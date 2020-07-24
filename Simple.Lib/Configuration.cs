@@ -81,7 +81,7 @@ namespace Net.RafaelEstevam.Spider
         /// <summary>
         /// Are cookies enabled? IDownloader must support
         /// </summary>
-        public bool Cookies_Enable { get; set; }
+        public bool Cookies_Enable { get; set; } = false;
         public Configuration Enable_Cookies()
         {
             Cookies_Enable = true;
@@ -100,15 +100,15 @@ namespace Net.RafaelEstevam.Spider
         /// <summary>
         /// Inform all components to temporarily pause
         /// </summary>
-        public bool Paused { get; set; }
+        public bool Paused { get; set; } = false;
         /// <summary>
         /// Inform cacher to temporarily pause
         /// </summary>
-        public bool Paused_Cacher { get; set; }
+        public bool Paused_Cacher { get; set; } = false;
         /// <summary>
         /// Inform downloader to temporarily pause
         /// </summary>
-        public bool Paused_Downloader { get; set; }
+        public bool Paused_Downloader { get; set; } = false;
 
         #endregion
 
