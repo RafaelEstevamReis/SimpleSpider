@@ -12,6 +12,7 @@ namespace Net.RafaelEstevam.Spider
 {
     public class HeaderCollection : IEnumerable<KeyValuePair<string, string>>
     {
+        // fast read
         Dictionary<string, string> dicValues;
 
         public HeaderCollection(IEnumerable<KeyValuePair<string,string>> kvp)
@@ -45,23 +46,6 @@ namespace Net.RafaelEstevam.Spider
         public string[] AllKeys
         {
             get { return dicValues.Keys.ToArray(); }
-        }
-
-        [XmlIgnore]
-        public KeyValuePair<string, string>[] Values
-        {
-            get
-            {
-                return dicValues.ToArray();
-            }
-            set
-            {
-                // ignores duplicate keys
-                foreach (var pair in value)
-                {
-                    dicValues[pair.Key] = pair.Value;
-                }
-            }
         }
 
         [XmlArray("Pairs")]
