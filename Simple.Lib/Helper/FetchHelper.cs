@@ -58,14 +58,37 @@ namespace Net.RafaelEstevam.Spider.Helper
             return JObject.Parse(FetchResourceText(uri, enc));
         }
         /// <summary>
+        /// Fetch resource from uri and parse a JObject from it
+        /// </summary>
+        /// <param name="uri">Uri to fetch from</param>
+        /// <param name="loadSettings">JsonLoadSettings to parse with</param>
+        /// <returns>JObject with data fetched</returns>
+        public static JObject FetchResourceJObject(Uri uri, JsonLoadSettings loadSettings, Encoding enc = null)
+        {
+            return JObject.Parse(FetchResourceText(uri, enc), loadSettings);
+        }
+        /// <summary>
         /// Fetch resource from uri and deserialize T from it
         /// </summary>
         /// <param name="uri">Uri to fetch from</param>
+        /// <param name="enc">Especify encoding</param>
         /// <returns>T deserialized with data fetched</returns>
         public static T FetchResourceJson<T>(Uri uri, Encoding enc = null)
         {
-            return JsonConvert.DeserializeObject<T>(FetchResourceText(uri, enc));
+            var json = FetchResourceText(uri, enc);
+            return JsonConvert.DeserializeObject<T>(json);
         }
-
+        /// <summary>
+        /// Fetch resource from uri and deserialize T from it
+        /// </summary>
+        /// <param name="uri">Uri to fetch from></param>
+        /// <param name="enc">Especify encoding</param>
+        /// <param name="settings">JsonSerializerSettings Settings</param>
+        /// <returns>>T deserialized with data fetched</returns>
+        public static T FetchResourceJson<T>(Uri uri, JsonSerializerSettings settings, Encoding enc = null)
+        {
+            var json = FetchResourceText(uri, enc);
+            return JsonConvert.DeserializeObject<T>(json, settings);
+        }
     }
 }
