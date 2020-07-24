@@ -12,7 +12,6 @@ namespace Net.RafaelEstevam.Spider.Interfaces
     public interface IParser<T> : IParserBase
     {
         event ParseData<T> ParsedData;
-
     }
     public class ParserEventArgs<T> : EventArgs
     {
