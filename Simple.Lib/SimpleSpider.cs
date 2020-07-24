@@ -91,7 +91,7 @@ namespace Net.RafaelEstevam.Spider
             initializeFetchers();
             FetchCompleted += fetchCompleted_AutoCollect;
             Parsers = new List<IParserBase>() { new HtmlXElementParser(), new XmlXElementParser(), new JsonParser() };
-            if (@params.Parsers != null) Parsers.AddRange(@params.Parsers);
+            if (@params?.Parsers != null) Parsers.AddRange(@params.Parsers);
         }
         
         private void initializeConfiguration(string spiderName, InitializationParams init)
@@ -179,7 +179,7 @@ namespace Net.RafaelEstevam.Spider
             if (QueueSize() == 0) addPage(BaseUri, BaseUri);
 
             int idleTimeout = 0;
-            while (cancellationToken.IsCancellationRequested)
+            while (!cancellationToken.IsCancellationRequested)
             {
                 if (Configuration.Paused)
                 {
