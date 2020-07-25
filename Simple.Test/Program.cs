@@ -20,6 +20,8 @@ namespace Net.RafaelEstevam.Spider.Test
             //IgnoreMe.run();
 
 
+            SimpleSpider.HowToUse_PrintToConsole();
+
             Console.WriteLine("-END-");
             Console.ReadKey();
         }

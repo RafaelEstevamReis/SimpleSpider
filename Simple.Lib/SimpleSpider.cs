@@ -71,6 +71,13 @@ namespace Net.RafaelEstevam.Spider
         private List<CollectedData> lstCollected;
         private Logger log; // short reference, is accessible through configuration
 
+        /// <summary>
+        /// Create a new spider to fetch data from some website
+        /// See use examples on the Github page
+        /// </summary>
+        /// <param name="spiderName">A unique name for this spider. Folder will be created with that name</param>
+        /// <param name="baseUri">The base Uri of the website. Pages outside this Host will not be fetched</param>
+        /// <param name="params">Additional initialization parameters</param>
         public SimpleSpider(string spiderName, Uri baseUri, InitializationParams @params = null)
         {
             this.SpiderName = spiderName;
@@ -409,9 +416,11 @@ namespace Net.RafaelEstevam.Spider
         /// <returns>Whenever the queues finished</returns>
         public bool QueueFinished()
         {
+            // some optimizations to avoid counting
+            // if is processing, is not finished
             if (Cacher.IsProcessing) return false;
             if (Downloader.IsProcessing) return false;
-
+            // ig any queue has items, don't count, peek is faser than count
             if (qAdded.TryPeek(out _)) return false;
             if (qCache.TryPeek(out _)) return false;
             if (qDownload.TryPeek(out _)) return false;
@@ -441,6 +450,13 @@ namespace Net.RafaelEstevam.Spider
             public object Object { get;  }
             public string CollectedOn { get;  }
             public DateTime CollectAt { get; }
+        }
+        /// <summary>
+        /// Prints on console use instructions
+        /// See more on the GitHub project page: https://github.com/RafaelEstevamReis/SimpleSpider
+        /// </summary>
+        public static void HowToUse_PrintToConsole()
+        {
         }
     }
 }
