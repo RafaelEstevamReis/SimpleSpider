@@ -8,6 +8,9 @@ using Net.RafaelEstevam.Spider.Interfaces;
 
 namespace Net.RafaelEstevam.Spider.Downloaders
 {
+    /// <summary>
+    /// Simple Downloader using WebClient
+    /// </summary>
     public class WebClientDownloader : IDownloader
     {
         private ConcurrentQueue<Link> queue;

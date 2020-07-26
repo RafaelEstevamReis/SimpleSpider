@@ -8,6 +8,9 @@ using Net.RafaelEstevam.Spider.Interfaces;
 
 namespace Net.RafaelEstevam.Spider.Cachers
 {
+    /// <summary>
+    /// Simple cacher, stores locally the content of the resource fetched
+    /// </summary>
     public class ContentCacher : ICacher
     {
         private const int ThreadCount = 4;

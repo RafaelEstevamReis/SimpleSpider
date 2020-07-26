@@ -8,6 +8,9 @@ using Net.RafaelEstevam.Spider.Interfaces;
 
 namespace Net.RafaelEstevam.Spider.Downloaders
 {
+    /// <summary>
+    /// Simple Downloader using System.Net.Http.HttpClient
+    /// </summary>
     public class HttpClientDownloader : IDownloader
     {
         public event FetchComplete FetchCompleted;

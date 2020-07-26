@@ -8,6 +8,9 @@ using System.Text;
 
 namespace Net.RafaelEstevam.Spider.Cachers
 {
+    /// <summary>
+    /// Empty cacher, discards all cache requests
+    /// </summary>
     public class NullCacher : ICacher
     {
 #pragma warning disable 67

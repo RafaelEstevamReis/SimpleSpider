@@ -18,6 +18,13 @@ namespace Net.RafaelEstevam.Spider
     /// <summary>
     /// Simple spider class
     /// </summary>
+    /// <example>
+    /// <code>
+    /// var spider = new SimpleSpider("BooksToScrape", new Uri("http://books.toscrape.com/"));
+    /// spider.FetchCompleted += fetchCompleted_items;
+    /// spider.Execute();
+    /// </code>
+    /// </example>
     public sealed class SimpleSpider
     {
         /// <summary>

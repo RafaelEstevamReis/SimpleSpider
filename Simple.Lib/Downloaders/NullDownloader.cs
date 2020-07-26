@@ -5,6 +5,9 @@ using Net.RafaelEstevam.Spider.Interfaces;
 
 namespace Net.RafaelEstevam.Spider.Downloaders
 {
+    /// <summary>
+    /// Empty downloader, discards all download requests
+    /// </summary>
     public class NullDownloader : IDownloader
     {
         public enum DiscardModeTypes
