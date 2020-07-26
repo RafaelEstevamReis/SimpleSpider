@@ -20,16 +20,35 @@ namespace Net.RafaelEstevam.Spider
             Scheduler,
         }
 
+        /// <summary>
+        /// The request headers used to query
+        /// </summary>
         public HeaderCollection RequestHeaders { get; protected set; }
+        /// <summary>
+        /// Link from where the resource was fetched
+        /// </summary>
         public Link Link { get; protected set; }
-        public EventSource Source { get; set; }
+        /// <summary>
+        /// Source from this event
+        /// </summary>
+        public EventSource Source { get; internal set; }
     }
     public class FetchCompleteEventArgs : FetchEventArgs
     {
+        /// <summary>
+        /// Byte array with the data fetched
+        /// </summary>
         public byte[] Result { get; }
+        /// <summary>
+        /// The response headers returned 
+        /// </summary>
         public HeaderCollection ResponseHeaders { get; }
 
+        // Lazy loaded html string
         string htmlCache;
+        /// <summary>
+        /// LazyLoaded Html (string) content parsed from  byte[] Result encoded with UTF8
+        /// </summary>
         public string Html
         {
             get
@@ -44,6 +63,7 @@ namespace Net.RafaelEstevam.Spider
             }
         }
 
+        // Lazy loaded xElement
         XElement xElement;
         public XElement GetXElement()
         {
@@ -53,7 +73,10 @@ namespace Net.RafaelEstevam.Spider
             }
             return xElement;
         }
-
+        /// <summary>
+        /// Parses  byte[] Result using and specific Encoding. The 'Html' property will be updated with this value
+        /// </summary>
+        /// <param name="enc">Encoding to be used</param>
         public string HtmlContent(Encoding enc)
         {
             return htmlCache = enc.GetString(Result);
@@ -69,6 +92,9 @@ namespace Net.RafaelEstevam.Spider
     }
     public class FetchFailEventArgs : FetchEventArgs
     {
+        /// <summary>
+        /// Error raised during fetch
+        /// </summary>
         public Exception Error { get; }
 
         public FetchFailEventArgs(Link link, Exception error, HeaderCollection requestHeaders)
@@ -88,7 +114,13 @@ namespace Net.RafaelEstevam.Spider
             UserCancelledSilent,
             None,
         }
+        /// <summary>
+        /// Instruct the spider to NOT fetch this resource
+        /// </summary>
         public bool Cancel { get; set; }
+        /// <summary>
+        /// Informs reason to do not fetch
+        /// </summary>
         public Reasons Reason { get; set; } = Reasons.None;
 
         public ShouldFetchEventArgs(Link link)
@@ -102,7 +134,13 @@ namespace Net.RafaelEstevam.Spider
         {
             this.CurrentUri = CurrentUri;
         }
+        /// <summary>
+        /// The original Uri added to the queue
+        /// </summary>
         public Uri CurrentUri{ get; }
+        /// <summary>
+        /// New Uri to be fetched
+        /// </summary>
         public Uri NewUri { get; set; }
     }
 }
