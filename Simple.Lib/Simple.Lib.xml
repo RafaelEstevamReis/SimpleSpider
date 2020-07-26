@@ -1,0 +1,471 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Simple.Lib</name>
+    </assembly>
+    <members>
+        <member name="T:Net.RafaelEstevam.Spider.Cachers.ContentCacher">
+            <summary>
+            Simple cacher, stores locally the content of the resource fetched
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Cachers.NullCacher">
+            <summary>
+            Empty cacher, discards all cache requests
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Configuration.SpiderDirectory">
+            <summary>
+            Spider main directory
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Configuration.SpiderDataDirectory">
+            <summary>
+            Spider data directory
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Configuration.Spider_LogFile">
+            <summary>
+            Spider log file
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Configuration.Logger">
+            <summary>
+            Standard log
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Configuration.Cache_Enable">
+            <summary>
+            Are caching enabled? ICacher must support
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Configuration.Cache_Lifetime">
+            <summary>
+            How long cache files are valid?  ICacher must support
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Configuration.DownloadDelay">
+            <summary>
+            Time to wait in miliseconds between downloads
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Configuration.Cookies_Enable">
+            <summary>
+            Are cookies enabled? IDownloader must support
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Configuration.Paused">
+            <summary>
+            Inform all components to temporarily pause
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Configuration.Paused_Cacher">
+            <summary>
+            Inform cacher to temporarily pause
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Configuration.Paused_Downloader">
+            <summary>
+            Inform downloader to temporarily pause
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Configuration.Auto_AnchorsLinks">
+            <summary>
+            Enable auto colelction of html Anchors tags
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchEventArgs.RequestHeaders">
+            <summary>
+            The request headers used to query
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchEventArgs.Link">
+            <summary>
+            Link from where the resource was fetched
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchEventArgs.Source">
+            <summary>
+            Source from this event
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.Result">
+            <summary>
+            Byte array with the data fetched
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.ResponseHeaders">
+            <summary>
+            The response headers returned 
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.Html">
+            <summary>
+            LazyLoaded Html (string) content parsed from  byte[] Result encoded with UTF8
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.HtmlContent(System.Text.Encoding)">
+            <summary>
+            Parses  byte[] Result using and specific Encoding. The 'Html' property will be updated with this value
+            </summary>
+            <param name="enc">Encoding to be used</param>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchFailEventArgs.Error">
+            <summary>
+            Error raised during fetch
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Cancel">
+            <summary>
+            Instruct the spider to NOT fetch this resource
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Reason">
+            <summary>
+            Informs reason to do not fetch
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchRewriteEventArgs.CurrentUri">
+            <summary>
+            The original Uri added to the queue
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchRewriteEventArgs.NewUri">
+            <summary>
+            New Uri to be fetched
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Downloaders.HttpClientDownloader">
+            <summary>
+            Simple Downloader using System.Net.Http.HttpClient
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Downloaders.NullDownloader">
+            <summary>
+            Empty downloader, discards all download requests
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader">
+            <summary>
+            Simple Downloader using WebClient
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Files">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Files.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Files.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Files.README">
+            <summary>
+              Looks up a localized resource of type System.Byte[].
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.AnchorHelper.GetAnchors(System.Uri,System.String)">
+            <summary>
+            Simple Substring based 'a' tag enumerator
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.AnchorHelper.GetAnchors(System.Uri,System.Xml.Linq.XElement)">
+            <summary>
+            Get all anchors ('a' tag) and convertoto Uri
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResource(System.Uri)">
+            <summary>
+            Fetch resource from uri
+            </summary>
+            <param name="uri">Uri to fetch from</param>
+            <returns>Byte aray with data fetched</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceText(System.Uri,System.Text.Encoding)">
+            <summary>
+            Fetch resource from uri
+            </summary>
+            <param name="uri">Uri to fetch from</param>
+            <returns>String with data fetched</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceXElement(System.Uri,System.Text.Encoding)">
+            <summary>
+            Fetch resource from uri and parse a XElement from it
+            </summary>
+            <param name="uri">Uri to fetch from</param>
+            <returns>XElement with data fetched</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceJObject(System.Uri,System.Text.Encoding)">
+            <summary>
+            Fetch resource from uri and parse a JObject from it
+            </summary>
+            <param name="uri">Uri to fetch from</param>
+            <returns>JObject with data fetched</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceJObject(System.Uri,Newtonsoft.Json.Linq.JsonLoadSettings,System.Text.Encoding)">
+            <summary>
+            Fetch resource from uri and parse a JObject from it
+            </summary>
+            <param name="uri">Uri to fetch from</param>
+            <param name="loadSettings">JsonLoadSettings to parse with</param>
+            <returns>JObject with data fetched</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceJson``1(System.Uri,System.Text.Encoding)">
+            <summary>
+            Fetch resource from uri and deserialize T from it
+            </summary>
+            <param name="uri">Uri to fetch from</param>
+            <param name="enc">Especify encoding</param>
+            <returns>T deserialized with data fetched</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceJson``1(System.Uri,Newtonsoft.Json.JsonSerializerSettings,System.Text.Encoding)">
+            <summary>
+            Fetch resource from uri and deserialize T from it
+            </summary>
+            <param name="uri">Uri to fetch from></param>
+            <param name="enc">Especify encoding</param>
+            <param name="settings">JsonSerializerSettings Settings</param>
+            <returns>>T deserialized with data fetched</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.FormsHelper.GetForms(System.Xml.Linq.XElement)">
+            <summary>
+            Enumarate all forms
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.FormsHelper.GetFormTag(System.Xml.Linq.XElement)">
+            <summary>
+            Construct a FormTag from a Form XElement
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Helper.FormTag">
+            <summary>
+            Class to represent a HtmlForm
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.FormTag.Element">
+            <summary>
+            Original XElement parsed
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.FormTag.Classes">
+            <summary>
+            Classes splitted by a Space
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.FormTag.Inputs">
+            <summary>
+            All inputs elements parsed as InputTag
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.FormTag.Buttons">
+            <summary>
+            All buttons XElement
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.FormTag.Hiddens">
+            <summary>
+            Collection of the Hidden fields
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Helper.InputTag">
+            <summary>
+            Class to represent a InputTag
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.InitializationParams">
+            <summary>
+            Defines Initialization Parameters to a SimpleSpider instance
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.InitializationParams.SetSpiderStarupPath(System.String)">
+            <summary>
+            Instructs spider to use this path
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.InitializationParams.SetSpiderStarupDirectory(System.IO.DirectoryInfo)">
+            <summary>
+            Instructs spider to use this directory
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.InitializationParams.SetCacher(Net.RafaelEstevam.Spider.Interfaces.ICacher)">
+            <summary>
+            Instructs spider to use this specific Cacher
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.InitializationParams.SetDownloader(Net.RafaelEstevam.Spider.Interfaces.IDownloader)">
+            <summary>
+            Instructs spider to use this specific Downloader
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.InitializationParams.SetOfflineMode">
+            <summary>
+            Instructs spider to OfflineMode, set the Downloader to a NullDownloader instance on 'Ignore Mode'
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.InitializationParams.AddParser``1(Net.RafaelEstevam.Spider.Interfaces.IParser{``0})">
+            <summary>
+            Adds a Parser to the spider. Parsers can be added and removed on-the-fly
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.InitializationParams.SetLogger(Serilog.ILogger)">
+            <summary>
+            Sets a logger to be used by the spider instance
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.InitializationParams.SetConfig(System.Action{Net.RafaelEstevam.Spider.Configuration})">
+            <summary>
+            Allows to a chainable Action to set some configurations
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.InitializationParams.Default001(System.Int32)">
+            <summary>
+            Fronzen in time default: ContentCacher, WebClientDownloader, NoLimitCaching, and AutoAnchorsLinks enabled
+            </summary>
+            <param name="DownloadDelay">Config.DownloadDelay in milliseconds</param>
+            <returns></returns>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.SimpleSpider">
+            <summary>
+            Simple spider class
+            </summary>
+            <example>
+            <code>
+            var spider = new SimpleSpider("BooksToScrape", new Uri("http://books.toscrape.com/"));
+            spider.FetchCompleted += fetchCompleted_items;
+            spider.Execute();
+            </code>
+            </example>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.SimpleSpider.FetchCompleted">
+            <summary>
+            Resource fetched completed
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.SimpleSpider.FetchFailed">
+            <summary>
+            Resource fetched failed
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.SimpleSpider.ShouldFetch">
+            <summary>
+            Check if some resource should be fetched
+            Used to block list urls
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.SimpleSpider.FetchRewrite">
+            <summary>
+            Allow change the Uri just before it is added to the queue
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.SimpleSpider.Configuration">
+            <summary>
+            Spider configurations and parameters
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.SimpleSpider.SpiderName">
+            <summary>
+            Name of the spider
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.SimpleSpider.BaseUri">
+            <summary>
+            Base Uri to fetch, resources outside this host will not be fetched
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.SimpleSpider.Cacher">
+            <summary>
+            Current Cacher
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.SimpleSpider.Downloader">
+            <summary>
+            Current Downloader
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.SimpleSpider.Parsers">
+            <summary>
+            Current Parsers
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.#ctor(System.String,System.Uri,Net.RafaelEstevam.Spider.InitializationParams)">
+            <summary>
+            Create a new spider to fetch data from some website
+            See use examples on the Github page
+            </summary>
+            <param name="spiderName">A unique name for this spider. Folder will be created with that name</param>
+            <param name="baseUri">The base Uri of the website. Pages outside this Host will not be fetched</param>
+            <param name="params">Additional initialization parameters</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.Execute">
+            <summary>
+            Main execution loop, returns once finished
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.Execute(System.Threading.CancellationToken)">
+            <summary>
+            Main execution loop, returns once finished or cancelled
+            </summary>
+            <param name="cancellationToken">Cancelation token to prematurely stop</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.AddPage(System.Collections.Generic.IEnumerable{System.Uri},System.Uri)">
+            <summary>
+            Add page to fetch
+            </summary>
+            <param name="PagesToVisit">Uris to fetch</param>
+            <param name="SourcePage">Uri where all the PagesToVisit was found</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.AddPage(System.Uri,System.Uri)">
+            <summary>
+            Add page to fetch
+            </summary>
+            <param name="PageToVisit">Uri to fetch</param>
+            <param name="SourcePage">Uri where the PageToVisit was found</param>
+            <returns>Link object</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.Collect(System.Collections.Generic.IEnumerable{System.Object},System.Uri)">
+            <summary>
+            Add items to Collected collection
+            </summary>
+            <param name="Objects">Objects collected</param>
+            <param name="CollectedOn">Uri where the Object was found</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.Collect(System.Object,System.Uri)">
+            <summary>
+            Add item to Collected collection
+            </summary>
+            <param name="Object">Object collected</param>
+            <param name="CollectedOn">Uri where the Object was found</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.CollectedItems">
+            <summary>
+            Get array of Collected Objects
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.QueueFinished">
+            <summary>
+            All queues finished ?
+            </summary>
+            <returns>Whenever the queues finished</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.QueueSize">
+            <summary>
+            Current queues size
+            </summary>
+            <returns>Returns the size of the queue</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.HowToUse_PrintToConsole">
+            <summary>
+            Prints use instructions on console 
+            See more on the GitHub project page: https://github.com/RafaelEstevamReis/SimpleSpider
+            </summary>
+        </member>
+    </members>
+</doc>
