@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 using Net.RafaelEstevam.Spider.Cachers;
 using Net.RafaelEstevam.Spider.Downloaders;
@@ -451,12 +452,17 @@ namespace Net.RafaelEstevam.Spider
             public string CollectedOn { get;  }
             public DateTime CollectAt { get; }
         }
+
         /// <summary>
-        /// Prints on console use instructions
+        /// Prints use instructions on console 
         /// See more on the GitHub project page: https://github.com/RafaelEstevamReis/SimpleSpider
         /// </summary>
         public static void HowToUse_PrintToConsole()
         {
+            Console.WriteLine("See full documentation and examples at ");
+            Console.WriteLine("   https://github.com/RafaelEstevamReis/SimpleSpider");
+            Console.WriteLine();
+            Console.WriteLine(Encoding.ASCII.GetString(Files.README));
         }
     }
 }
