@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace Net.RafaelEstevam.Spider.Extensions
 {
-    public static class XEelementExtensions
+    public static class XElementExtensions
     {
         public static IEnumerable<XElement> GetAllTablesX(this XElement Root)
         {
