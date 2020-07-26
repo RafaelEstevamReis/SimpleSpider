@@ -10,7 +10,7 @@ namespace Net.RafaelEstevam.Spider.Test
             // Spider Samples:
             //Sample.BooksToScrape.run();
             //Sample.QuotesToScrape_Scroll.run();
-            //QuotesToScrape_Scroll_Advanced.run();
+            //QuotesToScrape_Scroll_Deserialize.run();
 
             // Helper Samples
             //ApiPooler_FetcherHelper.run();
@@ -19,6 +19,7 @@ namespace Net.RafaelEstevam.Spider.Test
             //  Add a file named IgnoreMe.cs with a static void run() on it to play arround with the spider
             //IgnoreMe.run();
 
+            
 
             SimpleSpider.HowToUse_PrintToConsole();
 
