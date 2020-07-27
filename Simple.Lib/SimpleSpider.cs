@@ -70,6 +70,9 @@ namespace Net.RafaelEstevam.Spider
         /// </summary>
         public List<IParserBase> Parsers { get; }
 
+        public SpiderData SpiderWorkData { get; private set; }
+        private string spiderWorkDataPath;
+
         private ConcurrentQueue<Link> qAdded;
         private ConcurrentQueue<Link> qCache;
         private ConcurrentQueue<Link> qDownload;
@@ -121,6 +124,12 @@ namespace Net.RafaelEstevam.Spider
             var dataPath = new DirectoryInfo(Path.Combine(spiderPath.FullName, "Data"));
             if (!dataPath.Exists) dataPath.Create();
             Configuration.SpiderDataDirectory = dataPath;
+
+            spiderWorkDataPath = Path.Combine(dataPath.FullName, "privateData.xml");
+            if (File.Exists(spiderWorkDataPath))
+                SpiderWorkData = Helper.XmlSerializerHelper.DeserializeFromFile<SpiderData>(spiderWorkDataPath);
+            else
+                SpiderWorkData = new SpiderData();
 
             if (Configuration.Logger == null)
             {
@@ -217,6 +226,8 @@ namespace Net.RafaelEstevam.Spider
                     idleTimeout = 0;
                 }
             }
+
+             Helper.XmlSerializerHelper.SerializeToFile<SpiderData>(SpiderWorkData, spiderWorkDataPath);
 
             Cacher.Stop();
             Downloader.Stop();
@@ -338,6 +349,12 @@ namespace Net.RafaelEstevam.Spider
             }
             log.Error($"[ERR] {args.Error.Message} {args.Link}");
             args.Source = FetchEventArgs.EventSource.Downloader;
+
+            if (args.HttpErrorCode == 404)
+            {
+                SpiderWorkData.Error404.Add(args.Link.Uri.ToString());
+            }
+
             FetchFailed?.Invoke(this, args);
         }
 
@@ -367,6 +384,13 @@ namespace Net.RafaelEstevam.Spider
 
         private void Downloader_ShouldFetch(object Sender, ShouldFetchEventArgs args)
         {
+            if (SpiderWorkData.Error404.Contains(args.Link.Uri.ToString()))
+            {
+                args.Reason = ShouldFetchEventArgs.Reasons.PreviousError;
+                args.Cancel = true;
+                return;
+            }
+
             args.Source = FetchEventArgs.EventSource.Downloader;
             shouldFetch(Sender, args);
         }
@@ -458,6 +482,18 @@ namespace Net.RafaelEstevam.Spider
             public object Object { get;  }
             public string CollectedOn { get;  }
             public DateTime CollectAt { get; }
+        }
+
+        public class SpiderData
+        {
+            public SpiderData()
+            {
+                Error404 = new HashSet<string>();
+            }
+
+            public HashSet<string> Error404 { get; set; }
+
+
         }
 
         /// <summary>
