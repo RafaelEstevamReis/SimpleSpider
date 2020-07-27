@@ -270,7 +270,7 @@ namespace Net.RafaelEstevam.Spider
             }
         }
         /// <summary>
-        /// Old method with a typo (singular) on name. Use 'AddPages' (with 's') instead
+        /// Old method with a typo (singular) on name. Use [AddPages] (with 's') instead
         /// Will be removed soon
         /// </summary>
         [Obsolete]
