@@ -257,11 +257,16 @@ namespace Net.RafaelEstevam.Spider
         /// </summary>
         /// <param name="PagesToVisit">Uris to fetch</param>
         /// <param name="SourcePage">Uri where all the PagesToVisit was found</param>
-        public void AddPage(IEnumerable<Uri> PagesToVisit, Uri SourcePage)
+        private Link[] AddPages(IEnumerable<Uri> PagesToVisit, Uri SourcePage)
+        {
+            return addPages(PagesToVisit, SourcePage)
+                .ToArray(); // Force enumeration
+        }
+        private IEnumerable<Link> addPages(IEnumerable<Uri> PagesToVisit, Uri SourcePage)
         {
             foreach (var p in PagesToVisit)
             {
-                AddPage(p, SourcePage);
+                yield return AddPage(p, SourcePage);
             }
         }
         /// <summary>
@@ -339,7 +344,7 @@ namespace Net.RafaelEstevam.Spider
         /// <returns></returns>
         public CollectedData[] CollectedItems() { return lstCollected.ToArray(); }
 
-        #region Scheduler
+        #region Scheduler callbacks
 
         private void Downloader_FetchFailed(object Sender, FetchFailEventArgs args)
         {
