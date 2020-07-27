@@ -25,7 +25,7 @@ namespace Net.RafaelEstevam.Spider
     /// spider.Execute();
     /// </code>
     /// </example>
-    public sealed class SimpleSpider
+    public sealed partial class SimpleSpider
     {
         /// <summary>
         /// Resource fetched completed
@@ -80,7 +80,7 @@ namespace Net.RafaelEstevam.Spider
         private HashSet<string> hVioleted;
 
         private List<CollectedData> lstCollected;
-        private Logger log; // short reference, is accessible through configuration
+        private Logger log; // short to type reference, is accessible through configuration
 
         /// <summary>
         /// Create a new spider to fetch data from some website
@@ -376,6 +376,7 @@ namespace Net.RafaelEstevam.Spider
             fetchCompleted(args);
         }
 
+        // Should Fetch ?
         private void Cacher_ShouldFetch(object Sender, ShouldFetchEventArgs args)
         {
             args.Source = FetchEventArgs.EventSource.Cacher;
@@ -469,31 +470,6 @@ namespace Net.RafaelEstevam.Spider
             return qAdded.Count
                    + qCache.Count
                    + qDownload.Count;
-        }
-        public class CollectedData
-        {
-            public CollectedData(object Object, string CollectedOn)
-            {
-                this.Object = Object;
-                this.CollectedOn = CollectedOn;
-                this.CollectAt = DateTime.Now;
-            }
-
-            public object Object { get;  }
-            public string CollectedOn { get;  }
-            public DateTime CollectAt { get; }
-        }
-
-        public class SpiderData
-        {
-            public SpiderData()
-            {
-                Error404 = new HashSet<string>();
-            }
-
-            public HashSet<string> Error404 { get; set; }
-
-
         }
 
         /// <summary>
