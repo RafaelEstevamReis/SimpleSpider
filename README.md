@@ -72,7 +72,7 @@ void run()
 void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
 {
     // Colect new links
-    (Sender as SimpleSpider).AddPage(AnchorHelper.GetAnchors(args.Link.Uri, args.Html), args.Link);
+    (Sender as SimpleSpider).AddPages(AnchorHelper.GetAnchors(args.Link.Uri, args.Html), args.Link);
 
     // ignore all pages except the catalogue
     if (!args.Link.ToString().Contains("/catalogue/")) return;
