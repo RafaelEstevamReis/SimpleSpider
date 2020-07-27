@@ -100,6 +100,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                     else
                     {
                         FetchFailed(this, new FetchFailEventArgs(current, 
+                                                                 (int)resp.StatusCode,
                                                                  new HttpRequestException($"[{(int)resp.StatusCode}] {resp.ReasonPhrase}"),
                                                                  new HeaderCollection(reqHeaders)));
                     }

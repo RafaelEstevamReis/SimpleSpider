@@ -104,7 +104,18 @@ namespace Net.RafaelEstevam.Spider.Downloaders
             }
             else
             {
-                FetchFailed(this, new FetchFailEventArgs(current, e.Error, new HeaderCollection(webClient.Headers)));
+                Exception ex = e.Error;
+                int code = 0;
+                if (e.Error is WebException)
+                {
+                    var webError = (WebException)e.Error;
+                    if (webError.Response is HttpWebResponse)
+                    {
+                        HttpWebResponse resp = (HttpWebResponse)webError.Response;
+                        code = (int)resp.StatusCode;
+                    }
+                }
+                FetchFailed(this, new FetchFailEventArgs(current, code, ex, new HeaderCollection(webClient.Headers)));
             }
             downloading = false;
         }

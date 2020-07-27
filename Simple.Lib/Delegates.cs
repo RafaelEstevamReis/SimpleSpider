@@ -96,11 +96,19 @@ namespace Net.RafaelEstevam.Spider
         /// Error raised during fetch
         /// </summary>
         public Exception Error { get; }
+        public int HttpErrorCode { get; }
 
         public FetchFailEventArgs(Link link, Exception error, HeaderCollection requestHeaders)
         {
             this.Link = link;
             this.Error = error;
+            this.RequestHeaders = requestHeaders;
+        }
+        public FetchFailEventArgs(Link link, int erroCode, Exception error, HeaderCollection requestHeaders)
+        {
+            this.Link = link;
+            this.Error = error;
+            this.HttpErrorCode = erroCode;
             this.RequestHeaders = requestHeaders;
         }
     }
@@ -112,6 +120,9 @@ namespace Net.RafaelEstevam.Spider
             AlreadyFetched,
             UserCancelled,
             UserCancelledSilent,
+
+            PreviousError,
+
             None,
         }
         /// <summary>
