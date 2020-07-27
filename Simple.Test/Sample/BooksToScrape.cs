@@ -20,8 +20,12 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
             // callback to gather links
             spider.FetchCompleted += (s, a) =>
             {
+                // This callback can be replaced by:
+                //  spider.Configuration.Auto_AnchorsLinks = true;
+                // and is here for demonstration purposes
+
                 // Use a simple SubString-based split to get all "<a>" tags
-                var links = Helper.AnchorHelper.GetAnchors(a.Link.Uri, a.Html);
+                var links = AnchorHelper.GetAnchors(a.Link.Uri, a.Html);
                 // Add the collected links to the queue
                 (s as SimpleSpider).AddPages(links, a.Link);
             };
