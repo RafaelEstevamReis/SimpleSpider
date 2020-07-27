@@ -257,7 +257,7 @@ namespace Net.RafaelEstevam.Spider
         /// </summary>
         /// <param name="PagesToVisit">Uris to fetch</param>
         /// <param name="SourcePage">Uri where all the PagesToVisit was found</param>
-        private Link[] AddPages(IEnumerable<Uri> PagesToVisit, Uri SourcePage)
+        public Link[] AddPages(IEnumerable<Uri> PagesToVisit, Uri SourcePage)
         {
             return addPages(PagesToVisit, SourcePage)
                 .ToArray(); // Force enumeration
@@ -274,7 +274,7 @@ namespace Net.RafaelEstevam.Spider
         /// Will be removed soon
         /// </summary>
         [Obsolete]
-        private void AddPage(IEnumerable<Uri> PagesToVisit, Uri SourcePage)
+        public void AddPage(IEnumerable<Uri> PagesToVisit, Uri SourcePage)
         {
             AddPages(PagesToVisit, SourcePage);
         }

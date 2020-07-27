@@ -23,7 +23,7 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
                 // Use a simple SubString-based split to get all "<a>" tags
                 var links = Helper.AnchorHelper.GetAnchors(a.Link.Uri, a.Html);
                 // Add the collected links to the queue
-                (s as SimpleSpider).AddPage(links, a.Link);
+                (s as SimpleSpider).AddPages(links, a.Link);
             };
             // callback to gather items
             spider.FetchCompleted += fetchCompleted_items;
