@@ -175,7 +175,7 @@ namespace Net.RafaelEstevam.Spider
 
                 var links = Helper.AnchorHelper.GetAnchors(args.Link.Uri, args.Html);
                 // Add the collected links to the queue
-                this.AddPage(links, args.Link);
+                this.AddPages(links, args.Link);
             }
             catch (Exception ex)
             {
@@ -269,6 +269,16 @@ namespace Net.RafaelEstevam.Spider
                 yield return AddPage(p, SourcePage);
             }
         }
+        /// <summary>
+        /// Old method with a typo (singular) on name. Use 'AddPages' (with 's') instead
+        /// Will be removed soon
+        /// </summary>
+        [Obsolete]
+        private void AddPage(IEnumerable<Uri> PagesToVisit, Uri SourcePage)
+        {
+            AddPages(PagesToVisit, SourcePage);
+        }
+
         /// <summary>
         /// Add page to fetch
         /// </summary>
@@ -430,8 +440,13 @@ namespace Net.RafaelEstevam.Spider
                 hExecuted.Add(args.Link.Uri.ToString());
             }
 
+            // Main CallBack
             FetchCompleted?.Invoke(this, args);
 
+            // Additional Link callback
+            args.Link.FetchCompleteCallBack?.Invoke(this, args);
+
+            // Parsers
             var contentType = args.ResponseHeaders.FirstOrDefault(h => h.Key == "Content-Type");
             if (!string.IsNullOrEmpty(contentType.Value))
             {

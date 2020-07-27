@@ -10,6 +10,11 @@ namespace Net.RafaelEstevam.Spider
         public DateTime FetchStart { get; internal set; }
         public DateTime FetchEnd { get; internal set; }
         public TimeSpan FetchTime { get { return FetchEnd - FetchStart; } }
+        
+        /// <summary>
+        /// Additional CallBack for this resource
+        /// </summary>
+        public FetchComplete FetchCompleteCallBack { get; set; } = null;
 
         public Link(Uri Uri, Uri SourceUri)
         {
