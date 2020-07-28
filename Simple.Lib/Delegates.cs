@@ -13,10 +13,22 @@ namespace Net.RafaelEstevam.Spider
 
     public class FetchEventArgs : EventArgs
     {
+        /// <summary>
+        /// Module that fired the event
+        /// </summary>
         public enum EventSource
         {
+            /// <summary>
+            /// Event initiated by the Cacher
+            /// </summary>
             Cacher,
+            /// <summary>
+            /// Event initiated by the Downloader
+            /// </summary>
             Downloader,
+            /// <summary>
+            /// Event initiated by the Scheduler
+            /// </summary>
             Scheduler,
         }
 
@@ -65,6 +77,9 @@ namespace Net.RafaelEstevam.Spider
 
         // Lazy loaded xElement
         XElement xElement;
+        /// <summary>
+        /// Get the XElement representation of the Html property
+        /// </summary>
         public XElement GetXElement()
         {
             if (xElement == null)
@@ -96,6 +111,9 @@ namespace Net.RafaelEstevam.Spider
         /// Error raised during fetch
         /// </summary>
         public Exception Error { get; }
+        /// <summary>
+        /// HTTP error code
+        /// </summary>
         public int HttpErrorCode { get; }
 
         public FetchFailEventArgs(Link link, Exception error, HeaderCollection requestHeaders)
@@ -115,14 +133,32 @@ namespace Net.RafaelEstevam.Spider
 
     public class ShouldFetchEventArgs : FetchEventArgs
     {
+        /// <summary>
+        /// Reason to not fetch some resource
+        /// </summary>
         public enum Reasons
         {
+            /// <summary>
+            /// This resource was already fetched
+            /// </summary>
             AlreadyFetched,
+            /// <summary>
+            /// User cancelled the process
+            /// </summary>
             UserCancelled,
+            /// <summary>
+            /// User cancelled the process, ignore on Log
+            /// </summary>
             UserCancelledSilent,
 
+            /// <summary>
+            /// This resource caused an error on previous session
+            /// </summary>
             PreviousError,
 
+            /// <summary>
+            /// There is no specific reason
+            /// </summary>
             None,
         }
         /// <summary>

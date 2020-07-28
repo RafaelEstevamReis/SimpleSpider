@@ -74,6 +74,26 @@
             Enable auto colelction of html Anchors tags
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.FetchEventArgs.EventSource">
+            <summary>
+            Module that fired the event
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.FetchEventArgs.EventSource.Cacher">
+            <summary>
+            Event initiated by the Cacher
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.FetchEventArgs.EventSource.Downloader">
+            <summary>
+            Event initiated by the Downloader
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.FetchEventArgs.EventSource.Scheduler">
+            <summary>
+            Event initiated by the Scheduler
+            </summary>
+        </member>
         <member name="P:Net.RafaelEstevam.Spider.FetchEventArgs.RequestHeaders">
             <summary>
             The request headers used to query
@@ -104,6 +124,11 @@
             LazyLoaded Html (string) content parsed from  byte[] Result encoded with UTF8
             </summary>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.GetXElement">
+            <summary>
+            Get the XElement representation of the Html property
+            </summary>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.HtmlContent(System.Text.Encoding)">
             <summary>
             Parses  byte[] Result using and specific Encoding. The 'Html' property will be updated with this value
@@ -113,6 +138,41 @@
         <member name="P:Net.RafaelEstevam.Spider.FetchFailEventArgs.Error">
             <summary>
             Error raised during fetch
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchFailEventArgs.HttpErrorCode">
+            <summary>
+            HTTP error code
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Reasons">
+            <summary>
+            Reason to not fetch some resource
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Reasons.AlreadyFetched">
+            <summary>
+            This resource was already fetched
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Reasons.UserCancelled">
+            <summary>
+            User cancelled the process
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Reasons.UserCancelledSilent">
+            <summary>
+            User cancelled the process, ignore on Log
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Reasons.PreviousError">
+            <summary>
+            This resource caused an error on previous session
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Reasons.None">
+            <summary>
+            There is no specific reason
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Cancel">
@@ -331,6 +391,128 @@
             <param name="DownloadDelay">Config.DownloadDelay in milliseconds</param>
             <returns></returns>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Interfaces.ICacher">
+            <summary>
+            Represents a module to fetch resources from the disk/memory
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Interfaces.ICacher.HasCache(System.Uri)">
+            <summary>
+            Returns if this module has a cache for this resource
+            </summary>
+            <param name="uri">Resource the be checked for</param>
+            <returns>True if has a cache for the resource</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Interfaces.ICacher.GenerateCacheFor(Net.RafaelEstevam.Spider.FetchCompleteEventArgs)">
+            <summary>
+            Create cache for this fetched resource
+            </summary>
+            <param name="FetchComplete">The fetched resource to create a cache for</param>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Interfaces.IDownloader">
+            <summary>
+            Represents a module to fetch resources from the internet
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Interfaces.IFetcher">
+            <summary>
+            Represents a module that Fetch some resource
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Interfaces.IFetcher.FetchCompleted">
+            <summary>
+            Event fired when a fetch complete
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Interfaces.IFetcher.FetchFailed">
+            <summary>
+            Event fired when a fetch fail
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Interfaces.IFetcher.ShouldFetch">
+            <summary>
+            Event fired to check if a fetch can occur
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Interfaces.IFetcher.Initialize(System.Collections.Concurrent.ConcurrentQueue{Net.RafaelEstevam.Spider.Link},Net.RafaelEstevam.Spider.Configuration)">
+            <summary>
+            Pass spider data to initialize the module
+            </summary>
+            <param name="WorkQueue">The queue this module will use to fetch data from</param>
+            <param name="Config">Current configuration</param>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Interfaces.IFetcher.IsProcessing">
+            <summary>
+            The module is busy processing some resource
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Interfaces.IFetcher.Start">
+            <summary>
+            Starts the module
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Interfaces.IFetcher.Stop">
+            <summary>
+            Stops the module
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Interfaces.ParseData`1">
+            <summary>
+            Represents a method that passes parsed data
+            </summary>
+            <typeparam name="T">Type of data to be parsed</typeparam>
+            <param name="sender">The source of the event</param>
+            <param name="parserEventArgs">Object containing parsed data</param>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Interfaces.IParserBase">
+            <summary>
+            Base Interface to construct IParser`T` from
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Interfaces.IParserBase.MimeTypes">
+            <summary>
+            A list of MimeTypes/Content-type this parser can process
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Interfaces.IParserBase.Parse(Net.RafaelEstevam.Spider.SimpleSpider,Net.RafaelEstevam.Spider.FetchCompleteEventArgs)">
+            <summary>
+            Method to initiate the parsing process
+            </summary>
+            <param name="spider">Spider object</param>
+            <param name="fetchInfo">Fetched data to parse from</param>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Interfaces.IParser`1">
+            <summary>
+            Interface to create custom parsers from
+            </summary>
+            <typeparam name="T">The type of the data processed</typeparam>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Interfaces.IParser`1.ParsedData">
+            <summary>
+            Event to propagate parsed data
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Interfaces.ParserEventArgs`1">
+            <summary>
+            Arguments to the Parser Event
+            </summary>
+            <typeparam name="T">The type of the event data generated by the event</typeparam>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Interfaces.ParserEventArgs`1.FetchInfo">
+            <summary>
+            Original FetchCompleteEventArgs received by the parser
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Interfaces.ParserEventArgs`1.ParsedData">
+            <summary>
+            Dataparsed by the parser
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Link.FetchCompleteCallBack">
+            <summary>
+            Additional CallBack for this resource
+            </summary>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.SimpleSpider">
             <summary>
             Simple spider class
@@ -414,12 +596,18 @@
             </summary>
             <param name="cancellationToken">Cancelation token to prematurely stop</param>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.AddPage(System.Collections.Generic.IEnumerable{System.Uri},System.Uri)">
+        <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.AddPages(System.Collections.Generic.IEnumerable{System.Uri},System.Uri)">
             <summary>
             Add page to fetch
             </summary>
             <param name="PagesToVisit">Uris to fetch</param>
             <param name="SourcePage">Uri where all the PagesToVisit was found</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.AddPage(System.Collections.Generic.IEnumerable{System.Uri},System.Uri)">
+            <summary>
+            Old method with a typo (singular) on name. Use [AddPages] (with 's') instead
+            Will be removed soon
+            </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.AddPage(System.Uri,System.Uri)">
             <summary>
