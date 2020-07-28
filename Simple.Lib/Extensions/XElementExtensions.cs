@@ -6,8 +6,16 @@ using System.Xml.Linq;
 
 namespace Net.RafaelEstevam.Spider.Extensions
 {
+    /// <summary>
+    /// Obsolete, use Net.RafaelEstevam.Spider.Helper.XElementHelper instead
+    /// </summary>
+    [Obsolete]
     public static class XElementExtensions
     {
+        /// <summary>
+        /// Obsolete, use Net.RafaelEstevam.Spider.Helper.XElementHelper instead
+        /// </summary>
+        [Obsolete]
         public static IEnumerable<XElement> GetAllTablesX(this XElement Root)
         {
             foreach (var e in Root.DescendantsAndSelf())
@@ -15,10 +23,18 @@ namespace Net.RafaelEstevam.Spider.Extensions
                 if (e.Name.LocalName == "table") yield return e;
             }
         }
+        /// <summary>
+        /// Obsolete, use Net.RafaelEstevam.Spider.Helper.XElementHelper instead
+        /// </summary>
+        [Obsolete]
         public static IEnumerable<DataTable> GetAllTables(this XElement Root)
         {
             return GetAllTablesX(Root).Select(t => GetDataTable(t));
         }
+        /// <summary>
+        /// Obsolete, use Net.RafaelEstevam.Spider.Helper.XElementHelper instead
+        /// </summary>
+        [Obsolete]
         public static DataTable GetDataTable(this XElement TableElement)
         {
             if (TableElement.Name.LocalName != "table") throw new ArgumentException("The element is not a table");
