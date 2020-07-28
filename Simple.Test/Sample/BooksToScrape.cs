@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
-using Net.RafaelEstevam.Spider.Extensions;
 using Net.RafaelEstevam.Spider.Helper;
 
 namespace Net.RafaelEstevam.Spider.Test.Sample

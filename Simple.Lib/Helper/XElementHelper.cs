@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
@@ -13,6 +12,10 @@ namespace Net.RafaelEstevam.Spider.Helper
         public static IEnumerable<XElement> GetTables(XElement Root)
         {
             return Root.XPathSelectElements("table");
+        }
+        public static IEnumerable<DataTable> GetAllTables(this XElement Root)
+        {
+            return GetTables(Root).Select(t => GetTable(t));
         }
         public static DataTable GetTable(XElement table)
         {
