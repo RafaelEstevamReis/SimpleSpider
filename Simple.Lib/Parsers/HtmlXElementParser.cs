@@ -4,10 +4,19 @@ using Net.RafaelEstevam.Spider.Interfaces;
 
 namespace Net.RafaelEstevam.Spider.Parsers
 {
+    /// <summary>
+    /// Html to XElement parser
+    /// </summary>
     public class HtmlXElementParser : IParser<XElement>
     {
+        /// <summary>
+        /// MimeTypes supported by this parser
+        /// </summary>
         public string[] MimeTypes => new string[] { "text/html" };
-
+        
+        /// <summary>
+        /// Event with the html parsed as XElement
+        /// </summary>
         public event ParseData<XElement> ParsedData;
 
         void IParserBase.Parse(SimpleSpider spider, FetchCompleteEventArgs FetchInfo)

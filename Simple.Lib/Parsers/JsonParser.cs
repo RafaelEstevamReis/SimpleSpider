@@ -3,10 +3,18 @@ using Newtonsoft.Json.Linq;
 
 namespace Net.RafaelEstevam.Spider.Parsers
 {
+    /// <summary>
+    ///  Generic Json parser, return Newtonsoft's JObject
+    /// </summary>
     public class JsonParser : IParser<JObject>
     {
+        /// <summary>
+        /// Mime types supported by this parser
+        /// </summary>
         public string[] MimeTypes => new string[] { "application/json" };
-
+        /// <summary>
+        /// Event with parsed data
+        /// </summary>
         public event ParseData<JObject> ParsedData;
 
         void IParserBase.Parse(SimpleSpider spider, FetchCompleteEventArgs FetchInfo)

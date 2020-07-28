@@ -513,6 +513,83 @@
             Additional CallBack for this resource
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Parsers.HtmlXElementParser">
+            <summary>
+            Html to XElement parser
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Parsers.HtmlXElementParser.MimeTypes">
+            <summary>
+            MimeTypes supported by this parser
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Parsers.HtmlXElementParser.ParsedData">
+            <summary>
+            Event with the html parsed as XElement
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Parsers.JsonDeserializeParser`1">
+            <summary>
+            Json parser to deserialize given T class
+            </summary>
+            <typeparam name="T">Type to be deserialized to</typeparam>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Parsers.JsonDeserializeParser`1.#ctor">
+            <summary>
+            Empty/Default constructor
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Parsers.JsonDeserializeParser`1.#ctor(Net.RafaelEstevam.Spider.Interfaces.ParseData{`0})">
+            <summary>
+            Constructor with pre-defined callback. Easy to create and add reference in one line
+            </summary>
+            <param name="callback">Callback to be fired when this parser complete</param>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Parsers.JsonDeserializeParser`1.MimeTypes">
+            <summary>
+            Mime types supported by this parser
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Parsers.JsonDeserializeParser`1.ParsedData">
+            <summary>
+            Event with parsed data
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Parsers.JsonParser">
+            <summary>
+             Generic Json parser, return Newtonsoft's JObject
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Parsers.JsonParser.MimeTypes">
+            <summary>
+            Mime types supported by this parser
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Parsers.JsonParser.ParsedData">
+            <summary>
+            Event with parsed data
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Parsers.XmlXElementParser">
+            <summary>
+            Generic Xml to XElement parser
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Parsers.XmlXElementParser.Encoding">
+            <summary>
+            Encoding to be used by the parser
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Parsers.XmlXElementParser.MimeTypes">
+            <summary>
+            Mime types supported by this parser
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Parsers.XmlXElementParser.ParsedData">
+            <summary>
+            Event with parsed data
+            </summary>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.SimpleSpider">
             <summary>
             Simple spider class
