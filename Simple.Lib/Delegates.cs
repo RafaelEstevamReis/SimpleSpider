@@ -1,16 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
 using Net.RafaelEstevam.Spider.Helper;
 
 namespace Net.RafaelEstevam.Spider
 {
+    /// <summary>
+    /// Represents a method that passes fetch completed data
+    /// </summary>
+    /// <param name="Sender">The source of the event</param>
+    /// <param name="args">Object containing fech data</param>
     public delegate void FetchComplete(object Sender, FetchCompleteEventArgs args);
+    /// <summary>
+    /// Represents a method that passes fetch failed data
+    /// </summary>
+    /// <param name="Sender">The source of the event</param>
+    /// <param name="args">Object containing fech failed info</param>
     public delegate void FetchFail(object Sender, FetchFailEventArgs args);
+    /// <summary>
+    /// Represents a method that passes fetch rewrite data
+    /// </summary>
+    /// <param name="Sender">The source of the event</param>
+    /// <param name="args">Object allowing changing the Uri</param>
     public delegate void FetchRewrite(object Sender, FetchRewriteEventArgs args);
+    /// <summary>
+    ///  Represents a method that checks if should fetch data
+    /// </summary>
+    /// <param name="Sender">The source of the event</param>
+    /// <param name="args">Object allowing cancel the fetching process</param>
     public delegate void ShouldFetch(object Sender, ShouldFetchEventArgs args);
 
+    /// <summary>
+    /// Arguments to de Fetch event
+    /// </summary>
     public class FetchEventArgs : EventArgs
     {
         /// <summary>
@@ -45,6 +67,9 @@ namespace Net.RafaelEstevam.Spider
         /// </summary>
         public EventSource Source { get; internal set; }
     }
+    /// <summary>
+    /// Arguments to de FetchComplete event
+    /// </summary>
     public class FetchCompleteEventArgs : FetchEventArgs
     {
         /// <summary>
@@ -105,6 +130,9 @@ namespace Net.RafaelEstevam.Spider
             this.ResponseHeaders = responseHeaders;
         }
     }
+    /// <summary>
+    /// Arguments to de FetchFail event
+    /// </summary>
     public class FetchFailEventArgs : FetchEventArgs
     {
         /// <summary>
@@ -130,7 +158,9 @@ namespace Net.RafaelEstevam.Spider
             this.RequestHeaders = requestHeaders;
         }
     }
-
+    /// <summary>
+    /// Arguments to de ShouldFetch event
+    /// </summary>
     public class ShouldFetchEventArgs : FetchEventArgs
     {
         /// <summary>
@@ -175,6 +205,9 @@ namespace Net.RafaelEstevam.Spider
             this.Link = link;
         }
     }
+    /// <summary>
+    /// Arguments to de FetchRewrite event
+    /// </summary>
     public class FetchRewriteEventArgs : EventArgs
     {
         public FetchRewriteEventArgs(Uri CurrentUri)
