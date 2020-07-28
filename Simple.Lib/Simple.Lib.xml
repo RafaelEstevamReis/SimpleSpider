@@ -135,6 +135,39 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.FetchComplete">
+            <summary>
+            Represents a method that passes fetch completed data
+            </summary>
+            <param name="Sender">The source of the event</param>
+            <param name="args">Object containing fech data</param>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.FetchFail">
+            <summary>
+            Represents a method that passes fetch failed data
+            </summary>
+            <param name="Sender">The source of the event</param>
+            <param name="args">Object containing fech failed info</param>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.FetchRewrite">
+            <summary>
+            Represents a method that passes fetch rewrite data
+            </summary>
+            <param name="Sender">The source of the event</param>
+            <param name="args">Object allowing changing the Uri</param>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.ShouldFetch">
+            <summary>
+             Represents a method that checks if should fetch data
+            </summary>
+            <param name="Sender">The source of the event</param>
+            <param name="args">Object allowing cancel the fetching process</param>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.FetchEventArgs">
+            <summary>
+            Arguments to de Fetch event
+            </summary>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.FetchEventArgs.EventSource">
             <summary>
             Module that fired the event
@@ -170,6 +203,11 @@
             Source from this event
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.FetchCompleteEventArgs">
+            <summary>
+            Arguments to de FetchComplete event
+            </summary>
+        </member>
         <member name="P:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.Result">
             <summary>
             Byte array with the data fetched
@@ -196,6 +234,11 @@
             </summary>
             <param name="enc">Encoding to be used</param>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.FetchFailEventArgs">
+            <summary>
+            Arguments to de FetchFail event
+            </summary>
+        </member>
         <member name="P:Net.RafaelEstevam.Spider.FetchFailEventArgs.Error">
             <summary>
             Error raised during fetch
@@ -204,6 +247,11 @@
         <member name="P:Net.RafaelEstevam.Spider.FetchFailEventArgs.HttpErrorCode">
             <summary>
             HTTP error code
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.ShouldFetchEventArgs">
+            <summary>
+            Arguments to de ShouldFetch event
             </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Reasons">
@@ -246,6 +294,11 @@
             Informs reason to do not fetch
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.FetchRewriteEventArgs">
+            <summary>
+            Arguments to de FetchRewrite event
+            </summary>
+        </member>
         <member name="P:Net.RafaelEstevam.Spider.FetchRewriteEventArgs.CurrentUri">
             <summary>
             The original Uri added to the queue
@@ -271,6 +324,26 @@
             Simple Downloader using WebClient
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Extensions.XElementExtensions">
+            <summary>
+            Obsolete, use Net.RafaelEstevam.Spider.Helper.XElementHelper instead
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Extensions.XElementExtensions.GetAllTablesX(System.Xml.Linq.XElement)">
+            <summary>
+            Obsolete, use Net.RafaelEstevam.Spider.Helper.XElementHelper instead
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Extensions.XElementExtensions.GetAllTables(System.Xml.Linq.XElement)">
+            <summary>
+            Obsolete, use Net.RafaelEstevam.Spider.Helper.XElementHelper instead
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Extensions.XElementExtensions.GetDataTable(System.Xml.Linq.XElement)">
+            <summary>
+            Obsolete, use Net.RafaelEstevam.Spider.Helper.XElementHelper instead
+            </summary>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Files">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
@@ -290,6 +363,87 @@
         <member name="P:Net.RafaelEstevam.Spider.Files.README">
             <summary>
               Looks up a localized resource of type System.Byte[].
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.HeaderCollection">
+            <summary>
+            Class to hold HTTP Header data
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.HeaderCollection.#ctor(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}})">
+            <summary>
+            Creates a new object with specified parameter
+            </summary>
+            <param name="kvp">Enumarable of KeyVlauePairs</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.HeaderCollection.#ctor(System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Creates a new object with specified parameter
+            </summary>
+            <param name="nvc">A NameValueCollection to initialize from</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.HeaderCollection.#ctor">
+            <summary>
+            Creates a new empty object
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.HeaderCollection.Item(System.String)">
+            <summary>
+            Access values with given Key
+            </summary>
+            <param name="Key">Key to search for</param>
+            <returns>Value if found or NULL if key was not present</returns>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.HeaderCollection.AllKeys">
+            <summary>
+            Gets all keys
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.HeaderCollection.Pairs">
+            <summary>
+            Gets or sets all pairs as SerializableKeyValuePair, used by XmlSerializaton
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.HeaderCollection.GetEnumerator">
+            <summary>
+            Enumerates through all pairs
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.HeaderCollection.ToString">
+            <summary>
+            Fancy exhibition on debug
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.SerializableKeyValuePair">
+            <summary>
+            Represents a Serializable KeyValuePair
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.SerializableKeyValuePair.Key">
+            <summary>
+            Gets or sets the key
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.SerializableKeyValuePair.Value">
+            <summary>
+            Gets or sets the value
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.SerializableKeyValuePair.op_Implicit(Net.RafaelEstevam.Spider.SerializableKeyValuePair)~System.Collections.Generic.KeyValuePair{System.String,System.String}">
+            <summary>
+            Implicit conversion to KeyValuePair&lt;string, string&gt;
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.SerializableKeyValuePair.op_Implicit(System.Collections.Generic.KeyValuePair{System.String,System.String})~Net.RafaelEstevam.Spider.SerializableKeyValuePair">
+            <summary>
+            Implicit conversion from KeyValuePair&lt;string, string&gt;
+            </summary>
+            <param name="pair"></param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.SerializableKeyValuePair.ToString">
+            <summary>
+            Fancy exhibition on debug
             </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.AnchorHelper.GetAnchors(System.Uri,System.String)">
@@ -714,6 +868,11 @@
             Current Parsers
             </summary>
         </member>
+        <member name="P:Net.RafaelEstevam.Spider.SimpleSpider.SpiderWorkData">
+            <summary>
+            Spider private work data, mess with care
+            </summary>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.#ctor(System.String,System.Uri,Net.RafaelEstevam.Spider.InitializationParams)">
             <summary>
             Create a new spider to fetch data from some website
@@ -757,23 +916,22 @@
         </member>
         <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.Collect(System.Collections.Generic.IEnumerable{System.Object},System.Uri)">
             <summary>
-            Add items to Collected collection
+            Add items to the volatile collection. Don't forget to retrieve them later with CollectedItems()
             </summary>
             <param name="Objects">Objects collected</param>
             <param name="CollectedOn">Uri where the Object was found</param>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.Collect(System.Object,System.Uri)">
             <summary>
-            Add item to Collected collection
+            Add item to the volatile collection. Don't forget to retrieve them later with CollectedItems()
             </summary>
             <param name="Object">Object collected</param>
             <param name="CollectedOn">Uri where the Object was found</param>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.CollectedItems">
             <summary>
-            Get array of Collected Objects
+            Get array with all Collected Objects
             </summary>
-            <returns></returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.QueueFinished">
             <summary>
@@ -791,6 +949,48 @@
             <summary>
             Prints use instructions on console 
             See more on the GitHub project page: https://github.com/RafaelEstevamReis/SimpleSpider
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.SimpleSpider.CollectedData">
+            <summary>
+            Class to store volatile data during the process
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.CollectedData.#ctor(System.Object,System.String)">
+            <summary>
+            New data object to be stored
+            </summary>
+            <param name="Object">Object to be stored</param>
+            <param name="CollectedOn">Where was it found</param>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.SimpleSpider.CollectedData.Object">
+            <summary>
+            Object stored
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.SimpleSpider.CollectedData.CollectedOn">
+            <summary>
+            Url of where was it found
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.SimpleSpider.CollectedData.CollectAt">
+            <summary>
+            DateTime of when was it found (in fact, stored)
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.SimpleSpider.SpiderData">
+            <summary>
+            Internal spider data storage
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.SpiderData.#ctor">
+            <summary>
+            Constructor of the class
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.SimpleSpider.SpiderData.Error404">
+            <summary>
+            List of pages that once got and 404 error and should not be downloaded again
             </summary>
         </member>
     </members>
