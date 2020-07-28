@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Net.RafaelEstevam.Spider.Interfaces;
+﻿using Net.RafaelEstevam.Spider.Interfaces;
 using Newtonsoft.Json;
 
 namespace Net.RafaelEstevam.Spider.Parsers
