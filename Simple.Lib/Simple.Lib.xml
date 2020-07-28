@@ -14,6 +14,11 @@
             Empty cacher, discards all cache requests
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Configuration">
+            <summary>
+            Class to hold the configuration for the spider
+            </summary>
+        </member>
         <member name="P:Net.RafaelEstevam.Spider.Configuration.SpiderDirectory">
             <summary>
             Spider main directory
@@ -39,9 +44,30 @@
             Are caching enabled? ICacher must support
             </summary>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Configuration.Enable_Caching">
+            <summary>
+            Enables Caching using Cache_Enable property
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Configuration.Disable_Caching">
+            <summary>
+            Disables Caching using Cache_Enable property
+            </summary>
+        </member>
         <member name="P:Net.RafaelEstevam.Spider.Configuration.Cache_Lifetime">
             <summary>
             How long cache files are valid?  ICacher must support
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Configuration.Set_CachingTTL(System.TimeSpan)">
+            <summary>
+            Sets cache limit
+            </summary>
+            <param name="timeSpan">Max age of the cache resource</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Configuration.Set_CachingNoLimit">
+            <summary>
+            Sets cache limit to Infinity (no limit), using Cache_Lifetimeproperty set to null
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Configuration.DownloadDelay">
@@ -49,10 +75,34 @@
             Time to wait in miliseconds between downloads
             </summary>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Configuration.Set_DownloadDelay(System.TimeSpan)">
+            <summary>
+            Sets Downloader delay using DownloadDelay property
+            </summary>
+            <param name="Delay">Delay value</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Configuration.Set_DownloadDelay(System.Int32)">
+            <summary>
+            Sets Downloader delay in milliseconds using DownloadDelay property
+            </summary>
+            <param name="Delay">Value in milliseconds</param>
+        </member>
         <member name="P:Net.RafaelEstevam.Spider.Configuration.Cookies_Enable">
             <summary>
             Are cookies enabled? IDownloader must support
             </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Configuration.Enable_Cookies">
+            <summary>
+            Enables downloader to use Cookies, if supported. Uses Cookies_Enable property
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Configuration.Disable_Cookies">
+            <summary>
+            Disables downloader from using Cookies, if supported. Uses Cookies_Enable property
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Configuration.Paused">
             <summary>
@@ -73,6 +123,17 @@
             <summary>
             Enable auto colelction of html Anchors tags
             </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Configuration.Enable_AutoAnchorsLinks">
+            <summary>
+            Enable auto colelction of html Anchors tags, uses Auto_AnchorsLinks property
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Configuration.Disable_AutoAnchorsLinks">
+            <summary>
+            Disable auto colelction of html Anchors tags, uses Auto_AnchorsLinks property
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.FetchEventArgs.EventSource">
             <summary>
