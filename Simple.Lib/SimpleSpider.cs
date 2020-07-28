@@ -69,7 +69,9 @@ namespace Net.RafaelEstevam.Spider
         /// Current Parsers
         /// </summary>
         public List<IParserBase> Parsers { get; }
-
+        /// <summary>
+        /// Spider private work data, mess with care
+        /// </summary>
         public SpiderData SpiderWorkData { get; private set; }
         private string spiderWorkDataPath;
 
@@ -331,7 +333,7 @@ namespace Net.RafaelEstevam.Spider
             return hExecuted.Contains(pageToVisit.ToString());
         }
         /// <summary>
-        /// Add items to Collected collection
+        /// Add items to the volatile collection. Don't forget to retrieve them later with CollectedItems()
         /// </summary>
         /// <param name="Objects">Objects collected</param>
         /// <param name="CollectedOn">Uri where the Object was found</param>
@@ -340,7 +342,7 @@ namespace Net.RafaelEstevam.Spider
             foreach (var o in Objects) Collect(o, CollectedOn);
         }
         /// <summary>
-        /// Add item to Collected collection
+        /// Add item to the volatile collection. Don't forget to retrieve them later with CollectedItems()
         /// </summary>
         /// <param name="Object">Object collected</param>
         /// <param name="CollectedOn">Uri where the Object was found</param>
@@ -349,9 +351,8 @@ namespace Net.RafaelEstevam.Spider
             lstCollected.Add(new CollectedData(Object: Object, CollectedOn: CollectedOn.ToString()));
         }
         /// <summary>
-        /// Get array of Collected Objects
+        /// Get array with all Collected Objects
         /// </summary>
-        /// <returns></returns>
         public CollectedData[] CollectedItems() { return lstCollected.ToArray(); }
 
         #region Scheduler callbacks
