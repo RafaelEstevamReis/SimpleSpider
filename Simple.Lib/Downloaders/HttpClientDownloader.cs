@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Net.RafaelEstevam.Spider.Helper;
 using Net.RafaelEstevam.Spider.Interfaces;
 
 namespace Net.RafaelEstevam.Spider.Downloaders
@@ -27,7 +28,11 @@ namespace Net.RafaelEstevam.Spider.Downloaders
 
         public HttpClientDownloader()
         {
-            httpClient = new HttpClient();
+            var hdl = new HttpClientHandler()
+            {
+                AllowAutoRedirect = false
+            };
+            httpClient = new HttpClient(hdl);
             cancellationToken = new CancellationTokenSource();
         }
 
@@ -79,39 +84,54 @@ namespace Net.RafaelEstevam.Spider.Downloaders
 
                     downloading = true;
                     config.Logger.Information($"[WEB] {current.Uri}");
-
                     current.FetchStart = DateTime.Now;
-                    var req = new HttpRequestMessage(HttpMethod.Get, current.Uri);
-                    var resp = httpClient.SendAsync(req).Result;
 
-                    var reqHeaders = req
-                        .Headers
-                        .Cast<KeyValuePair<string, IEnumerable<string>>>()
-                        .Select(o => new KeyValuePair<string, string>(o.Key, string.Join(",", o.Value)));
-
-                    current.FetchEnd = DateTime.Now;
-                    if (resp.IsSuccessStatusCode)
-                    {
-                        var respHeaders = resp
-                            .Headers
-                            .Cast<KeyValuePair<string, IEnumerable<string>>>()
-                            .Select(o => new KeyValuePair<string, string>(o.Key, string.Join(",", o.Value)));
-
-                        FetchCompleted(this, new FetchCompleteEventArgs(current,
-                                          resp.Content.ReadAsByteArrayAsync().Result,
-                                          new HeaderCollection(reqHeaders),
-                                          new HeaderCollection(respHeaders)));
-                    }
-                    else
-                    {
-                        FetchFailed(this, new FetchFailEventArgs(current, 
-                                                                 (int)resp.StatusCode,
-                                                                 new HttpRequestException($"[{(int)resp.StatusCode}] {resp.ReasonPhrase}"),
-                                                                 new HeaderCollection(reqHeaders)));
-                    }
+                    fetch(current);
 
                     downloading = false;
                 }
+            }
+        }
+
+        private void fetch(Link current)
+        {
+            var req = new HttpRequestMessage(HttpMethod.Get, current.Uri);
+            var resp = httpClient.SendAsync(req).Result;
+
+            var reqHeaders = req
+                .Headers
+                .Cast<KeyValuePair<string, IEnumerable<string>>>()
+                .Select(o => new KeyValuePair<string, string>(o.Key, string.Join(",", o.Value)));
+
+            current.FetchEnd = DateTime.Now;
+            if (resp.IsSuccessStatusCode)
+            {
+                var respHeaders = resp
+                    .Headers
+                    .Cast<KeyValuePair<string, IEnumerable<string>>>()
+                    .Select(o => new KeyValuePair<string, string>(o.Key, string.Join(",", o.Value)));
+
+                FetchCompleted(this, new FetchCompleteEventArgs(current,
+                                  resp.Content.ReadAsByteArrayAsync().Result,
+                                  new HeaderCollection(reqHeaders),
+                                  new HeaderCollection(respHeaders)));
+            }
+            else
+            {
+                if (resp.Headers.Location != null)
+                {
+                    // Redirect
+                    var newUri = current.Uri.Combine(resp.Headers.Location.ToString());
+                    current.ResourceMoved(newUri);
+                    config.Logger.Information($"[MOV] {current.MovedUri} -> {current.Uri}");
+                    fetch(current);
+                    return;
+                }
+
+                FetchFailed(this, new FetchFailEventArgs(current,
+                                                         (int)resp.StatusCode,
+                                                         new HttpRequestException($"[{(int)resp.StatusCode}] {resp.ReasonPhrase}"),
+                                                         new HeaderCollection(reqHeaders)));
             }
         }
     }
