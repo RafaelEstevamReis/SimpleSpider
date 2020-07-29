@@ -6,7 +6,10 @@ using System.Xml.XPath;
 
 namespace Net.RafaelEstevam.Spider.Helper
 {
-    public class AnchorHelper
+    /// <summary>
+    /// Helper to do stuff with html {a} tags 
+    /// </summary>
+    public static class AnchorHelper
     {
         /// <summary>
         /// Simple Substring based 'a' tag enumerator

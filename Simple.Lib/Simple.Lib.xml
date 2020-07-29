@@ -234,6 +234,11 @@
             </summary>
             <param name="enc">Encoding to be used</param>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.#ctor(Net.RafaelEstevam.Spider.Link,System.Byte[],Net.RafaelEstevam.Spider.HeaderCollection,Net.RafaelEstevam.Spider.HeaderCollection)">
+            <summary>
+            Constructs a new FetchCompleteEventArgs
+            </summary>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.FetchFailEventArgs">
             <summary>
             Arguments to de FetchFail event
@@ -247,6 +252,16 @@
         <member name="P:Net.RafaelEstevam.Spider.FetchFailEventArgs.HttpErrorCode">
             <summary>
             HTTP error code
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.FetchFailEventArgs.#ctor(Net.RafaelEstevam.Spider.Link,System.Exception,Net.RafaelEstevam.Spider.HeaderCollection)">
+            <summary>
+            Constructs a FetchFailEventArgs
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.FetchFailEventArgs.#ctor(Net.RafaelEstevam.Spider.Link,System.Int32,System.Exception,Net.RafaelEstevam.Spider.HeaderCollection)">
+            <summary>
+            Constructs a FetchFailEventArgs
             </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.ShouldFetchEventArgs">
@@ -294,10 +309,21 @@
             Informs reason to do not fetch
             </summary>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.#ctor(Net.RafaelEstevam.Spider.Link)">
+            <summary>
+            Creates a new ShouldFetchEventArgs
+            </summary>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.FetchRewriteEventArgs">
             <summary>
             Arguments to de FetchRewrite event
             </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.FetchRewriteEventArgs.#ctor(System.Uri)">
+            <summary>
+            Construct a FetchRewriteEventArgs
+            </summary>
+            <param name="CurrentUri"></param>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.FetchRewriteEventArgs.CurrentUri">
             <summary>
@@ -446,6 +472,11 @@
             Fancy exhibition on debug
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Helper.AnchorHelper">
+            <summary>
+            Helper to do stuff with html {a} tags 
+            </summary>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.AnchorHelper.GetAnchors(System.Uri,System.String)">
             <summary>
             Simple Substring based 'a' tag enumerator
@@ -455,6 +486,25 @@
             <summary>
             Get all anchors ('a' tag) and convertoto Uri
             </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Helper.ConversionHelper">
+            <summary>
+            Helper to convert stuff frequently found on websites or API responses
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.ConversionHelper.UnixEpoch(System.Int64)">
+            <summary>
+            Converts Unix Epoch from number to Datetime
+            </summary>
+            <param name="Timestamp">Numeric representation of Unix time</param>
+            <returns>Datetime converted</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.ConversionHelper.UnixEpoch(System.DateTime)">
+            <summary>
+            Converts Unix Epoch from Datetime to number
+            </summary>
+            <param name="dateTime">Datetime component to be converted</param>
+            <returns>>Numeric representation of Unix time</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResource(System.Uri)">
             <summary>
@@ -554,9 +604,60 @@
             Class to represent a InputTag
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Helper.XmlSerializerHelper">
+            <summary>
+            Helper class to serialize and deserialize stuff using XML
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.XmlSerializerHelper.SerializeToFile``1(``0,System.String)">
+            <summary>
+            Serialize a generic {T} object to a file
+            </summary>
+            <typeparam name="T">Type of the objects to be serialized</typeparam>
+            <param name="obj">Object to be serialized</param>
+            <param name="file">File path of the file</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.XmlSerializerHelper.DeserializeFromFile``1(System.String)">
+            <summary>
+            Deserialize a generic {T} object from a file
+            </summary>
+            <typeparam name="T">Type of the objects to be deserialized</typeparam>
+            <param name="file">File path of the file</param>
+            <returns>An instance of {T} with data from the file</returns>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.InitializationParams">
             <summary>
             Defines Initialization Parameters to a SimpleSpider instance
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.InitializationParams.#ctor">
+            <summary>
+            Creates a new InitializationParams
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.InitializationParams.Cacher">
+            <summary>
+            Gets or sets the cacher to be used by the spider
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.InitializationParams.Downloader">
+            <summary>
+            Gets or sets the downloader to be used by the spider
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.InitializationParams.Parsers">
+            <summary>
+            Gets the list of parsers the spider should be initialized with
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.InitializationParams.SpiderDirectory">
+            <summary>
+            Gets or sets the working SpiderDirectory to be used by the spider
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.InitializationParams.ConfigurationPrototype">
+            <summary>
+             Gets or sets a Configuration prototype to be used by the spider
             </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.InitializationParams.SetSpiderStarupPath(System.String)">
@@ -713,6 +814,11 @@
             </summary>
             <typeparam name="T">The type of the event data generated by the event</typeparam>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Interfaces.ParserEventArgs`1.#ctor(Net.RafaelEstevam.Spider.FetchCompleteEventArgs,`0)">
+            <summary>
+            Constructs a new ParserEventArgs
+            </summary>
+        </member>
         <member name="P:Net.RafaelEstevam.Spider.Interfaces.ParserEventArgs`1.FetchInfo">
             <summary>
             Original FetchCompleteEventArgs received by the parser
@@ -723,9 +829,54 @@
             Dataparsed by the parser
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Link">
+            <summary>
+            Represents a Link enqueued or fetched
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Link.Uri">
+            <summary>
+            Primary Uri, the resource to be fetched
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Link.SourceUri">
+            <summary>
+            Uri where the Uri property was found
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Link.FetchStart">
+            <summary>
+            Fetch start Datetime
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Link.FetchEnd">
+            <summary>
+            Fetch finish Datetime
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Link.FetchTime">
+            <summary>
+            Fetch duration
+            </summary>
+        </member>
         <member name="P:Net.RafaelEstevam.Spider.Link.FetchCompleteCallBack">
             <summary>
-            Additional CallBack for this resource
+            Specify and additional CallBack for this resource
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Link.#ctor(System.Uri,System.Uri)">
+            <summary>
+            Constructs a new Link
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Link.ToString">
+            <summary>
+            Returns the string representation of the Uri property
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Link.op_Implicit(Net.RafaelEstevam.Spider.Link)~System.Uri">
+            <summary>
+            Implicit convertion from Link to Uri, returns Uri property
             </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Parsers.HtmlXElementParser">

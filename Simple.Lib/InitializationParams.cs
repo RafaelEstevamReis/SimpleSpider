@@ -13,16 +13,34 @@ namespace Net.RafaelEstevam.Spider
     /// </summary>
     public partial class InitializationParams
     {
+        /// <summary>
+        /// Creates a new InitializationParams
+        /// </summary>
         public InitializationParams()
         {
             Parsers = new List<IParserBase>();
             ConfigurationPrototype = new Configuration();
         }
 
+        /// <summary>
+        /// Gets or sets the cacher to be used by the spider
+        /// </summary>
         public ICacher Cacher { get; set; }
+        /// <summary>
+        /// Gets or sets the downloader to be used by the spider
+        /// </summary>
         public IDownloader Downloader { get; set; }
+        /// <summary>
+        /// Gets the list of parsers the spider should be initialized with
+        /// </summary>
         public List<IParserBase> Parsers { get; }
+        /// <summary>
+        /// Gets or sets the working SpiderDirectory to be used by the spider
+        /// </summary>
         public DirectoryInfo SpiderDirectory { get; set; }
+        /// <summary>
+        ///  Gets or sets a Configuration prototype to be used by the spider
+        /// </summary>
         public Configuration ConfigurationPrototype { get; set; }
 
         /// <summary>

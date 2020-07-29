@@ -121,7 +121,9 @@ namespace Net.RafaelEstevam.Spider
         {
             return htmlCache = enc.GetString(Result);
         }
-
+        /// <summary>
+        /// Constructs a new FetchCompleteEventArgs
+        /// </summary>
         public FetchCompleteEventArgs(Link current, byte[] result, HeaderCollection requestHeaders, HeaderCollection responseHeaders)
         {
             this.Link = current;
@@ -144,12 +146,19 @@ namespace Net.RafaelEstevam.Spider
         /// </summary>
         public int HttpErrorCode { get; }
 
+        /// <summary>
+        /// Constructs a FetchFailEventArgs
+        /// </summary>
+        [Obsolete]
         public FetchFailEventArgs(Link link, Exception error, HeaderCollection requestHeaders)
         {
             this.Link = link;
             this.Error = error;
             this.RequestHeaders = requestHeaders;
         }
+        /// <summary>
+        /// Constructs a FetchFailEventArgs
+        /// </summary>
         public FetchFailEventArgs(Link link, int erroCode, Exception error, HeaderCollection requestHeaders)
         {
             this.Link = link;
@@ -200,6 +209,9 @@ namespace Net.RafaelEstevam.Spider
         /// </summary>
         public Reasons Reason { get; set; } = Reasons.None;
 
+        /// <summary>
+        /// Creates a new ShouldFetchEventArgs
+        /// </summary>
         public ShouldFetchEventArgs(Link link)
         {
             this.Link = link;
@@ -210,6 +222,10 @@ namespace Net.RafaelEstevam.Spider
     /// </summary>
     public class FetchRewriteEventArgs : EventArgs
     {
+        /// <summary>
+        /// Construct a FetchRewriteEventArgs
+        /// </summary>
+        /// <param name="CurrentUri"></param>
         public FetchRewriteEventArgs(Uri CurrentUri)
         {
             this.CurrentUri = CurrentUri;
