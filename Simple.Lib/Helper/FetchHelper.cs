@@ -8,6 +8,9 @@ using Newtonsoft.Json.Linq;
 
 namespace Net.RafaelEstevam.Spider.Helper
 {
+    /// <summary>
+    /// Helper to fetch stuff
+    /// </summary>
     public static class FetchHelper
     {
         static WebClient wc;
@@ -29,6 +32,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// Fetch resource from uri
         /// </summary>
         /// <param name="uri">Uri to fetch from</param>
+        /// <param name="enc">Defines which encoding should be used</param>
         /// <returns>String with data fetched</returns>
         public static string FetchResourceText(Uri uri, Encoding enc = null)
         {
@@ -43,6 +47,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// Fetch resource from uri and parse a XElement from it
         /// </summary>
         /// <param name="uri">Uri to fetch from</param>
+        /// <param name="enc">Defines which encoding should be used</param>
         /// <returns>XElement with data fetched</returns>
         public static XElement FetchResourceXElement(Uri uri, Encoding enc = null)
         {
@@ -52,6 +57,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// Fetch resource from uri and parse a JObject from it
         /// </summary>
         /// <param name="uri">Uri to fetch from</param>
+        /// <param name="enc">Defines which encoding should be used</param>
         /// <returns>JObject with data fetched</returns>
         public static JObject FetchResourceJObject(Uri uri, Encoding enc = null)
         {
@@ -62,6 +68,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// </summary>
         /// <param name="uri">Uri to fetch from</param>
         /// <param name="loadSettings">JsonLoadSettings to parse with</param>
+        /// <param name="enc">Defines which encoding should be used</param>
         /// <returns>JObject with data fetched</returns>
         public static JObject FetchResourceJObject(Uri uri, JsonLoadSettings loadSettings, Encoding enc = null)
         {
@@ -71,7 +78,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// Fetch resource from uri and deserialize T from it
         /// </summary>
         /// <param name="uri">Uri to fetch from</param>
-        /// <param name="enc">Especify encoding</param>
+        /// <param name="enc">Defines which encoding should be used</param>
         /// <returns>T deserialized with data fetched</returns>
         public static T FetchResourceJson<T>(Uri uri, Encoding enc = null)
         {
@@ -82,7 +89,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// Fetch resource from uri and deserialize T from it
         /// </summary>
         /// <param name="uri">Uri to fetch from></param>
-        /// <param name="enc">Especify encoding</param>
+        /// <param name="enc">Defines which encoding should be used</param>
         /// <param name="settings">JsonSerializerSettings Settings</param>
         /// <returns>>T deserialized with data fetched</returns>
         public static T FetchResourceJson<T>(Uri uri, JsonSerializerSettings settings, Encoding enc = null)
