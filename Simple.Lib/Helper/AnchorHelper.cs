@@ -32,7 +32,14 @@ namespace Net.RafaelEstevam.Spider.Helper
                     if (href.StartsWith("javascript:")) continue;
                 }
                 catch { continue; }
-                yield return new Uri(request, href);
+
+                yield return request.Combine(href);
+
+                //var builder = new UriBuilder(request);
+                //if (builder.Path.EndsWith("/") && href.StartsWith("/")) href = href.Substring(1);
+                //builder.Path += href;
+                //
+                //yield return builder.Uri;
             }
         }
         /// <summary>
