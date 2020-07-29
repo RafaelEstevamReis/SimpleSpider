@@ -175,7 +175,13 @@ namespace Net.RafaelEstevam.Spider
                 if (string.IsNullOrEmpty(args.Html)) return;
                 //if (args.Html[0] != '<') return;
 
-                var links = Helper.AnchorHelper.GetAnchors(args.Link.Uri, args.Html);
+                var parentUri = args.Link.Uri;
+
+                var links = Helper.AnchorHelper.GetAnchors(parentUri, args.Html);
+#if DEBUG
+                var arr = links.ToArray(); // enumerate to test results
+#endif
+
                 // Add the collected links to the queue
                 this.AddPages(links, args.Link);
             }
@@ -439,6 +445,10 @@ namespace Net.RafaelEstevam.Spider
             lock (hExecuted) // Hashsets are not threadsafe
             {
                 hExecuted.Add(args.Link.Uri.ToString());
+                if (args.Link.MovedUri != null)
+                {
+                    hExecuted.Add(args.Link.MovedUri.ToString());
+                }
             }
 
             // Main CallBack

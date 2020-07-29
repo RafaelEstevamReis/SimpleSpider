@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -113,6 +114,20 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                     {
                         HttpWebResponse resp = (HttpWebResponse)webError.Response;
                         code = (int)resp.StatusCode;
+
+                        var loc = resp.Headers[HttpResponseHeader.Location];
+
+                        if (!string.IsNullOrEmpty(loc))
+                        {
+                            string newUrl = loc;
+                            // redirect
+                            current.ResourceMoved(new Uri(current.Uri, newUrl));
+                            webClient.DownloadDataAsync(current.Uri);
+
+                            config.Logger.Information($"[MOV] {current.MovedUri} -> {current.Uri}");
+
+                            return;
+                        }
                     }
                 }
                 FetchFailed(this, new FetchFailEventArgs(current, code, ex, new HeaderCollection(webClient.Headers)));
@@ -131,6 +146,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
             protected override WebRequest GetWebRequest(Uri address)
             {
                 var request = (HttpWebRequest)base.GetWebRequest(address);
+                request.AllowAutoRedirect = false; // need to catch new locations
                 if (EnableCookies) request.CookieContainer = CookieContainer;
 
                 return request;

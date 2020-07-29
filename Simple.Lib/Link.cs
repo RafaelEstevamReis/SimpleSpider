@@ -7,14 +7,17 @@ namespace Net.RafaelEstevam.Spider
     /// </summary>
     public class Link
     {
+
         /// <summary>
         /// Primary Uri, the resource to be fetched
         /// </summary>
-        public Uri Uri { get; }
+        public Uri Uri { get; private set; }
         /// <summary>
         /// Uri where the Uri property was found
         /// </summary>
         public Uri SourceUri { get; }
+        
+        public Uri MovedUri { get; private set; }
 
         /// <summary>
         /// Fetch start Datetime
@@ -39,6 +42,7 @@ namespace Net.RafaelEstevam.Spider
         /// </summary>
         public Link(Uri Uri, Uri SourceUri)
         {
+            this.MovedUri = null;
             this.Uri = Uri;
             this.SourceUri = SourceUri;
         }
@@ -53,5 +57,11 @@ namespace Net.RafaelEstevam.Spider
         /// Implicit convertion from Link to Uri, returns Uri property
         /// </summary>
         public static implicit operator Uri(Link lnk) => lnk.Uri;
+
+        public void ResourceMoved(Uri newUri)
+        {
+            MovedUri = Uri;
+            Uri = newUri;
+        }
     }
 }
