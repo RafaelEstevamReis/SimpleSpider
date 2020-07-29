@@ -39,6 +39,11 @@
             Standard log
             </summary>
         </member>
+        <member name="P:Net.RafaelEstevam.Spider.Configuration.Auto_RewriteRemoveFragment">
+            <summary>
+            Enable auto rewrite of Uri to remove Frament
+            </summary>
+        </member>
         <member name="P:Net.RafaelEstevam.Spider.Configuration.Cache_Enable">
             <summary>
             Are caching enabled? ICacher must support
@@ -333,6 +338,11 @@
         <member name="P:Net.RafaelEstevam.Spider.FetchRewriteEventArgs.NewUri">
             <summary>
             New Uri to be fetched
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchRewriteEventArgs.ShowOnLog">
+            <summary>
+            Defines if should log the rewrite operation
             </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Downloaders.HttpClientDownloader">
