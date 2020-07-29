@@ -46,7 +46,7 @@ namespace Net.RafaelEstevam.Spider
         /// <summary>
         /// Instructs spider to use this path
         /// </summary>
-        public InitializationParams SetSpiderStarupPath(string Path)
+        public InitializationParams SetSpiderStartupPath(string Path)
         {
             if (string.IsNullOrEmpty(Path)) throw new ArgumentNullException(Path);
             var dir = new DirectoryInfo(Path);
@@ -59,7 +59,7 @@ namespace Net.RafaelEstevam.Spider
         /// <summary>
         /// Instructs spider to use this directory
         /// </summary>
-        public InitializationParams SetSpiderStarupDirectory(DirectoryInfo Directory)
+        public InitializationParams SetSpiderStartupDirectory(DirectoryInfo Directory)
         {
             this.SpiderDirectory = Directory;
             return this; // Chaining

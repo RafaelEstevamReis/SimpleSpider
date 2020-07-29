@@ -9,13 +9,13 @@ namespace Net.RafaelEstevam.Spider
     /// Represents a method that passes fetch completed data
     /// </summary>
     /// <param name="Sender">The source of the event</param>
-    /// <param name="args">Object containing fech data</param>
+    /// <param name="args">Object containing fetch data</param>
     public delegate void FetchComplete(object Sender, FetchCompleteEventArgs args);
     /// <summary>
     /// Represents a method that passes fetch failed data
     /// </summary>
     /// <param name="Sender">The source of the event</param>
-    /// <param name="args">Object containing fech failed info</param>
+    /// <param name="args">Object containing fetch failed info</param>
     public delegate void FetchFail(object Sender, FetchFailEventArgs args);
     /// <summary>
     /// Represents a method that passes fetch rewrite data
@@ -109,7 +109,7 @@ namespace Net.RafaelEstevam.Spider
         {
             if (xElement == null)
             {
-                xElement = HtmlToEXelement.Parse(Html);
+                xElement = HtmlToXElement.Parse(Html);
             }
             return xElement;
         }

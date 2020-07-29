@@ -2,7 +2,7 @@
 
 [!] Work in Progress
 
-A simple and modular web spider writen in C# .Net Core
+A simple and modular web spider written in C# .Net Core
 
 Some advantages
 * Very simple to use and operate, ideal to personal or one of projects
@@ -23,7 +23,7 @@ Inside the [Simple.Tests](https://github.com/RafaelEstevamReis/SimpleSpider/tree
 
 Json response? Get a event with your data already deserialized
 
-( yes, these few lines below are full functional exemples! )
+( yes, these few lines below are full functional examples! )
 
 ```C#
 void run()
@@ -71,13 +71,13 @@ void run()
 }
 void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
 {
-    // Colect new links
+    // Collect new links
     (Sender as SimpleSpider).AddPages(AnchorHelper.GetAnchors(args.Link.Uri, args.Html), args.Link);
 
     // ignore all pages except the catalogue
     if (!args.Link.ToString().Contains("/catalogue/")) return;
 
-    var XElement = HtmlToEXelement.Parse(args.Html);
+    var XElement = HtmlToXElement.Parse(args.Html);
     // collect book data
     var articleProd = XElement.XPathSelectElement("//article[@class=\"product_page\"]");
     if (articleProd == null) return; // not a book
@@ -85,7 +85,7 @@ void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
     string sTitle = articleProd.XPathSelectElement("//h1").Value;
     string sPrice = articleProd.XPathSelectElement("//p[@class=\"price_color\"]").Value;
     string sStock = articleProd.XPathSelectElement("//p[@class=\"instock availability\"]").Value.Trim();
-    string sDesc = articleProd.XPathSelectElement("p")?.Value; // books can be descriptionless
+    string sDesc = articleProd.XPathSelectElement("p")?.Value; // books can be description less
 }
 ```
 *[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/BooksToScrape.cs)*
@@ -93,7 +93,7 @@ void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
 
 ### Easy initialization with chaining
 
-Initialzie your spider easly with chaining 
+Initialize your spider easily with chaining and a good variety of options
 
 ```C#
 void run()
@@ -101,7 +101,7 @@ void run()
     var init = new InitializationParams()
         .SetCacher(new ContentCacher())
         .SetDownloader(new WebClientDownloader())
-        .SetSpiderStarupDirectory(@"D:\spiders\") // Default directory
+        .SetSpiderStartupDirectory(@"D:\spiders\") // Default directory
         // create a json parser for our QuotesObject class
         .AddParser(new JsonDeserializeParser<QuotesObject>(parsedResult_event))
         .SetConfig(c => c.Enable_Caching()
@@ -142,8 +142,8 @@ void run()
 
 ## Some [Helpers](https://github.com/RafaelEstevamReis/SimpleSpider/tree/master/Simple.Lib/Helper)
 * [FormsHelper](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Lib/Helper/FormsHelper.cs): Deserialize html forms to easy manipulate data and create new requests
-* [XmlSerializerHelper](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Lib/Helper/XmlSerializerHelper.cs): Generic class to serialize and deserialzie stuff using Xml, easy way to save what you collected without any database
-* [CSV Helper](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Lib/Helper/CSVHelper.cs): Read csv files even compressed without exernal libraries
+* [XmlSerializerHelper](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Lib/Helper/XmlSerializerHelper.cs): Generic class to serialize and deserialize stuff using Xml, easy way to save what you collected without any database
+* [CSV Helper](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Lib/Helper/CSVHelper.cs): Read csv files even compressed without external libraries
 * XElement to Stuff: Extract [tables](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Lib/Helper/XElementHelper.cs#L17) from page in DataTable
 
 ## Giants' shoulders

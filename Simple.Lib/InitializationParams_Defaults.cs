@@ -6,13 +6,13 @@ namespace Net.RafaelEstevam.Spider
     public partial class InitializationParams
     {
         /// <summary>
-        /// Fronzen in time default: ContentCacher, WebClientDownloader, NoLimitCaching, and AutoAnchorsLinks enabled
+        /// Frozen in time default: ContentCacher, WebClientDownloader, NoLimitCaching, and AutoAnchorsLinks enabled
         /// </summary>
         /// <param name="DownloadDelay">Config.DownloadDelay in milliseconds</param>
         /// <returns></returns>
         public static InitializationParams Default001(int DownloadDelay = 5000)
         {
-            // Have non-chaging defaults helps with not breaking stuff
+            // Have non-changing defaults helps with not breaking stuff
             //but still have a good start point
 
             return new InitializationParams()

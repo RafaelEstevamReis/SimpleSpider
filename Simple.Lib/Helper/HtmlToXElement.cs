@@ -6,7 +6,7 @@ namespace Net.RafaelEstevam.Spider.Helper
     /// <summary>
     /// Class to convert Html to XElement, uses HtmlAgilityPack
     /// </summary>
-    public class HtmlToEXelement
+    public class HtmlToXElement
     {
         /// <summary>
         /// Parses an HTML as a XElement

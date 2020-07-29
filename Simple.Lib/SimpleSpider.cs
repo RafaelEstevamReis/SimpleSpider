@@ -79,7 +79,7 @@ namespace Net.RafaelEstevam.Spider
         private ConcurrentQueue<Link> qCache;
         private ConcurrentQueue<Link> qDownload;
         private HashSet<string> hExecuted;
-        private HashSet<string> hVioleted;
+        private HashSet<string> hViolated;
 
         private List<CollectedData> lstCollected;
         private Logger log; // short to type reference, is accessible through configuration
@@ -152,7 +152,7 @@ namespace Net.RafaelEstevam.Spider
             qCache = new ConcurrentQueue<Link>();
             qDownload = new ConcurrentQueue<Link>();
             hExecuted = new HashSet<string>();
-            hVioleted = new HashSet<string>();
+            hViolated = new HashSet<string>();
         }
 
         private void initializeFetchers()
@@ -302,11 +302,11 @@ namespace Net.RafaelEstevam.Spider
             if (pageToVisit.Host != BaseUri.Host)
             {
                 string host = pageToVisit.Host;
-                if (!hVioleted.Contains(host)) // ignore the entire domain
+                if (!hViolated.Contains(host)) // ignore the entire domain
                 {
-                    lock (hVioleted)
+                    lock (hViolated)
                     {
-                        hVioleted.Add(host);
+                        hViolated.Add(host);
                     }
                     log.Warning($"[WRN] Host Violation {pageToVisit}");
                 }
@@ -322,7 +322,7 @@ namespace Net.RafaelEstevam.Spider
                 if (ev.NewUri != null && ev.NewUri != pageToVisit)
                 {
                     log.Information($"[REW] {pageToVisit} -> {ev.NewUri}");
-                    lnk.ResourceRewrited(ev.NewUri);
+                    lnk.ResourceRewritten(ev.NewUri);
                 }
             }
 
@@ -487,7 +487,7 @@ namespace Net.RafaelEstevam.Spider
             // if is processing, is not finished
             if (Cacher.IsProcessing) return false;
             if (Downloader.IsProcessing) return false;
-            // ig any queue has items, don't count, peek is faser than count
+            // ig any queue has items, don't count, peek is faster than count
             if (qAdded.TryPeek(out _)) return false;
             if (qCache.TryPeek(out _)) return false;
             if (qDownload.TryPeek(out _)) return false;

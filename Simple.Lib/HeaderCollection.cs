@@ -16,7 +16,7 @@ namespace Net.RafaelEstevam.Spider
         /// <summary>
         /// Creates a new object with specified parameter
         /// </summary>
-        /// <param name="kvp">Enumarable of KeyVlauePairs</param>
+        /// <param name="kvp">Enumerable of KeyValuePairs</param>
         public HeaderCollection(IEnumerable<KeyValuePair<string,string>> kvp)
            : this()
         {
@@ -65,7 +65,7 @@ namespace Net.RafaelEstevam.Spider
         }
 
         /// <summary>
-        /// Gets or sets all pairs as SerializableKeyValuePair, used by XmlSerializaton
+        /// Gets or sets all pairs as SerializableKeyValuePair, used by XmlSerialization
         /// </summary>
         [XmlArray("Pairs")]
         [XmlArrayItem("Pair")]

@@ -48,7 +48,7 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
             // ignore all pages except the catalogue
             if (!args.Link.ToString().Contains("/catalogue/")) return;
 
-            var XElement = HtmlToEXelement.Parse(args.Html);
+            var XElement = HtmlToXElement.Parse(args.Html);
             // collect book data
             var articleProd = XElement.XPathSelectElement("//article[@class=\"product_page\"]");
             if (articleProd == null) return; // not a book

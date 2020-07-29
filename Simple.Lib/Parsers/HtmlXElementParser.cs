@@ -23,7 +23,7 @@ namespace Net.RafaelEstevam.Spider.Parsers
         {
             if (ParsedData == null) return;
 
-            ParsedData(spider, new ParserEventArgs<XElement>(FetchInfo: FetchInfo, Data: HtmlToEXelement.Parse(FetchInfo.Html)));
+            ParsedData(spider, new ParserEventArgs<XElement>(FetchInfo: FetchInfo, Data: HtmlToXElement.Parse(FetchInfo.Html)));
         }
     }
 }

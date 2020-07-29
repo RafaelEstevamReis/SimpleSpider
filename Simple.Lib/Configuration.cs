@@ -78,7 +78,7 @@ namespace Net.RafaelEstevam.Spider
         #region Downloader Stuff
 
         /// <summary>
-        /// Time to wait in miliseconds between downloads
+        /// Time to wait in milliseconds between downloads
         /// </summary>
         public int DownloadDelay { get; set; } = 5000;
         /// <summary>
@@ -145,11 +145,11 @@ namespace Net.RafaelEstevam.Spider
         #region Spider Pós-processing
 
         /// <summary>
-        /// Enable auto colelction of html Anchors tags
+        /// Enable auto collection of html Anchors tags
         /// </summary>
         public bool Auto_AnchorsLinks { get; set; } = true;
         /// <summary>
-        /// Enable auto colelction of html Anchors tags, uses Auto_AnchorsLinks property
+        /// Enable auto collection of html Anchors tags, uses Auto_AnchorsLinks property
         /// </summary>
         public Configuration Enable_AutoAnchorsLinks()
         {
@@ -157,7 +157,7 @@ namespace Net.RafaelEstevam.Spider
             return this; // Chaining
         }
         /// <summary>
-        /// Disable auto colelction of html Anchors tags, uses Auto_AnchorsLinks property
+        /// Disable auto collection of html Anchors tags, uses Auto_AnchorsLinks property
         /// </summary>
         /// <returns></returns>
         public Configuration Disable_AutoAnchorsLinks()

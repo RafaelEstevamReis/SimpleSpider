@@ -21,9 +21,9 @@ namespace Net.RafaelEstevam.Spider
         /// </summary>
         public Uri MovedUri { get; private set; }
         /// <summary>
-        /// When rewrited, the old Uri will be stored here
+        /// When rewritten, the old Uri will be stored here
         /// </summary>
-        public Uri RewritedUri { get; private set; }
+        public Uri RewrittenUri { get; private set; }
 
         /// <summary>
         /// Fetch start Datetime
@@ -69,11 +69,11 @@ namespace Net.RafaelEstevam.Spider
             Uri = newUri;
         }
         /// <summary>
-        /// Change the properties to reflect a rewrited resource
+        /// Change the properties to reflect a rewritten resource
         /// </summary>
-        public void ResourceRewrited(Uri newUri)
+        public void ResourceRewritten(Uri newUri)
         {
-            RewritedUri = Uri;
+            RewrittenUri = Uri;
             Uri = newUri;
         }
 

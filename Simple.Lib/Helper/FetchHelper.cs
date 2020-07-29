@@ -51,7 +51,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// <returns>XElement with data fetched</returns>
         public static XElement FetchResourceXElement(Uri uri, Encoding enc = null)
         {
-            return HtmlToEXelement.Parse(FetchResourceText(uri, enc));
+            return HtmlToXElement.Parse(FetchResourceText(uri, enc));
         }
         /// <summary>
         /// Fetch resource from uri and parse a JObject from it
