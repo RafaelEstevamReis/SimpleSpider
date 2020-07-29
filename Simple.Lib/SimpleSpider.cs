@@ -226,14 +226,18 @@ namespace Net.RafaelEstevam.Spider
         /// <param name="cancellationToken">Cancelation token to prematurely stop</param>
         public void Execute(CancellationToken cancellationToken)
         {
+            bool running = true;
             Cacher.Start();
             Downloader.Start();
 
             if (QueueSize() == 0) addPage(BaseUri, BaseUri);
 
             int idleTimeout = 0;
-            while (!cancellationToken.IsCancellationRequested)
+            int saveCount = 0;
+            while (running)
             {
+                if (cancellationToken.IsCancellationRequested) break;
+
                 if (Configuration.Paused)
                 {
                     Thread.Sleep(500);
@@ -254,12 +258,32 @@ namespace Net.RafaelEstevam.Spider
                 {
                     idleTimeout = 0;
                 }
+
+                if (saveCount++ > 1000) // Each loop is 0,1 or 0,5s, 1 min => ~600
+                {
+                    saveCount = 0;
+                    saveSpiderData();
+                }
             }
 
-             Helper.XmlSerializerHelper.SerializeToFile<SpiderData>(SpiderWorkData, spiderWorkDataPath);
-
+            saveSpiderData();
             Cacher.Stop();
             Downloader.Stop();
+        }
+        private void saveSpiderData()
+        {
+            lock (spiderWorkDataPath)
+            {
+                try
+                {
+                    XmlSerializerHelper.SerializeToFile<SpiderData>(SpiderWorkData, spiderWorkDataPath);
+                    log.Debug("Spider internal data saved");
+                }
+                catch (Exception ex)
+                {
+                    log.Error(ex, "Failed to save spider internal data");
+                }
+            }
         }
 
         private bool workQueue()
@@ -341,16 +365,14 @@ namespace Net.RafaelEstevam.Spider
                 var ev = new FetchRewriteEventArgs(pageToVisit);
                 FetchRewrite(this, ev);
                 // Default Uri Equality ignores Fragment
-                if (ev.NewUri != null && ev.NewUri.ToString() != pageToVisit.ToString()) 
+                if (ev.NewUri != null && ev.NewUri.ToString() != pageToVisit.ToString())
                 {
-                    if(ev.ShowOnLog) log.Information($"[REW] {pageToVisit} -> {ev.NewUri}");
+                    if (ev.ShowOnLog) log.Information($"[REW] {pageToVisit} -> {ev.NewUri}");
                     lnk.ResourceRewritten(ev.NewUri);
                 }
             }
 
             if (alreadyExecuted(lnk.Uri)) return null;
-
-            //var lnk = new Link(pageToVisit, sourcePage);
 
             var args = new ShouldFetchEventArgs(lnk);
             ShouldFetch?.Invoke(this, args);
