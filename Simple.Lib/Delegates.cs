@@ -238,5 +238,9 @@ namespace Net.RafaelEstevam.Spider
         /// New Uri to be fetched
         /// </summary>
         public Uri NewUri { get; set; }
+        /// <summary>
+        /// Defines if should log the rewrite operation
+        /// </summary>
+        public bool ShowOnLog { get; set; } = true;
     }
 }

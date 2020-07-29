@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using Net.RafaelEstevam.Spider.Cachers;
 using Net.RafaelEstevam.Spider.Downloaders;
+using Net.RafaelEstevam.Spider.Helper;
 using Net.RafaelEstevam.Spider.Interfaces;
 using Net.RafaelEstevam.Spider.Parsers;
 using Serilog;
@@ -110,10 +111,12 @@ namespace Net.RafaelEstevam.Spider
 
             initializeFetchers();
             FetchCompleted += fetchCompleted_AutoCollect;
+            FetchRewrite += fetchRewrite_AutoRewrite;
+
             Parsers = new List<IParserBase>() { new HtmlXElementParser(), new XmlXElementParser(), new JsonParser() };
             if (@params?.Parsers != null) Parsers.AddRange(@params.Parsers);
         }
-        
+
         private void initializeConfiguration(string spiderName, InitializationParams init)
         {
             var dir = init?.SpiderDirectory;
@@ -191,6 +194,24 @@ namespace Net.RafaelEstevam.Spider
                 log.Error(ex, "Failed while auto-collecting links. Auto-collection disabled");
             }
         }
+        private void fetchRewrite_AutoRewrite(object Sender, FetchRewriteEventArgs args)
+        {
+            try
+            {
+                if (!Configuration.Auto_RewriteRemoveFragment) return;
+                if (args.CurrentUri.HasFragment())
+                {
+                    args.NewUri = args.CurrentUri.RemoveFragment();
+                    args.ShowOnLog = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Configuration.Auto_RewriteRemoveFragment = false;
+                log.Error(ex, "Failed while auto-removing fragments. Auto-removing disabled");
+            }
+        }
+
 
         /// <summary>
         /// Main execution loop, returns once finished
@@ -319,9 +340,10 @@ namespace Net.RafaelEstevam.Spider
             {
                 var ev = new FetchRewriteEventArgs(pageToVisit);
                 FetchRewrite(this, ev);
-                if (ev.NewUri != null && ev.NewUri != pageToVisit)
+                // Default Uri Equality ignores Fragment
+                if (ev.NewUri != null && ev.NewUri.ToString() != pageToVisit.ToString()) 
                 {
-                    log.Information($"[REW] {pageToVisit} -> {ev.NewUri}");
+                    if(ev.ShowOnLog) log.Information($"[REW] {pageToVisit} -> {ev.NewUri}");
                     lnk.ResourceRewritten(ev.NewUri);
                 }
             }

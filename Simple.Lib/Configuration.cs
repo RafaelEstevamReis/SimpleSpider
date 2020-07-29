@@ -28,6 +28,14 @@ namespace Net.RafaelEstevam.Spider
 
         #endregion
 
+        #region Scheduler
+        /// <summary>
+        /// Enable auto rewrite of Uri to remove Frament
+        /// </summary>
+        public bool Auto_RewriteRemoveFragment { get; set; } = false;
+
+        #endregion
+
         #region Cache Stuff
 
         /// <summary>

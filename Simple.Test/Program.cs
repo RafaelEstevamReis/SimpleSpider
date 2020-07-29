@@ -15,8 +15,8 @@ namespace Net.RafaelEstevam.Spider.Test
             //Sample.ApiPooler_FetcherHelper.run();
 
             // IgnoreMe file to internal screwing around
-            //  Add a file named IgnoreMe.cs with a static void run() on it to play arround with the spider
-            //IgnoreMe.run();
+            //  Add a file named IgnoreMe.cs with a static void run() on it to play around with the spider
+            IgnoreMe.run();
 
 
             //SimpleSpider.HowToUse_PrintToConsole();
