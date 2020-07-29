@@ -72,7 +72,7 @@
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Configuration.DownloadDelay">
             <summary>
-            Time to wait in miliseconds between downloads
+            Time to wait in milliseconds between downloads
             </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Configuration.Set_DownloadDelay(System.TimeSpan)">
@@ -121,17 +121,17 @@
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Configuration.Auto_AnchorsLinks">
             <summary>
-            Enable auto colelction of html Anchors tags
+            Enable auto collection of html Anchors tags
             </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Configuration.Enable_AutoAnchorsLinks">
             <summary>
-            Enable auto colelction of html Anchors tags, uses Auto_AnchorsLinks property
+            Enable auto collection of html Anchors tags, uses Auto_AnchorsLinks property
             </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Configuration.Disable_AutoAnchorsLinks">
             <summary>
-            Disable auto colelction of html Anchors tags, uses Auto_AnchorsLinks property
+            Disable auto collection of html Anchors tags, uses Auto_AnchorsLinks property
             </summary>
             <returns></returns>
         </member>
@@ -140,14 +140,14 @@
             Represents a method that passes fetch completed data
             </summary>
             <param name="Sender">The source of the event</param>
-            <param name="args">Object containing fech data</param>
+            <param name="args">Object containing fetch data</param>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.FetchFail">
             <summary>
             Represents a method that passes fetch failed data
             </summary>
             <param name="Sender">The source of the event</param>
-            <param name="args">Object containing fech failed info</param>
+            <param name="args">Object containing fetch failed info</param>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.FetchRewrite">
             <summary>
@@ -425,7 +425,7 @@
             <summary>
             Creates a new object with specified parameter
             </summary>
-            <param name="kvp">Enumarable of KeyVlauePairs</param>
+            <param name="kvp">Enumerable of KeyValuePairs</param>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.HeaderCollection.#ctor(System.Collections.Specialized.NameValueCollection)">
             <summary>
@@ -452,7 +452,7 @@
         </member>
         <member name="P:Net.RafaelEstevam.Spider.HeaderCollection.Pairs">
             <summary>
-            Gets or sets all pairs as SerializableKeyValuePair, used by XmlSerializaton
+            Gets or sets all pairs as SerializableKeyValuePair, used by XmlSerialization
             </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.HeaderCollection.GetEnumerator">
@@ -509,7 +509,7 @@
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.AnchorHelper.GetAnchors(System.Uri,System.Xml.Linq.XElement)">
             <summary>
-            Get all anchors ('a' tag) and convertoto Uri
+            Get all anchors ('a' tag) and convert to an Uri collection
             </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Helper.ConversionHelper">
@@ -755,12 +755,12 @@
             String representation of the object
             </summary>
         </member>
-        <member name="T:Net.RafaelEstevam.Spider.Helper.HtmlToEXelement">
+        <member name="T:Net.RafaelEstevam.Spider.Helper.HtmlToXElement">
             <summary>
             Class to convert Html to XElement, uses HtmlAgilityPack
             </summary>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Helper.HtmlToEXelement.Parse(System.String)">
+        <member name="M:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.Parse(System.String)">
             <summary>
             Parses an HTML as a XElement
             </summary>
@@ -913,12 +913,12 @@
              Gets or sets a Configuration prototype to be used by the spider
             </summary>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.InitializationParams.SetSpiderStarupPath(System.String)">
+        <member name="M:Net.RafaelEstevam.Spider.InitializationParams.SetSpiderStartupPath(System.String)">
             <summary>
             Instructs spider to use this path
             </summary>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.InitializationParams.SetSpiderStarupDirectory(System.IO.DirectoryInfo)">
+        <member name="M:Net.RafaelEstevam.Spider.InitializationParams.SetSpiderStartupDirectory(System.IO.DirectoryInfo)">
             <summary>
             Instructs spider to use this directory
             </summary>
@@ -955,7 +955,7 @@
         </member>
         <member name="M:Net.RafaelEstevam.Spider.InitializationParams.Default001(System.Int32)">
             <summary>
-            Fronzen in time default: ContentCacher, WebClientDownloader, NoLimitCaching, and AutoAnchorsLinks enabled
+            Frozen in time default: ContentCacher, WebClientDownloader, NoLimitCaching, and AutoAnchorsLinks enabled
             </summary>
             <param name="DownloadDelay">Config.DownloadDelay in milliseconds</param>
             <returns></returns>
@@ -1102,9 +1102,9 @@
             When redirected, the old Uri will be stored here
             </summary>
         </member>
-        <member name="P:Net.RafaelEstevam.Spider.Link.RewritedUri">
+        <member name="P:Net.RafaelEstevam.Spider.Link.RewrittenUri">
             <summary>
-            When rewrited, the old Uri will be stored here
+            When rewritten, the old Uri will be stored here
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Link.FetchStart">
@@ -1142,9 +1142,9 @@
             Change the properties to reflect a moved resource
             </summary>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Link.ResourceRewrited(System.Uri)">
+        <member name="M:Net.RafaelEstevam.Spider.Link.ResourceRewritten(System.Uri)">
             <summary>
-            Change the properties to reflect a rewrited resource
+            Change the properties to reflect a rewritten resource
             </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Link.op_Implicit(Net.RafaelEstevam.Spider.Link)~System.Uri">
