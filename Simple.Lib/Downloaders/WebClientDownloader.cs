@@ -123,21 +123,16 @@ namespace Net.RafaelEstevam.Spider.Downloaders
             {
                 Exception ex = e.Error;
                 int code = 0;
-                if (e.Error is WebException)
+                if (e.Error is WebException webError)
                 {
-                    var webError = (WebException)e.Error;
-                    if (webError.Response is HttpWebResponse)
+                    if (webError.Response is HttpWebResponse resp)
                     {
-                        HttpWebResponse resp = (HttpWebResponse)webError.Response;
                         code = (int)resp.StatusCode;
-
+                        
                         var loc = resp.Headers[HttpResponseHeader.Location];
-
                         if (!string.IsNullOrEmpty(loc))
                         {
-                            string newUrl = loc;
-                            // redirect
-                            current.ResourceMoved(new Uri(current.Uri, newUrl));
+                            current.ResourceMoved(new Uri(current.Uri, loc));
                             webClient.DownloadDataAsync(current.Uri);
 
                             config.Logger.Information($"[MOV] {current.MovedUri} -> {current.Uri}");
@@ -151,16 +146,31 @@ namespace Net.RafaelEstevam.Spider.Downloaders
             // Can process next
             downloading = false;
         }
-
+        /// <summary>
+        /// Internal WebClient overload to expose protected stuff
+        /// </summary>
         public class CustomWebClient : WebClient
         {
+            /// <summary>
+            /// Last request used
+            /// </summary>
             public HttpWebRequest LastRequest { get; private set; }
+            /// <summary>
+            /// Defines if next request should use cookies
+            /// </summary>
             public bool EnableCookies { get; set; }
+            /// <summary>
+            /// Current cookie container
+            /// </summary>
             public CookieContainer CookieContainer { get; }
-            public CustomWebClient()
+
+            internal CustomWebClient()
             {
                 CookieContainer = new CookieContainer();
             }
+            /// <summary>
+            /// Return the WebRequest for this WebClient
+            /// </summary>
             protected override WebRequest GetWebRequest(Uri address)
             {
                 var request = (HttpWebRequest)base.GetWebRequest(address);

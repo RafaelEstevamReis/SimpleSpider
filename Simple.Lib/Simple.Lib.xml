@@ -350,6 +350,31 @@
             Simple Downloader using WebClient
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.CustomWebClient">
+            <summary>
+            Internal WebClient overload to expose protected stuff
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.CustomWebClient.LastRequest">
+            <summary>
+            Last request used
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.CustomWebClient.EnableCookies">
+            <summary>
+            Defines if next request should use cookies
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.CustomWebClient.CookieContainer">
+            <summary>
+            Current cookie container
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.CustomWebClient.GetWebRequest(System.Uri)">
+            <summary>
+            Return the WebRequest for this WebClient
+            </summary>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Extensions.XElementExtensions">
             <summary>
             Obsolete, use Net.RafaelEstevam.Spider.Helper.XElementHelper instead
