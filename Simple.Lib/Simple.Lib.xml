@@ -755,6 +755,41 @@
             <param name="relative">Relative Url</param>
             <returns>New combined Uri</returns>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.UriHelper.HasFragment(System.Uri)">
+            <summary>
+            Returns if uri has a Fragment
+            </summary>
+            <param name="uri">Uri to check</param>
+            <returns>Returns true if it has a fragment, else otherwise</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.UriHelper.HasQuery(System.Uri)">
+            <summary>
+            Returns if uri has a Query
+            </summary>
+            <param name="uri">Uri to check</param>
+            <returns>Returns true if it has a query, else otherwise</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.UriHelper.RemoveFragment(System.Uri)">
+            <summary>
+            Removes the fragment from a Uri
+            </summary>
+            <param name="uri">Uri to remove from</param>
+            <returns>A new Uri without the fragment</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.UriHelper.RemoveQuery(System.Uri)">
+            <summary>
+            Removes the query from a Uri
+            </summary>
+            <param name="uri">Uri to remove from</param>
+            <returns>A new Uri without the query</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.UriHelper.RemoveQueryAndFragment(System.Uri)">
+            <summary>
+            Removes the query and/or the fragment from a Uri
+            </summary>
+            <param name="uri">Uri to remove from</param>
+            <returns>A new Uri without the query and fragment</returns>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Helper.XElementHelper">
             <summary>
             Helper to do stuff with pages parsed as XElement 
@@ -1042,6 +1077,11 @@
             When redirected, the old Uri will be stored here
             </summary>
         </member>
+        <member name="P:Net.RafaelEstevam.Spider.Link.RewritedUri">
+            <summary>
+            When rewrited, the old Uri will be stored here
+            </summary>
+        </member>
         <member name="P:Net.RafaelEstevam.Spider.Link.FetchStart">
             <summary>
             Fetch start Datetime
@@ -1072,14 +1112,19 @@
             Returns the string representation of the Uri property
             </summary>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Link.op_Implicit(Net.RafaelEstevam.Spider.Link)~System.Uri">
-            <summary>
-            Implicit convertion from Link to Uri, returns Uri property
-            </summary>
-        </member>
         <member name="M:Net.RafaelEstevam.Spider.Link.ResourceMoved(System.Uri)">
             <summary>
             Change the properties to reflect a moved resource
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Link.ResourceRewrited(System.Uri)">
+            <summary>
+            Change the properties to reflect a rewrited resource
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Link.op_Implicit(Net.RafaelEstevam.Spider.Link)~System.Uri">
+            <summary>
+            Implicit convertion from Link to Uri, returns Uri property
             </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Parsers.HtmlXElementParser">
