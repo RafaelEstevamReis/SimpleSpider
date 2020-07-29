@@ -3,17 +3,33 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
+[assembly: InternalsVisibleToAttribute("Simple.UnitTests")]
 namespace Net.RafaelEstevam.Spider.Helper
 {
+    /// <summary>
+    /// Helper to do stuff with CSV data
+    /// </summary>
     public static class CSVHelper
     {
+        /// <summary>
+        /// Split CSV lines using semicolon (rfc4180 standard)
+        /// </summary>
+        /// <param name="Lines">Lines to be splitted</param>
+        /// <returns>Enumeration of an array of strings</returns>
         public static IEnumerable<string[]> CSVSplit(IEnumerable<string> Lines)
         {
             // rfc4180 standard
             return DelimiterSplit(Lines, ';');
         }
+        /// <summary>
+        /// Split CSV lines using specified demlimter
+        /// </summary>
+        /// <param name="Lines">Lines to be splitted</param>
+        /// <param name="delimiter">Specify which delimiter should be used</param>
+        /// <returns>Enumeration of an array of strings</returns>
         public static IEnumerable<string[]> DelimiterSplit(IEnumerable<string> Lines, char delimiter)
         {
             foreach (var line in Lines)
@@ -21,11 +37,11 @@ namespace Net.RafaelEstevam.Spider.Helper
                 yield return splitLine(line, delimiter).ToArray();
             }
         }
-        public static IEnumerable<string> splitLine(string line, char delimiter)
+        internal static IEnumerable<string> splitLine(string line, char delimiter)
         {
             bool isQuoted = false;
             var sb = new StringBuilder();
-            // I'll implement escape now
+            // I will not implement escape now
             foreach (var c in line)
             {
                 if (c == '"')
@@ -44,7 +60,13 @@ namespace Net.RafaelEstevam.Spider.Helper
             }
             yield return sb.ToString();
         }
-
+        /// <summary>
+        /// Splits a CSV file even if its compressed as .gz or .zip
+        /// </summary>
+        /// <param name="fi">File to be read</param>
+        /// <param name="encoding">Specify which encoding should be used</param>
+        /// <param name="delimiter">Specify which delimiter should be used</param>
+        /// <returns>Enumeration of an array of strings</returns>
         public static IEnumerable<string[]> FileSplit(FileInfo fi, Encoding encoding = null, char delimiter = ';')
         {
             if (encoding == null) encoding = Encoding.Default;
@@ -78,7 +100,12 @@ namespace Net.RafaelEstevam.Spider.Helper
                 }
             }
         }
-
+        /// <summary>
+        /// Splits lines from a stream
+        /// </summary>
+        /// <param name="streamReader">Stream to get lines from</param>
+        /// <param name="delimiter">Specify which delimiter should be used</param>
+        /// <returns>Enumeration of an array of strings</returns>
         public static IEnumerable<string[]> FileSplit(StreamReader streamReader, char delimiter = ';')
         {
             string line;

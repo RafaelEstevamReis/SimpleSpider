@@ -7,16 +7,34 @@ using System.Xml.XPath;
 
 namespace Net.RafaelEstevam.Spider.Helper
 {
+    /// <summary>
+    /// Helper to do stuff with pages parsed as XElement 
+    /// </summary>
     public static class XElementHelper
     {
+        /// <summary>
+        /// Enumerates all XElements named 'table'
+        /// </summary>
+        /// <param name="Root">Root element to be enumerated</param>
+        /// <returns>Enumeration of XElement tables</returns>
         public static IEnumerable<XElement> GetTables(XElement Root)
         {
             return Root.XPathSelectElements("table");
         }
+        /// <summary>
+        /// Enumerates all XElements named 'table' as DataTable collection
+        /// </summary>
+        /// <param name="Root">Root element to be enumerated</param>
+        /// <returns>Enumeration of DataTable tables</returns>
         public static IEnumerable<DataTable> GetAllTables(this XElement Root)
         {
             return GetTables(Root).Select(t => GetTable(t));
         }
+        /// <summary>
+        /// Converts a XElement table to a DataTable
+        /// </summary>
+        /// <param name="table">Table element to be converted</param>
+        /// <returns>DataTable converted</returns>
         public static DataTable GetTable(XElement table)
         {
             if (table.Name.LocalName != "table") throw new ArgumentException("table is not a <table> element");
@@ -96,6 +114,12 @@ namespace Net.RafaelEstevam.Spider.Helper
             }
             return dt;
         }
+        /// <summary>
+        /// Enumerates all nodes with Name.LocalName equals to Name
+        /// </summary>
+        /// <param name="Root">Root object to start searching</param>
+        /// <param name="Name">Name to be searched</param>
+        /// <returns>Enumeration of XElements named Name</returns>
         public static IEnumerable<XElement> GetChilds(this XElement Root, string Name)
         {
             foreach (var x in Root.Elements())
@@ -103,6 +127,12 @@ namespace Net.RafaelEstevam.Spider.Helper
                 if (x.Name.LocalName.Equals(Name, StringComparison.InvariantCultureIgnoreCase)) yield return x;
             }
         }
+        /// <summary>
+        /// Enumerates all nodes with any Name.LocalName equals to Names
+        /// </summary>
+        /// <param name="Root">Root object to start searching</param>
+        /// <param name="Names">Names to be searched</param>
+        /// <returns>Enumeration of XElements named any of Names</returns>
         public static IEnumerable<XElement> GetChilds(this XElement Root, params string[] Names)
         {
             foreach (var x in Root.Elements())

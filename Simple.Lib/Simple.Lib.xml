@@ -6,7 +6,7 @@
     <members>
         <member name="T:Net.RafaelEstevam.Spider.Cachers.ContentCacher">
             <summary>
-            Simple cacher, stores locally the content of the resource fetched
+            Simple cacher, stores the content of the resource fetched locally
             </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Cachers.NullCacher">
@@ -506,6 +506,48 @@
             <param name="dateTime">Datetime component to be converted</param>
             <returns>>Numeric representation of Unix time</returns>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Helper.CSVHelper">
+            <summary>
+            Helper to do stuff with CSV data
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.CSVHelper.CSVSplit(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Split CSV lines using semicolon (rfc4180 standard)
+            </summary>
+            <param name="Lines">Lines to be splitted</param>
+            <returns>Enumeration of an array of strings</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.CSVHelper.DelimiterSplit(System.Collections.Generic.IEnumerable{System.String},System.Char)">
+            <summary>
+            Split CSV lines using specified demlimter
+            </summary>
+            <param name="Lines">Lines to be splitted</param>
+            <param name="delimiter">Specify which delimiter should be used</param>
+            <returns>Enumeration of an array of strings</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.CSVHelper.FileSplit(System.IO.FileInfo,System.Text.Encoding,System.Char)">
+            <summary>
+            Splits a CSV file even if its compressed as .gz or .zip
+            </summary>
+            <param name="fi">File to be read</param>
+            <param name="encoding">Specify which encoding should be used</param>
+            <param name="delimiter">Specify which delimiter should be used</param>
+            <returns>Enumeration of an array of strings</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.CSVHelper.FileSplit(System.IO.StreamReader,System.Char)">
+            <summary>
+            Splits lines from a stream
+            </summary>
+            <param name="streamReader">Stream to get lines from</param>
+            <param name="delimiter">Specify which delimiter should be used</param>
+            <returns>Enumeration of an array of strings</returns>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Helper.FetchHelper">
+            <summary>
+            Helper to fetch stuff
+            </summary>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResource(System.Uri)">
             <summary>
             Fetch resource from uri
@@ -518,6 +560,7 @@
             Fetch resource from uri
             </summary>
             <param name="uri">Uri to fetch from</param>
+            <param name="enc">Defines which encoding should be used</param>
             <returns>String with data fetched</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceXElement(System.Uri,System.Text.Encoding)">
@@ -525,6 +568,7 @@
             Fetch resource from uri and parse a XElement from it
             </summary>
             <param name="uri">Uri to fetch from</param>
+            <param name="enc">Defines which encoding should be used</param>
             <returns>XElement with data fetched</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceJObject(System.Uri,System.Text.Encoding)">
@@ -532,6 +576,7 @@
             Fetch resource from uri and parse a JObject from it
             </summary>
             <param name="uri">Uri to fetch from</param>
+            <param name="enc">Defines which encoding should be used</param>
             <returns>JObject with data fetched</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceJObject(System.Uri,Newtonsoft.Json.Linq.JsonLoadSettings,System.Text.Encoding)">
@@ -540,6 +585,7 @@
             </summary>
             <param name="uri">Uri to fetch from</param>
             <param name="loadSettings">JsonLoadSettings to parse with</param>
+            <param name="enc">Defines which encoding should be used</param>
             <returns>JObject with data fetched</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceJson``1(System.Uri,System.Text.Encoding)">
@@ -547,7 +593,7 @@
             Fetch resource from uri and deserialize T from it
             </summary>
             <param name="uri">Uri to fetch from</param>
-            <param name="enc">Especify encoding</param>
+            <param name="enc">Defines which encoding should be used</param>
             <returns>T deserialized with data fetched</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceJson``1(System.Uri,Newtonsoft.Json.JsonSerializerSettings,System.Text.Encoding)">
@@ -555,9 +601,14 @@
             Fetch resource from uri and deserialize T from it
             </summary>
             <param name="uri">Uri to fetch from></param>
-            <param name="enc">Especify encoding</param>
+            <param name="enc">Defines which encoding should be used</param>
             <param name="settings">JsonSerializerSettings Settings</param>
             <returns>>T deserialized with data fetched</returns>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Helper.FormsHelper">
+            <summary>
+            Helper to do stuff with html Form tags 
+            </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.FormsHelper.GetForms(System.Xml.Linq.XElement)">
             <summary>
@@ -571,7 +622,22 @@
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Helper.FormTag">
             <summary>
-            Class to represent a HtmlForm
+            Class to represent a HtmlForm to easy Linq operations
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Helper.FormTag.Methods">
+            <summary>
+            Represents the method attibute options
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.Helper.FormTag.Methods.Get">
+            <summary>
+            Http GET method
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.Helper.FormTag.Methods.Post">
+            <summary>
+            Http POST method
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Helper.FormTag.Element">
@@ -579,9 +645,34 @@
             Original XElement parsed
             </summary>
         </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.FormTag.Id">
+            <summary>
+            Represents the Id attibute of the form
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.FormTag.Name">
+            <summary>
+            Represents the Name attibute of the form
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.FormTag.Action">
+            <summary>
+            Represents the Action attibute of the form
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.FormTag.Class">
+            <summary>
+            Represents the Class attibute of the form
+            </summary>
+        </member>
         <member name="P:Net.RafaelEstevam.Spider.Helper.FormTag.Classes">
             <summary>
             Classes splitted by a Space
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.FormTag.Method">
+            <summary>
+            Represents the method attibute of the form
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Helper.FormTag.Inputs">
@@ -599,10 +690,99 @@
             Collection of the Hidden fields
             </summary>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.FormTag.ToString">
+            <summary>
+            String representation of the object
+            </summary>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Helper.InputTag">
             <summary>
             Class to represent a InputTag
             </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.InputTag.Id">
+            <summary>
+            Represents the Id attibute
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.InputTag.Type">
+            <summary>
+            Represents the Type attibute
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.InputTag.Name">
+            <summary>
+            Represents the Name attibute
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.InputTag.Value">
+            <summary>
+            Represents the Value attibute
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.InputTag.Element">
+            <summary>
+            Original XElement used to parse
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.InputTag.ToString">
+            <summary>
+            String representation of the object
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Helper.HtmlToEXelement">
+            <summary>
+            Class to convert Html to XElement, uses HtmlAgilityPack
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.HtmlToEXelement.Parse(System.String)">
+            <summary>
+            Parses an HTML as a XElement
+            </summary>
+            <param name="html">Html content to be parsed</param>
+            <returns>XElement parsed</returns>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Helper.XElementHelper">
+            <summary>
+            Helper to do stuff with pages parsed as XElement 
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.XElementHelper.GetTables(System.Xml.Linq.XElement)">
+            <summary>
+            Enumerates all XElements named 'table'
+            </summary>
+            <param name="Root">Root element to be enumerated</param>
+            <returns>Enumeration of XElement tables</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.XElementHelper.GetAllTables(System.Xml.Linq.XElement)">
+            <summary>
+            Enumerates all XElements named 'table' as DataTable collection
+            </summary>
+            <param name="Root">Root element to be enumerated</param>
+            <returns>Enumeration of DataTable tables</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.XElementHelper.GetTable(System.Xml.Linq.XElement)">
+            <summary>
+            Converts a XElement table to a DataTable
+            </summary>
+            <param name="table">Table element to be converted</param>
+            <returns>DataTable converted</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.XElementHelper.GetChilds(System.Xml.Linq.XElement,System.String)">
+            <summary>
+            Enumerates all nodes with Name.LocalName equals to Name
+            </summary>
+            <param name="Root">Root object to start searching</param>
+            <param name="Name">Name to be searched</param>
+            <returns>Enumeration of XElements named Name</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.XElementHelper.GetChilds(System.Xml.Linq.XElement,System.String[])">
+            <summary>
+            Enumerates all nodes with any Name.LocalName equals to Names
+            </summary>
+            <param name="Root">Root object to start searching</param>
+            <param name="Names">Names to be searched</param>
+            <returns>Enumeration of XElements named any of Names</returns>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Helper.XmlSerializerHelper">
             <summary>
@@ -1141,7 +1321,7 @@
         </member>
         <member name="P:Net.RafaelEstevam.Spider.SimpleSpider.SpiderData.Error404">
             <summary>
-            List of pages that once got and 404 error and should not be downloaded again
+            List of pages that once got a 404 error and should not be downloaded again
             </summary>
         </member>
     </members>

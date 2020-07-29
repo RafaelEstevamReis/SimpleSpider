@@ -9,7 +9,7 @@ using Net.RafaelEstevam.Spider.Interfaces;
 namespace Net.RafaelEstevam.Spider.Cachers
 {
     /// <summary>
-    /// Simple cacher, stores locally the content of the resource fetched
+    /// Simple cacher, stores the content of the resource fetched locally
     /// </summary>
     public class ContentCacher : ICacher
     {
@@ -125,7 +125,7 @@ namespace Net.RafaelEstevam.Spider.Cachers
             current.FetchStart = DateTime.Now;
             // load file
             var bytes = File.ReadAllBytes(getCacheFileFullName(current));
-            var textContent = Encoding.UTF8.GetString(bytes, 0, 64);
+            var textContent = Encoding.ASCII.GetString(bytes, 0, 128);
 
             // don't know, so we guess
             string cType = null;

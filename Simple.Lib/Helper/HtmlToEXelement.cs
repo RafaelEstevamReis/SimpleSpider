@@ -3,8 +3,16 @@ using System.Xml.Linq;
 
 namespace Net.RafaelEstevam.Spider.Helper
 {
+    /// <summary>
+    /// Class to convert Html to XElement, uses HtmlAgilityPack
+    /// </summary>
     public class HtmlToEXelement
     {
+        /// <summary>
+        /// Parses an HTML as a XElement
+        /// </summary>
+        /// <param name="html">Html content to be parsed</param>
+        /// <returns>XElement parsed</returns>
         public static XElement Parse(string html)
         {
             // Static configs
