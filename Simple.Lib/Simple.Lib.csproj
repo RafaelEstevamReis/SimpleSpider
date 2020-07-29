@@ -14,14 +14,14 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>spider</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.4.141</Version>
+    <Version>0.5.145</Version>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Description>A simple to use web spider with an example rich GitHub repository
 (work in progress)</Description>
     <PackageReleaseNotes>Work in progress. See examples and documentation on GitHub page
-Better documentation
+Better code documentation
 Commit 2e6b852</PackageReleaseNotes>
-    <AssemblyVersion>0.4.141.0</AssemblyVersion>
+    <AssemblyVersion>0.5.145.0</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
