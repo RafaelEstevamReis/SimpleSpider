@@ -104,7 +104,7 @@ namespace Net.RafaelEstevam.Spider.Cachers
                         }
                         catch (Exception ex)
                         {
-                            FetchFailed(this, new FetchFailEventArgs(current, ex, new HeaderCollection()));
+                            FetchFailed(this, new FetchFailEventArgs(current, 0, ex, new HeaderCollection()));
                         }
                     }
                     else Thread.Sleep(100);
