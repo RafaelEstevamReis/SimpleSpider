@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog.Sinks.File;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -20,6 +21,33 @@ namespace Net.RafaelEstevam.Spider.Helper
             // This method allows for future improvement on Uri combining and edge case handling
 
             return new Uri(parent, relative);
+        }
+
+        public static bool HasFragment(this Uri uri)
+        {
+            return !string.IsNullOrEmpty(uri.Fragment);
+        }
+        public static bool HasQuery(this Uri uri)
+        {
+            return !string.IsNullOrEmpty(uri.Query);
+        }
+
+        public static Uri RemoveFragment(this Uri uri)
+        {
+            if (!HasFragment(uri)) return uri;
+            return new Uri(uri.ToString().Replace(uri.Fragment, ""));
+        }
+        public static Uri RemoveQuery(this Uri uri)
+        {
+            if (!HasQuery(uri)) return uri;
+            return new Uri(uri.ToString().Replace(uri.Query, ""));
+        }
+        public static Uri RemoveQueryAndFragment(this Uri uri)
+        {
+            if (!uri.HasFragment() && !uri.HasQuery()) return uri;
+
+            return uri.RemoveQuery().RemoveFragment();
+
         }
     }
 }
