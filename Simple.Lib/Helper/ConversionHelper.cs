@@ -16,7 +16,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// <returns>Datetime converted</returns>
         public static DateTime UnixEpoch(long Timestamp)
         {
-            // I realy don't like it be a double ... ...
+            // I really don't like it be a double ... ...
             return DateTime.UnixEpoch.AddSeconds(Timestamp);
         }
         /// <summary>
@@ -26,7 +26,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// <returns>>Numeric representation of Unix time</returns>
         public static long UnixEpoch(DateTime dateTime)
         {
-            // I realy don't like it be a double ... ...
+            // I really don't like it be a double ... ...
             return (int)(dateTime - DateTime.UnixEpoch).TotalSeconds;
         }
     }

@@ -43,7 +43,7 @@ namespace Net.RafaelEstevam.Spider.Helper
             }
         }
         /// <summary>
-        /// Get all anchors ('a' tag) and convertoto Uri
+        /// Get all anchors ('a' tag) and convert to an Uri collection
         /// </summary>
         public static IEnumerable<Uri> GetAnchors(Uri request, XElement root)
         {
