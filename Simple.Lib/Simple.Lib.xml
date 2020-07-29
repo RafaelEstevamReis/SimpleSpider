@@ -742,6 +742,19 @@
             <param name="html">Html content to be parsed</param>
             <returns>XElement parsed</returns>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Helper.UriHelper">
+            <summary>
+            Helper for Uri stuff
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.UriHelper.Combine(System.Uri,System.String)">
+            <summary>
+            Combines a Uri with a Relative Url into a new combined Uri
+            </summary>
+            <param name="parent">Base Uri</param>
+            <param name="relative">Relative Url</param>
+            <returns>New combined Uri</returns>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Helper.XElementHelper">
             <summary>
             Helper to do stuff with pages parsed as XElement 
@@ -1024,6 +1037,11 @@
             Uri where the Uri property was found
             </summary>
         </member>
+        <member name="P:Net.RafaelEstevam.Spider.Link.MovedUri">
+            <summary>
+            When redirected, the old Uri will be stored here
+            </summary>
+        </member>
         <member name="P:Net.RafaelEstevam.Spider.Link.FetchStart">
             <summary>
             Fetch start Datetime
@@ -1057,6 +1075,11 @@
         <member name="M:Net.RafaelEstevam.Spider.Link.op_Implicit(Net.RafaelEstevam.Spider.Link)~System.Uri">
             <summary>
             Implicit convertion from Link to Uri, returns Uri property
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Link.ResourceMoved(System.Uri)">
+            <summary>
+            Change the properties to reflect a moved resource
             </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Parsers.HtmlXElementParser">

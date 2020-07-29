@@ -16,7 +16,9 @@ namespace Net.RafaelEstevam.Spider
         /// Uri where the Uri property was found
         /// </summary>
         public Uri SourceUri { get; }
-        
+        /// <summary>
+        /// When redirected, the old Uri will be stored here
+        /// </summary>
         public Uri MovedUri { get; private set; }
 
         /// <summary>
@@ -57,7 +59,9 @@ namespace Net.RafaelEstevam.Spider
         /// Implicit convertion from Link to Uri, returns Uri property
         /// </summary>
         public static implicit operator Uri(Link lnk) => lnk.Uri;
-
+        /// <summary>
+        /// Change the properties to reflect a moved resource
+        /// </summary>
         public void ResourceMoved(Uri newUri)
         {
             MovedUri = Uri;
