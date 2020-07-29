@@ -313,19 +313,22 @@ namespace Net.RafaelEstevam.Spider
                 return null;
             }
 
+            var lnk = new Link(pageToVisit, sourcePage);
+
             if (FetchRewrite != null)
             {
                 var ev = new FetchRewriteEventArgs(pageToVisit);
                 FetchRewrite(this, ev);
-                if (ev.NewUri != null)
+                if (ev.NewUri != null && ev.NewUri != pageToVisit)
                 {
-                    pageToVisit = ev.NewUri; // Pass HostViolation check
+                    log.Information($"[REW] {pageToVisit} -> {ev.NewUri}");
+                    lnk.ResourceRewrited(ev.NewUri);
                 }
             }
 
-            if (alreadyExecuted(pageToVisit)) return null;
+            if (alreadyExecuted(lnk.Uri)) return null;
 
-            var lnk = new Link(pageToVisit, sourcePage);
+            //var lnk = new Link(pageToVisit, sourcePage);
 
             var args = new ShouldFetchEventArgs(lnk);
             ShouldFetch?.Invoke(this, args);

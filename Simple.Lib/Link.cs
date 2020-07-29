@@ -20,6 +20,10 @@ namespace Net.RafaelEstevam.Spider
         /// When redirected, the old Uri will be stored here
         /// </summary>
         public Uri MovedUri { get; private set; }
+        /// <summary>
+        /// When rewrited, the old Uri will be stored here
+        /// </summary>
+        public Uri RewritedUri { get; private set; }
 
         /// <summary>
         /// Fetch start Datetime
@@ -55,10 +59,7 @@ namespace Net.RafaelEstevam.Spider
         {
             return Uri.ToString();
         }
-        /// <summary>
-        /// Implicit convertion from Link to Uri, returns Uri property
-        /// </summary>
-        public static implicit operator Uri(Link lnk) => lnk.Uri;
+
         /// <summary>
         /// Change the properties to reflect a moved resource
         /// </summary>
@@ -67,5 +68,19 @@ namespace Net.RafaelEstevam.Spider
             MovedUri = Uri;
             Uri = newUri;
         }
+        /// <summary>
+        /// Change the properties to reflect a rewrited resource
+        /// </summary>
+        public void ResourceRewrited(Uri newUri)
+        {
+            RewritedUri = Uri;
+            Uri = newUri;
+        }
+
+        /// <summary>
+        /// Implicit convertion from Link to Uri, returns Uri property
+        /// </summary>
+        public static implicit operator Uri(Link lnk) => lnk.Uri;
+
     }
 }
