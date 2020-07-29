@@ -22,6 +22,11 @@ namespace Net.RafaelEstevam.Spider.Downloaders
         Thread thread;
         CustomWebClient webClient;
 
+        public CustomWebClient ExposeInternalWebClient()
+        {
+            return webClient;
+        }
+
         public List<TimeSpan> FetchTempo { get;  }
 
         public WebClientDownloader()
@@ -96,13 +101,16 @@ namespace Net.RafaelEstevam.Spider.Downloaders
         }
         private void WebClient_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
         {
+            // We finished
             current.FetchEnd = DateTime.Now;
+            // Manage FetchTempo list
             FetchTempo.Add(current.FetchEnd - current.FetchStart);
             if (FetchTempo.Count > 1000)
             {
                 while (FetchTempo.Count > 980)
                     FetchTempo.RemoveRange(0, 25);
             }
+            // process result
             if (e.Error == null)
             {
                 FetchCompleted(this, 
@@ -140,11 +148,13 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                 }
                 FetchFailed(this, new FetchFailEventArgs(current, code, ex, new HeaderCollection(webClient.Headers)));
             }
+            // Can process next
             downloading = false;
         }
 
-        class CustomWebClient : WebClient
+        public class CustomWebClient : WebClient
         {
+            public HttpWebRequest LastRequest { get; private set; }
             public bool EnableCookies { get; set; }
             public CookieContainer CookieContainer { get; }
             public CustomWebClient()
@@ -156,6 +166,8 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                 var request = (HttpWebRequest)base.GetWebRequest(address);
                 request.AllowAutoRedirect = false; // need to catch new locations
                 if (EnableCookies) request.CookieContainer = CookieContainer;
+
+                LastRequest = request;
 
                 return request;
             }
