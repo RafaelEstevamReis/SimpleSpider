@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 using Net.RafaelEstevam.Spider.Interfaces;
 
 namespace Net.RafaelEstevam.Spider.Downloaders
@@ -16,6 +17,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
     {
         private ConcurrentQueue<Link> queue;
         private Configuration config;
+        CancellationTokenSource cancellationToken;
 
         Thread thread;
         CustomWebClient webClient;
@@ -24,6 +26,8 @@ namespace Net.RafaelEstevam.Spider.Downloaders
 
         public WebClientDownloader()
         {
+            cancellationToken = new CancellationTokenSource();
+
             webClient = new CustomWebClient();
             webClient.DownloadDataCompleted += WebClient_DownloadDataCompleted;
             FetchTempo = new List<TimeSpan>();
@@ -49,9 +53,11 @@ namespace Net.RafaelEstevam.Spider.Downloaders
 
         public void Stop()
         {
+            cancellationToken.Cancel();
             run = false;
             //thread.Interrupt();   
         }
+
         bool run;
         bool downloading;
         Link current;
@@ -62,7 +68,9 @@ namespace Net.RafaelEstevam.Spider.Downloaders
             {
                 int delay = config.DownloadDelay;
                 if (FetchTempo.Count > 0) delay -= (int)FetchTempo[^1].TotalMilliseconds;
-                Thread.Sleep(Math.Max(100, delay));
+                
+                Task.Delay(Math.Max(100, delay), cancellationToken.Token);
+                if (cancellationToken.IsCancellationRequested) break;
 
                 if (downloading) continue;
 
