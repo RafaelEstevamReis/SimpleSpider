@@ -30,8 +30,8 @@ void run()
 {
     var spider = new SimpleSpider("QuotesToScrape", new Uri("http://quotes.toscrape.com/"));
     // create a json parser for our QuotesObject class
-    spider.Parsers.Add(new JsonDeserializeParser<QuotesObject>(parsedResult_event))
-    // add first
+    spider.Parsers.Add(new JsonDeserializeParser<QuotesObject>(parsedResult_event));
+    // add first page /api/quotes?page={pageNo}
     spider.AddPage(buildPageUri(1), spider.BaseUri);
     // execute
     spider.Execute();
@@ -41,13 +41,13 @@ void parsedResult_event(object sender, ParserEventArgs<QuotesObject> args)
     // add next
     if (args.ParsedData.has_next)
     {
-        int currPage = args.ParsedData.page;
-        ((SimpleSpider)sender).AddPage(buildPageUri(currPage + 1), args.FetchInfo.Link);
+        int next = args.ParsedData.page + 1;
+        (sender as SimpleSpider).AddPage(buildPageUri(next), args.FetchInfo.Link);
     }
     // process data (show on console)
-    foreach (var j in args.ParsedData.quotes)
+    foreach (var q in args.ParsedData.quotes)
     {
-        Console.WriteLine($"{j.author.name }: { j.text }");
+        Console.WriteLine($"{q.author.name }: { q.text }");
     }
 }
 ```
@@ -61,7 +61,7 @@ Use XPath to select elements and filter data
 void run()
 {
     var spider = new SimpleSpider("BooksToScrape", new Uri("http://books.toscrape.com/"));
-    // callback to gather items
+    // callback to gather items, new links are collected automatically
     spider.FetchCompleted += fetchCompleted_items;
     // Ignore (cancel) the pages containing "/reviews/" 
     spider.ShouldFetch += (s, a) => { a.Cancel = a.Link.Uri.ToString().Contains("/reviews/"); };
@@ -71,9 +71,6 @@ void run()
 }
 void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
 {
-    // Collect new links
-    (Sender as SimpleSpider).AddPages(AnchorHelper.GetAnchors(args.Link.Uri, args.Html), args.Link);
-
     // ignore all pages except the catalogue
     if (!args.Link.ToString().Contains("/catalogue/")) return;
 
@@ -99,20 +96,20 @@ Initialize your spider easily with chaining and a good variety of options
 void run()
 {
     var init = new InitializationParams()
-        .SetCacher(new ContentCacher())
-        .SetDownloader(new WebClientDownloader())
+        .SetCacher(new ContentCacher()) // Easy cache engine change
+        .SetDownloader(new WebClientDownloader()) // Easy download engine change
         .SetSpiderStartupDirectory(@"D:\spiders\") // Default directory
         // create a json parser for our QuotesObject class
         .AddParser(new JsonDeserializeParser<QuotesObject>(parsedResult_event))
-        .SetConfig(c => c.Enable_Caching()
-                         .Disable_Cookies()
+        .SetConfig(c => c.Enable_Caching()  // Already enabled by default
+                         .Disable_Cookies() // Already disabled by default
                          .Disable_AutoAnchorsLinks()
-                         .Set_CachingNoLimit()
+                         .Set_CachingNoLimit() // Already setted by default
                          .Set_DownloadDelay(5000));
 
     var spider = new SimpleSpider("QuotesToScrape", new Uri("http://quotes.toscrape.com/"), init);
 
-    // add first
+    // add first 
     spider.AddPage(buildPageUri(1), spider.BaseUri);
     // execute
     spider.Execute();
