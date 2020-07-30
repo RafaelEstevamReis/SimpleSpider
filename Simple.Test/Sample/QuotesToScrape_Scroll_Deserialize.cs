@@ -1,4 +1,6 @@
 ﻿using System;
+using Net.RafaelEstevam.Spider.Interfaces;
+using Net.RafaelEstevam.Spider.Parsers;
 
 namespace Net.RafaelEstevam.Spider.Test.Sample
 {
@@ -8,27 +10,25 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
         {
             var spider = new SimpleSpider("QuotesToScrape", new Uri("http://quotes.toscrape.com/"));
             // create a json parser for our QuotesObject class
-            var parser = new Parsers.JsonDeserializeParser<QuotesObject>(parsedResult_event);
-            spider.Parsers.Add(parser);
-
-            // add first
-            spider.AddPage( buildPageUri(1), spider.BaseUri);
+            spider.Parsers.Add(new JsonDeserializeParser<QuotesObject>(parsedResult_event));
+            // add first page /api/quotes?page={pageNo}
+            spider.AddPage(buildPageUri(1), spider.BaseUri);
             // execute
             spider.Execute();
         }
 
-        private static void parsedResult_event(object sender, Interfaces.ParserEventArgs<QuotesObject> args)
+        private static void parsedResult_event(object sender, ParserEventArgs<QuotesObject> args)
         {
             // add next
             if (args.ParsedData.has_next)
             {
-                int currPage = args.ParsedData.page;
-                ((SimpleSpider)sender).AddPage(buildPageUri(currPage + 1), args.FetchInfo.Link);
+                int next = args.ParsedData.page + 1;
+                (sender as SimpleSpider).AddPage(buildPageUri(next), args.FetchInfo.Link);
             }
             // process data (show on console)
-            foreach (var j in args.ParsedData.quotes)
+            foreach (var q in args.ParsedData.quotes)
             {
-                Console.WriteLine($"{j.author.name }: { j.text }");
+                Console.WriteLine($"{q.author.name }: { q.text }");
             }
         }
         public static Uri buildPageUri(int page)
@@ -36,6 +36,5 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
             string url = $"http://quotes.toscrape.com/api/quotes?page={ page }";
             return new Uri(url);
         }
-
     }
 }
