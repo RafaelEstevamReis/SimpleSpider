@@ -3,8 +3,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading;
 using Net.RafaelEstevam.Spider.Cachers;
 using Net.RafaelEstevam.Spider.Downloaders;
@@ -120,7 +118,7 @@ namespace Net.RafaelEstevam.Spider
         private void initializeConfiguration(string spiderName, InitializationParams init)
         {
             var dir = init?.SpiderDirectory;
-            if (dir == null) dir = new FileInfo(Assembly.GetEntryAssembly().Location).Directory;
+            if (dir == null) dir = new FileInfo(System.Reflection.Assembly.GetEntryAssembly().Location).Directory;
 
             var spiderPath = new DirectoryInfo(Path.Combine(dir.FullName, spiderName));
             if (!spiderPath.Exists) spiderPath.Create();
@@ -148,7 +146,6 @@ namespace Net.RafaelEstevam.Spider
             Configuration.Logger = log;
             log.Information("Initialization complete");
         }
-
         private void initializeQueues()
         {
             qAdded = new ConcurrentQueue<Link>();
@@ -157,7 +154,6 @@ namespace Net.RafaelEstevam.Spider
             hExecuted = new HashSet<string>();
             hViolated = new HashSet<string>();
         }
-
         private void initializeFetchers()
         {
             Cacher.Initialize(qCache, Configuration);
@@ -170,6 +166,7 @@ namespace Net.RafaelEstevam.Spider
             Downloader.FetchFailed += Downloader_FetchFailed;
             Downloader.ShouldFetch += Downloader_ShouldFetch;
         }
+
         private void fetchCompleted_AutoCollect(object Sender, FetchCompleteEventArgs args)
         {
             try
@@ -211,7 +208,6 @@ namespace Net.RafaelEstevam.Spider
                 log.Error(ex, "Failed while auto-removing fragments. Auto-removing disabled");
             }
         }
-
 
         /// <summary>
         /// Main execution loop, returns once finished
@@ -426,32 +422,12 @@ namespace Net.RafaelEstevam.Spider
 
             FetchFailed?.Invoke(this, args);
         }
-
         private void Downloader_FetchCompleted(object Sender, FetchCompleteEventArgs args)
         {
             Cacher.GenerateCacheFor(args);
             args.Source = FetchEventArgs.EventSource.Downloader;
             fetchCompleted(args);
         }
-
-        private void Cacher_FetchFailed(object Sender, FetchFailEventArgs args)
-        {
-            qDownload.Enqueue(args.Link);
-        }
-
-        private void Cacher_FetchCompleted(object Sender, FetchCompleteEventArgs args)
-        {
-            args.Source = FetchEventArgs.EventSource.Cacher;
-            fetchCompleted(args);
-        }
-
-        // Should Fetch ?
-        private void Cacher_ShouldFetch(object Sender, ShouldFetchEventArgs args)
-        {
-            args.Source = FetchEventArgs.EventSource.Cacher;
-            shouldFetch(Sender, args);
-        }
-
         private void Downloader_ShouldFetch(object Sender, ShouldFetchEventArgs args)
         {
             if (SpiderWorkData.Error404.Contains(args.Link.Uri.ToString()))
@@ -464,6 +440,22 @@ namespace Net.RafaelEstevam.Spider
             args.Source = FetchEventArgs.EventSource.Downloader;
             shouldFetch(Sender, args);
         }
+
+        private void Cacher_FetchFailed(object Sender, FetchFailEventArgs args)
+        {
+            qDownload.Enqueue(args.Link);
+        }
+        private void Cacher_FetchCompleted(object Sender, FetchCompleteEventArgs args)
+        {
+            args.Source = FetchEventArgs.EventSource.Cacher;
+            fetchCompleted(args);
+        }
+        private void Cacher_ShouldFetch(object Sender, ShouldFetchEventArgs args)
+        {
+            args.Source = FetchEventArgs.EventSource.Cacher;
+            shouldFetch(Sender, args);
+        }
+
         private void shouldFetch(object Sender, ShouldFetchEventArgs args)
         {
             if (alreadyExecuted(args.Link))
@@ -485,8 +477,6 @@ namespace Net.RafaelEstevam.Spider
                 }
             }
         }
-        #endregion
-
         private void fetchCompleted(FetchCompleteEventArgs args)
         {
             lock (hExecuted) // Hashsets are not threadsafe
@@ -521,6 +511,8 @@ namespace Net.RafaelEstevam.Spider
                 }
             }
         }
+        #endregion
+
         /// <summary>
         /// All queues finished ?
         /// </summary>
@@ -559,7 +551,7 @@ namespace Net.RafaelEstevam.Spider
             Console.WriteLine("See full documentation and examples at ");
             Console.WriteLine("   https://github.com/RafaelEstevamReis/SimpleSpider");
             Console.WriteLine();
-            Console.WriteLine(Encoding.ASCII.GetString(Files.README));
+            Console.WriteLine(System.Text.Encoding.ASCII.GetString(Files.README));
         }
     }
 }
