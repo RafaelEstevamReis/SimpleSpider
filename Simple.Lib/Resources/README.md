@@ -1,12 +1,14 @@
 # SimpleSpider
 
-A simple and modular web spider writen in C# .Net Core
+[!] Work in Progress
+
+A simple and modular web spider written in C# .Net Core
 
 Some advantages
 * Very simple to use and operate, ideal to personal or one of projects
 * Internal conversion from html to XElement, no need to external tools on use
 * Automatic Json parser to JObject
-* Automatic Json deserialize \<T>
+* Automatic Json deserialize <T>
 * Modular Parser engine (you can add your own parsers!)
 * Modular Caching engine (you can add your own!)
 * Modular Downloader engine (you can add your own!)
@@ -21,15 +23,15 @@ Inside the [Simple.Tests](https://github.com/RafaelEstevamReis/SimpleSpider/tree
 
 Json response? Get a event with your data already deserialized
 
-( yes, these few lines below are full functional exemples! )
+( yes, these few lines below are full functional examples! )
 
 ```C#
 void run()
 {
     var spider = new SimpleSpider("QuotesToScrape", new Uri("http://quotes.toscrape.com/"));
     // create a json parser for our QuotesObject class
-    spider.Parsers.Add(new JsonDeserializeParser<QuotesObject>(parsedResult_event))
-    // add first
+    spider.Parsers.Add(new JsonDeserializeParser<QuotesObject>(parsedResult_event));
+    // add first page /api/quotes?page={pageNo}
     spider.AddPage(buildPageUri(1), spider.BaseUri);
     // execute
     spider.Execute();
@@ -39,13 +41,13 @@ void parsedResult_event(object sender, ParserEventArgs<QuotesObject> args)
     // add next
     if (args.ParsedData.has_next)
     {
-        int currPage = args.ParsedData.page;
-        ((SimpleSpider)sender).AddPage(buildPageUri(currPage + 1), args.FetchInfo.Link);
+        int next = args.ParsedData.page + 1;
+        (sender as SimpleSpider).AddPage(buildPageUri(next), args.FetchInfo.Link);
     }
     // process data (show on console)
-    foreach (var j in args.ParsedData.quotes)
+    foreach (var q in args.ParsedData.quotes)
     {
-        Console.WriteLine($"{j.author.name }: { j.text }");
+        Console.WriteLine($"{q.author.name }: { q.text }");
     }
 }
 ```
@@ -59,7 +61,7 @@ Use XPath to select elements and filter data
 void run()
 {
     var spider = new SimpleSpider("BooksToScrape", new Uri("http://books.toscrape.com/"));
-    // callback to gather items
+    // callback to gather items, new links are collected automatically
     spider.FetchCompleted += fetchCompleted_items;
     // Ignore (cancel) the pages containing "/reviews/" 
     spider.ShouldFetch += (s, a) => { a.Cancel = a.Link.Uri.ToString().Contains("/reviews/"); };
@@ -69,13 +71,10 @@ void run()
 }
 void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
 {
-    // Colect new links
-    (Sender as SimpleSpider).AddPages(AnchorHelper.GetAnchors(args.Link.Uri, args.Html), args.Link);
-
     // ignore all pages except the catalogue
     if (!args.Link.ToString().Contains("/catalogue/")) return;
 
-    var XElement = HtmlToEXelement.Parse(args.Html);
+    var XElement = HtmlToXElement.Parse(args.Html);
     // collect book data
     var articleProd = XElement.XPathSelectElement("//article[@class=\"product_page\"]");
     if (articleProd == null) return; // not a book
@@ -83,7 +82,7 @@ void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
     string sTitle = articleProd.XPathSelectElement("//h1").Value;
     string sPrice = articleProd.XPathSelectElement("//p[@class=\"price_color\"]").Value;
     string sStock = articleProd.XPathSelectElement("//p[@class=\"instock availability\"]").Value.Trim();
-    string sDesc = articleProd.XPathSelectElement("p")?.Value; // books can be descriptionless
+    string sDesc = articleProd.XPathSelectElement("p")?.Value; // books can be description less
 }
 ```
 *[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/BooksToScrape.cs)*
@@ -91,26 +90,26 @@ void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
 
 ### Easy initialization with chaining
 
-Initialzie your spider easly with chaining 
+Initialize your spider easily with chaining and a good variety of options
 
 ```C#
 void run()
 {
     var init = new InitializationParams()
-        .SetCacher(new ContentCacher())
-        .SetDownloader(new WebClientDownloader())
-        .SetSpiderStarupDirectory(@"D:\spiders\") // Default directory
+        .SetCacher(new ContentCacher()) // Easy cache engine change
+        .SetDownloader(new WebClientDownloader()) // Easy download engine change
+        .SetSpiderStartupDirectory(@"D:\spiders\") // Default directory
         // create a json parser for our QuotesObject class
         .AddParser(new JsonDeserializeParser<QuotesObject>(parsedResult_event))
-        .SetConfig(c => c.Enable_Caching()
-                         .Disable_Cookies()
+        .SetConfig(c => c.Enable_Caching()  // Already enabled by default
+                         .Disable_Cookies() // Already disabled by default
                          .Disable_AutoAnchorsLinks()
-                         .Set_CachingNoLimit()
+                         .Set_CachingNoLimit() // Already setted by default
                          .Set_DownloadDelay(5000));
 
     var spider = new SimpleSpider("QuotesToScrape", new Uri("http://quotes.toscrape.com/"), init);
 
-    // add first
+    // add first 
     spider.AddPage(buildPageUri(1), spider.BaseUri);
     // execute
     spider.Execute();
@@ -140,8 +139,8 @@ void run()
 
 ## Some [Helpers](https://github.com/RafaelEstevamReis/SimpleSpider/tree/master/Simple.Lib/Helper)
 * [FormsHelper](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Lib/Helper/FormsHelper.cs): Deserialize html forms to easy manipulate data and create new requests
-* [XmlSerializerHelper](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Lib/Helper/XmlSerializerHelper.cs): Generic class to serialize and deserialzie stuff using Xml, easy way to save what you collected without any database
-* [CSV Helper](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Lib/Helper/CSVHelper.cs): Read csv files even compressed without exernal libraries
+* [XmlSerializerHelper](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Lib/Helper/XmlSerializerHelper.cs): Generic class to serialize and deserialize stuff using Xml, easy way to save what you collected without any database
+* [CSV Helper](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Lib/Helper/CSVHelper.cs): Read csv files even compressed without external libraries
 * XElement to Stuff: Extract [tables](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Lib/Helper/XElementHelper.cs#L17) from page in DataTable
 
 ## Giants' shoulders
@@ -150,5 +149,4 @@ void run()
 * Logging with [Serilog](https://serilog.net/)
 
 
-
-Readme.md | Commit 7851975 from 2020-07-24
+Readme.md | Commit 1c73608 from 2020-07-29
