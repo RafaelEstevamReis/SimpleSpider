@@ -233,6 +233,12 @@
             Get the XElement representation of the Html property
             </summary>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.GetHObject">
+            <summary>
+            Get the HObject representation of the Html property
+            </summary>
+            <returns>A HObject</returns>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.HtmlContent(System.Text.Encoding)">
             <summary>
             Parses  byte[] Result using and specific Encoding. The 'Html' property will be updated with this value

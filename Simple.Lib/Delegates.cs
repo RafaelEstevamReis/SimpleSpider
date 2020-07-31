@@ -2,6 +2,7 @@
 using System.Text;
 using System.Xml.Linq;
 using Net.RafaelEstevam.Spider.Helper;
+using Net.RafaelEstevam.Spider.Wrapers;
 
 namespace Net.RafaelEstevam.Spider
 {
@@ -114,12 +115,23 @@ namespace Net.RafaelEstevam.Spider
             return xElement;
         }
         /// <summary>
+        /// Get the HObject representation of the Html property
+        /// </summary>
+        /// <returns>A HObject</returns>
+        public HObject GetHObject()
+        {
+            return new HObject(GetXElement());
+        }
+
+        /// <summary>
         /// Parses  byte[] Result using and specific Encoding. The 'Html' property will be updated with this value
         /// </summary>
         /// <param name="enc">Encoding to be used</param>
         public string HtmlContent(Encoding enc)
         {
+            xElement = null; // discards Lazy properties
             return htmlCache = enc.GetString(Result);
+            
         }
         /// <summary>
         /// Constructs a new FetchCompleteEventArgs
@@ -159,11 +171,11 @@ namespace Net.RafaelEstevam.Spider
         /// <summary>
         /// Constructs a FetchFailEventArgs
         /// </summary>
-        public FetchFailEventArgs(Link link, int erroCode, Exception error, HeaderCollection requestHeaders)
+        public FetchFailEventArgs(Link link, int errorCode, Exception error, HeaderCollection requestHeaders)
         {
             this.Link = link;
             this.Error = error;
-            this.HttpErrorCode = erroCode;
+            this.HttpErrorCode = errorCode;
             this.RequestHeaders = requestHeaders;
         }
     }
