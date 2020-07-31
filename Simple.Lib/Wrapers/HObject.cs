@@ -22,11 +22,20 @@ namespace Net.RafaelEstevam.Spider.Wrapers
             /// <summary>
             /// Search for ID attribute
             /// </summary>
-            IdEquals,
+            AnyIdEquals,
             /// <summary>
             /// Search for Class attribute
             /// </summary>
-            ClassContaining,
+            AnyClassContaining,
+
+            /// <summary>
+            /// Filter current by ID, similar to this.OfID(Name)
+            /// </summary>
+            FilterId,
+            /// <summary>
+            /// Filter current by Class, similar to this.OfClass(Name)
+            /// </summary>
+            FilterClass,
         }
 
         private IEnumerable<XElement> xElements;
@@ -52,15 +61,17 @@ namespace Net.RafaelEstevam.Spider.Wrapers
         /// <param name="Name">Name of the element to search for</param>
         /// <param name="Type">Type of search</param>
         /// <returns>A HObject filtered</returns>
-        public HObject this[string Name, SearchType Type]
+        public HObject this[SearchType Type, string Name]
         {
             get
             {
                 return Type switch
                 {
                     SearchType.ElementName => Tags(Name),
-                    SearchType.IdEquals => IDs(Name),
-                    SearchType.ClassContaining => Classes(Name),
+                    SearchType.AnyIdEquals => IDs(Name),
+                    SearchType.AnyClassContaining => Classes(Name),
+                    SearchType.FilterId => OfID(Name),
+                    SearchType.FilterClass => OfClass(Name),
                     _ => throw new ArgumentException("SearchType dows not exists"),
                 };
             }
@@ -74,7 +85,7 @@ namespace Net.RafaelEstevam.Spider.Wrapers
         {
             get
             {
-                return this[TagName, SearchType.ElementName];
+                return this[SearchType.ElementName, TagName];
             }
         }
 
@@ -151,7 +162,7 @@ namespace Net.RafaelEstevam.Spider.Wrapers
 
         #region Choose Attribute
         /// <summary>
-        /// Returns all Tags with Named Attribute equals to specified parameter
+        /// Returns all Tags with Named Attribute equals to specified parameter. Search in all descendants
         /// </summary>
         /// <param name="AttributeName">Name of the attribute</param>
         /// <param name="AttributeValue">Value to search for</param>
@@ -161,7 +172,7 @@ namespace Net.RafaelEstevam.Spider.Wrapers
             return new HObject(xElements.DescendantsAndSelf().Where(x => x.Attribute(AttributeName)?.Value == AttributeValue).ToArray());
         }
         /// <summary>
-        /// Filters current tags selecting only the ones with Named Attribute equals to specified parameter
+        /// Filters current tags selecting only the ones with Named Attribute equals to specified parameter. Search only in root elements
         /// </summary>
         /// <param name="AttributeName">Name of the attribute</param>
         /// <param name="AttributeValue">Value to search for</param>

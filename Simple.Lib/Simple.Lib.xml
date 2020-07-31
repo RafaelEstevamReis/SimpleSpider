@@ -1456,14 +1456,24 @@
             Search for Tag Name
             </summary>
         </member>
-        <member name="F:Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType.IdEquals">
+        <member name="F:Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType.AnyIdEquals">
             <summary>
             Search for ID attribute
             </summary>
         </member>
-        <member name="F:Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType.ClassContaining">
+        <member name="F:Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType.AnyClassContaining">
             <summary>
             Search for Class attribute
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType.FilterId">
+            <summary>
+            Filter current by ID, similar to this.OfID(Name)
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType.FilterClass">
+            <summary>
+            Filter current by Class, similar to this.OfClass(Name)
             </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.#ctor(System.Xml.Linq.XElement)">
@@ -1478,7 +1488,7 @@
             </summary>
             <param name="xs">A collection of XElements</param>
         </member>
-        <member name="P:Net.RafaelEstevam.Spider.Wrapers.HObject.Item(System.String,Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType)">
+        <member name="P:Net.RafaelEstevam.Spider.Wrapers.HObject.Item(Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType,System.String)">
             <summary>
             Gets a HObject with specified Name matching Type
             </summary>
@@ -1532,7 +1542,7 @@
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.Having(System.String,System.String)">
             <summary>
-            Returns all Tags with Named Attribute equals to specified parameter
+            Returns all Tags with Named Attribute equals to specified parameter. Search in all descendants
             </summary>
             <param name="AttributeName">Name of the attribute</param>
             <param name="AttributeValue">Value to search for</param>
@@ -1540,7 +1550,7 @@
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.OfWhich(System.String,System.String)">
             <summary>
-            Filters current tags selecting only the ones with Named Attribute equals to specified parameter
+            Filters current tags selecting only the ones with Named Attribute equals to specified parameter. Search only in root elements
             </summary>
             <param name="AttributeName">Name of the attribute</param>
             <param name="AttributeValue">Value to search for</param>
