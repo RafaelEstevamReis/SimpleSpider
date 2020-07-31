@@ -1579,6 +1579,50 @@
             </summary>
             <returns>String array of the values</returns>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetAttributeValue(System.String)">
+            <summary>
+            Gets the value of attribute named AttributeName of the first item
+            </summary>
+            <param name="AttributeName">Name of the attribute</param>
+            <returns>Value of the attribute</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetAttributeValues(System.String)">
+            <summary>
+            Gets all the values of the attribute named AttributeName of all items
+            </summary>
+            <param name="AttributeName">Name of the attribute</param>
+            <returns>String array of Values</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetHrefValue">
+            <summary>
+            Gets the value of attribute 'href' of the first item
+            </summary>
+            <returns>String containing the value</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetHrefValues">
+            <summary>
+            Gets all the values of the attribute 'href' of all items
+            </summary>
+            <returns>String array with values</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetClassValue">
+            <summary>
+            Gets the value of the Class attribute of the first item
+            </summary>
+            <returns>String containing the Class</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetIdValue">
+            <summary>
+            Gets the value of the Id attribute of the first item
+            </summary>
+            <returns>String containing the Id</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetStyleValue">
+            <summary>
+            Gets the value of the Style attribute of the first item
+            </summary>
+            <returns>String containing the Style</returns>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.op_Implicit(Net.RafaelEstevam.Spider.Wrapers.HObject)~System.Xml.Linq.XElement">
             <summary>
             Returns first XElement of the collection

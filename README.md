@@ -88,6 +88,44 @@ void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
 *[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/BooksToScrape.cs)*
 
 
+### Use our HObject implementation to select content
+
+Use indexing style object representation of the html document
+
+```C#
+ void run()
+{
+    // Get Quotes.ToScrape.com as HObject
+    HObject hObj = FetchHelper.FetchResourceHObject(new Uri("http://quotes.toscrape.com/"));
+    ...
+    // Example 2
+    // Get all Spans and filter by Class='text'
+    HObject ex2 = hObj["span"].OfClass("text");
+    ...
+    // Example 4
+    // Get all Spans filters by some arbitrary attribute
+    //  Original HTML: <span class="text" itemprop="text">
+    HObject ex4 = hObj["span"].OfWhich("itemprop", "text");
+    ...
+    //Example 9
+    // Exports Values as Strings with Method and implicitly
+    string[] ex9A = hObj["span"].OfClass("text").GetValues();
+    string[] ex9B = hObj["span"].OfClass("text");
+    ...
+    //Example 13
+    // Gets Attribute's value
+    string ex13 = hObj["footer"].GetClassValue();
+
+    //Example 14
+    // Chain query to specify item adn then get Attribute Values
+    // Gets Next Page Url
+    string ex14A = hObj["nav"]["ul"]["li"]["a"].GetAttributeValue("href"); // Specify attribute
+    string ex14B = hObj["nav"]["ul"]["li"]["a"].GetHrefValue();
+}
+```
+*[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_HObject.cs)*
+
+
 ### Easy initialization with chaining
 
 Initialize your spider easily with chaining and a good variety of options
@@ -104,7 +142,7 @@ void run()
         .SetConfig(c => c.Enable_Caching()  // Already enabled by default
                          .Disable_Cookies() // Already disabled by default
                          .Disable_AutoAnchorsLinks()
-                         .Set_CachingNoLimit() // Already setted by default
+                         .Set_CachingNoLimit() // Already set by default
                          .Set_DownloadDelay(5000));
 
     var spider = new SimpleSpider("QuotesToScrape", new Uri("http://quotes.toscrape.com/"), init);
