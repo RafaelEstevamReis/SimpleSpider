@@ -11,7 +11,6 @@ namespace Net.RafaelEstevam.Spider.Wrapers
         {
             ElementName,
             IdEquals,
-            ClassEquals,
             ClassContaining,
         }
 
@@ -25,50 +24,18 @@ namespace Net.RafaelEstevam.Spider.Wrapers
         {
             this.xElements = xs;
         }
+
         public HObject this[string Name, SearchType Type]
         {
             get
             {
-                if (Type == SearchType.ElementName)
+                return Type switch
                 {
-                    var x = xElements
-                        .SelectMany(el => el.DescendantsAndSelf()
-                                            .Where(d => d.Name.LocalName == Name))
-                        .ToArray();
-                    return new HObject(x);
-                }
-                else if (Type == SearchType.IdEquals)
-                {
-                    var x = xElements
-                        .SelectMany(el => el.DescendantsAndSelf()
-                                            .Where(d => d.Attributes()
-                                                         .Any(a => a.Name.LocalName == "id" && a.Value == Name)))
-                        .ToArray();
-
-                    return new HObject(x);
-                }
-                else if (Type == SearchType.ClassEquals)
-                {
-                    var x = xElements
-                      .SelectMany(el => el.DescendantsAndSelf()
-                                          .Where(d => d.Attributes()
-                                                       .Any(a => a.Name.LocalName == "class" && a.Value == Name)))
-                      .ToArray();
-
-                    return new HObject(x);
-                }
-                else if (Type == SearchType.ClassContaining)
-                {
-                    var x = xElements
-                      .SelectMany(el => el.DescendantsAndSelf()
-                                          .Where(d => d.Attributes()
-                                                       .Any(a => a.Name.LocalName == "class" && a.Value.Split(' ').Contains(Name))))
-                      .ToArray();
-
-                    return new HObject(x);
-                }
-
-                throw new ArgumentException("SearchType dows not exists");
+                    SearchType.ElementName => Tags(Name),
+                    SearchType.IdEquals => IDs(Name),
+                    SearchType.ClassContaining => Classes(Name),
+                    _ => throw new ArgumentException("SearchType dows not exists"),
+                };
             }
         }
         public HObject this[string TagName]
@@ -79,9 +46,73 @@ namespace Net.RafaelEstevam.Spider.Wrapers
             }
         }
 
+        #region Element Name
+
+        public HObject Tags(string TagName)
+        {
+            var x = xElements
+                         .SelectMany(el => el.DescendantsAndSelf()
+                                             .Where(d => d.Name.LocalName == TagName))
+                         .ToArray(); // force enumerate
+            return new HObject(x);
+        }
+
+        #endregion
+
+        #region ID Stuff
+
+        public HObject IDs(string IDsEquals)
+        {
+            return Having("id", IDsEquals);
+        }
+        public HObject OfID(string IDsEquals)
+        {
+            return OfWhich("id", IDsEquals);
+        }
+
+        #endregion
+
+        #region Classes
+
+        public HObject Classes(string HasClass)
+        {
+            var x = xElements
+                      .SelectMany(el => el.DescendantsAndSelf()
+                                          .Where(d => d.Attributes()
+                                                       .Any(a => a.Name.LocalName == "class" && a.Value.Split(' ').Contains(HasClass))))
+                      .ToArray();
+
+            return new HObject(x);
+        }
+        public HObject OfClass(string IDsEquals)
+        {
+            return new HObject(xElements
+                .Where(x => x.Attribute("class")?.Value != null)
+                .Where(x => x.Attribute("class").Value.Split(' ').Contains(IDsEquals)).ToArray());
+        }
+
+        #endregion
+
+        #region Choose Attribute
+
+        public HObject Having(string AttributeName, string AttibuteValue)
+        {
+            return new HObject(xElements.DescendantsAndSelf().Where(x => x.Attribute(AttributeName)?.Value == AttibuteValue).ToArray());
+        }
+        public HObject OfWhich(string AttributeName, string AttibuteValue)
+        {
+            return new HObject(xElements.Where(x => x.Attribute(AttributeName)?.Value == AttibuteValue).ToArray());
+        }
+
+        #endregion
+
         public static implicit operator XElement(HObject h)
         {
             return h.xElements.FirstOrDefault();
+        }
+        public static implicit operator XElement[](HObject h)
+        {
+            return h.xElements.ToArray();
         }
 
         public static implicit operator string(HObject h)
