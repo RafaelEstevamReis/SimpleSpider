@@ -1427,5 +1427,134 @@
             List of pages that once got a 404 error and should not be downloaded again
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Wrapers.HObject">
+            <summary>
+            Represents a Html Tags Collection
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType">
+            <summary>
+            Types of items to search
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType.ElementName">
+            <summary>
+            Search for Tag Name
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType.IdEquals">
+            <summary>
+            Search for ID attribute
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType.ClassContaining">
+            <summary>
+            Search for Class attribute
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the HObject class
+            </summary>
+            <param name="x">A root XElement</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.#ctor(System.Collections.Generic.IEnumerable{System.Xml.Linq.XElement})">
+            <summary>
+            Initializes a new instance of the HObject class
+            </summary>
+            <param name="xs">A collection of XElements</param>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrapers.HObject.Item(System.String,Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType)">
+            <summary>
+            Gets a HObject with specified Name matching Type
+            </summary>
+            <param name="Name">Name of the element to search for</param>
+            <param name="Type">Type of search</param>
+            <returns>A HObject filtered</returns>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrapers.HObject.Item(System.String)">
+            <summary>
+            Gets a HObject with specified Tag
+            </summary>
+            <param name="TagName">Name of the Tag to search for</param>
+            <returns>A HObject filtered</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.Tags(System.String)">
+            <summary>
+            Returns all Tags named TagName
+            </summary>
+            <param name="TagName">The name of the tag</param>
+            <returns>A HObject filtered</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.IDs(System.String)">
+            <summary>
+            Returns all Tags with ID equals to specified parameter
+            </summary>
+            <param name="IDsEquals">Id value to search for</param>
+            <returns>A HObject</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.OfID(System.String)">
+            <summary>
+            Filters current tags selecting only the ones with specified Id value
+            </summary>
+            <param name="IDsEquals">Id value to search for</param>
+            <returns>A HObject</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.Classes(System.String)">
+            <summary>
+            Returns all Tags with Class containing specified parameter
+            Note: In HTML classes are an array of strings
+            </summary>
+            <param name="ClassName">The class name to search for</param>
+            <returns>A HObject</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.OfClass(System.String)">
+            <summary>
+            Filters current tags selecting only the ones with specified Class value
+            Note: In HTML classes are an array of strings
+            </summary>
+            <param name="ClassName">The class name to search for</param>
+            <returns>A HObject</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.Having(System.String,System.String)">
+            <summary>
+            Returns all Tags with Named Attribute equals to specified parameter
+            </summary>
+            <param name="AttributeName">Name of the attribute</param>
+            <param name="AttributeValue">Value to search for</param>
+            <returns>A HObject</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.OfWhich(System.String,System.String)">
+            <summary>
+            Filters current tags selecting only the ones with Named Attribute equals to specified parameter
+            </summary>
+            <param name="AttributeName">Name of the attribute</param>
+            <param name="AttributeValue">Value to search for</param>
+            <returns>A HObject</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.op_Implicit(Net.RafaelEstevam.Spider.Wrapers.HObject)~System.Xml.Linq.XElement">
+            <summary>
+            Returns first XElement of the collection
+            </summary>
+            <param name="h">A HObject to be converted</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.op_Implicit(Net.RafaelEstevam.Spider.Wrapers.HObject)~System.Xml.Linq.XElement[]">
+            <summary>
+            Returns all XElements of the collection
+            </summary>
+            <param name="h">A HObject to be converted</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.op_Implicit(Net.RafaelEstevam.Spider.Wrapers.HObject)~System.String">
+            <summary>
+            Returns the Value of the first element of the collection
+            </summary>
+            <param name="h">A HObject to be converted</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.op_Implicit(Net.RafaelEstevam.Spider.Wrapers.HObject)~System.String[]">
+            <summary>
+            Returns the Values of all elements of the collection
+            </summary>
+            <param name="h">A HObject to be converted</param>
+        </member>
     </members>
 </doc>
