@@ -612,6 +612,14 @@
             <param name="enc">Defines which encoding should be used</param>
             <returns>XElement with data fetched</returns>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceHObject(System.Uri,System.Text.Encoding)">
+            <summary>
+            Fetch resource from uri and parse a HObject from it
+            </summary>
+            <param name="uri">Uri to fetch from</param>
+            <param name="enc">Defines which encoding should be used</param>
+            <returns>HObject with data fetched</returns>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceJObject(System.Uri,System.Text.Encoding)">
             <summary>
             Fetch resource from uri and parse a JObject from it

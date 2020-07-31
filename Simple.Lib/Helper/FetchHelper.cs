@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using System.Xml.Linq;
+using Net.RafaelEstevam.Spider.Wrapers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -52,6 +53,16 @@ namespace Net.RafaelEstevam.Spider.Helper
         public static XElement FetchResourceXElement(Uri uri, Encoding enc = null)
         {
             return HtmlToXElement.Parse(FetchResourceText(uri, enc));
+        }
+        /// <summary>
+        /// Fetch resource from uri and parse a HObject from it
+        /// </summary>
+        /// <param name="uri">Uri to fetch from</param>
+        /// <param name="enc">Defines which encoding should be used</param>
+        /// <returns>HObject with data fetched</returns>
+        public static HObject FetchResourceHObject(Uri uri, Encoding enc = null)
+        {
+            return new HObject(FetchResourceXElement(uri, enc));
         }
         /// <summary>
         /// Fetch resource from uri and parse a JObject from it
