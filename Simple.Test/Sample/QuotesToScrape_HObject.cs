@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Linq;
 using Net.RafaelEstevam.Spider.Helper;
 using Net.RafaelEstevam.Spider.Wrapers;
 
@@ -22,12 +23,12 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
             HObject ex2 = hObj["span"].OfClass("text");
 
             // Example 3
-            // Get all elements with some arbitray attribute
+            // Get all elements with some arbitrary attribute
             //  Original HTML: <span class="text" itemprop="text">
             HObject ex3 = hObj.Having("itemprop", "text");
 
             // Example 4
-            // Get all Spans filteres by some arbitray attribute
+            // Get all Spans filters by some arbitrary attribute
             //  Original HTML: <span class="text" itemprop="text">
             HObject ex4 = hObj["span"].OfWhich("itemprop", "text");
 
@@ -48,6 +49,26 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
             // Quotes.toscrape do not have Ids, but ...
             // ... Get all spans with Id='something' (like example 2)
             HObject ex8 = hObj["span"].OfID("something");
+
+            //Example 9
+            // Exports Values as Strings with Method and implicitly
+            string[] ex9A = hObj["span"].OfClass("text").GetValues();
+            string[] ex9B = hObj["span"].OfClass("text");
+
+            //Example 10
+            // Exports the Value as String with Method and implicitly
+            string ex10A = hObj["span"].OfClass("text").GetValue();
+            string ex10B = hObj["span"].OfClass("text");
+
+            //Example 11
+            // Exports elements as XElements with Method and implicitly
+            IEnumerable<XElement> ex11A = hObj["span"].OfClass("text").GetXElements();
+            XElement[] ex11B = hObj["span"].OfClass("text");
+
+            //Example 12
+            // Exports first element as XElement with Method and implicitly
+            XElement ex12A = hObj["span"].OfClass("text").GetXElement();
+            XElement ex12B = hObj["span"].OfClass("text");
 
         }
     }
