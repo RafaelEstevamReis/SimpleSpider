@@ -1556,6 +1556,29 @@
             <param name="AttributeValue">Value to search for</param>
             <returns>A HObject</returns>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetXElement">
+            <summary>
+            Returns first XElement of the collection
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetXElements">
+            <summary>
+            Returns all XElements of the collection
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetValue">
+            <summary>
+            Returns first element Value
+            </summary>
+            <returns>The string Value of the element</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetValues">
+            <summary>
+            Returns an array with all Elements values
+            </summary>
+            <returns>String array of the values</returns>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.op_Implicit(Net.RafaelEstevam.Spider.Wrapers.HObject)~System.Xml.Linq.XElement">
             <summary>
             Returns first XElement of the collection

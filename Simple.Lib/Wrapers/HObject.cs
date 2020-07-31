@@ -182,6 +182,39 @@ namespace Net.RafaelEstevam.Spider.Wrapers
             return new HObject(xElements.Where(x => x.Attribute(AttributeName)?.Value == AttributeValue).ToArray());
         }
 
+        /// <summary>
+        /// Returns first XElement of the collection
+        /// </summary>
+        public XElement GetXElement()
+        {
+            return xElements.FirstOrDefault();
+        }
+        /// <summary>
+        /// Returns all XElements of the collection
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<XElement> GetXElements()
+        {
+            return xElements;
+        }
+
+        /// <summary>
+        /// Returns first element Value
+        /// </summary>
+        /// <returns>The string Value of the element</returns>
+        public string GetValue()
+        {
+            return GetXElement()?.Value;
+        }
+        /// <summary>
+        /// Returns an array with all Elements values
+        /// </summary>
+        /// <returns>String array of the values</returns>
+        public string[] GetValues()
+        {
+            return xElements.Select(x => x.Value).ToArray();
+        }
+
         #endregion
         /// <summary>
         /// Returns first XElement of the collection
@@ -189,7 +222,7 @@ namespace Net.RafaelEstevam.Spider.Wrapers
         /// <param name="h">A HObject to be converted</param>
         public static implicit operator XElement(HObject h)
         {
-            return h.xElements.FirstOrDefault();
+            return h.GetXElement();
         }
         /// <summary>
         /// Returns all XElements of the collection
@@ -197,7 +230,7 @@ namespace Net.RafaelEstevam.Spider.Wrapers
         /// <param name="h">A HObject to be converted</param>
         public static implicit operator XElement[](HObject h)
         {
-            return h.xElements.ToArray();
+            return h.GetXElements().ToArray();
         }
         /// <summary>
         /// Returns the Value of the first element of the collection
@@ -205,7 +238,7 @@ namespace Net.RafaelEstevam.Spider.Wrapers
         /// <param name="h">A HObject to be converted</param>
         public static implicit operator string(HObject h)
         {
-            return h.xElements.FirstOrDefault()?.Value;
+            return h.GetValue();
         }
         /// <summary>
         /// Returns the Values of all elements of the collection
@@ -213,7 +246,7 @@ namespace Net.RafaelEstevam.Spider.Wrapers
         /// <param name="h">A HObject to be converted</param>
         public static implicit operator string[](HObject h)
         {
-            return h.xElements.Select(x => x.Value).ToArray();
+            return h.GetValues();
         }
 
     }
