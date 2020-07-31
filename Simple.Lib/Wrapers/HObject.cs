@@ -215,6 +215,66 @@ namespace Net.RafaelEstevam.Spider.Wrapers
             return xElements.Select(x => x.Value).ToArray();
         }
 
+        /// <summary>
+        /// Gets the value of attribute named AttributeName of the first item
+        /// </summary>
+        /// <param name="AttributeName">Name of the attribute</param>
+        /// <returns>Value of the attribute</returns>
+        public string GetAttributeValue(string AttributeName)
+        {
+            return GetXElement()?.Attribute(AttributeName)?.Value;
+        }
+        /// <summary>
+        /// Gets all the values of the attribute named AttributeName of all items
+        /// </summary>
+        /// <param name="AttributeName">Name of the attribute</param>
+        /// <returns>String array of Values</returns>
+        public string[] GetAttributeValues(string AttributeName)
+        {
+            return GetXElements().Select(e => e.Attribute(AttributeName)?.Value).ToArray();
+        }
+
+        /// <summary>
+        /// Gets the value of attribute 'href' of the first item
+        /// </summary>
+        /// <returns>String containing the value</returns>
+        public string GetHrefValue()
+        {
+            return GetAttributeValue("href");
+        }
+        /// <summary>
+        /// Gets all the values of the attribute 'href' of all items
+        /// </summary>
+        /// <returns>String array with values</returns>
+        public string[] GetHrefValues()
+        {
+            return GetAttributeValues("href");
+        }
+        /// <summary>
+        /// Gets the value of the Class attribute of the first item
+        /// </summary>
+        /// <returns>String containing the Class</returns>
+        public string GetClassValue()
+        {
+            return GetAttributeValue("class");
+        }
+        /// <summary>
+        /// Gets the value of the Id attribute of the first item
+        /// </summary>
+        /// <returns>String containing the Id</returns>
+        public string GetIdValue()
+        {
+            return GetAttributeValue("id");
+        }
+        /// <summary>
+        /// Gets the value of the Style attribute of the first item
+        /// </summary>
+        /// <returns>String containing the Style</returns>
+        public string GetStyleValue()
+        {
+            return GetAttributeValue("style");
+        }
+
         #endregion
         /// <summary>
         /// Returns first XElement of the collection

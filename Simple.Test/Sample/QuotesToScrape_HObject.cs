@@ -70,6 +70,15 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
             XElement ex12A = hObj["span"].OfClass("text").GetXElement();
             XElement ex12B = hObj["span"].OfClass("text");
 
+            //Example 13
+            // Gets Attribute's value
+            string ex13 = hObj["footer"].GetClassValue();
+
+            //Example 14
+            // Chain query to specify item adn then get Attribute Values
+            // Gets Next Page Url
+            string ex14A = hObj["nav"]["ul"]["li"]["a"].GetAttributeValue("href"); // Specify one attribute
+            string ex14B = hObj["nav"]["ul"]["li"]["a"].GetHrefValue(); // directly
         }
     }
 }
