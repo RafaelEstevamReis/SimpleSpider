@@ -42,6 +42,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
 
         Thread thread;
         HttpClient httpClient;
+
         /// <summary>
         /// Creates a HttpClientDownloader instance
         /// </summary>
@@ -86,7 +87,6 @@ namespace Net.RafaelEstevam.Spider.Downloaders
         }
 
         bool run;
-        //Link current;
         private void doStuff(object obj)
         {
             IsProcessing = false;
@@ -119,7 +119,6 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                 }
             }
         }
-
         private void fetch(Link current)
         {
             var req = new HttpRequestMessage(HttpMethod.Get, current.Uri);
@@ -165,7 +164,6 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                                                          new HeaderCollection(reqHeaders)));
             }
         }
-
         private static void mergeHeaders(HttpRequestMessage req, HeaderCollection addRequestHeaders)
         {
             if (addRequestHeaders.Count > 0)

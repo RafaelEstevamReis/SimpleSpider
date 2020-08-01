@@ -672,6 +672,11 @@
             Helper to fetch stuff
             </summary>
         </member>
+        <member name="E:Net.RafaelEstevam.Spider.Helper.FetchHelper.BeforeFetch">
+            <summary>
+            Occurs before fetching a resource
+            </summary>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResource(System.Uri)">
             <summary>
             Fetch resource from uri
