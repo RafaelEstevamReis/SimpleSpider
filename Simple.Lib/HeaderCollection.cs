@@ -65,6 +65,11 @@ namespace Net.RafaelEstevam.Spider
         }
 
         /// <summary>
+        /// Gets the nuber of elements of the collection
+        /// </summary>
+        public int Count { get { return dicValues.Count; } }
+
+        /// <summary>
         /// Gets or sets all pairs as SerializableKeyValuePair, used by XmlSerialization
         /// </summary>
         [XmlArray("Pairs")]
