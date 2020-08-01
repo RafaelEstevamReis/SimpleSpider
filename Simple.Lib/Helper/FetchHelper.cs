@@ -18,8 +18,15 @@ namespace Net.RafaelEstevam.Spider.Helper
         static WebClient getClient()
         {
             if (wc == null) wc = new WebClient();
+            BeforeFetch?.Invoke(null, wc);
             return wc;
         }
+
+        /// <summary>
+        /// Occurs before fetching a resource
+        /// </summary>
+        public static event EventHandler<WebClient> BeforeFetch;
+
         /// <summary>
         /// Fetch resource from uri
         /// </summary>
