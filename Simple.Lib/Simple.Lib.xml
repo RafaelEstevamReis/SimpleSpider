@@ -140,6 +140,14 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.FetchT`1">
+            <summary>
+            Multi-purpose Fetch event args
+            </summary>
+            <typeparam name="T">Type of the argument</typeparam>
+            <param name="Sender">Event sender</param>
+            <param name="args">Event arguments</param>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.FetchComplete">
             <summary>
             Represents a method that passes fetch completed data
@@ -167,6 +175,26 @@
             </summary>
             <param name="Sender">The source of the event</param>
             <param name="args">Object allowing cancel the fetching process</param>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.FetchTEventArgs`1">
+            <summary>
+            FetchT event EventArgs
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchTEventArgs`1.Link">
+            <summary>
+            Link from where the resource was fetched
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchTEventArgs`1.Arg">
+            <summary>
+            Gets or Sets T argument
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.FetchTEventArgs`1.#ctor(Net.RafaelEstevam.Spider.Link,`0)">
+            <summary>
+            Creates a new instance of FetchTEventArgs
+            </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.FetchEventArgs">
             <summary>
@@ -356,6 +384,56 @@
             Simple Downloader using System.Net.Http.HttpClient
             </summary>
         </member>
+        <member name="E:Net.RafaelEstevam.Spider.Downloaders.HttpClientDownloader.FetchCompleted">
+            <summary>
+            Occurs when fetch is complete 
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Downloaders.HttpClientDownloader.FetchFailed">
+            <summary>
+            Occurs when fetch fails
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Downloaders.HttpClientDownloader.ShouldFetch">
+            <summary>
+            Occurs before fetch to check if it should fetch this resource
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Downloaders.HttpClientDownloader.BeforeRequest">
+            <summary>
+            Occurs before fetch to allow request manipulation
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Downloaders.HttpClientDownloader.IncludeRequestHeaders">
+            <summary>
+            Collection of Headers to be included on the Request
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Downloaders.HttpClientDownloader.#ctor">
+            <summary>
+            Creates a HttpClientDownloader instance
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Downloaders.HttpClientDownloader.Initialize(System.Collections.Concurrent.ConcurrentQueue{Net.RafaelEstevam.Spider.Link},Net.RafaelEstevam.Spider.Configuration)">
+            <summary>
+            Initialize the downloader
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Downloaders.HttpClientDownloader.IsProcessing">
+            <summary>
+            Indicates when is processing a resource
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Downloaders.HttpClientDownloader.Start">
+            <summary>
+            Starts the Downloader operation
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Downloaders.HttpClientDownloader.Stop">
+            <summary>
+            Stops the Downloader operation
+            </summary>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Downloaders.NullDownloader">
             <summary>
             Empty downloader, discards all download requests
@@ -464,6 +542,11 @@
         <member name="P:Net.RafaelEstevam.Spider.HeaderCollection.AllKeys">
             <summary>
             Gets all keys
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.HeaderCollection.Count">
+            <summary>
+            Gets the nuber of elements of the collection
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.HeaderCollection.Pairs">
@@ -1014,17 +1097,17 @@
         </member>
         <member name="E:Net.RafaelEstevam.Spider.Interfaces.IFetcher.FetchCompleted">
             <summary>
-            Event fired when a fetch complete
+            Occurs when a fetch complete
             </summary>
         </member>
         <member name="E:Net.RafaelEstevam.Spider.Interfaces.IFetcher.FetchFailed">
             <summary>
-            Event fired when a fetch fail
+            Occurs when a fetch fail
             </summary>
         </member>
         <member name="E:Net.RafaelEstevam.Spider.Interfaces.IFetcher.ShouldFetch">
             <summary>
-            Event fired to check if a fetch can occur
+             Occurs before fetch to check if a fetch can occur
             </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Interfaces.IFetcher.Initialize(System.Collections.Concurrent.ConcurrentQueue{Net.RafaelEstevam.Spider.Link},Net.RafaelEstevam.Spider.Configuration)">

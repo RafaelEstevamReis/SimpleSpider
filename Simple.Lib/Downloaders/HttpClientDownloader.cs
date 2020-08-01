@@ -15,9 +15,26 @@ namespace Net.RafaelEstevam.Spider.Downloaders
     /// </summary>
     public class HttpClientDownloader : IDownloader
     {
+        /// <summary>
+        /// Occurs when fetch is complete 
+        /// </summary>
         public event FetchComplete FetchCompleted;
+        /// <summary>
+        /// Occurs when fetch fails
+        /// </summary>
         public event FetchFail FetchFailed;
+        /// <summary>
+        /// Occurs before fetch to check if it should fetch this resource
+        /// </summary>
         public event ShouldFetch ShouldFetch;
+        /// <summary>
+        /// Occurs before fetch to allow request manipulation
+        /// </summary>
+        public event FetchT<HttpRequestMessage> BeforeRequest;
+        /// <summary>
+        /// Collection of Headers to be included on the Request
+        /// </summary>
+        public HeaderCollection IncludeRequestHeaders { get; }
 
         private ConcurrentQueue<Link> queue;
         private Configuration config;
@@ -25,7 +42,9 @@ namespace Net.RafaelEstevam.Spider.Downloaders
 
         Thread thread;
         HttpClient httpClient;
-
+        /// <summary>
+        /// Creates a HttpClientDownloader instance
+        /// </summary>
         public HttpClientDownloader()
         {
             var hdl = new HttpClientHandler()
@@ -34,41 +53,49 @@ namespace Net.RafaelEstevam.Spider.Downloaders
             };
             httpClient = new HttpClient(hdl);
             cancellationToken = new CancellationTokenSource();
+            IncludeRequestHeaders = new HeaderCollection();
         }
-
+        /// <summary>
+        /// Initialize the downloader
+        /// </summary>
         public void Initialize(ConcurrentQueue<Link> WorkQueue, Configuration Config)
         {
             queue = WorkQueue;
             config = Config;
             thread = new Thread(doStuff);
         }
-        public bool IsProcessing => downloading;
-
+        /// <summary>
+        /// Indicates when is processing a resource
+        /// </summary>
+        public bool IsProcessing { get; private set; }
+        /// <summary>
+        /// Starts the Downloader operation
+        /// </summary>
         public void Start()
         {
             run = true;
             thread.Start();
         }
-
+        /// <summary>
+        /// Stops the Downloader operation
+        /// </summary>
         public void Stop()
         {
             cancellationToken.Cancel();
             run = false;
         }
 
-
         bool run;
-        bool downloading;
-        Link current;
+        //Link current;
         private void doStuff(object obj)
         {
-            downloading = false;
+            IsProcessing = false;
             while (run)
             {
                 Task.Delay(Math.Max(100, config.DownloadDelay), cancellationToken.Token);
                 if (cancellationToken.Token.IsCancellationRequested) break;
 
-                if (downloading) continue;
+                if (IsProcessing) continue;
 
                 if (config.Paused || config.Paused_Downloader)
                 {
@@ -76,19 +103,19 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                     continue;
                 }
 
-                if (queue.TryDequeue(out current))
+                if (queue.TryDequeue(out Link current))
                 {
                     var args = new ShouldFetchEventArgs(current);
                     ShouldFetch(this, args);
                     if (args.Cancel) continue;
 
-                    downloading = true;
+                    IsProcessing = true;
                     config.Logger.Information($"[WEB] {current.Uri}");
                     current.FetchStart = DateTime.Now;
 
                     fetch(current);
 
-                    downloading = false;
+                    IsProcessing = false;
                 }
             }
         }
@@ -96,6 +123,10 @@ namespace Net.RafaelEstevam.Spider.Downloaders
         private void fetch(Link current)
         {
             var req = new HttpRequestMessage(HttpMethod.Get, current.Uri);
+            mergeHeaders(req, IncludeRequestHeaders);
+
+            BeforeRequest?.Invoke(this, new FetchTEventArgs<HttpRequestMessage>(current, req));
+
             var resp = httpClient.SendAsync(req).Result;
 
             var reqHeaders = req
@@ -132,6 +163,24 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                                                          (int)resp.StatusCode,
                                                          new HttpRequestException($"[{(int)resp.StatusCode}] {resp.ReasonPhrase}"),
                                                          new HeaderCollection(reqHeaders)));
+            }
+        }
+
+        private static void mergeHeaders(HttpRequestMessage req, HeaderCollection addRequestHeaders)
+        {
+            if (addRequestHeaders.Count > 0)
+            {
+                foreach (var pair in addRequestHeaders)
+                {
+                    if (pair.Value == "")
+                    {
+                        if (req.Headers.Contains(pair.Key)) req.Headers.Remove(pair.Key);
+                    }
+                    else
+                    {
+                        req.Headers.Add(pair.Key, pair.Value);
+                    }
+                }
             }
         }
     }

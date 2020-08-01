@@ -8,15 +8,15 @@ namespace Net.RafaelEstevam.Spider.Interfaces
     public interface IFetcher
     {
         /// <summary>
-        /// Event fired when a fetch complete
+        /// Occurs when a fetch complete
         /// </summary>
         event FetchComplete FetchCompleted;
         /// <summary>
-        /// Event fired when a fetch fail
+        /// Occurs when a fetch fail
         /// </summary>
         event FetchFail FetchFailed;
         /// <summary>
-        /// Event fired to check if a fetch can occur
+        ///  Occurs before fetch to check if a fetch can occur
         /// </summary>
         event ShouldFetch ShouldFetch;
 
