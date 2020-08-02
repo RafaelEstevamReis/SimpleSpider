@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace Net.RafaelEstevam.Spider.Wrapers
 {
@@ -221,6 +222,25 @@ namespace Net.RafaelEstevam.Spider.Wrapers
         public HObject OfWhich(string AttributeName, string AttributeValue)
         {
             return new HObject(xElements.Where(x => x.Attribute(AttributeName)?.Value == AttributeValue).ToArray());
+        }
+
+        /// <summary>
+        /// Executes a CSS Select query with '&gt;' separator, '.Class' and '#Id'
+        /// </summary>
+        /// <param name="Query">CSS Query string</param>
+        /// <returns>HObject selected</returns>
+        public HObject CssSelect(string Query)
+        {
+            return this[Query.Split('>')];   
+        }
+        /// <summary>
+        /// Executes a XPath Select query in each element and returns all results
+        /// </summary>
+        /// <param name="Query">XPath Query string</param>
+        /// <returns>HObject elements with all results</returns>
+        public HObject XPathSelect(string Query)
+        {
+            return new HObject(xElements.SelectMany(x => x.XPathSelectElements(Query)));
         }
 
         /// <summary>

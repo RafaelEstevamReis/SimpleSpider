@@ -1658,6 +1658,20 @@
             <param name="AttributeValue">Value to search for</param>
             <returns>A HObject</returns>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.CssSelect(System.String)">
+            <summary>
+            Executes a CSS Select query with '&gt;' separator, '.Class' and '#Id'
+            </summary>
+            <param name="Query">CSS Query string</param>
+            <returns>HObject selected</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.XPathSelect(System.String)">
+            <summary>
+            Executes a XPath Select query in each element and returns all results
+            </summary>
+            <param name="Query">XPath Query string</param>
+            <returns>HObject elements with all results</returns>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetXElement">
             <summary>
             Returns first XElement of the collection
