@@ -1586,10 +1586,24 @@
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Wrapers.HObject.Item(System.String)">
             <summary>
-            Gets a HObject with specified Tag
+            Gets a HObject with specified Tag. Supports css notation of '#' for ID and '.' for classes
             </summary>
-            <param name="TagName">Name of the Tag to search for</param>
+            <param name="SearchName">Name of the Tag to search for or the '#{IdName}' or the '.{ClassName}'</param>
             <returns>A HObject filtered</returns>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrapers.HObject.Item(System.String[])">
+            <summary>
+            Gets a HObject searched in chain with an array of Names. Supports css notation of '#' for ID and '.' for classes
+            </summary>
+            <param name="SearchNames">Array of names of the Tag to search for or the '#{IdName}' or the '.{ClassName}'</param>
+            <returns>A HObject filtered</returns>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrapers.HObject.Item(System.Int32)">
+            <summary>
+            Gets the n-th HObject
+            </summary>
+            <param name="Position">Index of the HObject to be returned</param>
+            <returns>HObject at specified position</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.Tags(System.String)">
             <summary>
@@ -1712,11 +1726,23 @@
             </summary>
             <returns>String containing the Id</returns>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetIdsValues">
+            <summary>
+            Gets the value of all the Id attribute of all items
+            </summary>
+            <returns>String array containing all the Ids</returns>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetStyleValue">
             <summary>
             Gets the value of the Style attribute of the first item
             </summary>
             <returns>String containing the Style</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the HObject collection.
+            </summary>
+            <returns>An HObject enumerator that can be used to iterate through the collection.</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.op_Implicit(Net.RafaelEstevam.Spider.Wrapers.HObject)~System.Xml.Linq.XElement">
             <summary>

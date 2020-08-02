@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Xml.Linq;
 
 namespace Net.RafaelEstevam.Spider.Wrapers
@@ -8,7 +10,7 @@ namespace Net.RafaelEstevam.Spider.Wrapers
     /// <summary>
     /// Represents a Html Tags Collection
     /// </summary>
-    public class HObject
+    public class HObject: IEnumerable<HObject>
     {
         /// <summary>
         /// Types of items to search
@@ -77,16 +79,55 @@ namespace Net.RafaelEstevam.Spider.Wrapers
             }
         }
         /// <summary>
-        /// Gets a HObject with specified Tag
+        /// Gets a HObject with specified Tag. Supports css notation of '#' for ID and '.' for classes
         /// </summary>
-        /// <param name="TagName">Name of the Tag to search for</param>
+        /// <param name="SearchName">Name of the Tag to search for or the '#{IdName}' or the '.{ClassName}'</param>
         /// <returns>A HObject filtered</returns>
-        public HObject this[string TagName]
+        public HObject this[string SearchName]
         {
             get
             {
-                return this[SearchType.ElementName, TagName];
+                if (SearchName.Contains(">"))
+                {
+                    return this[SearchName.Split('>')];
+                }
+
+                if (SearchName.StartsWith('#'))
+                {
+                    return this[SearchType.FilterId, SearchName.Substring(1)];
+                }
+                if (SearchName.StartsWith('.'))
+                {
+                    return this[SearchType.FilterClass, SearchName.Substring(1)];
+                }
+                return this[SearchType.ElementName, SearchName];
             }
+        }
+        /// <summary>
+        /// Gets a HObject searched in chain with an array of Names. Supports css notation of '#' for ID and '.' for classes
+        /// </summary>
+        /// <param name="SearchNames">Array of names of the Tag to search for or the '#{IdName}' or the '.{ClassName}'</param>
+        /// <returns>A HObject filtered</returns>
+        public HObject this[params string[] SearchNames]
+        {
+            get
+            {
+                var result = this;
+                foreach (var n in SearchNames)
+                {
+                    result = result[n.Trim()];
+                }
+                return result;
+            }
+        }
+        /// <summary>
+        /// Gets the n-th HObject
+        /// </summary>
+        /// <param name="Position">Index of the HObject to be returned</param>
+        /// <returns>HObject at specified position</returns>
+        public HObject this[int Position]
+        {
+            get { return new HObject(xElements.ElementAt(Position)); }
         }
 
         #region Element Name
@@ -277,12 +318,34 @@ namespace Net.RafaelEstevam.Spider.Wrapers
             return GetAttributeValue("id");
         }
         /// <summary>
+        /// Gets the value of all the Id attribute of all items
+        /// </summary>
+        /// <returns>String array containing all the Ids</returns>
+        public string[] GetIdsValues()
+        {
+            return GetAttributeValues("id");
+        }
+
+        /// <summary>
         /// Gets the value of the Style attribute of the first item
         /// </summary>
         /// <returns>String containing the Style</returns>
         public string GetStyleValue()
         {
             return GetAttributeValue("style");
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the HObject collection.
+        /// </summary>
+        /// <returns>An HObject enumerator that can be used to iterate through the collection.</returns>
+        public IEnumerator<HObject> GetEnumerator()
+        {
+            return xElements.Select(x => new HObject(x)).GetEnumerator();
+        }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
         #endregion
