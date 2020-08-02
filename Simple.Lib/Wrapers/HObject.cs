@@ -235,6 +235,16 @@ namespace Net.RafaelEstevam.Spider.Wrapers
         }
 
         /// <summary>
+        /// Checks if the first element has the specified attribute
+        /// </summary>
+        /// <param name="AttributeName">Name of the attribute</param>
+        /// <returns>True if the first element has the Attribute</returns>
+        public bool HasAttribute(string AttributeName)
+        {
+            return GetXElement().Attribute(AttributeName) != null;
+        }
+
+        /// <summary>
         /// Gets the value of attribute 'href' of the first item
         /// </summary>
         /// <returns>String containing the value</returns>
