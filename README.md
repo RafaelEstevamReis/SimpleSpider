@@ -121,6 +121,10 @@ Use indexing style object representation of the html document similar to Newtons
     // Example 2
     // Get all Spans and filter by Class='text'
     HObject ex2 = hObj["span"].OfClass("text");
+    // Supports css selector style, dot for Class
+    HObject ex2B = hObj["span"][".text"];
+    // Also supports css '>' selector style
+    HObject ex2C = hObj["span > .text"];
     ...
     // Example 4
     // Get all Spans filters by some arbitrary attribute
@@ -139,8 +143,12 @@ Use indexing style object representation of the html document similar to Newtons
     //Example 14
     // Chain query to specify item and then get Attribute Values
     // Gets Next Page Url
-    string ex14A = hObj["nav"]["ul"]["li"]["a"].GetAttributeValue("href"); // Specify attribute
-    string ex14B = hObj["nav"]["ul"]["li"]["a"].GetHrefValue();
+    string ex14A = hObj["nav"]["ul"]["li"]["a"].GetAttributeValue("href"); // Specify one attribute
+    string ex14B = hObj["nav"]["ul"]["li"]["a"].GetHrefValue(); // directly
+    // Multiple parameters can be parametrized as array
+    string ex14C = hObj["nav", "ul", "li", "a"].GetHrefValue();
+    // Multiple parameters can filtered with ' > '
+    string ex14D = hObj["nav > ul > li > a"].GetHrefValue();
 }
 ```
 *[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_HObject.cs)*
