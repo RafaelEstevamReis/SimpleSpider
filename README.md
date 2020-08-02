@@ -6,6 +6,7 @@ A simple and modular web spider written in C# .Net Core
 
 Some advantages
 * Very simple to use and operate, ideal to personal or one of projects
+* Easy html filter with [HObject](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_HObject.cs) (a XElement wrap with use similar to JObject)
 * Internal conversion from html to XElement, no need to external tools on use
 * Automatic Json parser to JObject
 * Automatic Json deserialize <T>
