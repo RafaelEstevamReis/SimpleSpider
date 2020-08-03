@@ -469,6 +469,35 @@
             Return the WebRequest for this WebClient
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Extensions.RequestHeaderExtension">
+            <summary>
+            Request Headers extensions
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Extensions.RequestHeaderExtension.AddBaseRequestHeaders(Net.RafaelEstevam.Spider.HeaderCollection)">
+            <summary>
+            Adds generic User-Agent, Accept-Language, Accept-Encoding, Accept, Dnt, and Upgrade-Insecure-Requests
+            </summary>
+            <param name="Header">Headers reference to add to</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Extensions.RequestHeaderExtension.AddFirefoxRequestHeaders(Net.RafaelEstevam.Spider.HeaderCollection)">
+            <summary>
+            Adds AddBaseRequestHeaders() then a firefox UA
+            </summary>
+            <param name="Header">Headers reference to add to</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Extensions.RequestHeaderExtension.AddChromeW10RequestHeaders(Net.RafaelEstevam.Spider.HeaderCollection)">
+            <summary>
+            Adds AddBaseRequestHeaders() then a Chrome Windows10 UA
+            </summary>
+            <param name="Header">Headers reference to add to</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Extensions.RequestHeaderExtension.AddChromeLinuxRequestHeaders(Net.RafaelEstevam.Spider.HeaderCollection)">
+            <summary>
+            Adds AddBaseRequestHeaders() then a Chrome Linux X11 x64 UA
+            </summary>
+            <param name="Header">Headers reference to add to</param>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Extensions.XElementExtensions">
             <summary>
             Obsolete, use Net.RafaelEstevam.Spider.Helper.XElementHelper instead
