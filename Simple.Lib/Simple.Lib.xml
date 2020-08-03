@@ -544,6 +544,25 @@
             Gets all keys
             </summary>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.HeaderCollection.AddItems(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}})">
+            <summary>
+            Adds the specified items to the collection
+            </summary>
+            <param name="kvp">Items do add</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.HeaderCollection.AddItems(System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Adds the specified NameValueCollection elements to the collection
+            </summary>
+            <param name="nvc">The NameValueCollection to add</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.HeaderCollection.AddItem(System.String,System.String)">
+            <summary>
+            Adds the specified key and value to the collection
+            </summary>
+            <param name="Key">The key of the element to add</param>
+            <param name="Value">The value of the element to add</param>
+        </member>
         <member name="P:Net.RafaelEstevam.Spider.HeaderCollection.Count">
             <summary>
             Gets the nuber of elements of the collection

@@ -20,7 +20,7 @@ namespace Net.RafaelEstevam.Spider
         public HeaderCollection(IEnumerable<KeyValuePair<string,string>> kvp)
            : this()
         {
-            foreach (var pair in kvp) this[pair.Key] = pair.Value;
+            AddItems(kvp);
         }
         /// <summary>
         /// Creates a new object with specified parameter
@@ -29,7 +29,7 @@ namespace Net.RafaelEstevam.Spider
         public HeaderCollection(NameValueCollection nvc)
             : this()
         {
-            foreach (var k in nvc.AllKeys) this[k] = nvc[k];
+            AddItems(nvc);
         }
         /// <summary>
         /// Creates a new empty object
@@ -62,6 +62,32 @@ namespace Net.RafaelEstevam.Spider
         public string[] AllKeys
         {
             get { return dicValues.Keys.ToArray(); }
+        }
+
+        /// <summary>
+        /// Adds the specified items to the collection
+        /// </summary>
+        /// <param name="kvp">Items do add</param>
+        public void AddItems(IEnumerable<KeyValuePair<string, string>> kvp)
+        {
+            foreach (var pair in kvp) this[pair.Key] = pair.Value;
+        }
+        /// <summary>
+        /// Adds the specified NameValueCollection elements to the collection
+        /// </summary>
+        /// <param name="nvc">The NameValueCollection to add</param>
+        public void AddItems(NameValueCollection nvc)
+        {
+            foreach (var k in nvc.AllKeys) this[k] = nvc[k];
+        }
+        /// <summary>
+        /// Adds the specified key and value to the collection
+        /// </summary>
+        /// <param name="Key">The key of the element to add</param>
+        /// <param name="Value">The value of the element to add</param>
+        public void AddItem(string Key, string Value)
+        {
+            dicValues[Key] = Value;
         }
 
         /// <summary>
