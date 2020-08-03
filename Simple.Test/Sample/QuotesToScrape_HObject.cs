@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Xml.Linq;
 using Net.RafaelEstevam.Spider.Helper;
 using Net.RafaelEstevam.Spider.Wrapers;
