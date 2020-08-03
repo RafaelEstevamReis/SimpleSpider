@@ -41,7 +41,12 @@
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Configuration.Auto_RewriteRemoveFragment">
             <summary>
-            Enable auto rewrite of Uri to remove Frament
+            Enable auto rewrite of Uri to remove Fragment
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Configuration.Enable_AutoRewriteRemoveFragment">
+            <summary>
+            Enables automatic UriRewrite to remove fragments
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Configuration.Cache_Enable">
@@ -432,6 +437,11 @@
         <member name="M:Net.RafaelEstevam.Spider.Downloaders.HttpClientDownloader.Stop">
             <summary>
             Stops the Downloader operation
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Downloaders.HttpClientDownloader.BuildDownloaderWithDefaulGenerictHeadders">
+            <summary>
+            Creates a new instance of HttpClientDownloader with Extensions.RequestHeaderExtension.AddBaseRequestHeaders
             </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Downloaders.NullDownloader">

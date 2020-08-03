@@ -30,9 +30,18 @@ namespace Net.RafaelEstevam.Spider
 
         #region Scheduler
         /// <summary>
-        /// Enable auto rewrite of Uri to remove Frament
+        /// Enable auto rewrite of Uri to remove Fragment
         /// </summary>
         public bool Auto_RewriteRemoveFragment { get; set; } = false;
+
+        /// <summary>
+        /// Enables automatic UriRewrite to remove fragments
+        /// </summary>
+        public Configuration Enable_AutoRewriteRemoveFragment()
+        {
+            Auto_RewriteRemoveFragment = true;
+            return this; // Chaining
+        }
 
         #endregion
 
