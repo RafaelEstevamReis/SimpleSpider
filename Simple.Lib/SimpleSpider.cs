@@ -489,7 +489,20 @@ namespace Net.RafaelEstevam.Spider
             }
 
             // Main CallBack
-            FetchCompleted?.Invoke(this, args);
+            if (FetchCompleted != null)
+            {
+                foreach (FetchComplete e in FetchCompleted.GetInvocationList())
+                {
+                    try
+                    {
+                        e.DynamicInvoke(this, args);
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error(ex, "Error on FetchComplete event");
+                    }
+                }
+            }
 
             // Additional Link callback
             args.Link.FetchCompleteCallBack?.Invoke(this, args);
