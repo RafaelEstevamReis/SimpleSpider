@@ -9,7 +9,7 @@ using Net.RafaelEstevam.Spider.Helper;
 namespace Net.RafaelEstevam.Spider.Test.Sample
 {
     /// <summary>
-    /// Simple sipider to crawl http://books.toscrape.com/
+    /// Simple spider to crawl http://books.toscrape.com/
     /// </summary>
     public class BooksToScrape
     {
@@ -20,7 +20,7 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
             spider.FetchCompleted += (s, a) =>
             {
                 // This callback can be replaced by:
-                //  spider.Configuration.Auto_AnchorsLinks = true;
+                //  spider.Configuration.Auto_AnchorsLinks = true; (which is Enabled by default)
                 // and is here for demonstration purposes
 
                 // Use a simple SubString-based split to get all "<a>" tags
@@ -68,7 +68,7 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
                 Price = price,
                 Description = sDesc,
                 StockInfo = sStock,
-                PrductInfoTable = XElement.GetAllTables().FirstOrDefault(),
+                ProductInfoTable = XElement.GetAllTables().FirstOrDefault(),
             }, args.Link);
         }
         // Example using HObject
@@ -95,7 +95,7 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
                 Price = price,
                 Description = sDesc,
                 StockInfo = sStock,
-                PrductInfoTable = null // HObject does not have an extension to DataTable
+                ProductInfoTable = null // HObject does not have an extension to DataTable
             }, args.Link);
         }
 
@@ -105,7 +105,7 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
             public decimal Price { get; set; }
             public string Description { get; set; }
             public string StockInfo { get; set; }
-            public DataTable PrductInfoTable { get; set; }
+            public DataTable ProductInfoTable { get; set; }
         }
     }
 }
