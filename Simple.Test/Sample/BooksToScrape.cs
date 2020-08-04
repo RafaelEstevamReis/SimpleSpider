@@ -29,7 +29,8 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
                 (s as SimpleSpider).AddPages(links, a.Link);
             };
             // callback to gather items
-            spider.FetchCompleted += fetchCompleted_items;
+            spider.FetchCompleted += fetchCompleted_items_XPath;   // Sample using XPath
+            spider.FetchCompleted += fetchCompleted_items_HObject; //Sample using HObject
             // Ignore (cancel) the pages containing "/reviews/" 
             spider.ShouldFetch += (s, a) => { a.Cancel = a.Link.Uri.ToString().Contains("/reviews/"); };
             
@@ -43,7 +44,8 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
                 Console.WriteLine($" > {((BookData)b.Object).Price:C2} {((BookData)b.Object).Title}");
             }
         }
-        private static void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
+        // Example using XPath
+        private static void fetchCompleted_items_XPath(object Sender, FetchCompleteEventArgs args)
         {
             // ignore all pages except the catalogue
             if (!args.Link.ToString().Contains("/catalogue/")) return;
@@ -66,7 +68,34 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
                 Price = price,
                 Description = sDesc,
                 StockInfo = sStock,
-                PrductInfoTable = XElement.GetAllTables().First(),
+                PrductInfoTable = XElement.GetAllTables().FirstOrDefault(),
+            }, args.Link);
+        }
+        // Example using HObject
+        private static void fetchCompleted_items_HObject(object Sender, FetchCompleteEventArgs args)
+        {
+            // ignore all pages except the catalogue
+            if (!args.Link.ToString().Contains("/catalogue/")) return;
+
+            var hObj = args.GetHObject();
+            // collect book data
+            var articleProd = hObj["article > .product_page"]; // .XPathSelectElement("//article[@class=\"product_page\"]");
+            if (articleProd.IsEmpty()) return; // not a book
+            // Book info
+            string sTitle = articleProd["h1"];  // .XPathSelectElement("//h1").Value;
+            string sPrice = articleProd["p > .price_color"];// .XPathSelectElement("//p[@class=\"price_color\"]").Value;
+            string sStock = articleProd["p > .instock"].GetValue().Trim();// .XPathSelectElement("//p[@class=\"instock\"]").Value.Trim();
+            string sDesc =  articleProd.Children("p");// .XPathSelectElement("p")?.Value; // books can be descriptionless
+            // convert price to Decimal
+            decimal.TryParse(sPrice, NumberStyles.Currency, new CultureInfo("en-GB", false), out decimal price);
+
+            (Sender as SimpleSpider).Collect(new BookData()
+            {
+                Title = sTitle,
+                Price = price,
+                Description = sDesc,
+                StockInfo = sStock,
+                PrductInfoTable = null // HObject does not have an extension to DataTable
             }, args.Link);
         }
 
