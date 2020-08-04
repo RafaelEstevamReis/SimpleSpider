@@ -137,7 +137,10 @@ namespace Net.RafaelEstevam.Spider.Helper
         {
             foreach (var x in Root.Elements())
             {
-                if (Names.Contains(x.Name.LocalName)) yield return x;
+                if (Names.Length == 0)
+                    yield return x; // get all
+                else if (Names.Contains(x.Name.LocalName))
+                    yield return x;
             }
         }
     }
