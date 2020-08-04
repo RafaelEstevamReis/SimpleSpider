@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using Net.RafaelEstevam.Spider.Helper;
 
 namespace Net.RafaelEstevam.Spider.Wrapers
 {
@@ -21,7 +22,11 @@ namespace Net.RafaelEstevam.Spider.Wrapers
             /// <summary>
             /// Search for Tag Name
             /// </summary>
-            ElementName,
+            AnyElement,
+            /// <summary>
+            /// Search for Tag Name only on child elements
+            /// </summary>
+            ChildElement,
             /// <summary>
             /// Search for ID attribute
             /// </summary>
@@ -42,6 +47,15 @@ namespace Net.RafaelEstevam.Spider.Wrapers
         }
 
         private IEnumerable<XElement> xElements;
+        /// <summary>
+        /// Checks if the filtering results in an empty object
+        /// </summary>
+        /// <returns>True if there are no elements left</returns>
+        public bool IsEmpty()
+        {
+            return xElements.Count() == 0;
+        }
+
         /// <summary>
         /// Initializes a new instance of the HObject class
         /// </summary>
@@ -70,7 +84,8 @@ namespace Net.RafaelEstevam.Spider.Wrapers
             {
                 return Type switch
                 {
-                    SearchType.ElementName => Tags(Name),
+                    SearchType.AnyElement => Tags(Name),
+                    SearchType.ChildElement => Children(Name),
                     SearchType.AnyIdEquals => IDs(Name),
                     SearchType.AnyClassContaining => Classes(Name),
                     SearchType.FilterId => OfID(Name),
@@ -101,7 +116,7 @@ namespace Net.RafaelEstevam.Spider.Wrapers
                 {
                     return this[SearchType.FilterClass, SearchName.Substring(1)];
                 }
-                return this[SearchType.ElementName, SearchName];
+                return this[SearchType.AnyElement, SearchName];
             }
         }
         /// <summary>
@@ -132,6 +147,7 @@ namespace Net.RafaelEstevam.Spider.Wrapers
         }
 
         #region Element Name
+
         /// <summary>
         /// Returns all Tags named TagName
         /// </summary>
@@ -141,6 +157,19 @@ namespace Net.RafaelEstevam.Spider.Wrapers
         {
             var x = xElements
                          .SelectMany(el => el.DescendantsAndSelf()
+                                             .Where(d => d.Name.LocalName == TagName))
+                         .ToArray(); // force enumerate
+            return new HObject(x);
+        }
+        /// <summary>
+        /// Returns all children tags named TagName
+        /// </summary>
+        /// <param name="TagName">The name of the tag</param>
+        /// <returns>A HObject filtered</returns>
+        public HObject Children(string TagName)
+        {
+            var x = xElements
+                         .SelectMany(el => el.Elements()
                                              .Where(d => d.Name.LocalName == TagName))
                          .ToArray(); // force enumerate
             return new HObject(x);
@@ -197,7 +226,8 @@ namespace Net.RafaelEstevam.Spider.Wrapers
         {
             return new HObject(xElements
                 .Where(x => x.Attribute("class")?.Value != null)
-                .Where(x => x.Attribute("class").Value.Split(' ').Contains(ClassName)).ToArray());
+                .Where(x => x.Attribute("class").Value == ClassName
+                            || x.Attribute("class").Value.Split(' ').Contains(ClassName)).ToArray());
         }
 
         #endregion

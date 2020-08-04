@@ -1597,9 +1597,14 @@
             Types of items to search
             </summary>
         </member>
-        <member name="F:Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType.ElementName">
+        <member name="F:Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType.AnyElement">
             <summary>
             Search for Tag Name
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType.ChildElement">
+            <summary>
+            Search for Tag Name only on child elements
             </summary>
         </member>
         <member name="F:Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType.AnyIdEquals">
@@ -1621,6 +1626,12 @@
             <summary>
             Filter current by Class, similar to this.OfClass(Name)
             </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.IsEmpty">
+            <summary>
+            Checks if the filtering results in an empty object
+            </summary>
+            <returns>True if there are no elements left</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.#ctor(System.Xml.Linq.XElement)">
             <summary>
@@ -1666,6 +1677,13 @@
         <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.Tags(System.String)">
             <summary>
             Returns all Tags named TagName
+            </summary>
+            <param name="TagName">The name of the tag</param>
+            <returns>A HObject filtered</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.Children(System.String)">
+            <summary>
+            Returns all children tags named TagName
             </summary>
             <param name="TagName">The name of the tag</param>
             <returns>A HObject filtered</returns>
