@@ -86,6 +86,35 @@ void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
     string sDesc = articleProd.XPathSelectElement("p")?.Value; // books can be description less
 }
 ```
+
+Below we have the same example but using HObject to select html elements
+```C#
+void run()
+{
+    var spider = new SimpleSpider("BooksToScrape", new Uri("http://books.toscrape.com/"));
+    // callback to gather items, new links are collected automatically
+    spider.FetchCompleted += fetchCompleted_items;
+    // Ignore (cancel) the pages containing "/reviews/" 
+    spider.ShouldFetch += (s, a) => { a.Cancel = a.Link.Uri.ToString().Contains("/reviews/"); };
+    // execute from first page
+    spider.Execute();
+}
+void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
+{
+    // ignore all pages except the catalogue
+    if (!args.Link.ToString().Contains("/catalogue/")) return;
+
+    var hObj = args.GetHObject();
+    // collect book data
+    var articleProd = hObj["article > .product_page"]; // XPath: "//article[@class=\"product_page\"]"
+    if (articleProd.IsEmpty()) return; // not a book
+    // Book info
+    string sTitle = articleProd["h1"];                 // XPath: "//h1"
+    string sPrice = articleProd["p > .price_color"];   // XPath: "//p[@class=\"price_color\"]"
+    string sStock = articleProd["p > .instock"].GetValue().Trim();// XPath "//p[@class=\"instock\"]"
+    string sDesc =  articleProd.Children("p");         // XPath "p"
+}
+```
 *[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/BooksToScrape.cs)*
 
 
