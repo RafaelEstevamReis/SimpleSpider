@@ -89,16 +89,7 @@ void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
 
 Below we have the same example but using HObject to select html elements
 ```C#
-void run()
-{
-    var spider = new SimpleSpider("BooksToScrape", new Uri("http://books.toscrape.com/"));
-    // callback to gather items, new links are collected automatically
-    spider.FetchCompleted += fetchCompleted_items;
-    // Ignore (cancel) the pages containing "/reviews/" 
-    spider.ShouldFetch += (s, a) => { a.Cancel = a.Link.Uri.ToString().Contains("/reviews/"); };
-    // execute from first page
-    spider.Execute();
-}
+void run() ... /* Same run() method */
 void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
 {
     // ignore all pages except the catalogue
