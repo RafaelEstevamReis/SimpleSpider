@@ -34,6 +34,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// <returns>Byte aray with data fetched</returns>
         public static byte[] FetchResource(Uri uri)
         {
+            Console.WriteLine($"{DateTime.Now.ToShortTimeString()} [FETCH] {uri}");
             return getClient().DownloadData(uri);
         }
         /// <summary>
