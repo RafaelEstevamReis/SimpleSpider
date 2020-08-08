@@ -19,13 +19,30 @@ namespace Net.RafaelEstevam.Spider.Cachers
         private ConcurrentQueue<Link> queue;
         private Configuration config;
         private Thread[] thread;
-
+       
+        /// <summary>
+        /// Gets if is processing
+        /// </summary>
         public bool IsProcessing { get; private set; }
 
+        /// <summary>
+        /// Occurs when fetch is complete 
+        /// </summary>
         public event FetchComplete FetchCompleted;
+        /// <summary>
+        /// Occurs when fetch fails
+        /// </summary>
         public event FetchFail FetchFailed;
+        /// <summary>
+        /// Occurs before fetch to check if it should fetch this resource
+        /// </summary>
         public event ShouldFetch ShouldFetch;
 
+        /// <summary>
+        /// Inistializes the cacher
+        /// </summary>
+        /// <param name="WorkQueue">The queue to be used</param>
+        /// <param name="Config">The configuration to be used</param>
         public void Initialize(ConcurrentQueue<Link> WorkQueue, Configuration Config)
         {
             var cachePath = new DirectoryInfo(Path.Combine(Config.SpiderDirectory.FullName, "CACHE"));
@@ -42,11 +59,19 @@ namespace Net.RafaelEstevam.Spider.Cachers
             }
         }
 
+        /// <summary>
+        /// Instructs the cacher to generate a cache for the new resource
+        /// </summary>
+        /// <param name="FetchComplete">Fetch data to save</param>
         public void GenerateCacheFor(FetchCompleteEventArgs FetchComplete)
         {
             File.WriteAllBytes(getCacheFileFullName(FetchComplete.Link), FetchComplete.Result);
         }
-
+        /// <summary>
+        /// Gets if a cache exists
+        /// </summary>
+        /// <param name="uri">Uri to check for</param>
+        /// <returns>True if has a cache, False otherwise</returns>
         public bool HasCache(Uri uri)
         {
             if (!config.Cache_Enable) return false;
@@ -63,6 +88,9 @@ namespace Net.RafaelEstevam.Spider.Cachers
         }
 
         bool running = false;
+        /// <summary>
+        /// Starts the Cacher operation
+        /// </summary>
         public void Start()
         {
             running = true;
@@ -70,7 +98,9 @@ namespace Net.RafaelEstevam.Spider.Cachers
             for (int i = 0; i < thread.Length; i++)
                 thread[i].Start();
         }
-
+        /// <summary>
+        /// Stops the Cacher operation
+        /// </summary>
         public void Stop()
         {
             running = false;

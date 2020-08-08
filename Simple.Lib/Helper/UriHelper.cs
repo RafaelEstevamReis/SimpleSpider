@@ -1,7 +1,4 @@
-﻿using Serilog.Sinks.File;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace Net.RafaelEstevam.Spider.Helper
 {

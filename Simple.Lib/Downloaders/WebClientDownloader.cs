@@ -3,7 +3,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading;
-using System.Threading.Tasks;
 using Net.RafaelEstevam.Spider.Interfaces;
 
 namespace Net.RafaelEstevam.Spider.Downloaders
@@ -20,13 +19,20 @@ namespace Net.RafaelEstevam.Spider.Downloaders
         Thread thread;
         CustomWebClient webClient;
 
+        /// <summary>
+        /// Exposes the internal webclient
+        /// </summary>
         public CustomWebClient ExposeInternalWebClient()
         {
             return webClient;
         }
-
+        /// <summary>
+        /// List with last Fetch durantions
+        /// </summary>
         public List<TimeSpan> FetchTempo { get;  }
-
+        /// <summary>
+        /// Creates a new instance
+        /// </summary>
         public WebClientDownloader()
         {
             cancellationToken = new CancellationTokenSource();
@@ -36,24 +42,43 @@ namespace Net.RafaelEstevam.Spider.Downloaders
             FetchTempo = new List<TimeSpan>();
         }
 
+        /// <summary>
+        /// Occurs when fetch is complete 
+        /// </summary>
         public event FetchComplete FetchCompleted;
+        /// <summary>
+        /// Occurs when fetch fails
+        /// </summary>
         public event FetchFail FetchFailed;
+        /// <summary>
+        /// Occurs before fetch to check if it should fetch this resource
+        /// </summary>
         public event ShouldFetch ShouldFetch;
 
+        /// <summary>
+        /// Initialize the downloader
+        /// </summary>
         public void Initialize(ConcurrentQueue<Link> WorkQueue, Configuration Config)
         {
             this.queue = WorkQueue;
             this.config = Config;
             thread = new Thread(doStuff);
         }
-
+        /// <summary>
+        /// Indicates when is processing a resource
+        /// </summary>
         public bool IsProcessing => downloading;
+        /// <summary>
+        /// Starts the Downloader operation
+        /// </summary>
         public void Start()
         {
             run = true;
             thread.Start();
         }
-
+        /// <summary>
+        /// Stops the Downloader operation
+        /// </summary>
         public void Stop()
         {
             cancellationToken.Cancel();
@@ -144,6 +169,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
             // Can process next
             downloading = false;
         }
+
         /// <summary>
         /// Internal WebClient overload to expose protected stuff
         /// </summary>

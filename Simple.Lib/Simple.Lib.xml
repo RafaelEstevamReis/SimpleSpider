@@ -9,9 +9,109 @@
             Simple cacher, stores the content of the resource fetched locally
             </summary>
         </member>
+        <member name="P:Net.RafaelEstevam.Spider.Cachers.ContentCacher.IsProcessing">
+            <summary>
+            Gets if is processing
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Cachers.ContentCacher.FetchCompleted">
+            <summary>
+            Occurs when fetch is complete 
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Cachers.ContentCacher.FetchFailed">
+            <summary>
+            Occurs when fetch fails
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Cachers.ContentCacher.ShouldFetch">
+            <summary>
+            Occurs before fetch to check if it should fetch this resource
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Cachers.ContentCacher.Initialize(System.Collections.Concurrent.ConcurrentQueue{Net.RafaelEstevam.Spider.Link},Net.RafaelEstevam.Spider.Configuration)">
+            <summary>
+            Inistializes the cacher
+            </summary>
+            <param name="WorkQueue">The queue to be used</param>
+            <param name="Config">The configuration to be used</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Cachers.ContentCacher.GenerateCacheFor(Net.RafaelEstevam.Spider.FetchCompleteEventArgs)">
+            <summary>
+            Instructs the cacher to generate a cache for the new resource
+            </summary>
+            <param name="FetchComplete">Fetch data to save</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Cachers.ContentCacher.HasCache(System.Uri)">
+            <summary>
+            Gets if a cache exists
+            </summary>
+            <param name="uri">Uri to check for</param>
+            <returns>True if has a cache, False otherwise</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Cachers.ContentCacher.Start">
+            <summary>
+            Starts the Cacher operation
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Cachers.ContentCacher.Stop">
+            <summary>
+            Stops the Cacher operation
+            </summary>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Cachers.NullCacher">
             <summary>
             Empty cacher, discards all cache requests
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Cachers.NullCacher.FetchCompleted">
+            <summary>
+            Unused on this fetcher
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Cachers.NullCacher.FetchFailed">
+            <summary>
+            Unused on this fetcher
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Cachers.NullCacher.ShouldFetch">
+            <summary>
+            Unused on this fetcher
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Cachers.NullCacher.GenerateCacheFor(Net.RafaelEstevam.Spider.FetchCompleteEventArgs)">
+            <summary>
+            Instructs the cacher to generate a cache for the new resource
+            </summary>
+            <param name="FetchComplete">Fetch data to save</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Cachers.NullCacher.HasCache(System.Uri)">
+            <summary>
+            Gets if a cache exists, aways False for this cacher
+            </summary>
+            <param name="uri">Uri to check for</param>
+            <returns>Aways false for this cacher</returns>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Cachers.NullCacher.IsProcessing">
+            <summary>
+            Gets if is processing, aways False for this cacher
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Cachers.NullCacher.Initialize(System.Collections.Concurrent.ConcurrentQueue{Net.RafaelEstevam.Spider.Link},Net.RafaelEstevam.Spider.Configuration)">
+            <summary>
+            Inistializes the cacher
+            </summary>
+            <param name="WorkQueue">The queue to be used</param>
+            <param name="Config">The configuration to be used</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Cachers.NullCacher.Start">
+            <summary>
+            Stats this cacher
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Cachers.NullCacher.Stop">
+            <summary>
+            Stops this cacher
             </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Configuration">
@@ -518,6 +618,56 @@
         <member name="T:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader">
             <summary>
             Simple Downloader using WebClient
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.ExposeInternalWebClient">
+            <summary>
+            Exposes the internal webclient
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.FetchTempo">
+            <summary>
+            List with last Fetch durantions
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.#ctor">
+            <summary>
+            Creates a new instance
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.FetchCompleted">
+            <summary>
+            Occurs when fetch is complete 
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.FetchFailed">
+            <summary>
+            Occurs when fetch fails
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.ShouldFetch">
+            <summary>
+            Occurs before fetch to check if it should fetch this resource
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.Initialize(System.Collections.Concurrent.ConcurrentQueue{Net.RafaelEstevam.Spider.Link},Net.RafaelEstevam.Spider.Configuration)">
+            <summary>
+            Initialize the downloader
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.IsProcessing">
+            <summary>
+            Indicates when is processing a resource
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.Start">
+            <summary>
+            Starts the Downloader operation
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.Stop">
+            <summary>
+            Stops the Downloader operation
             </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.CustomWebClient">

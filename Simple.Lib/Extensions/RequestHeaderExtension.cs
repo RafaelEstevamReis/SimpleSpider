@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
-
+﻿
 namespace Net.RafaelEstevam.Spider.Extensions
 {
     /// <summary>
