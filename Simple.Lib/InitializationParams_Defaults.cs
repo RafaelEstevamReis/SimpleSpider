@@ -20,9 +20,10 @@ namespace Net.RafaelEstevam.Spider
                 //will not affect this template
                 .SetCacher(new ContentCacher()) // more stable for the time (the only one, but still)
                 .SetDownloader(new WebClientDownloader())
-                .SetConfig(c => c.Enable_Caching()
-                                 .Disable_Cookies()
+                .SetConfig(c => c.Disable_AutoRewriteRemoveFragment()
+                                 .Enable_Caching()
                                  .Set_CachingNoLimit()
+                                 .Disable_Cookies()
                                  .Set_DownloadDelay(DownloadDelay)
                                  .Enable_AutoAnchorsLinks());
         }
