@@ -4,6 +4,8 @@
 
 A simple and modular web spider written in C# .Net Core
 
+![.NET Core](https://github.com/RafaelEstevamReis/SimpleSpider/workflows/.NET%20Core/badge.svg)
+
 Some advantages
 * Very simple to use and operate, ideal to personal or one of projects
 * Easy html filter with [HObject](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_HObject.cs) (a XElement wrap with use similar to JObject)
