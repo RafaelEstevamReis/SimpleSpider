@@ -245,7 +245,7 @@ namespace Net.RafaelEstevam.Spider
                 Thread.Sleep(100);
                 if (QueueFinished())
                 {
-                    if (idleTimeout++ > 10)
+                    if (idleTimeout++ > 20)
                     {
                         break;
                     }
@@ -509,6 +509,17 @@ namespace Net.RafaelEstevam.Spider
 
             // Parsers
             var contentType = args.ResponseHeaders.FirstOrDefault(h => h.Key == "Content-Type");
+            if (contentType.Value == null)
+            {
+                // try to guess
+                var textContent = System.Text.Encoding.ASCII.GetString(args.Result, 0, 128);
+
+                if (textContent[0] == '{' && textContent.Contains(":")) 
+                    contentType = new KeyValuePair<string, string>("Content-Type", "application/json");
+                if (textContent[0] == '<' && textContent.ToLower().Contains("html")) 
+                    contentType = new KeyValuePair<string, string>("Content-Type", "text/html");
+
+            }
             if (!string.IsNullOrEmpty(contentType.Value))
             {
                 foreach (var p in Parsers)
