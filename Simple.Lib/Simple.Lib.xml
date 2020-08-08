@@ -419,10 +419,11 @@
             Collection of Headers to be included on the Request
             </summary>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Downloaders.HttpClientDownloader.#ctor">
+        <member name="M:Net.RafaelEstevam.Spider.Downloaders.HttpClientDownloader.#ctor(System.Boolean)">
             <summary>
             Creates a HttpClientDownloader instance
             </summary>
+            <param name="AddDefaultHeaders">Specify when initialize some default headers</param>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Downloaders.HttpClientDownloader.Initialize(System.Collections.Concurrent.ConcurrentQueue{Net.RafaelEstevam.Spider.Link},Net.RafaelEstevam.Spider.Configuration)">
             <summary>
@@ -1133,7 +1134,12 @@
             Frozen in time default: ContentCacher, WebClientDownloader, NoLimitCaching, and AutoAnchorsLinks enabled
             </summary>
             <param name="DownloadDelay">Config.DownloadDelay in milliseconds</param>
-            <returns></returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.InitializationParams.Default002(System.Int32)">
+            <summary>
+            Frozen in time default: ContentCacher, HttpClientDownloader with headers, NoLimitCaching, AutoAnchorsLinks enabled, and rewrites fragments
+            </summary>
+            <param name="DownloadDelay">Config.DownloadDelay in milliseconds</param>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Interfaces.ICacher">
             <summary>

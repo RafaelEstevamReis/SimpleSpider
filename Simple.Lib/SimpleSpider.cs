@@ -105,7 +105,7 @@ namespace Net.RafaelEstevam.Spider
             initializeQueues();
             // initialize read-only
             if (Cacher == null) Cacher = new ContentCacher();
-            if (Downloader == null) Downloader = new WebClientDownloader();
+            if (Downloader == null) Downloader = new HttpClientDownloader();
 
             initializeFetchers();
             FetchCompleted += fetchCompleted_AutoCollect;
