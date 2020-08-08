@@ -49,6 +49,11 @@
             Enables automatic UriRewrite to remove fragments
             </summary>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Configuration.Disable_AutoRewriteRemoveFragment">
+            <summary>
+            Disables automatic UriRewrite to remove fragments
+            </summary>
+        </member>
         <member name="P:Net.RafaelEstevam.Spider.Configuration.Cache_Enable">
             <summary>
             Are caching enabled? ICacher must support

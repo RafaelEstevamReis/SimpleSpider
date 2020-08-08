@@ -42,6 +42,14 @@ namespace Net.RafaelEstevam.Spider
             Auto_RewriteRemoveFragment = true;
             return this; // Chaining
         }
+        /// <summary>
+        /// Disables automatic UriRewrite to remove fragments
+        /// </summary>
+        public Configuration Disable_AutoRewriteRemoveFragment()
+        {
+            Auto_RewriteRemoveFragment = false;
+            return this; // Chaining
+        }
 
         #endregion
 
