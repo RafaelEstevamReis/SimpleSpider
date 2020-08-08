@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Net.RafaelEstevam.Spider.Cachers;
-using Net.RafaelEstevam.Spider.Downloaders;
 using Net.RafaelEstevam.Spider.Interfaces;
-using Serilog;
 
 namespace Net.RafaelEstevam.Spider
 {
@@ -85,7 +82,7 @@ namespace Net.RafaelEstevam.Spider
         /// </summary>
         public InitializationParams SetOfflineMode()
         {
-            return SetDownloader(new NullDownloader());
+            return SetDownloader(new Downloaders.NullDownloader());
         }
         /// <summary>
         /// Adds a Parser to the spider. Parsers can be added and removed on-the-fly
@@ -98,7 +95,7 @@ namespace Net.RafaelEstevam.Spider
         /// <summary>
         /// Sets a logger to be used by the spider instance
         /// </summary>
-        public InitializationParams SetLogger(ILogger logger)
+        public InitializationParams SetLogger(Serilog.ILogger logger)
         {
             ConfigurationPrototype.Logger = logger;
             return this;

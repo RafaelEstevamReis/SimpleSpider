@@ -363,7 +363,7 @@
         </member>
         <member name="P:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.Html">
             <summary>
-            LazyLoaded Html (string) content parsed from  byte[] Result encoded with UTF8
+            LazyLoaded Text (Html?) content parsed from byte[] Result encoded with UTF8
             </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.GetXElement">

@@ -116,7 +116,7 @@ namespace Net.RafaelEstevam.Spider
         // Lazy loaded html string
         string htmlCache;
         /// <summary>
-        /// LazyLoaded Html (string) content parsed from  byte[] Result encoded with UTF8
+        /// LazyLoaded Text (Html?) content parsed from byte[] Result encoded with UTF8
         /// </summary>
         public string Html
         {
