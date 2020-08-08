@@ -455,6 +455,66 @@
             Empty downloader, discards all download requests
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Downloaders.NullDownloader.DiscardModeTypes">
+            <summary>
+            Discard modes
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.Downloaders.NullDownloader.DiscardModeTypes.Ingore">
+            <summary>
+            Downloader should ignore items
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.Downloaders.NullDownloader.DiscardModeTypes.CompleteEmpty">
+            <summary>
+            Downloader should invoke an empty FetchCompleted
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.Downloaders.NullDownloader.DiscardModeTypes.Fail">
+            <summary>
+            Downloader should invoke an empty FetchFailed
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Downloaders.NullDownloader.IsProcessing">
+            <summary>
+            Gets if is processing data
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Downloaders.NullDownloader.DiscardMode">
+            <summary>
+            Gets or sets the current queue items DiscardMode
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Downloaders.NullDownloader.FetchCompleted">
+            <summary>
+            Occurs when DiscardMode is set to CompleteEmpty 
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Downloaders.NullDownloader.FetchFailed">
+            <summary>
+            Occurs when DiscardMode is set to Fail
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Downloaders.NullDownloader.ShouldFetch">
+            <summary>
+            Occurs before fetch to check if it should fetch this resource
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Downloaders.NullDownloader.Initialize(System.Collections.Concurrent.ConcurrentQueue{Net.RafaelEstevam.Spider.Link},Net.RafaelEstevam.Spider.Configuration)">
+            <summary>
+            Initialize the downloader
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Downloaders.NullDownloader.Start">
+            <summary>
+            Starts the Downloader operation
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Downloaders.NullDownloader.Stop">
+            <summary>
+            Stops the Downloader operation
+            </summary>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader">
             <summary>
             Simple Downloader using WebClient

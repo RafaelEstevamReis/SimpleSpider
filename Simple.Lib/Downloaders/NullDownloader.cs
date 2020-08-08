@@ -10,23 +10,51 @@ namespace Net.RafaelEstevam.Spider.Downloaders
     /// </summary>
     public class NullDownloader : IDownloader
     {
+        /// <summary>
+        /// Discard modes
+        /// </summary>
         public enum DiscardModeTypes
         {
+            /// <summary>
+            /// Downloader should ignore items
+            /// </summary>
             Ingore,
+            /// <summary>
+            /// Downloader should invoke an empty FetchCompleted
+            /// </summary>
             CompleteEmpty,
+            /// <summary>
+            /// Downloader should invoke an empty FetchFailed
+            /// </summary>
             Fail,
         }
 
         private ConcurrentQueue<Link> workQueue;
         private Timer timer;
-
+        /// <summary>
+        /// Gets if is processing data
+        /// </summary>
         public bool IsProcessing => false;
+        /// <summary>
+        /// Gets or sets the current queue items DiscardMode
+        /// </summary>
         public DiscardModeTypes DiscardMode { get; set; } = DiscardModeTypes.Ingore;
 
+        /// <summary>
+        /// Occurs when DiscardMode is set to CompleteEmpty 
+        /// </summary>
         public event FetchComplete FetchCompleted;
+        /// <summary>
+        /// Occurs when DiscardMode is set to Fail
+        /// </summary>
         public event FetchFail FetchFailed;
+        /// <summary>
+        /// Occurs before fetch to check if it should fetch this resource
+        /// </summary>
         public event ShouldFetch ShouldFetch;
-
+        /// <summary>
+        /// Initialize the downloader
+        /// </summary>
         public void Initialize(ConcurrentQueue<Link> WorkQueue, Configuration Config)
         {
             workQueue = WorkQueue;
@@ -68,12 +96,16 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                     break;
             }
         }
-
+        /// <summary>
+        /// Starts the Downloader operation
+        /// </summary>
         public void Start()
         {
             timer.Enabled = true;
         }
-
+        /// <summary>
+        /// Stops the Downloader operation
+        /// </summary>
         public void Stop()
         {
             timer.Enabled = false;
