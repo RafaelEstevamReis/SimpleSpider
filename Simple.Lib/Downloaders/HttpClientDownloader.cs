@@ -46,7 +46,8 @@ namespace Net.RafaelEstevam.Spider.Downloaders
         /// <summary>
         /// Creates a HttpClientDownloader instance
         /// </summary>
-        public HttpClientDownloader()
+        /// <param name="AddDefaultHeaders">Specify when initialize some default headers</param>
+        public HttpClientDownloader(bool AddDefaultHeaders = false)
         {
             var hdl = new HttpClientHandler()
             {
@@ -55,6 +56,10 @@ namespace Net.RafaelEstevam.Spider.Downloaders
             httpClient = new HttpClient(hdl);
             cancellationToken = new CancellationTokenSource();
             IncludeRequestHeaders = new HeaderCollection();
+            if (AddDefaultHeaders)
+            {
+                Extensions.RequestHeaderExtension.AddBaseRequestHeaders(IncludeRequestHeaders);
+            }
         }
         /// <summary>
         /// Initialize the downloader
@@ -185,6 +190,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
         /// <summary>
         /// Creates a new instance of HttpClientDownloader with Extensions.RequestHeaderExtension.AddBaseRequestHeaders
         /// </summary>
+        [Obsolete]
         public static HttpClientDownloader BuildDownloaderWithDefaulGenerictHeadders()
         {
             var http = new HttpClientDownloader();
