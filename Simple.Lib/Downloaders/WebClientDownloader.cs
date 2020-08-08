@@ -71,8 +71,8 @@ namespace Net.RafaelEstevam.Spider.Downloaders
             {
                 int delay = config.DownloadDelay;
                 if (FetchTempo.Count > 0) delay -= (int)FetchTempo[^1].TotalMilliseconds;
-                
-                Task.Delay(Math.Max(100, delay), cancellationToken.Token);
+
+                Thread.Sleep(Math.Max(100, delay));
                 if (cancellationToken.IsCancellationRequested) break;
 
                 if (downloading) continue;

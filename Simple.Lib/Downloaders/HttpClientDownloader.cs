@@ -97,7 +97,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
             IsProcessing = false;
             while (run)
             {
-                Task.Delay(Math.Max(100, config.DownloadDelay), cancellationToken.Token);
+                Thread.Sleep(Math.Max(100, delay));
                 if (cancellationToken.Token.IsCancellationRequested) break;
 
                 if (IsProcessing) continue;
