@@ -38,7 +38,7 @@ namespace Net.RafaelEstevam.Spider
     /// <param name="Sender">The source of the event</param>
     /// <param name="args">Object allowing cancel the fetching process</param>
     public delegate void ShouldFetch(object Sender, ShouldFetchEventArgs args);
-  
+
     /// <summary>
     /// FetchT event EventArgs
     /// </summary>
@@ -162,7 +162,7 @@ namespace Net.RafaelEstevam.Spider
         {
             xElement = null; // discards Lazy properties
             return htmlCache = enc.GetString(Result);
-            
+
         }
         /// <summary>
         /// Constructs a new FetchCompleteEventArgs
@@ -276,7 +276,7 @@ namespace Net.RafaelEstevam.Spider
         /// <summary>
         /// The original Uri added to the queue
         /// </summary>
-        public Uri CurrentUri{ get; }
+        public Uri CurrentUri { get; }
         /// <summary>
         /// New Uri to be fetched
         /// </summary>
