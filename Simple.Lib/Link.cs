@@ -119,7 +119,7 @@ namespace Net.RafaelEstevam.Spider
                 if (colIdx <= 0) continue;
 
                 string key = line.Substring(0, colIdx).ToLower();
-                string value = line.Substring(colIdx);
+                string value = line.Substring(colIdx +1).TrimStart();
 
                 switch (key)
                 {
@@ -131,7 +131,7 @@ namespace Net.RafaelEstevam.Spider
                         break;
 
                     case "moveduri":
-                        lnk.Uri = new Uri(value);
+                        lnk.MovedUri = new Uri(value);
                         break;
                     case "rewrittenuri":
                         lnk.RewrittenUri = new Uri(value);
@@ -149,8 +149,8 @@ namespace Net.RafaelEstevam.Spider
             if (lnk.Uri == null) throw new InvalidOperationException("Uri is not present");
             if (lnk.SourceUri == null) throw new InvalidOperationException("SourceUri is not present");
 
-            if (lnk.FetchStart.Year < 2000) throw new InvalidOperationException("FetchStart is not present");
-            if (lnk.FetchStart.Year < 2000) throw new InvalidOperationException("FetchStart is not present");
+            //if (lnk.FetchStart.Year < 2000) throw new InvalidOperationException("FetchStart is not present");
+            //if (lnk.FetchStart.Year < 2000) throw new InvalidOperationException("FetchStart is not present");
 
             return lnk;
         }
