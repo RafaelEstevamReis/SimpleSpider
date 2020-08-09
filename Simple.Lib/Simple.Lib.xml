@@ -1888,6 +1888,16 @@
             List of pages that once got a 404 error and should not be downloaded again
             </summary>
         </member>
+        <member name="P:Net.RafaelEstevam.Spider.SimpleSpider.SpiderData.Moved301">
+            <summary>
+            List of pages that once got redirected to be changed automatically
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.SimpleSpider.SpiderData._Redirect301">
+            <summary>
+            DO NOT USE - Serializable version of internal dictionary
+            </summary>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Wrapers.HObject">
             <summary>
             Represents a Html Tags Collection

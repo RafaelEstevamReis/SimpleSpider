@@ -24,6 +24,9 @@ namespace Net.RafaelEstevam.Spider
             /// </summary>
             public HashSet<string> Error404 { get; set; }
 
+            /// <summary>
+            /// List of pages that once got redirected to be changed automatically
+            /// </summary>
             [XmlIgnore]
             public Dictionary<string, string> Moved301 { get; private set; }
 
