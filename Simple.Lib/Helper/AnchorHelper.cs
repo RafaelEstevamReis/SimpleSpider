@@ -16,34 +16,29 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// </summary>
         public static IEnumerable<Uri> GetAnchors(Uri request, string htmlContent)
         {
-            var lstA = htmlContent.Split("<a ").Skip(1);
-            string href;
             int idx;
-            foreach (var a in lstA)
+            int offSet = 0;
+            while ((idx = htmlContent.IndexOf("<a ", offSet)) >= 0)
             {
-                try
-                {
-                    idx = a.IndexOf("href");
-                    int idxClose = a.IndexOf(">");
-                    if (idx < 0) continue;
-                    if (idx > idxClose) continue;
-                    href = a.Substring(idx);
-                    href = href.Substring(href.IndexOf('"') + 1);
-                    href = href.Substring(0, href.IndexOf('"'));
+                offSet = idx + 1; // Advance
 
-                    if (href.StartsWith("javascript:")) continue;
-                }
-                catch { continue; }
+                int end = htmlContent.IndexOf('>', idx);
+                if (end < 0) yield break; // Html tag does not end?
 
-                yield return request.Combine(href);
+                int href = htmlContent.IndexOf("href", idx);
+                if (href < 0) yield break; // there is none href left in html
 
-                //var builder = new UriBuilder(request);
-                //if (builder.Path.EndsWith("/") && href.StartsWith("/")) href = href.Substring(1);
-                //builder.Path += href;
-                //
-                //yield return builder.Uri;
+                if (href > end) continue; //this <a don't have href
+
+                string sHref = htmlContent[href..end];
+                sHref = sHref.Substring(sHref.IndexOf("\"") + 1);
+                sHref = sHref.Substring(0, sHref.IndexOf("\""));
+
+                if (sHref.StartsWith("javascript:")) continue;
+                yield return request.Combine(sHref);
             }
         }
+
         /// <summary>
         /// Get all anchors ('a' tag) and convert to an Uri collection
         /// </summary>
