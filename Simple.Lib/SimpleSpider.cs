@@ -78,6 +78,7 @@ namespace Net.RafaelEstevam.Spider
         private ConcurrentQueue<Link> qCache;
         private ConcurrentQueue<Link> qDownload;
         private HashSet<string> hExecuted;
+        private HashSet<string> hDispatched;
         private HashSet<string> hViolated;
 
         private List<CollectedData> lstCollected;
@@ -152,6 +153,7 @@ namespace Net.RafaelEstevam.Spider
             qCache = new ConcurrentQueue<Link>();
             qDownload = new ConcurrentQueue<Link>();
             hExecuted = new HashSet<string>();
+            hDispatched = new HashSet<string>();
             hViolated = new HashSet<string>();
         }
         private void initializeFetchers()
@@ -298,6 +300,9 @@ namespace Net.RafaelEstevam.Spider
             {
                 if (alreadyExecuted(lnk.Uri)) return true;
 
+                if(hDispatched.Contains(lnk.Uri.ToString())) return true;
+                hDispatched.Add(lnk.Uri.ToString());
+
                 if (Cacher.HasCache(lnk.Uri))
                 {
                     qCache.Enqueue(lnk);
@@ -378,6 +383,15 @@ namespace Net.RafaelEstevam.Spider
                 }
             }
 
+            if (SpiderWorkData.Moved301.ContainsKey(lnk.Uri.ToString()))
+            {
+                string newUri = SpiderWorkData.Moved301[lnk.Uri.ToString()];
+                lnk.ResourceMoved(new Uri(newUri));
+
+                if (alreadyExecuted(lnk.Uri)) return null; 
+                //log.Information($"[A301] {pageToVisit} -> {newUri}");
+            }
+
             if (alreadyExecuted(lnk.Uri)) return null;
 
             var args = new ShouldFetchEventArgs(lnk);
@@ -436,6 +450,12 @@ namespace Net.RafaelEstevam.Spider
         {
             Cacher.GenerateCacheFor(args);
             args.Source = FetchEventArgs.EventSource.Downloader;
+
+            if (args.Link.MovedUri != null)
+            {
+                SpiderWorkData.Moved301[args.Link.MovedUri.ToString()] = args.Link.Uri.ToString();
+            }
+
             fetchCompleted(args);
         }
         private void Downloader_ShouldFetch(object Sender, ShouldFetchEventArgs args)
