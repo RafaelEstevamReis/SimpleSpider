@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -13,8 +14,29 @@ namespace Net.RafaelEstevam.Spider
     {
         // fast read
         Dictionary<string, string> dicValues;
+
         /// <summary>
-        /// Creates a new object with specified parameter
+        /// Creates a new instance with specified Http Header lines
+        /// </summary>
+        /// <param name="HttpHeaderLines"></param>
+        public HeaderCollection(IEnumerable<string> HttpHeaderLines)
+         : this()
+        {
+            foreach (var line in HttpHeaderLines)
+            {
+                int colIdx = line.IndexOf(':');
+                if (colIdx < 0) continue; // Ignore empty
+                if (colIdx == 0) throw new FormatException("Keys can not be empty");
+
+                string key = line.Substring(0, colIdx);
+                string value = line.Substring(colIdx + 1).TrimStart();
+
+                AddItem(key, value);
+            }
+        }
+
+        /// <summary>
+        /// Creates a new instance with specified parameter
         /// </summary>
         /// <param name="kvp">Enumerable of KeyValuePairs</param>
         public HeaderCollection(IEnumerable<KeyValuePair<string,string>> kvp)
@@ -23,7 +45,7 @@ namespace Net.RafaelEstevam.Spider
             AddItems(kvp);
         }
         /// <summary>
-        /// Creates a new object with specified parameter
+        /// Creates a new instance with specified parameter
         /// </summary>
         /// <param name="nvc">A NameValueCollection to initialize from</param>
         public HeaderCollection(NameValueCollection nvc)
@@ -32,7 +54,7 @@ namespace Net.RafaelEstevam.Spider
             AddItems(nvc);
         }
         /// <summary>
-        /// Creates a new empty object
+        /// Creates a new empty instance
         /// </summary>
         public HeaderCollection()
         {
@@ -91,7 +113,7 @@ namespace Net.RafaelEstevam.Spider
         }
 
         /// <summary>
-        /// Gets the nuber of elements of the collection
+        /// Gets the number of elements of the collection
         /// </summary>
         public int Count { get { return dicValues.Count; } }
 
@@ -134,6 +156,26 @@ namespace Net.RafaelEstevam.Spider
         public override string ToString()
         {
             return $"HeaderCollection[{dicValues.Count}]";
+        }
+
+
+        /// <summary>
+        /// Saves the Header in a line-based http-like format
+        /// </summary>
+        /// <param name="header">Link to be saved</param>
+        /// <returns>Header</returns>
+        public static IEnumerable<string> SaveHeader(HeaderCollection header)
+        {
+            return header.dicValues.Select(o => $"{o.Key}: {o.Value}");
+        }
+        /// <summary>
+        /// Loads the Header from a line-based http-like format
+        /// </summary>
+        /// <param name="content">Lines to be saved</param>
+        /// <returns>Header</returns>
+        public static HeaderCollection LoadHeader(IEnumerable<string> content)
+        {
+            return new HeaderCollection(content);
         }
     }
     /// <summary>
