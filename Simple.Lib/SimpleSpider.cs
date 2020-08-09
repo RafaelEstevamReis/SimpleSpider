@@ -448,7 +448,19 @@ namespace Net.RafaelEstevam.Spider
         }
         private void Downloader_FetchCompleted(object Sender, FetchCompleteEventArgs args)
         {
-            Cacher.GenerateCacheFor(args);
+            try
+            {
+                Cacher.GenerateCacheFor(args);
+            }
+            catch (IOException ex)
+            {
+                log.Error(ex, "Failed to generate cache with an IO Exception. Spider will be paused");
+                Configuration.Paused = true;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "Failed to generate cache");
+            }
             args.Source = FetchEventArgs.EventSource.Downloader;
 
             if (args.Link.MovedUri != null)
