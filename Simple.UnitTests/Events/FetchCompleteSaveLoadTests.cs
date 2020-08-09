@@ -29,6 +29,20 @@ namespace Net.RafaelEstevam.Spider.UnitTests.Events
             var arr = ms.ToArray();
             var strComp = Encoding.ASCII.GetString(arr);
 
+            Assert.Equal(@"--------------------LINK
+Uri: http://books.toscrape.com/
+SourceUri: http://quotes.toscrape.com/
+FetchStart: 0001-01-01T00:00:00-02:00
+FetchEnd: 0001-01-01T00:00:00-02:00
+
+--------------------REQ-HDR
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9
+
+--------------------RES-HDR
+Content-Type: text/html; charset=UTF-8
+Content-Length: 14
+
+TEST TEST TEST", strComp);
             Assert.Equal(376, arr.Length);
             // nothing has changed
             string hex = generateHexMd5(arr);
