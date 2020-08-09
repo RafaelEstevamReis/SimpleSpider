@@ -113,8 +113,9 @@ namespace Net.RafaelEstevam.Spider
 
             Parsers = new List<IParserBase>() { new HtmlXElementParser(), new XmlXElementParser(), new JsonParser() };
             if (@params?.Parsers != null) Parsers.AddRange(@params.Parsers);
-        }
 
+            logInitialStatus();
+        }
         private void initializeConfiguration(string spiderName, InitializationParams init)
         {
             var dir = init?.SpiderDirectory;
@@ -144,7 +145,6 @@ namespace Net.RafaelEstevam.Spider
                    .CreateLogger();
             }
             Configuration.Logger = log;
-            log.Information("Initialization complete");
         }
         private void initializeQueues()
         {
@@ -165,6 +165,16 @@ namespace Net.RafaelEstevam.Spider
             Downloader.FetchCompleted += Downloader_FetchCompleted;
             Downloader.FetchFailed += Downloader_FetchFailed;
             Downloader.ShouldFetch += Downloader_ShouldFetch;
+        }
+
+        private void logInitialStatus()
+        {
+            log.Information("Initialization complete");
+            log.Information($" > Name:       {SpiderName}");
+            log.Information($" > BaseUri:    {BaseUri}");
+            log.Information($" > Cacher:     {Cacher}");
+            log.Information($" > Downloader: {Downloader}");
+            log.Information($" > Directory:  {Configuration.SpiderDirectory}");
         }
 
         private void fetchCompleted_AutoCollect(object Sender, FetchCompleteEventArgs args)
