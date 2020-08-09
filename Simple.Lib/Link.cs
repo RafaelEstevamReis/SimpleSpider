@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Net.RafaelEstevam.Spider
@@ -107,7 +106,7 @@ namespace Net.RafaelEstevam.Spider
         /// <summary>
         /// Loads a link from a line-based http-like format
         /// </summary>
-        /// <param name="link">Lines to be saved</param>
+        /// <param name="content">Lines to be saved</param>
         /// <returns>Link</returns>
         public static Link LoadLink(IEnumerable<string> content)
         {
@@ -148,9 +147,6 @@ namespace Net.RafaelEstevam.Spider
 
             if (lnk.Uri == null) throw new InvalidOperationException("Uri is not present");
             if (lnk.SourceUri == null) throw new InvalidOperationException("SourceUri is not present");
-
-            //if (lnk.FetchStart.Year < 2000) throw new InvalidOperationException("FetchStart is not present");
-            //if (lnk.FetchStart.Year < 2000) throw new InvalidOperationException("FetchStart is not present");
 
             return lnk;
         }

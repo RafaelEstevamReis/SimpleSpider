@@ -250,245 +250,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Net.RafaelEstevam.Spider.FetchT`1">
-            <summary>
-            Multi-purpose Fetch event args
-            </summary>
-            <typeparam name="T">Type of the argument</typeparam>
-            <param name="Sender">Event sender</param>
-            <param name="args">Event arguments</param>
-        </member>
-        <member name="T:Net.RafaelEstevam.Spider.FetchComplete">
-            <summary>
-            Represents a method that passes fetch completed data
-            </summary>
-            <param name="Sender">The source of the event</param>
-            <param name="args">Object containing fetch data</param>
-        </member>
-        <member name="T:Net.RafaelEstevam.Spider.FetchFail">
-            <summary>
-            Represents a method that passes fetch failed data
-            </summary>
-            <param name="Sender">The source of the event</param>
-            <param name="args">Object containing fetch failed info</param>
-        </member>
-        <member name="T:Net.RafaelEstevam.Spider.FetchRewrite">
-            <summary>
-            Represents a method that passes fetch rewrite data
-            </summary>
-            <param name="Sender">The source of the event</param>
-            <param name="args">Object allowing changing the Uri</param>
-        </member>
-        <member name="T:Net.RafaelEstevam.Spider.ShouldFetch">
-            <summary>
-             Represents a method that checks if should fetch data
-            </summary>
-            <param name="Sender">The source of the event</param>
-            <param name="args">Object allowing cancel the fetching process</param>
-        </member>
-        <member name="T:Net.RafaelEstevam.Spider.FetchTEventArgs`1">
-            <summary>
-            FetchT event EventArgs
-            </summary>
-        </member>
-        <member name="P:Net.RafaelEstevam.Spider.FetchTEventArgs`1.Link">
-            <summary>
-            Link from where the resource was fetched
-            </summary>
-        </member>
-        <member name="P:Net.RafaelEstevam.Spider.FetchTEventArgs`1.Arg">
-            <summary>
-            Gets or Sets T argument
-            </summary>
-        </member>
-        <member name="M:Net.RafaelEstevam.Spider.FetchTEventArgs`1.#ctor(Net.RafaelEstevam.Spider.Link,`0)">
-            <summary>
-            Creates a new instance of FetchTEventArgs
-            </summary>
-        </member>
-        <member name="T:Net.RafaelEstevam.Spider.FetchEventArgs">
-            <summary>
-            Arguments to de Fetch event
-            </summary>
-        </member>
-        <member name="T:Net.RafaelEstevam.Spider.FetchEventArgs.EventSource">
-            <summary>
-            Module that fired the event
-            </summary>
-        </member>
-        <member name="F:Net.RafaelEstevam.Spider.FetchEventArgs.EventSource.Cacher">
-            <summary>
-            Event initiated by the Cacher
-            </summary>
-        </member>
-        <member name="F:Net.RafaelEstevam.Spider.FetchEventArgs.EventSource.Downloader">
-            <summary>
-            Event initiated by the Downloader
-            </summary>
-        </member>
-        <member name="F:Net.RafaelEstevam.Spider.FetchEventArgs.EventSource.Scheduler">
-            <summary>
-            Event initiated by the Scheduler
-            </summary>
-        </member>
-        <member name="P:Net.RafaelEstevam.Spider.FetchEventArgs.RequestHeaders">
-            <summary>
-            The request headers used to query
-            </summary>
-        </member>
-        <member name="P:Net.RafaelEstevam.Spider.FetchEventArgs.Link">
-            <summary>
-            Link from where the resource was fetched
-            </summary>
-        </member>
-        <member name="P:Net.RafaelEstevam.Spider.FetchEventArgs.Source">
-            <summary>
-            Source from this event
-            </summary>
-        </member>
-        <member name="T:Net.RafaelEstevam.Spider.FetchCompleteEventArgs">
-            <summary>
-            Arguments to de FetchComplete event
-            </summary>
-        </member>
-        <member name="P:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.Result">
-            <summary>
-            Byte array with the data fetched
-            </summary>
-        </member>
-        <member name="P:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.ResponseHeaders">
-            <summary>
-            The response headers returned 
-            </summary>
-        </member>
-        <member name="P:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.Html">
-            <summary>
-            LazyLoaded Text (Html?) content parsed from byte[] Result encoded with UTF8
-            </summary>
-        </member>
-        <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.GetXElement">
-            <summary>
-            Get the XElement representation of the Html property
-            </summary>
-        </member>
-        <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.GetHObject">
-            <summary>
-            Get the HObject representation of the Html property
-            </summary>
-            <returns>A HObject</returns>
-        </member>
-        <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.HtmlContent(System.Text.Encoding)">
-            <summary>
-            Parses  byte[] Result using and specific Encoding. The 'Html' property will be updated with this value
-            </summary>
-            <param name="enc">Encoding to be used</param>
-        </member>
-        <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.#ctor(Net.RafaelEstevam.Spider.Link,System.Byte[],Net.RafaelEstevam.Spider.HeaderCollection,Net.RafaelEstevam.Spider.HeaderCollection)">
-            <summary>
-            Constructs a new FetchCompleteEventArgs
-            </summary>
-        </member>
-        <member name="T:Net.RafaelEstevam.Spider.FetchFailEventArgs">
-            <summary>
-            Arguments to de FetchFail event
-            </summary>
-        </member>
-        <member name="P:Net.RafaelEstevam.Spider.FetchFailEventArgs.Error">
-            <summary>
-            Error raised during fetch
-            </summary>
-        </member>
-        <member name="P:Net.RafaelEstevam.Spider.FetchFailEventArgs.HttpErrorCode">
-            <summary>
-            HTTP error code
-            </summary>
-        </member>
-        <member name="M:Net.RafaelEstevam.Spider.FetchFailEventArgs.#ctor(Net.RafaelEstevam.Spider.Link,System.Exception,Net.RafaelEstevam.Spider.HeaderCollection)">
-            <summary>
-            Constructs a FetchFailEventArgs
-            </summary>
-        </member>
-        <member name="M:Net.RafaelEstevam.Spider.FetchFailEventArgs.#ctor(Net.RafaelEstevam.Spider.Link,System.Int32,System.Exception,Net.RafaelEstevam.Spider.HeaderCollection)">
-            <summary>
-            Constructs a FetchFailEventArgs
-            </summary>
-        </member>
-        <member name="T:Net.RafaelEstevam.Spider.ShouldFetchEventArgs">
-            <summary>
-            Arguments to de ShouldFetch event
-            </summary>
-        </member>
-        <member name="T:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Reasons">
-            <summary>
-            Reason to not fetch some resource
-            </summary>
-        </member>
-        <member name="F:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Reasons.AlreadyFetched">
-            <summary>
-            This resource was already fetched
-            </summary>
-        </member>
-        <member name="F:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Reasons.UserCancelled">
-            <summary>
-            User cancelled the process
-            </summary>
-        </member>
-        <member name="F:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Reasons.UserCancelledSilent">
-            <summary>
-            User cancelled the process, ignore on Log
-            </summary>
-        </member>
-        <member name="F:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Reasons.PreviousError">
-            <summary>
-            This resource caused an error on previous session
-            </summary>
-        </member>
-        <member name="F:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Reasons.None">
-            <summary>
-            There is no specific reason
-            </summary>
-        </member>
-        <member name="P:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Cancel">
-            <summary>
-            Instruct the spider to NOT fetch this resource
-            </summary>
-        </member>
-        <member name="P:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Reason">
-            <summary>
-            Informs reason to do not fetch
-            </summary>
-        </member>
-        <member name="M:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.#ctor(Net.RafaelEstevam.Spider.Link)">
-            <summary>
-            Creates a new ShouldFetchEventArgs
-            </summary>
-        </member>
-        <member name="T:Net.RafaelEstevam.Spider.FetchRewriteEventArgs">
-            <summary>
-            Arguments to de FetchRewrite event
-            </summary>
-        </member>
-        <member name="M:Net.RafaelEstevam.Spider.FetchRewriteEventArgs.#ctor(System.Uri)">
-            <summary>
-            Construct a FetchRewriteEventArgs
-            </summary>
-            <param name="CurrentUri"></param>
-        </member>
-        <member name="P:Net.RafaelEstevam.Spider.FetchRewriteEventArgs.CurrentUri">
-            <summary>
-            The original Uri added to the queue
-            </summary>
-        </member>
-        <member name="P:Net.RafaelEstevam.Spider.FetchRewriteEventArgs.NewUri">
-            <summary>
-            New Uri to be fetched
-            </summary>
-        </member>
-        <member name="P:Net.RafaelEstevam.Spider.FetchRewriteEventArgs.ShowOnLog">
-            <summary>
-            Defines if should log the rewrite operation
-            </summary>
-        </member>
         <member name="T:Net.RafaelEstevam.Spider.Downloaders.HttpClientDownloader">
             <summary>
             Simple Downloader using System.Net.Http.HttpClient
@@ -693,6 +454,245 @@
         <member name="M:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.CustomWebClient.GetWebRequest(System.Uri)">
             <summary>
             Return the WebRequest for this WebClient
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.FetchT`1">
+            <summary>
+            Multi-purpose Fetch event args
+            </summary>
+            <typeparam name="T">Type of the argument</typeparam>
+            <param name="Sender">Event sender</param>
+            <param name="args">Event arguments</param>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.FetchTEventArgs`1">
+            <summary>
+            FetchT event EventArgs
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchTEventArgs`1.Link">
+            <summary>
+            Link from where the resource was fetched
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchTEventArgs`1.Arg">
+            <summary>
+            Gets or Sets T argument
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.FetchTEventArgs`1.#ctor(Net.RafaelEstevam.Spider.Link,`0)">
+            <summary>
+            Creates a new instance of FetchTEventArgs
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.FetchComplete">
+            <summary>
+            Represents a method that passes fetch completed data
+            </summary>
+            <param name="Sender">The source of the event</param>
+            <param name="args">Object containing fetch data</param>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.FetchCompleteEventArgs">
+            <summary>
+            Arguments to de FetchComplete event
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.Result">
+            <summary>
+            Byte array with the data fetched
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.ResponseHeaders">
+            <summary>
+            The response headers returned 
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.Html">
+            <summary>
+            LazyLoaded Text (Html?) content parsed from byte[] Result encoded with UTF8
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.GetXElement">
+            <summary>
+            Get the XElement representation of the Html property
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.GetHObject">
+            <summary>
+            Get the HObject representation of the Html property
+            </summary>
+            <returns>A HObject</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.HtmlContent(System.Text.Encoding)">
+            <summary>
+            Parses  byte[] Result using and specific Encoding. The 'Html' property will be updated with this value
+            </summary>
+            <param name="enc">Encoding to be used</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.#ctor(Net.RafaelEstevam.Spider.Link,System.Byte[],Net.RafaelEstevam.Spider.HeaderCollection,Net.RafaelEstevam.Spider.HeaderCollection)">
+            <summary>
+            Constructs a new FetchCompleteEventArgs
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.FetchEventArgs">
+            <summary>
+            Arguments to de Fetch event
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.FetchEventArgs.EventSource">
+            <summary>
+            Module that fired the event
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.FetchEventArgs.EventSource.Cacher">
+            <summary>
+            Event initiated by the Cacher
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.FetchEventArgs.EventSource.Downloader">
+            <summary>
+            Event initiated by the Downloader
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.FetchEventArgs.EventSource.Scheduler">
+            <summary>
+            Event initiated by the Scheduler
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchEventArgs.RequestHeaders">
+            <summary>
+            The request headers used to query
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchEventArgs.Link">
+            <summary>
+            Link from where the resource was fetched
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchEventArgs.Source">
+            <summary>
+            Source from this event
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.FetchFail">
+            <summary>
+            Represents a method that passes fetch failed data
+            </summary>
+            <param name="Sender">The source of the event</param>
+            <param name="args">Object containing fetch failed info</param>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.FetchFailEventArgs">
+            <summary>
+            Arguments to de FetchFail event
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchFailEventArgs.Error">
+            <summary>
+            Error raised during fetch
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchFailEventArgs.HttpErrorCode">
+            <summary>
+            HTTP error code
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.FetchFailEventArgs.#ctor(Net.RafaelEstevam.Spider.Link,System.Exception,Net.RafaelEstevam.Spider.HeaderCollection)">
+            <summary>
+            Constructs a FetchFailEventArgs
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.FetchFailEventArgs.#ctor(Net.RafaelEstevam.Spider.Link,System.Int32,System.Exception,Net.RafaelEstevam.Spider.HeaderCollection)">
+            <summary>
+            Constructs a FetchFailEventArgs
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.FetchRewrite">
+            <summary>
+            Represents a method that passes fetch rewrite data
+            </summary>
+            <param name="Sender">The source of the event</param>
+            <param name="args">Object allowing changing the Uri</param>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.FetchRewriteEventArgs">
+            <summary>
+            Arguments to de FetchRewrite event
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.FetchRewriteEventArgs.#ctor(System.Uri)">
+            <summary>
+            Construct a FetchRewriteEventArgs
+            </summary>
+            <param name="CurrentUri"></param>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchRewriteEventArgs.CurrentUri">
+            <summary>
+            The original Uri added to the queue
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchRewriteEventArgs.NewUri">
+            <summary>
+            New Uri to be fetched
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.FetchRewriteEventArgs.ShowOnLog">
+            <summary>
+            Defines if should log the rewrite operation
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.ShouldFetch">
+            <summary>
+             Represents a method that checks if should fetch data
+            </summary>
+            <param name="Sender">The source of the event</param>
+            <param name="args">Object allowing cancel the fetching process</param>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.ShouldFetchEventArgs">
+            <summary>
+            Arguments to de ShouldFetch event
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Reasons">
+            <summary>
+            Reason to not fetch some resource
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Reasons.AlreadyFetched">
+            <summary>
+            This resource was already fetched
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Reasons.UserCancelled">
+            <summary>
+            User cancelled the process
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Reasons.UserCancelledSilent">
+            <summary>
+            User cancelled the process, ignore on Log
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Reasons.PreviousError">
+            <summary>
+            This resource caused an error on previous session
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Reasons.None">
+            <summary>
+            There is no specific reason
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Cancel">
+            <summary>
+            Instruct the spider to NOT fetch this resource
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.Reason">
+            <summary>
+            Informs reason to do not fetch
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.ShouldFetchEventArgs.#ctor(Net.RafaelEstevam.Spider.Link)">
+            <summary>
+            Creates a new ShouldFetchEventArgs
             </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Extensions.RequestHeaderExtension">
@@ -1515,7 +1515,7 @@
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Link.FetchCompleteCallBack">
             <summary>
-            Specify and additional CallBack for this resource
+            Specify and additional CallBack for this resource. Can not be saved/Loaded
             </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Link.#ctor(System.Uri,System.Uri)">
@@ -1542,6 +1542,25 @@
             <summary>
             Implicit convertion from Link to Uri, returns Uri property
             </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Link.op_Implicit(Net.RafaelEstevam.Spider.Link)~System.String">
+            <summary>
+            Implicit convertion from Link to Url, returns Uri property
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Link.SaveLink(Net.RafaelEstevam.Spider.Link)">
+            <summary>
+            Saves a link in a line-based http-like format
+            </summary>
+            <param name="link">Link to be saved</param>
+            <returns>Lines</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Link.LoadLink(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Loads a link from a line-based http-like format
+            </summary>
+            <param name="content">Lines to be saved</param>
+            <returns>Link</returns>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Parsers.HtmlXElementParser">
             <summary>
