@@ -70,5 +70,14 @@ namespace Net.RafaelEstevam.Spider.Helper
             return uri.RemoveQuery().RemoveFragment();
 
         }
+        /// <summary>
+        /// Returns Url without the host part
+        /// </summary>
+        /// <param name="uri">Uri to return from</param>
+        /// <returns>Returns the Url</returns>
+        public static string UrlWithoutHost(this Uri uri)
+        {
+            return uri.PathAndQuery;
+        }
     }
 }

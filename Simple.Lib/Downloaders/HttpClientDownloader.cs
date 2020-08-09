@@ -114,7 +114,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                     if (args.Cancel) continue;
 
                     IsProcessing = true;
-                    config.Logger.Information($"[WEB] {current.Uri}");
+                    config.Logger.Information($"[WEB] {current.Uri.UrlWithoutHost()}");
                     current.FetchStart = DateTime.Now;
 
                     fetch(current);

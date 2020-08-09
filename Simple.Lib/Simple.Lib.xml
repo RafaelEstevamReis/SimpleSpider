@@ -1235,6 +1235,13 @@
             <param name="uri">Uri to remove from</param>
             <returns>A new Uri without the query and fragment</returns>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.UriHelper.UrlWithoutHost(System.Uri)">
+            <summary>
+            Returns Url without the host part
+            </summary>
+            <param name="uri">Uri to return from</param>
+            <returns>Returns the Url</returns>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Helper.XElementHelper">
             <summary>
             Helper to do stuff with pages parsed as XElement 

@@ -2,8 +2,10 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
+using Net.RafaelEstevam.Spider.Helper;
 using Net.RafaelEstevam.Spider.Interfaces;
 
 namespace Net.RafaelEstevam.Spider.Cachers
@@ -150,12 +152,12 @@ namespace Net.RafaelEstevam.Spider.Cachers
         private void fetch(Link current)
         {
             IsProcessing = true;
-            config.Logger.Information($"[CACHE] {current.Uri}");
+            config.Logger.Information($"[CACHE] {current.Uri.UrlWithoutHost()}");
 
             current.FetchStart = DateTime.Now;
             // load file
             var bytes = File.ReadAllBytes(getCacheFileFullName(current));
-            var textContent = Encoding.ASCII.GetString(bytes, 0, 128);
+            var textContent = Encoding.ASCII.GetString(bytes.Take(128).ToArray());
 
             // don't know, so we guess
             string cType = null;

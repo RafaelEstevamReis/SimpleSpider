@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading;
+using Net.RafaelEstevam.Spider.Helper;
 using Net.RafaelEstevam.Spider.Interfaces;
 
 namespace Net.RafaelEstevam.Spider.Downloaders
@@ -115,7 +116,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                     if (args.Cancel) continue;
 
                     downloading = true; 
-                    config.Logger.Information($"[WEB] {current.Uri}");
+                    config.Logger.Information($"[WEB] {current.Uri.UrlWithoutHost()}");
                     webClient.EnableCookies = config.Cookies_Enable;
                     current.FetchStart = DateTime.Now;
                     webClient.DownloadDataAsync(current.Uri);
