@@ -29,11 +29,11 @@ namespace Net.RafaelEstevam.Spider
         /// <summary>
         /// Fetch start Datetime
         /// </summary>
-        public DateTime FetchStart { get; internal set; }
+        public DateTime FetchStart { get; set; }
         /// <summary>
         /// Fetch finish Datetime
         /// </summary>
-        public DateTime FetchEnd { get; internal set; }
+        public DateTime FetchEnd { get; set; }
         /// <summary>
         /// Fetch duration
         /// </summary>
