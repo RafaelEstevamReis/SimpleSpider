@@ -12,7 +12,11 @@ namespace Net.RafaelEstevam.Spider.UnitTests.Events
         [Fact]
         public void Events_FetchCompleteEventArgs_Save_Base()
         {
-            var lnk = new Link(LinkUseTests.Books, LinkUseTests.Quotes);
+            var lnk = new Link(LinkUseTests.Books, LinkUseTests.Quotes)
+            {
+                FetchStart = new DateTime(2020, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                FetchEnd = new DateTime(2020, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+            };
             var bytes = Encoding.ASCII.GetBytes("TEST TEST TEST");
 
             var req = new HeaderCollection();
@@ -29,11 +33,12 @@ namespace Net.RafaelEstevam.Spider.UnitTests.Events
             var arr = ms.ToArray();
             var strComp = Encoding.ASCII.GetString(arr);
 
-            Assert.Equal(@"--------------------LINK
+            Assert.Equal(
+@"--------------------LINK
 Uri: http://books.toscrape.com/
 SourceUri: http://quotes.toscrape.com/
-FetchStart: 0001-01-01T00:00:00-02:00
-FetchEnd: 0001-01-01T00:00:00-02:00
+FetchStart: 2020-01-01T00:00:00+00:00
+FetchEnd: 2020-01-01T00:00:00+00:00
 
 --------------------REQ-HDR
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9
@@ -43,10 +48,6 @@ Content-Type: text/html; charset=UTF-8
 Content-Length: 14
 
 TEST TEST TEST", strComp);
-            Assert.Equal(376, arr.Length);
-            // nothing has changed
-            string hex = generateHexMd5(arr);
-            Assert.Equal("2942BDC33D7138273B320C9E260B9AF3", hex);
         }
         private string generateHexMd5(FetchCompleteEventArgs args)
         {
