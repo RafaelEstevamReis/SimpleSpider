@@ -24,7 +24,9 @@ namespace Net.RafaelEstevam.Spider.Helper
                 try
                 {
                     idx = a.IndexOf("href");
+                    int idxClose = a.IndexOf(">");
                     if (idx < 0) continue;
+                    if (idx > idxClose) continue;
                     href = a.Substring(idx);
                     href = href.Substring(href.IndexOf('"') + 1);
                     href = href.Substring(0, href.IndexOf('"'));
