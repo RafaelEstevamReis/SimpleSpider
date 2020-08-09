@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Net.RafaelEstevam.Spider
 {
     /// <summary>
     /// Represents a Link enqueued or fetched
     /// </summary>
-    public class Link
+    public class Link : IEquatable<Link>, IEquatable<Uri>
     {
         /// <summary>
         /// Primary Uri, the resource to be fetched
@@ -37,7 +38,7 @@ namespace Net.RafaelEstevam.Spider
         /// Fetch duration
         /// </summary>
         public TimeSpan FetchTime { get { return FetchEnd - FetchStart; } }
-        
+
         /// <summary>
         /// Specify and additional CallBack for this resource. Can not be saved/Loaded
         /// </summary>
@@ -118,7 +119,7 @@ namespace Net.RafaelEstevam.Spider
                 if (colIdx <= 0) continue;
 
                 string key = line.Substring(0, colIdx).ToLower();
-                string value = line.Substring(colIdx +1).TrimStart();
+                string value = line.Substring(colIdx + 1).TrimStart();
 
                 switch (key)
                 {
@@ -149,6 +150,54 @@ namespace Net.RafaelEstevam.Spider
             if (lnk.SourceUri == null) throw new InvalidOperationException("SourceUri is not present");
 
             return lnk;
+        }
+
+        /// <summary>
+        /// Checks if two objects are equal
+        /// </summary>
+        /// <param name="obj">Second object to check</param>
+        /// <returns>True if equals, false otherwise</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is Link link) return Equals(link);
+            if (obj is Uri uri) return Equals(uri);
+            return false;
+        }
+
+        /// <summary>
+        /// Checks a Uri is equal to this Link, only Uri property is checked
+        /// </summary>
+        /// <param name="other">Second object to check</param>
+        /// <returns>True if equals, false otherwise</returns>
+        public bool Equals([AllowNull] Uri other)
+        {
+            if (other == null) return false;
+            return Uri.Equals(other);
+        }
+        /// <summary>
+        /// Checks if two objects are equal
+        /// </summary>
+        /// <param name="other">Second object to check</param>
+        /// <returns>True if equals, false otherwise</returns>
+        public bool Equals([AllowNull] Link other)
+        {
+            if (other == null) return false;
+
+            if (Uri != other.Uri) return false;
+            if (SourceUri != other.SourceUri) return false;
+            if (MovedUri != other.MovedUri) return false;
+            if (RewrittenUri != other.RewrittenUri) return false;
+            if (FetchStart != other.FetchStart) return false;
+            if (FetchEnd != other.FetchEnd) return false;
+            return true;
+        }
+        /// <summary>
+        /// Serves as the default hash function 
+        /// </summary>
+        /// <returns>A hash code for the current object</returns>
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

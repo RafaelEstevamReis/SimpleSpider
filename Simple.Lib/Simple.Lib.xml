@@ -533,6 +533,20 @@
             Constructs a new FetchCompleteEventArgs
             </summary>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.LoadFetchResult(System.IO.Stream)">
+            <summary>
+            Load a FetchCompleteEventArgs from a stream
+            </summary>
+            <param name="stream">Stream to load from</param>
+            <returns>FetchCompleteEventArgs loaded</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.SaveFetchResult(Net.RafaelEstevam.Spider.FetchCompleteEventArgs,System.IO.Stream)">
+            <summary>
+            Saves a FetchCompleteEventArgs to a stream
+            </summary>
+            <param name="fetchComplete">Object to be saved</param>
+            <param name="stream">Stream to save to</param>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.FetchEventArgs">
             <summary>
             Arguments to de Fetch event
@@ -1581,6 +1595,33 @@
             </summary>
             <param name="content">Lines to be saved</param>
             <returns>Link</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Link.Equals(System.Object)">
+            <summary>
+            Checks if two objects are equal
+            </summary>
+            <param name="obj">Second object to check</param>
+            <returns>True if equals, false otherwise</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Link.Equals(System.Uri)">
+            <summary>
+            Checks a Uri is equal to this Link, only Uri property is checked
+            </summary>
+            <param name="other">Second object to check</param>
+            <returns>True if equals, false otherwise</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Link.Equals(Net.RafaelEstevam.Spider.Link)">
+            <summary>
+            Checks if two objects are equal
+            </summary>
+            <param name="other">Second object to check</param>
+            <returns>True if equals, false otherwise</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Link.GetHashCode">
+            <summary>
+            Serves as the default hash function 
+            </summary>
+            <returns>A hash code for the current object</returns>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Parsers.HtmlXElementParser">
             <summary>
