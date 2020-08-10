@@ -513,7 +513,8 @@
         </member>
         <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.GetXElement">
             <summary>
-            Get the XElement representation of the Html property
+            Get the XElement representation of the Html property. 
+            You can use Helper.HtmlToXElement properties to control XElement parsing
             </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.GetHObject">

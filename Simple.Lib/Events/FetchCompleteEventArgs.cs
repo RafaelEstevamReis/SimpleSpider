@@ -54,7 +54,8 @@ namespace Net.RafaelEstevam.Spider
         // Lazy loaded xElement
         XElement xElement;
         /// <summary>
-        /// Get the XElement representation of the Html property
+        /// Get the XElement representation of the Html property. 
+        /// You can use Helper.HtmlToXElement properties to control XElement parsing
         /// </summary>
         public XElement GetXElement()
         {
