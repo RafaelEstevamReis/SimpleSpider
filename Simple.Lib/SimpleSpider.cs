@@ -80,6 +80,7 @@ namespace Net.RafaelEstevam.Spider
         private HashSet<string> hExecuted;
         private HashSet<string> hDispatched;
         private HashSet<string> hViolated;
+        private List<Link> lCompleted;
 
         private List<CollectedData> lstCollected;
         private Logger log; // short to type reference, is accessible through configuration
@@ -155,6 +156,7 @@ namespace Net.RafaelEstevam.Spider
             hExecuted = new HashSet<string>();
             hDispatched = new HashSet<string>();
             hViolated = new HashSet<string>();
+            lCompleted = new List<Link>();
         }
         private void initializeFetchers()
         {
@@ -528,6 +530,7 @@ namespace Net.RafaelEstevam.Spider
                 {
                     hExecuted.Add(args.Link.MovedUri.ToString());
                 }
+                lCompleted.Add(args.Link);
             }
 
             // Main CallBack
@@ -607,6 +610,15 @@ namespace Net.RafaelEstevam.Spider
             return qAdded.Count
                    + qCache.Count
                    + qDownload.Count;
+        }
+
+        /// <summary>
+        /// Returns an array with links of all completed fetchs
+        /// </summary>
+        /// <returns>An array of Links</returns>
+        public Link[] AllCompletedLinks()
+        {
+            return lCompleted.ToArray();
         }
 
         /// <summary>

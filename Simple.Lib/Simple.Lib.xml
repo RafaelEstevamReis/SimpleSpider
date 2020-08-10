@@ -1181,17 +1181,100 @@
             Class to convert Html to XElement, uses HtmlAgilityPack
             </summary>
         </member>
-        <member name="P:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.SearchForInvalidNames">
+        <member name="T:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.XElementParser">
+            <summary>
+            XElement parse modes
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.XElementParser.LoadFromXmlReader">
+            <summary>
+            Saves a Stream with the document and parse with XElement.Parse
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.XElementParser.RecursiveNodeParser">
+            <summary>
+            Recursively interate over elements and convers to XElement
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.DefaultSearchForInvalidNames">
             <summary>
             Search for invalid Attribute names and remove them
             </summary>
         </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.DefaultSearchAndRemoveScripts">
+            <summary>
+            Search for Script tags and remove them
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.DefaultSearchAndRemoveStyleElements">
+            <summary>
+            Search for Style tags and remove them
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.DefaultSearchAndRemoveComments">
+            <summary>
+            Search for Comment blocks and remove them
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.DefaultTrimTextBlocks">
+            <summary>
+            Get os sets when text blocks should be trimmed
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.DefaultXElementParserMode">
+            <summary>
+            Sets the default XElement parsing mode
+            </summary>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.Parse(System.String)">
+            <summary>
+            Parses an HTML as a XElement with default options
+            </summary>
+            <param name="html">Html content to be parsed</param>
+            <returns>XElement parsed</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.Parse(System.String,Net.RafaelEstevam.Spider.Helper.HtmlToXElement.ParseOptions)">
             <summary>
             Parses an HTML as a XElement
             </summary>
             <param name="html">Html content to be parsed</param>
+            <param name="options">Parse options</param>
             <returns>XElement parsed</returns>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.ParseOptions">
+            <summary>
+            Defines parsing options
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.ParseOptions.SearchForInvalidNames">
+            <summary>
+            Search for invalid Attribute names and remove them
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.ParseOptions.SearchAndRemoveScripts">
+            <summary>
+            Search for Script tags and remove them
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.ParseOptions.SearchAndRemoveStyleElements">
+            <summary>
+            Search for Style tags and remove them
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.ParseOptions.SearchAndRemoveComments">
+            <summary>
+            Search for Comment blocks and remove them
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.ParseOptions.XElementParserMode">
+            <summary>
+            Sets the XElement parsing mode
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.ParseOptions.TrimTextBlocks">
+            <summary>
+            Get os sets when text blocks should be trimmed
+            </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Helper.UriHelper">
             <summary>
@@ -1852,6 +1935,12 @@
             Current queues size
             </summary>
             <returns>Returns the size of the queue</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.AllCompletedLinks">
+            <summary>
+            Returns an array with links of all completed fetchs
+            </summary>
+            <returns>An array of Links</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.HowToUse_PrintToConsole">
             <summary>
