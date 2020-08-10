@@ -1,6 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using HtmlAgilityPack;
 
 namespace Net.RafaelEstevam.Spider.Helper
 {
@@ -9,28 +12,95 @@ namespace Net.RafaelEstevam.Spider.Helper
     /// </summary>
     public class HtmlToXElement
     {
+        /// <summary>
+        /// XElement parse modes
+        /// </summary>
+        public enum XElementParser
+        {
+            /// <summary>
+            /// Saves a Stream with the document and parse with XElement.Parse
+            /// </summary>
+            LoadFromXmlReader,
+            /// <summary>
+            /// Recursively interate over elements and convers to XElement
+            /// </summary>
+            RecursiveNodeParser,
+        }
         private static readonly char[] InvalidCharsToRemove = { ':' };
+        
         /// <summary>
         /// Search for invalid Attribute names and remove them
         /// </summary>
-        public static bool SearchForInvalidNames { get; set; } = false;
+        public static bool DefaultSearchForInvalidNames { get; set; } = false;
+        /// <summary>
+        /// Search for Script tags and remove them
+        /// </summary>
+        public static bool DefaultSearchAndRemoveScripts { get; set; } = false;
+        /// <summary>
+        /// Search for Style tags and remove them
+        /// </summary>
+        public static bool DefaultSearchAndRemoveStyleElements { get; set; } = false;
+        /// <summary>
+        /// Search for Comment blocks and remove them
+        /// </summary>
+        public static bool DefaultSearchAndRemoveComments { get; set; } = false;
+        /// <summary>
+        /// Get os sets when text blocks should be trimmed
+        /// </summary>
+        public static bool DefaultTrimTextBlocks { get; set; } = false;
+        /// <summary>
+        /// Sets the default XElement parsing mode
+        /// </summary>
+        public static XElementParser DefaultXElementParserMode { get; set; } = XElementParser.LoadFromXmlReader;
+
 
         /// <summary>
-        /// Parses an HTML as a XElement
+        /// Parses an HTML as a XElement with default options
         /// </summary>
         /// <param name="html">Html content to be parsed</param>
         /// <returns>XElement parsed</returns>
         public static XElement Parse(string html)
         {
+            return Parse(html, ParseOptions.Defaults());
+        }
+        /// <summary>
+        /// Parses an HTML as a XElement
+        /// </summary>
+        /// <param name="html">Html content to be parsed</param>
+        /// <param name="options">Parse options</param>
+        /// <returns>XElement parsed</returns>
+        public static XElement Parse(string html, ParseOptions options)
+        {
             // Static configs
-            HtmlAgilityPack.HtmlNode.ElementsFlags.Remove("form");
+            HtmlNode.ElementsFlags.Remove("form");
 
             var doc = new HtmlAgilityPack.HtmlDocument();
             doc.OptionOutputAsXml = true;
             doc.OptionFixNestedTags = true;
             doc.LoadHtml(html);
 
-            if (SearchForInvalidNames)
+            if (options.SearchAndRemoveScripts)
+            {
+                foreach (var e in doc.DocumentNode.Descendants("script").ToArray())
+                {
+                    e.Remove();
+                }
+            }
+            if (options.SearchAndRemoveComments)
+            {
+                foreach (var e in doc.DocumentNode.Descendants("#comment").ToArray())
+                {
+                    e.Remove();
+                }
+            }
+            if (options.SearchAndRemoveStyleElements)
+            {
+                foreach (var e in doc.DocumentNode.Descendants("style").ToArray())
+                {
+                    e.Remove();
+                }
+            }
+            if (options.SearchForInvalidNames)
             {
                 foreach (var n in doc.DocumentNode.Descendants())
                 {
@@ -45,24 +115,128 @@ namespace Net.RafaelEstevam.Spider.Helper
                 }
             }
 
-            using (StringWriter writer = new StringWriter())
+            if (options.XElementParserMode == XElementParser.RecursiveNodeParser)
             {
+                XElement root = createXElement(doc.DocumentNode, options);
+                if (root.Name == "document" || root.Name == "span")
+                {
+                    XElement fn = (XElement)root.FirstNode;
+                    if (fn.Name.LocalName == "html")
+                    {
+                        return fn;
+                    }
+                }
+                return root;
+            }
+            else if (options.XElementParserMode == XElementParser.LoadFromXmlReader)
+            {
+                using StringWriter writer = new StringWriter();
                 doc.Save(writer);
                 string dom = writer.ToString();
-                using (StringReader reader = new StringReader(dom))
+                using StringReader reader = new StringReader(dom);
+                var x = XElement.Load(reader);
+
+                //remove Span root
+                if (x.Name.LocalName == "span" && x.FirstNode != null && x.FirstNode is XElement)
                 {
-                    var x = XElement.Load(reader);
-                    // remove Span root
-                    if (x.Name.LocalName == "span" && x.FirstNode != null && x.FirstNode is XElement)
+                    XElement fn = (XElement)x.FirstNode;
+                    if (fn.Name.LocalName == "html")
                     {
-                        XElement fn = (XElement)x.FirstNode;
-                        if (fn.Name.LocalName == "html")
-                        {
-                            return fn;
-                        }
+                        return fn;
                     }
-                    return x;
                 }
+                return x;
+            }
+            else
+            {
+                throw new InvalidOperationException("Invalid XElementParserMode");
+            }
+        }
+
+        private static XElement createXElement(HtmlNode node, ParseOptions options)
+        {
+            XElement x;
+            var elements = getNodes(node, options).ToArray();
+            if (elements.Length == 1 && elements[0].Name == "text")
+            {
+                x = new XElement(getName(node.Name));
+                x.Value = elements[0].Value;
+            }
+            else
+            {
+                x = new XElement(getName(node.Name), elements);
+            }
+
+            foreach (var a in node.Attributes)
+            {
+                x.SetAttributeValue(a.Name, a.Value);
+            }
+
+            return x;
+        }
+        private static IEnumerable<XElement> getNodes(HtmlNode node, ParseOptions options)
+        {
+            foreach (var c in node.ChildNodes)
+            {
+                var e = createXElement(c, options);
+                if (c.Name == "#text")
+                {
+                    if (c.InnerText.Trim().Length == 0) continue;
+
+                    e.Value = c.InnerText;
+
+                    if (options.TrimTextBlocks) e.Value = e.Value.Trim();
+                }
+                yield return e;
+            }
+        }
+        private static XName getName(string name)
+        {
+            if (string.IsNullOrEmpty(name)) return XName.Get("_Blank");
+            if(name[0] == '#') return XName.Get(name.Substring(1));
+            return XName.Get(name);
+        }
+        /// <summary>
+        /// Defines parsing options
+        /// </summary>
+        public class ParseOptions
+        {
+            /// <summary>
+            /// Search for invalid Attribute names and remove them
+            /// </summary>
+            public bool SearchForInvalidNames { get; set; } = false;
+            /// <summary>
+            /// Search for Script tags and remove them
+            /// </summary>
+            public bool SearchAndRemoveScripts { get; set; } = false;
+            /// <summary>
+            /// Search for Style tags and remove them
+            /// </summary>
+            public bool SearchAndRemoveStyleElements { get; set; } = false;
+            /// <summary>
+            /// Search for Comment blocks and remove them
+            /// </summary>
+            public bool SearchAndRemoveComments { get; set; } = false;
+            /// <summary>
+            /// Sets the XElement parsing mode
+            /// </summary>
+            public XElementParser XElementParserMode { get; set; } = XElementParser.LoadFromXmlReader;
+            /// <summary>
+            /// Get os sets when text blocks should be trimmed
+            /// </summary>
+            public bool TrimTextBlocks { get; set; } = false;
+
+            internal static ParseOptions Defaults()
+            {
+                return new ParseOptions()
+                {
+                    SearchForInvalidNames = DefaultSearchForInvalidNames,
+                    SearchAndRemoveComments = DefaultSearchAndRemoveComments,
+                    SearchAndRemoveScripts = DefaultSearchAndRemoveScripts,
+                    SearchAndRemoveStyleElements = DefaultSearchAndRemoveStyleElements,
+                    TrimTextBlocks = DefaultTrimTextBlocks,
+                    XElementParserMode = DefaultXElementParserMode
+                };
             }
         }
     }
