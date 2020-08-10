@@ -161,10 +161,13 @@ namespace Net.RafaelEstevam.Spider.Cachers
 
             // don't know, so we guess
             string cType = null;
-            if (textContent[0] == '{' && textContent.Contains(":")) cType = "application/json";
-            if (textContent[0] == '<' && textContent.ToLower().Contains("html")) cType = "text/html";
-            else
+            if (!string.IsNullOrEmpty(textContent))
             {
+                if (textContent[0] == '{' && textContent.Contains(":")) cType = "application/json";
+                if (textContent[0] == '<' && textContent.ToLower().Contains("html")) cType = "text/html";
+                else
+                {
+                }
             }
 
             var rHrd = new List<KeyValuePair<string, string>>();

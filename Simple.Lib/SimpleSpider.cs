@@ -554,13 +554,14 @@ namespace Net.RafaelEstevam.Spider
             if (contentType.Value == null)
             {
                 // try to guess
-                var textContent = System.Text.Encoding.ASCII.GetString(args.Result, 0, 128);
-
-                if (textContent[0] == '{' && textContent.Contains(":")) 
-                    contentType = new KeyValuePair<string, string>("Content-Type", "application/json");
-                if (textContent[0] == '<' && textContent.ToLower().Contains("html")) 
-                    contentType = new KeyValuePair<string, string>("Content-Type", "text/html");
-
+                var textContent = System.Text.Encoding.ASCII.GetString(args.Result.Take(128).ToArray());
+                if (!string.IsNullOrEmpty(textContent))
+                {
+                    if (textContent[0] == '{' && textContent.Contains(":"))
+                        contentType = new KeyValuePair<string, string>("Content-Type", "application/json");
+                    if (textContent[0] == '<' && textContent.ToLower().Contains("html"))
+                        contentType = new KeyValuePair<string, string>("Content-Type", "text/html");
+                }
             }
             if (!string.IsNullOrEmpty(contentType.Value))
             {
