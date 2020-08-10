@@ -1180,6 +1180,11 @@
             Class to convert Html to XElement, uses HtmlAgilityPack
             </summary>
         </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.SearchForInvalidNames">
+            <summary>
+            Search for invalid Attribute names and remove them
+            </summary>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.Parse(System.String)">
             <summary>
             Parses an HTML as a XElement
