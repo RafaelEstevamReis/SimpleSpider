@@ -19,19 +19,21 @@ Work in Progress, currently:
     - [Easy initialization with chaining](#easy-initialization-with-chaining)
   - [Some Helpers](#some-helpers)
   - [Giants' shoulders](#giants-shoulders)
-
 <!-- /TOC -->
 
 ## Some advantages
 
-* Very simple to use and operate, ideal to personal or one of projects
+* Very simple to use and operate, ideal lots of small projects or personal ones
 * Easy html filter with [HObject](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_HObject.cs) (a XElement wrap with use similar to JObject)
 * Internal conversion from html to XElement, no need to external tools on use
 * Automatic Json parser to JObject
 * Automatic Json deserialize <T>
 * Modular Parser engine (you can add your own parsers!)
+  * JSON and XML already included
 * Modular Caching engine (you can add your own!)
+  * Stand alone Cache engine included, no need to external softwares
 * Modular Downloader engine (you can add your own!)
+  * WebClient with cookies or HttpClient download engine included
 
 Easy **import with [NuGet](https://www.nuget.org/packages/Net.RafaelEstevam.Spider.Simple.Lib)**
 
@@ -39,7 +41,7 @@ Easy **import with [NuGet](https://www.nuget.org/packages/Net.RafaelEstevam.Spid
 
 1. Start a new console project and add Nuget Reference
 2. PM> Install-Package Net.RafaelEstevam.Spider.Simple.Lib
-3. Create a class for your spider
+3. Create a class for your spider (or leave in program)
 4. create a new instance of SimpleSpider
    1. Give it a name, cache and log will be saved with that name
    2. Give it a domain (your spider will not fleet from it)
@@ -67,9 +69,11 @@ void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
 }
 ```
 
+> TIP: Use the [Simple.Tests](https://github.com/RafaelEstevamReis/SimpleSpider/tree/master/Simple.Test/Sample) project to see examples and poke around
+
 ## Samples
 
-Inside the [Simple.Tests](https://github.com/RafaelEstevamReis/SimpleSpider/tree/master/Simple.Test/Sample) folders are various samples, these are some of them:
+Inside the [Simple.Tests](https://github.com/RafaelEstevamReis/SimpleSpider/tree/master/Simple.Test/Sample) folders are all samples, these are some of them:
 
 ### Use Json to deserialize Quotes
 
