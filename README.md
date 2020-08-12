@@ -23,7 +23,7 @@ Work in Progress, currently:
 
 ## Some advantages
 
-* Very simple to use and operate, ideal lots of small projects or personal ones
+* Very simple to use and operate, ideal for lots of small projects or personal ones
 * Easy html filter with [HObject](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_HObject.cs) (a XElement wrap with use similar to JObject)
 * Internal conversion from html to XElement, no need to external tools on use
 * Automatic Json parser to JObject
