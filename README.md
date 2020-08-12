@@ -1,12 +1,29 @@
 # SimpleSpider
 
-[!] Work in Progress
-
 A simple and modular web spider written in C# .Net Core
 
-![.NET Core](https://github.com/RafaelEstevamReis/SimpleSpider/workflows/.NET%20Core/badge.svg)
+Work in Progress, currently: 
+ ![.NET Core](https://github.com/RafaelEstevamReis/SimpleSpider/workflows/.NET%20Core/badge.svg)
 
-Some advantages
+# Content
+<!-- TOC -->
+- [SimpleSpider](#simplespider)
+- [Content](#content)
+  - [Some advantages](#some-advantages)
+  - [Getting started](#getting-started)
+  - [Samples](#samples)
+    - [Use Json to deserialize Quotes](#use-json-to-deserialize-quotes)
+    - [Use XPath to select content](#use-xpath-to-select-content)
+    - [Easy single resource fetch](#easy-single-resource-fetch)
+    - [Use our HObject implementation to select content](#use-our-hobject-implementation-to-select-content)
+    - [Easy initialization with chaining](#easy-initialization-with-chaining)
+  - [Some Helpers](#some-helpers)
+  - [Giants' shoulders](#giants-shoulders)
+
+<!-- /TOC -->
+
+## Some advantages
+
 * Very simple to use and operate, ideal to personal or one of projects
 * Easy html filter with [HObject](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_HObject.cs) (a XElement wrap with use similar to JObject)
 * Internal conversion from html to XElement, no need to external tools on use
@@ -17,6 +34,38 @@ Some advantages
 * Modular Downloader engine (you can add your own!)
 
 Easy **import with [NuGet](https://www.nuget.org/packages/Net.RafaelEstevam.Spider.Simple.Lib)**
+
+## Getting started
+
+1. Start a new console project and add Nuget Reference
+2. PM> Install-Package Net.RafaelEstevam.Spider.Simple.Lib
+3. Create a class for your spider
+4. create a new instance of SimpleSpider
+   1. Give it a name, cache and log will be saved with that name
+   2. Give it a domain (your spider will not fleet from it)
+5. Add a event `FetchCompleted` to 
+6. Optionally give a first page with `AddPage`. If omitted, it will use the home page of the domain
+7. Call `Execute()`
+
+``` C#
+void run()
+{
+    var spider = new SimpleSpider("QuotesToScrape", new Uri("http://quotes.toscrape.com/"));
+    // Set the completed event to implement your stuff
+    spider.FetchCompleted += fetchCompleted_items;
+    // execute
+    spider.Execute();
+}
+void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
+{
+    // walk around ...
+    // TIP: inspect args to see stuff
+
+    // Two good starts: XElement and HObject
+    var XElement = args.GetXElement();
+    var hObj = args.GetHObject();
+}
+```
 
 ## Samples
 
@@ -77,7 +126,7 @@ void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
     // ignore all pages except the catalogue
     if (!args.Link.ToString().Contains("/catalogue/")) return;
 
-    var XElement = HtmlToXElement.Parse(args.Html);
+    var XElement = args.GetXElement();
     // collect book data
     var articleProd = XElement.XPathSelectElement("//article[@class=\"product_page\"]");
     if (articleProd == null) return; // not a book
