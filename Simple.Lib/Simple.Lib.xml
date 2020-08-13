@@ -388,7 +388,7 @@
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.ExposeInternalWebClient">
             <summary>
-            Exposes the internal WebClient
+            Exposes the internal webclient
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.FetchTempo">
@@ -1390,6 +1390,22 @@
             <typeparam name="T">Type of the objects to be serialized</typeparam>
             <param name="obj">Object to be serialized</param>
             <param name="file">File path of the file</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.XmlSerializerHelper.Serialize``1(``0,System.IO.TextWriter)">
+            <summary>
+            Serialize a generic {T} object to a stream
+            </summary>
+            <typeparam name="T">Type of the objects to be serialized</typeparam>
+            <param name="obj">Object to be serialized</param>
+            <param name="stream">Stream to save object to</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.XmlSerializerHelper.Serialize``1(``0)">
+            <summary>
+            Serialize a generic {T} object to a string
+            </summary>
+            <typeparam name="T">Type of the objects to be serialized</typeparam>
+            <param name="obj">Object to be serialized</param>
+            <returns>String containing the object</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.XmlSerializerHelper.DeserializeFromFile``1(System.String)">
             <summary>

@@ -1,4 +1,6 @@
-﻿using Xunit;
+﻿using Net.RafaelEstevam.Spider.Cachers;
+using Net.RafaelEstevam.Spider.Downloaders;
+using Xunit;
 
 namespace Net.RafaelEstevam.Spider.UnitTests.CoreTests.InitParamsTests
 {
@@ -10,8 +12,8 @@ namespace Net.RafaelEstevam.Spider.UnitTests.CoreTests.InitParamsTests
             int delay = 4321;
             var init = InitializationParams.Default001(delay);
 
-            Assert.IsType<Cachers.ContentCacher>(init.Cacher);
-            Assert.IsType<Downloaders.WebClientDownloader>(init.Downloader);
+            Assert.IsType<ContentCacher>(init.Cacher);
+            Assert.IsType<WebClientDownloader>(init.Downloader);
             Assert.Empty(init.Parsers);
             Assert.Null(init.SpiderDirectory);
 
@@ -33,8 +35,9 @@ namespace Net.RafaelEstevam.Spider.UnitTests.CoreTests.InitParamsTests
             int delay = 4321;
             var init = InitializationParams.Default002(delay);
 
-            Assert.IsType<Cachers.ContentCacher>(init.Cacher);
-            Assert.IsType<Downloaders.HttpClientDownloader>(init.Downloader); // Different from 001
+            Assert.IsType<ContentCacher>(init.Cacher);
+            Assert.IsType<HttpClientDownloader>(init.Downloader); // Different from 001
+            Assert.NotEmpty((init.Downloader as HttpClientDownloader).IncludeRequestHeaders); // Different from 001 | Specific to HttpClientDownloader
             Assert.Empty(init.Parsers);
             Assert.Null(init.SpiderDirectory);
 
