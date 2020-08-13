@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -58,6 +60,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
             if (AddDefaultHeaders)
             {
                 Extensions.RequestHeaderExtension.AddBaseRequestHeaders(IncludeRequestHeaders);
+                IncludeRequestHeaders["Accept-Encoding"] = "gzip, deflate";
             }
         }
         /// <summary>
@@ -132,23 +135,35 @@ namespace Net.RafaelEstevam.Spider.Downloaders
 
             var resp = httpClient.SendAsync(req).Result;
 
-            var reqHeaders = req
+            var reqHeaders = new HeaderCollection(req
                 .Headers
                 .Cast<KeyValuePair<string, IEnumerable<string>>>()
-                .Select(o => new KeyValuePair<string, string>(o.Key, string.Join(",", o.Value)));
+                .Select(o => new KeyValuePair<string, string>(o.Key, string.Join(",", o.Value))));
 
             current.FetchEnd = DateTime.Now;
             if (resp.IsSuccessStatusCode)
             {
-                var respHeaders = resp
+                var respHeaders = new HeaderCollection(resp
                     .Headers
                     .Cast<KeyValuePair<string, IEnumerable<string>>>()
-                    .Select(o => new KeyValuePair<string, string>(o.Key, string.Join(",", o.Value)));
+                    .Select(o => new KeyValuePair<string, string>(o.Key, string.Join(",", o.Value))));
+
+                byte[] content = resp.Content.ReadAsByteArrayAsync().Result;
+                if (content.Length > 2 
+                    && content[0] == 0x1f // Gzip magic number
+                    && content[1] == 0x8b)
+                {
+                    using var to = new MemoryStream();
+                    using var from = new MemoryStream(content);
+                    using var gz = new GZipStream(from, CompressionMode.Decompress);
+                    gz.CopyTo(to);
+                    content = to.ToArray();
+                }
 
                 FetchCompleted(this, new FetchCompleteEventArgs(current,
-                                  resp.Content.ReadAsByteArrayAsync().Result,
-                                  new HeaderCollection(reqHeaders),
-                                  new HeaderCollection(respHeaders)));
+                                  content,
+                                  reqHeaders,
+                                  respHeaders));
             }
             else
             {
