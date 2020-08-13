@@ -74,9 +74,10 @@ namespace Net.RafaelEstevam.Spider.Helper
             // Static configs
             HtmlNode.ElementsFlags.Remove("form");
 
-            var doc = new HtmlAgilityPack.HtmlDocument();
+            var doc = new HtmlDocument();
             doc.OptionOutputAsXml = true;
             doc.OptionFixNestedTags = true;
+            doc.OptionReadEncoding = true;
             doc.LoadHtml(html);
 
             if (options.SearchAndRemoveScripts)
