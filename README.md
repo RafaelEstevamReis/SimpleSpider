@@ -2,8 +2,8 @@
 
 A simple and modular web spider written in C# .Net Core
 
-Work in Progress, currently: 
  ![.NET Core](https://github.com/RafaelEstevamReis/SimpleSpider/workflows/.NET%20Core/badge.svg)
+ [![NuGet](https://buildstats.info/nuget/Net.RafaelEstevam.Spider.Simple.Lib)](http://nuget.org/packages/Net.RafaelEstevam.Spider.Simple.Lib)
 
 # Content
 <!-- TOC -->
