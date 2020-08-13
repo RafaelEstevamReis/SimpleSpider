@@ -68,7 +68,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
         /// <summary>
         /// Indicates when is processing a resource
         /// </summary>
-        public bool IsProcessing => downloading;
+        public bool IsProcessing { get; private set; }
         /// <summary>
         /// Starts the Downloader operation
         /// </summary>
@@ -88,11 +88,10 @@ namespace Net.RafaelEstevam.Spider.Downloaders
         }
 
         bool run;
-        bool downloading;
         Link current;
         private void doStuff(object obj)
         {
-            downloading = false;
+            IsProcessing = false;
             while (run)
             {
                 int delay = config.DownloadDelay;
@@ -101,7 +100,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                 Thread.Sleep(Math.Max(100, delay));
                 if (cancellationToken.IsCancellationRequested) break;
 
-                if (downloading) continue;
+                if (IsProcessing) continue;
 
                 if (config.Paused || config.Paused_Downloader)
                 {
@@ -115,7 +114,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                     ShouldFetch(this, args);
                     if (args.Cancel) continue;
 
-                    downloading = true; 
+                    IsProcessing = true; 
                     config.Logger.Information($"[WEB] {current.Uri.UrlWithoutHost()}");
                     webClient.EnableCookies = config.Cookies_Enable;
                     current.FetchStart = DateTime.Now;
@@ -168,7 +167,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                 FetchFailed(this, new FetchFailEventArgs(current, code, ex, new HeaderCollection(webClient.Headers)));
             }
             // Can process next
-            downloading = false;
+            IsProcessing = false;
         }
 
         /// <summary>

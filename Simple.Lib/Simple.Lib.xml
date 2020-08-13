@@ -9,6 +9,11 @@
             Simple cacher, stores the content of the resource fetched locally
             </summary>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Cachers.ContentCacher.#ctor">
+            <summary>
+            Creates a new instance
+            </summary>
+        </member>
         <member name="P:Net.RafaelEstevam.Spider.Cachers.ContentCacher.IsProcessing">
             <summary>
             Gets if is processing
@@ -383,7 +388,7 @@
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.ExposeInternalWebClient">
             <summary>
-            Exposes the internal webclient
+            Exposes the internal WebClient
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.FetchTempo">

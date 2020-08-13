@@ -149,6 +149,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                     .Select(o => new KeyValuePair<string, string>(o.Key, string.Join(",", o.Value))));
 
                 byte[] content = resp.Content.ReadAsByteArrayAsync().Result;
+                // do not trust headers
                 if (content.Length > 2 
                     && content[0] == 0x1f // Gzip magic number
                     && content[1] == 0x8b)
