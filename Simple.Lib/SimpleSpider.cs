@@ -412,7 +412,7 @@ namespace Net.RafaelEstevam.Spider
         /// </summary>
         /// <param name="Objects">Objects collected</param>
         /// <param name="CollectedOn">Uri where the Object was found</param>
-        public void Collect(IEnumerable<object> Objects, Uri CollectedOn)
+        public void Collect(IEnumerable<dynamic> Objects, Uri CollectedOn)
         {
             foreach (var o in Objects) Collect(o, CollectedOn);
         }
@@ -421,7 +421,7 @@ namespace Net.RafaelEstevam.Spider
         /// </summary>
         /// <param name="Object">Object collected</param>
         /// <param name="CollectedOn">Uri where the Object was found</param>
-        public void Collect(object Object, Uri CollectedOn)
+        public void Collect(dynamic Object, Uri CollectedOn)
         {
             lstCollected.Add(new CollectedData(Object: Object, CollectedOn: CollectedOn.ToString()));
         }

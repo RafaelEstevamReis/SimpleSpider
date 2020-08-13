@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Net.RafaelEstevam.Spider
 {
@@ -14,7 +15,7 @@ namespace Net.RafaelEstevam.Spider
             /// </summary>
             /// <param name="Object">Object to be stored</param>
             /// <param name="CollectedOn">Where was it found</param>
-            public CollectedData(object Object, string CollectedOn)
+            public CollectedData(dynamic Object, string CollectedOn)
             {
                 this.Object = Object;
                 this.CollectedOn = CollectedOn;
@@ -23,7 +24,7 @@ namespace Net.RafaelEstevam.Spider
             /// <summary>
             /// Object stored
             /// </summary>
-            public object Object { get;  }
+            public dynamic Object { get;  }
             /// <summary>
             /// Url of where was it found
             /// </summary>
@@ -32,6 +33,14 @@ namespace Net.RafaelEstevam.Spider
             /// DateTime of when was it found (in fact, stored)
             /// </summary>
             public DateTime CollectAt { get; }
+            /// <summary>
+            /// Returns Collected item as Json
+            /// </summary>
+            /// <returns></returns>
+            public string ToJson()
+            {
+                return JsonConvert.SerializeObject(this);
+            }
         }
     }
 }
