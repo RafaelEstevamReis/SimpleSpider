@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using Net.RafaelEstevam.Spider.Helper;
-using Net.RafaelEstevam.Spider.Wrapers;
+using Net.RafaelEstevam.Spider.Wrappers;
 
 namespace Net.RafaelEstevam.Spider
 {

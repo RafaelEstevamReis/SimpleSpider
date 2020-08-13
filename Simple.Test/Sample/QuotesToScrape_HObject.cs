@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Net.RafaelEstevam.Spider.Helper;
-using Net.RafaelEstevam.Spider.Wrapers;
+using Net.RafaelEstevam.Spider.Wrappers;
 
 namespace Net.RafaelEstevam.Spider.Test.Sample
 {

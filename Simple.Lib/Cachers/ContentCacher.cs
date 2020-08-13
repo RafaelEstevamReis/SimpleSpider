@@ -41,7 +41,7 @@ namespace Net.RafaelEstevam.Spider.Cachers
         public event ShouldFetch ShouldFetch;
 
         /// <summary>
-        /// Inistializes the cacher
+        /// Initialize the cacher
         /// </summary>
         /// <param name="WorkQueue">The queue to be used</param>
         /// <param name="Config">The configuration to be used</param>

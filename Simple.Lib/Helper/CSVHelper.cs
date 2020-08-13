@@ -25,7 +25,7 @@ namespace Net.RafaelEstevam.Spider.Helper
             return DelimiterSplit(Lines, ';');
         }
         /// <summary>
-        /// Split CSV lines using specified demlimter
+        /// Split CSV lines using specified delimiter
         /// </summary>
         /// <param name="Lines">Lines to be splitted</param>
         /// <param name="delimiter">Specify which delimiter should be used</param>

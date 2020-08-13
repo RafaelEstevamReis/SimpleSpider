@@ -9,6 +9,7 @@ using Net.RafaelEstevam.Spider.Downloaders;
 using Net.RafaelEstevam.Spider.Helper;
 using Net.RafaelEstevam.Spider.Interfaces;
 using Net.RafaelEstevam.Spider.Parsers;
+using Newtonsoft.Json;
 using Serilog;
 using Serilog.Core;
 
@@ -233,7 +234,7 @@ namespace Net.RafaelEstevam.Spider
         /// <summary>
         /// Main execution loop, returns once finished or cancelled
         /// </summary>
-        /// <param name="cancellationToken">Cancelation token to prematurely stop</param>
+        /// <param name="cancellationToken">Cancellation token to prematurely stop</param>
         public void Execute(CancellationToken cancellationToken)
         {
             bool running = true;
@@ -429,6 +430,19 @@ namespace Net.RafaelEstevam.Spider
         /// Get array with all Collected Objects
         /// </summary>
         public CollectedData[] CollectedItems() { return lstCollected.ToArray(); }
+        /// <summary>
+        /// Writes all Collected Objects to the stream
+        /// </summary>
+        /// <param name="writer">Stream to write to</param>
+        /// <param name="IncludeMetadata">Defines if should include the metadata. Set to false to export data only</param>
+        public void SaveCollectedItems(StreamWriter writer, bool IncludeMetadata = true)
+        {
+            using var jw = new JsonTextWriter(writer);
+            var serializer = new JsonSerializer();
+
+            if (IncludeMetadata) serializer.Serialize(jw, lstCollected);
+            else serializer.Serialize(jw, lstCollected.Select(c => c.Object));
+        }
 
         #region Scheduler callbacks
 

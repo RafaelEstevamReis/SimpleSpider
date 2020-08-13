@@ -22,7 +22,7 @@ namespace Net.RafaelEstevam.Spider.Helper
             /// </summary>
             LoadFromXmlReader,
             /// <summary>
-            /// Recursively interate over elements and convers to XElement
+            /// Recursively iterate over elements and converts to XElement
             /// </summary>
             RecursiveNodeParser,
         }

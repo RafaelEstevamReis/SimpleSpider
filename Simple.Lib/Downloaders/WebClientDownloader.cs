@@ -28,7 +28,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
             return webClient;
         }
         /// <summary>
-        /// List with last Fetch durantions
+        /// List with last Fetch duration
         /// </summary>
         public List<TimeSpan> FetchTempo { get;  }
         /// <summary>

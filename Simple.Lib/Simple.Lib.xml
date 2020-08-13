@@ -31,7 +31,7 @@
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Cachers.ContentCacher.Initialize(System.Collections.Concurrent.ConcurrentQueue{Net.RafaelEstevam.Spider.Link},Net.RafaelEstevam.Spider.Configuration)">
             <summary>
-            Inistializes the cacher
+            Initialize the cacher
             </summary>
             <param name="WorkQueue">The queue to be used</param>
             <param name="Config">The configuration to be used</param>
@@ -87,19 +87,19 @@
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Cachers.NullCacher.HasCache(System.Uri)">
             <summary>
-            Gets if a cache exists, aways False for this cacher
+            Gets if a cache exists, always False for this cacher
             </summary>
             <param name="uri">Uri to check for</param>
-            <returns>Aways false for this cacher</returns>
+            <returns>always false for this cacher</returns>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Cachers.NullCacher.IsProcessing">
             <summary>
-            Gets if is processing, aways False for this cacher
+            Gets if is processing, always False for this cacher
             </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Cachers.NullCacher.Initialize(System.Collections.Concurrent.ConcurrentQueue{Net.RafaelEstevam.Spider.Link},Net.RafaelEstevam.Spider.Configuration)">
             <summary>
-            Inistializes the cacher
+            Initialize the cacher
             </summary>
             <param name="WorkQueue">The queue to be used</param>
             <param name="Config">The configuration to be used</param>
@@ -182,7 +182,7 @@
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Configuration.Set_CachingNoLimit">
             <summary>
-            Sets cache limit to Infinity (no limit), using Cache_Lifetimeproperty set to null
+            Sets cache limit to Infinity (no limit), using Cache_Lifetime property set to null
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Configuration.DownloadDelay">
@@ -321,7 +321,7 @@
             Discard modes
             </summary>
         </member>
-        <member name="F:Net.RafaelEstevam.Spider.Downloaders.NullDownloader.DiscardModeTypes.Ingore">
+        <member name="F:Net.RafaelEstevam.Spider.Downloaders.NullDownloader.DiscardModeTypes.Ignore">
             <summary>
             Downloader should ignore items
             </summary>
@@ -388,7 +388,7 @@
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.FetchTempo">
             <summary>
-            List with last Fetch durantions
+            List with last Fetch duration
             </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader.#ctor">
@@ -953,7 +953,7 @@
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.CSVHelper.DelimiterSplit(System.Collections.Generic.IEnumerable{System.String},System.Char)">
             <summary>
-            Split CSV lines using specified demlimter
+            Split CSV lines using specified delimiter
             </summary>
             <param name="Lines">Lines to be splitted</param>
             <param name="delimiter">Specify which delimiter should be used</param>
@@ -991,7 +991,7 @@
             Fetch resource from uri
             </summary>
             <param name="uri">Uri to fetch from</param>
-            <returns>Byte aray with data fetched</returns>
+            <returns>Byte array with data fetched</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceText(System.Uri,System.Text.Encoding)">
             <summary>
@@ -1058,7 +1058,7 @@
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.FormsHelper.GetForms(System.Xml.Linq.XElement)">
             <summary>
-            Enumarate all forms
+            Enumerate all forms
             </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.FormsHelper.GetFormTag(System.Xml.Linq.XElement)">
@@ -1073,7 +1073,7 @@
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Helper.FormTag.Methods">
             <summary>
-            Represents the method attibute options
+            Represents the method attribute options
             </summary>
         </member>
         <member name="F:Net.RafaelEstevam.Spider.Helper.FormTag.Methods.Get">
@@ -1093,22 +1093,22 @@
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Helper.FormTag.Id">
             <summary>
-            Represents the Id attibute of the form
+            Represents the Id attribute of the form
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Helper.FormTag.Name">
             <summary>
-            Represents the Name attibute of the form
+            Represents the Name attribute of the form
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Helper.FormTag.Action">
             <summary>
-            Represents the Action attibute of the form
+            Represents the Action attribute of the form
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Helper.FormTag.Class">
             <summary>
-            Represents the Class attibute of the form
+            Represents the Class attribute of the form
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Helper.FormTag.Classes">
@@ -1118,7 +1118,7 @@
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Helper.FormTag.Method">
             <summary>
-            Represents the method attibute of the form
+            Represents the method attribute of the form
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Helper.FormTag.Inputs">
@@ -1148,22 +1148,22 @@
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Helper.InputTag.Id">
             <summary>
-            Represents the Id attibute
+            Represents the Id attribute
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Helper.InputTag.Type">
             <summary>
-            Represents the Type attibute
+            Represents the Type attribute
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Helper.InputTag.Name">
             <summary>
-            Represents the Name attibute
+            Represents the Name attribute
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Helper.InputTag.Value">
             <summary>
-            Represents the Value attibute
+            Represents the Value attribute
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Helper.InputTag.Element">
@@ -1193,7 +1193,7 @@
         </member>
         <member name="F:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.XElementParser.RecursiveNodeParser">
             <summary>
-            Recursively interate over elements and convers to XElement
+            Recursively iterate over elements and converts to XElement
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.DefaultSearchForInvalidNames">
@@ -1670,12 +1670,12 @@
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Link.op_Implicit(Net.RafaelEstevam.Spider.Link)~System.Uri">
             <summary>
-            Implicit convertion from Link to Uri, returns Uri property
+            Implicit conversion from Link to Uri, returns Uri property
             </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Link.op_Implicit(Net.RafaelEstevam.Spider.Link)~System.String">
             <summary>
-            Implicit convertion from Link to Url, returns Uri property
+            Implicit conversion from Link to Url, returns Uri property
             </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Link.SaveLink(Net.RafaelEstevam.Spider.Link)">
@@ -1882,7 +1882,7 @@
             <summary>
             Main execution loop, returns once finished or cancelled
             </summary>
-            <param name="cancellationToken">Cancelation token to prematurely stop</param>
+            <param name="cancellationToken">Cancellation token to prematurely stop</param>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.AddPages(System.Collections.Generic.IEnumerable{System.Uri},System.Uri)">
             <summary>
@@ -1923,6 +1923,13 @@
             <summary>
             Get array with all Collected Objects
             </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.SaveCollectedItems(System.IO.StreamWriter,System.Boolean)">
+            <summary>
+            Writes all Collected Objects to the stream
+            </summary>
+            <param name="writer">Stream to write to</param>
+            <param name="IncludeMetadata">Defines if should include the metadata. Set to false to export data only</param>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.QueueFinished">
             <summary>
@@ -1975,6 +1982,12 @@
             DateTime of when was it found (in fact, stored)
             </summary>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.SimpleSpider.CollectedData.ToJson">
+            <summary>
+            Returns Collected item as Json
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.SimpleSpider.SpiderData">
             <summary>
             Internal spider data storage
@@ -2000,65 +2013,65 @@
             DO NOT USE - Serializable version of internal dictionary
             </summary>
         </member>
-        <member name="T:Net.RafaelEstevam.Spider.Wrapers.HObject">
+        <member name="T:Net.RafaelEstevam.Spider.Wrappers.HObject">
             <summary>
             Represents a Html Tags Collection
             </summary>
         </member>
-        <member name="T:Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType">
+        <member name="T:Net.RafaelEstevam.Spider.Wrappers.HObject.SearchType">
             <summary>
             Types of items to search
             </summary>
         </member>
-        <member name="F:Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType.AnyElement">
+        <member name="F:Net.RafaelEstevam.Spider.Wrappers.HObject.SearchType.AnyElement">
             <summary>
             Search for Tag Name
             </summary>
         </member>
-        <member name="F:Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType.ChildElement">
+        <member name="F:Net.RafaelEstevam.Spider.Wrappers.HObject.SearchType.ChildElement">
             <summary>
             Search for Tag Name only on child elements
             </summary>
         </member>
-        <member name="F:Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType.AnyIdEquals">
+        <member name="F:Net.RafaelEstevam.Spider.Wrappers.HObject.SearchType.AnyIdEquals">
             <summary>
             Search for ID attribute
             </summary>
         </member>
-        <member name="F:Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType.AnyClassContaining">
+        <member name="F:Net.RafaelEstevam.Spider.Wrappers.HObject.SearchType.AnyClassContaining">
             <summary>
             Search for Class attribute
             </summary>
         </member>
-        <member name="F:Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType.FilterId">
+        <member name="F:Net.RafaelEstevam.Spider.Wrappers.HObject.SearchType.FilterId">
             <summary>
             Filter current by ID, similar to this.OfID(Name)
             </summary>
         </member>
-        <member name="F:Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType.FilterClass">
+        <member name="F:Net.RafaelEstevam.Spider.Wrappers.HObject.SearchType.FilterClass">
             <summary>
             Filter current by Class, similar to this.OfClass(Name)
             </summary>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.IsEmpty">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.IsEmpty">
             <summary>
             Checks if the filtering results in an empty object
             </summary>
             <returns>True if there are no elements left</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.#ctor(System.Xml.Linq.XElement)">
             <summary>
             Initializes a new instance of the HObject class
             </summary>
             <param name="x">A root XElement</param>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.#ctor(System.Collections.Generic.IEnumerable{System.Xml.Linq.XElement})">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.#ctor(System.Collections.Generic.IEnumerable{System.Xml.Linq.XElement})">
             <summary>
             Initializes a new instance of the HObject class
             </summary>
             <param name="xs">A collection of XElements</param>
         </member>
-        <member name="P:Net.RafaelEstevam.Spider.Wrapers.HObject.Item(Net.RafaelEstevam.Spider.Wrapers.HObject.SearchType,System.String)">
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HObject.Item(Net.RafaelEstevam.Spider.Wrappers.HObject.SearchType,System.String)">
             <summary>
             Gets a HObject with specified Name matching Type
             </summary>
@@ -2066,56 +2079,56 @@
             <param name="Type">Type of search</param>
             <returns>A HObject filtered</returns>
         </member>
-        <member name="P:Net.RafaelEstevam.Spider.Wrapers.HObject.Item(System.String)">
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HObject.Item(System.String)">
             <summary>
             Gets a HObject with specified Tag. Supports css notation of '#' for ID and '.' for classes
             </summary>
             <param name="SearchName">Name of the Tag to search for or the '#{IdName}' or the '.{ClassName}'</param>
             <returns>A HObject filtered</returns>
         </member>
-        <member name="P:Net.RafaelEstevam.Spider.Wrapers.HObject.Item(System.String[])">
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HObject.Item(System.String[])">
             <summary>
             Gets a HObject searched in chain with an array of Names. Supports css notation of '#' for ID and '.' for classes
             </summary>
             <param name="SearchNames">Array of names of the Tag to search for or the '#{IdName}' or the '.{ClassName}'</param>
             <returns>A HObject filtered</returns>
         </member>
-        <member name="P:Net.RafaelEstevam.Spider.Wrapers.HObject.Item(System.Int32)">
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HObject.Item(System.Int32)">
             <summary>
             Gets the n-th HObject
             </summary>
             <param name="Position">Index of the HObject to be returned</param>
             <returns>HObject at specified position</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.Tags(System.String)">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.Tags(System.String)">
             <summary>
             Returns all Tags named TagName
             </summary>
             <param name="TagName">The name of the tag</param>
             <returns>A HObject filtered</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.Children(System.String)">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.Children(System.String)">
             <summary>
             Returns all children tags named TagName
             </summary>
             <param name="TagName">The name of the tag</param>
             <returns>A HObject filtered</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.IDs(System.String)">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.IDs(System.String)">
             <summary>
             Returns all Tags with ID equals to specified parameter
             </summary>
             <param name="IDsEquals">Id value to search for</param>
             <returns>A HObject</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.OfID(System.String)">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.OfID(System.String)">
             <summary>
             Filters current tags selecting only the ones with specified Id value
             </summary>
             <param name="IDsEquals">Id value to search for</param>
             <returns>A HObject</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.Classes(System.String)">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.Classes(System.String)">
             <summary>
             Returns all Tags with Class containing specified parameter
             Note: In HTML classes are an array of strings
@@ -2123,7 +2136,7 @@
             <param name="ClassName">The class name to search for</param>
             <returns>A HObject</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.OfClass(System.String)">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.OfClass(System.String)">
             <summary>
             Filters current tags selecting only the ones with specified Class value
             Note: In HTML classes are an array of strings
@@ -2131,7 +2144,7 @@
             <param name="ClassName">The class name to search for</param>
             <returns>A HObject</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.Having(System.String,System.String)">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.Having(System.String,System.String)">
             <summary>
             Returns all Tags with Named Attribute equals to specified parameter. Search in all descendants
             </summary>
@@ -2139,7 +2152,7 @@
             <param name="AttributeValue">Value to search for</param>
             <returns>A HObject</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.OfWhich(System.String,System.String)">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.OfWhich(System.String,System.String)">
             <summary>
             Filters current tags selecting only the ones with Named Attribute equals to specified parameter. Search only in root elements
             </summary>
@@ -2147,125 +2160,125 @@
             <param name="AttributeValue">Value to search for</param>
             <returns>A HObject</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.CssSelect(System.String)">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.CssSelect(System.String)">
             <summary>
             Executes a CSS Select query with '&gt;' separator, '.Class' and '#Id'
             </summary>
             <param name="Query">CSS Query string</param>
             <returns>HObject selected</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.XPathSelect(System.String)">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.XPathSelect(System.String)">
             <summary>
             Executes a XPath Select query in each element and returns all results
             </summary>
             <param name="Query">XPath Query string</param>
             <returns>HObject elements with all results</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetXElement">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetXElement">
             <summary>
             Returns first XElement of the collection
             </summary>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetXElements">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetXElements">
             <summary>
             Returns all XElements of the collection
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetValue">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetValue">
             <summary>
             Returns first element Value
             </summary>
             <returns>The string Value of the element</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetValues">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetValues">
             <summary>
             Returns an array with all Elements values
             </summary>
             <returns>String array of the values</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetAttributeValue(System.String)">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetAttributeValue(System.String)">
             <summary>
             Gets the value of attribute named AttributeName of the first item
             </summary>
             <param name="AttributeName">Name of the attribute</param>
             <returns>Value of the attribute</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetAttributeValues(System.String)">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetAttributeValues(System.String)">
             <summary>
             Gets all the values of the attribute named AttributeName of all items
             </summary>
             <param name="AttributeName">Name of the attribute</param>
             <returns>String array of Values</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.HasAttribute(System.String)">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.HasAttribute(System.String)">
             <summary>
             Checks if the first element has the specified attribute
             </summary>
             <param name="AttributeName">Name of the attribute</param>
             <returns>True if the first element has the Attribute</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetHrefValue">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetHrefValue">
             <summary>
             Gets the value of attribute 'href' of the first item
             </summary>
             <returns>String containing the value</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetHrefValues">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetHrefValues">
             <summary>
             Gets all the values of the attribute 'href' of all items
             </summary>
             <returns>String array with values</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetClassValue">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetClassValue">
             <summary>
             Gets the value of the Class attribute of the first item
             </summary>
             <returns>String containing the Class</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetIdValue">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetIdValue">
             <summary>
             Gets the value of the Id attribute of the first item
             </summary>
             <returns>String containing the Id</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetIdsValues">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetIdsValues">
             <summary>
             Gets the value of all the Id attribute of all items
             </summary>
             <returns>String array containing all the Ids</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetStyleValue">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetStyleValue">
             <summary>
             Gets the value of the Style attribute of the first item
             </summary>
             <returns>String containing the Style</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.GetEnumerator">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetEnumerator">
             <summary>
             Returns an enumerator that iterates through the HObject collection.
             </summary>
             <returns>An HObject enumerator that can be used to iterate through the collection.</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.op_Implicit(Net.RafaelEstevam.Spider.Wrapers.HObject)~System.Xml.Linq.XElement">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.op_Implicit(Net.RafaelEstevam.Spider.Wrappers.HObject)~System.Xml.Linq.XElement">
             <summary>
             Returns first XElement of the collection
             </summary>
             <param name="h">A HObject to be converted</param>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.op_Implicit(Net.RafaelEstevam.Spider.Wrapers.HObject)~System.Xml.Linq.XElement[]">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.op_Implicit(Net.RafaelEstevam.Spider.Wrappers.HObject)~System.Xml.Linq.XElement[]">
             <summary>
             Returns all XElements of the collection
             </summary>
             <param name="h">A HObject to be converted</param>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.op_Implicit(Net.RafaelEstevam.Spider.Wrapers.HObject)~System.String">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.op_Implicit(Net.RafaelEstevam.Spider.Wrappers.HObject)~System.String">
             <summary>
             Returns the Value of the first element of the collection
             </summary>
             <param name="h">A HObject to be converted</param>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrapers.HObject.op_Implicit(Net.RafaelEstevam.Spider.Wrapers.HObject)~System.String[]">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.op_Implicit(Net.RafaelEstevam.Spider.Wrappers.HObject)~System.String[]">
             <summary>
             Returns the Values of all elements of the collection
             </summary>

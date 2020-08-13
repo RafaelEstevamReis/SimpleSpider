@@ -90,7 +90,7 @@ namespace Net.RafaelEstevam.Spider
             return this; // Chaining
         }
         /// <summary>
-        /// Sets cache limit to Infinity (no limit), using Cache_Lifetimeproperty set to null
+        /// Sets cache limit to Infinity (no limit), using Cache_Lifetime property set to null
         /// </summary>
         public Configuration Set_CachingNoLimit()
         {

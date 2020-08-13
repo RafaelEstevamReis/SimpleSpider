@@ -18,7 +18,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
             /// <summary>
             /// Downloader should ignore items
             /// </summary>
-            Ingore,
+            Ignore,
             /// <summary>
             /// Downloader should invoke an empty FetchCompleted
             /// </summary>
@@ -38,7 +38,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
         /// <summary>
         /// Gets or sets the current queue items DiscardMode
         /// </summary>
-        public DiscardModeTypes DiscardMode { get; set; } = DiscardModeTypes.Ingore;
+        public DiscardModeTypes DiscardMode { get; set; } = DiscardModeTypes.Ignore;
 
         /// <summary>
         /// Occurs when DiscardMode is set to CompleteEmpty 
@@ -90,7 +90,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                                                                       new HeaderCollection(),
                                                                       new HeaderCollection()));
                     break;
-                case DiscardModeTypes.Ingore:
+                case DiscardModeTypes.Ignore:
                 default:
                     // ignore ... 
                     break;

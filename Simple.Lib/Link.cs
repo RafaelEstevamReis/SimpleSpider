@@ -81,11 +81,11 @@ namespace Net.RafaelEstevam.Spider
         }
 
         /// <summary>
-        /// Implicit convertion from Link to Uri, returns Uri property
+        /// Implicit conversion from Link to Uri, returns Uri property
         /// </summary>
         public static implicit operator Uri(Link lnk) => lnk.Uri;
         /// <summary>
-        /// Implicit convertion from Link to Url, returns Uri property
+        /// Implicit conversion from Link to Url, returns Uri property
         /// </summary>
         public static implicit operator string(Link lnk) => lnk.Uri.ToString();
 

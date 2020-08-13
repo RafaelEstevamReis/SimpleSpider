@@ -5,7 +5,7 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
-namespace Net.RafaelEstevam.Spider.Wrapers
+namespace Net.RafaelEstevam.Spider.Wrappers
 {
     /// <summary>
     /// Represents a Html Tags Collection

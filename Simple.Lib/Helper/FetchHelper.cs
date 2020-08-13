@@ -2,7 +2,7 @@
 using System.Net;
 using System.Text;
 using System.Xml.Linq;
-using Net.RafaelEstevam.Spider.Wrapers;
+using Net.RafaelEstevam.Spider.Wrappers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -30,7 +30,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// Fetch resource from uri
         /// </summary>
         /// <param name="uri">Uri to fetch from</param>
-        /// <returns>Byte aray with data fetched</returns>
+        /// <returns>Byte array with data fetched</returns>
         public static byte[] FetchResource(Uri uri)
         {
             Console.WriteLine($"{DateTime.Now.ToShortTimeString()} [FETCH] {uri}");

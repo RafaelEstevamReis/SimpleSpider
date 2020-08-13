@@ -14,7 +14,7 @@ namespace Net.RafaelEstevam.Spider.Helper
     public class FormsHelper
     {
         /// <summary>
-        /// Enumarate all forms
+        /// Enumerate all forms
         /// </summary>
         public static IEnumerable<XElement> GetForms(XElement Root)
         {
@@ -57,7 +57,7 @@ namespace Net.RafaelEstevam.Spider.Helper
             }
         }
         /// <summary>
-        /// Represents the method attibute options
+        /// Represents the method attribute options
         /// </summary>
         public enum Methods
         {
@@ -75,19 +75,19 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// </summary>
         public XElement Element { get; }
         /// <summary>
-        /// Represents the Id attibute of the form
+        /// Represents the Id attribute of the form
         /// </summary>
         public string Id { get; }
         /// <summary>
-        /// Represents the Name attibute of the form
+        /// Represents the Name attribute of the form
         /// </summary>
         public string Name { get; }
         /// <summary>
-        /// Represents the Action attibute of the form
+        /// Represents the Action attribute of the form
         /// </summary>
         public string Action { get; }
         /// <summary>
-        /// Represents the Class attibute of the form
+        /// Represents the Class attribute of the form
         /// </summary>
         public string Class { get; }
         /// <summary>
@@ -95,7 +95,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// </summary>
         public string[] Classes { get; }
         /// <summary>
-        /// Represents the method attibute of the form
+        /// Represents the method attribute of the form
         /// </summary>
         public Methods Method { get; }
         /// <summary>
@@ -132,19 +132,19 @@ namespace Net.RafaelEstevam.Spider.Helper
             this.Element = element;
         }
         /// <summary>
-        /// Represents the Id attibute
+        /// Represents the Id attribute
         /// </summary>
         public string Id { get; }
         /// <summary>
-        /// Represents the Type attibute
+        /// Represents the Type attribute
         /// </summary>
         public string Type { get; }
         /// <summary>
-        /// Represents the Name attibute
+        /// Represents the Name attribute
         /// </summary>
         public string Name { get; }
         /// <summary>
-        /// Represents the Value attibute
+        /// Represents the Value attribute
         /// </summary>
         public string Value { get; }
         /// <summary>
