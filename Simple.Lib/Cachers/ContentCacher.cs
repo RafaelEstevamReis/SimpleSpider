@@ -21,7 +21,16 @@ namespace Net.RafaelEstevam.Spider.Cachers
         private ConcurrentQueue<Link> queue;
         private Configuration config;
         private Thread[] thread;
-       
+        CancellationTokenSource cancellationToken;
+
+        /// <summary>
+        /// Creates a new instance
+        /// </summary>
+        public ContentCacher()
+        {
+            cancellationToken = new CancellationTokenSource();
+        }
+
         /// <summary>
         /// Gets if is processing
         /// </summary>
@@ -106,8 +115,9 @@ namespace Net.RafaelEstevam.Spider.Cachers
         public void Stop()
         {
             running = false;
-            for (int i = 0; i < thread.Length; i++)
-                thread[i].Interrupt();
+            cancellationToken.Cancel();
+            //for (int i = 0; i < thread.Length; i++)
+            //    thread[i].Interrupt();
         }
 
         private void doStuff(object obj)
@@ -117,6 +127,8 @@ namespace Net.RafaelEstevam.Spider.Cachers
                 try
                 {
                     Thread.Sleep(10);
+
+                    if (cancellationToken.Token.IsCancellationRequested) break;
 
                     if (config.Paused || config.Paused_Cacher)
                     {
@@ -142,8 +154,9 @@ namespace Net.RafaelEstevam.Spider.Cachers
                     else Thread.Sleep(100);
                 }
                 catch (ThreadInterruptedException) { }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    config.Logger.Error(ex, "ContentCacher:doStuff_Loop exception");
                     throw;
                 }
             }
