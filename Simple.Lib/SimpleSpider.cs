@@ -247,7 +247,11 @@ namespace Net.RafaelEstevam.Spider
             int saveCount = 0;
             while (running)
             {
-                if (cancellationToken.IsCancellationRequested) break;
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    log.Information("Cancellation was Requested");
+                    break;
+                }
 
                 if (Configuration.Paused)
                 {
