@@ -1740,6 +1740,21 @@
             </summary>
             <returns>A hash code for the current object</returns>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Parsers.HObjectParser">
+            <summary>
+            Html to HObject parser
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Parsers.HObjectParser.MimeTypes">
+            <summary>
+            MimeTypes supported by this parser
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Parsers.HObjectParser.ParsedData">
+            <summary>
+            Event with the html parsed as HObject
+            </summary>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Parsers.HtmlXElementParser">
             <summary>
             Html to XElement parser
