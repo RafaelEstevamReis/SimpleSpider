@@ -61,7 +61,14 @@ namespace Net.RafaelEstevam.Spider
         {
             if (xElement == null)
             {
-                xElement = HtmlToXElement.Parse(Html);
+                xElement = HtmlToXElement.Parse(Html, new HtmlToXElement.ParseOptions()
+                {
+                    XElementParserMode = HtmlToXElement.XElementParser.LoadFromXmlReader,
+                    SearchAndRemoveStyleElements = true,
+                    SearchAndRemoveComments = true,
+                    SearchAndRemoveScripts = true,
+                    SearchForInvalidNames = true,
+                });
             }
             return xElement;
         }

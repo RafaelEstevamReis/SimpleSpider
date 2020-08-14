@@ -12,6 +12,8 @@ namespace Net.RafaelEstevam.Spider.Helper
     /// </summary>
     public class HtmlToXElement
     {
+        private static readonly char[] InvalidCharsToRemove = { ':' };
+
         /// <summary>
         /// XElement parse modes
         /// </summary>
@@ -26,7 +28,6 @@ namespace Net.RafaelEstevam.Spider.Helper
             /// </summary>
             RecursiveNodeParser,
         }
-        private static readonly char[] InvalidCharsToRemove = { ':' };
         
         /// <summary>
         /// Search for invalid Attribute names and remove them
@@ -74,10 +75,12 @@ namespace Net.RafaelEstevam.Spider.Helper
             // Static configs
             HtmlNode.ElementsFlags.Remove("form");
 
-            var doc = new HtmlDocument();
-            doc.OptionOutputAsXml = true;
-            doc.OptionFixNestedTags = true;
-            doc.OptionReadEncoding = true;
+            var doc = new HtmlDocument
+            {
+                OptionOutputAsXml = true,
+                OptionFixNestedTags = true,
+                OptionReadEncoding = true
+            };
             doc.LoadHtml(html);
 
             if (options.SearchAndRemoveScripts)
@@ -101,6 +104,23 @@ namespace Net.RafaelEstevam.Spider.Helper
                     e.Remove();
                 }
             }
+
+            if (options.XElementParserMode == XElementParser.RecursiveNodeParser)
+            {
+                return processAsRecursive(doc, options);
+            }
+            else if (options.XElementParserMode == XElementParser.LoadFromXmlReader)
+            {
+                return processAsXmlReader(doc, options);
+            }
+            else
+            {
+                throw new InvalidOperationException("Invalid XElementParserMode");
+            }
+        }
+
+        private static XElement processAsXmlReader(HtmlDocument doc, ParseOptions options)
+        {
             if (options.SearchForInvalidNames)
             {
                 foreach (var n in doc.DocumentNode.Descendants())
@@ -116,52 +136,57 @@ namespace Net.RafaelEstevam.Spider.Helper
                 }
             }
 
-            if (options.XElementParserMode == XElementParser.RecursiveNodeParser)
-            {
-                XElement root = createXElement(doc.DocumentNode, options);
-                if (root.Name == "document" || root.Name == "span")
-                {
-                    XElement fn = (XElement)root.FirstNode;
-                    if (fn.Name.LocalName == "html")
-                    {
-                        return fn;
-                    }
-                }
-                return root;
-            }
-            else if (options.XElementParserMode == XElementParser.LoadFromXmlReader)
-            {
-                using StringWriter writer = new StringWriter();
-                doc.Save(writer);
-                string dom = writer.ToString();
-                using StringReader reader = new StringReader(dom);
-                var x = XElement.Load(reader);
+            using StringWriter writer = new StringWriter();
+            doc.Save(writer);
+            string dom = writer.ToString();
+            using StringReader reader = new StringReader(dom);
+            var x = XElement.Load(reader);
 
-                //remove Span root
-                if (x.Name.LocalName == "span" && x.FirstNode != null && x.FirstNode is XElement)
-                {
-                    XElement fn = (XElement)x.FirstNode;
-                    if (fn.Name.LocalName == "html")
-                    {
-                        return fn;
-                    }
-                }
-                return x;
-            }
-            else
+            //remove Span root
+            if (x.Name.LocalName == "span")
             {
-                throw new InvalidOperationException("Invalid XElementParserMode");
+                XElement fn;
+                if (x.FirstNode is XComment) fn = (XElement)x.FirstNode.NextNode;
+                else fn = (XElement)x.FirstNode;
+
+                if (fn.Name.LocalName == "html")
+                {
+                    return fn;
+                }
             }
+            return x;
+        }
+        private static XElement processAsRecursive(HtmlDocument doc, ParseOptions options)
+        {
+
+            XElement root = createXElement(doc.DocumentNode, options);
+            if (root.Name == "document" || root.Name == "span")
+            {
+                XElement fn = (XElement)root.FirstNode;
+                if (fn.Name.LocalName == "html")
+                {
+                    return fn;
+                }
+            }
+            return root;
         }
 
         private static XElement createXElement(HtmlNode node, ParseOptions options)
         {
-            XElement x;
+            XElement x = null;
             var elements = getNodes(node, options).ToArray();
             if (elements.Length == 1 && elements[0].Name == "text")
             {
                 x = new XElement(getName(node.Name));
                 x.Value = elements[0].Value;
+            }
+            if (node.Name == "#document")
+            {
+                if (elements.Length == 1) x = elements[0];
+                else
+                {
+                    x = new XElement(getName(node.Name), elements);
+                }
             }
             else
             {
@@ -170,7 +195,9 @@ namespace Net.RafaelEstevam.Spider.Helper
 
             foreach (var a in node.Attributes)
             {
-                x.SetAttributeValue(a.Name, a.Value);
+                string name = a.Name;
+                if (name.Contains(':')) name = name.Replace(':', '_');
+                x.SetAttributeValue(name, a.Value);
             }
 
             return x;
@@ -188,6 +215,7 @@ namespace Net.RafaelEstevam.Spider.Helper
 
                     if (options.TrimTextBlocks) e.Value = e.Value.Trim();
                 }
+                if(c.Name == "#comment" &&  c.InnerText.Trim().Length == 0) continue;
                 yield return e;
             }
         }
