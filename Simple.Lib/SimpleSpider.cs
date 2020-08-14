@@ -114,7 +114,7 @@ namespace Net.RafaelEstevam.Spider
             FetchCompleted += fetchCompleted_AutoCollect;
             FetchRewrite += fetchRewrite_AutoRewrite;
 
-            Parsers = new List<IParserBase>() { new HtmlXElementParser(), new XmlXElementParser(), new JsonParser() };
+            Parsers = new List<IParserBase>();
             if (@params?.Parsers != null) Parsers.AddRange(@params.Parsers);
 
             logInitialStatus();
