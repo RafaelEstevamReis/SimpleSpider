@@ -28,7 +28,7 @@ namespace Net.RafaelEstevam.Spider.Helper
             /// </summary>
             RecursiveNodeParser,
         }
-        
+
         /// <summary>
         /// Search for invalid Attribute names and remove them
         /// </summary>
@@ -233,14 +233,14 @@ namespace Net.RafaelEstevam.Spider.Helper
 
                     if (options.TrimTextBlocks) e.Value = e.Value.Trim();
                 }
-                if(c.Name == "#comment" &&  c.InnerText.Trim().Length == 0) continue;
+                if (c.Name == "#comment" && c.InnerText.Trim().Length == 0) continue;
                 yield return e;
             }
         }
         private static XName getName(string name)
         {
             if (string.IsNullOrEmpty(name)) return XName.Get("_Blank");
-            if(name[0] == '#') return XName.Get(name.Substring(1));
+            if (name[0] == '#') return XName.Get(name.Substring(1));
             return XName.Get(name);
         }
         /// <summary>

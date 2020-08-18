@@ -10,7 +10,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers
     /// <summary>
     /// Represents a Html Tags Collection
     /// </summary>
-    public class HObject: IEnumerable<HObject>
+    public class HObject : IEnumerable<HObject>
     {
         /// <summary>
         /// Types of items to search
@@ -259,7 +259,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         /// <returns>HObject selected</returns>
         public HObject CssSelect(string Query)
         {
-            return this[Query.Split('>')];   
+            return this[Query.Split('>')];
         }
         /// <summary>
         /// Executes a XPath Select query in each element and returns all results

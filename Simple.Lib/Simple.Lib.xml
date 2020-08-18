@@ -516,6 +516,11 @@
             LazyLoaded Text (Html?) content parsed from byte[] Result encoded with UTF8
             </summary>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.GetDocument">
+            <summary>
+            Get the HtmlDocument representation of the Html property. 
+            </summary>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.GetXElement">
             <summary>
             Get the XElement representation of the Html property. 
@@ -1231,6 +1236,13 @@
             Sets the default XElement parsing mode
             </summary>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.ParseHtmlDocument(System.String)">
+            <summary>
+            Parses an Html string into a HtmlDocument
+            </summary>
+            <param name="html">Html content</param>
+            <returns>Html Document</returns>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.Parse(System.String)">
             <summary>
             Parses an HTML as a XElement with default options
@@ -1245,6 +1257,14 @@
             <param name="html">Html content to be parsed</param>
             <param name="options">Parse options</param>
             <returns>XElement parsed</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.Parse(HtmlAgilityPack.HtmlDocument,Net.RafaelEstevam.Spider.Helper.HtmlToXElement.ParseOptions)">
+            <summary>
+            Parses an HtmlDocument as a XElement
+            </summary>
+            <param name="doc">HtmlDocument to be processed</param>
+            <param name="options">Parse options</param>
+            <returns>XElement returned</returns>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.ParseOptions">
             <summary>

@@ -33,6 +33,8 @@ namespace Net.RafaelEstevam.Spider
         /// </summary>
         public HeaderCollection ResponseHeaders { get; }
 
+        #region Process Result
+
         // Lazy loaded html string
         string htmlCache;
         /// <summary>
@@ -53,6 +55,9 @@ namespace Net.RafaelEstevam.Spider
         }
 
         HtmlDocument document;
+        /// <summary>
+        /// Get the HtmlDocument representation of the Html property. 
+        /// </summary>
         public HtmlDocument GetDocument()
         {
             if (document == null)
@@ -102,6 +107,9 @@ namespace Net.RafaelEstevam.Spider
             return htmlCache = enc.GetString(Result);
 
         }
+
+        #endregion
+
         /// <summary>
         /// Constructs a new FetchCompleteEventArgs
         /// </summary>
@@ -127,7 +135,7 @@ namespace Net.RafaelEstevam.Spider
             var req = readLinesBlock("REQ-HDR", br);
             // read link
             var resp = readLinesBlock("RES-HDR", br);
-            
+
             byte[] bytes = readToEnd(br);
 
             return new FetchCompleteEventArgs(Link.LoadLink(link), bytes, HeaderCollection.LoadHeader(req), HeaderCollection.LoadHeader(resp));
