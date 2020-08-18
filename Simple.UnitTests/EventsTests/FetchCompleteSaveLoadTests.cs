@@ -4,7 +4,7 @@ using System.Text;
 using Net.RafaelEstevam.Spider.UnitTests.CoreTests.LinkTests;
 using Xunit;
 
-namespace Net.RafaelEstevam.Spider.UnitTests.Events
+namespace Net.RafaelEstevam.Spider.UnitTests.EventsTests
 {
     public class FetchCompleteSaveLoadTests
     {
