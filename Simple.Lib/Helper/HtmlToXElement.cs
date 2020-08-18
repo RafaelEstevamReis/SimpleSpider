@@ -54,6 +54,25 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// </summary>
         public static XElementParser DefaultXElementParserMode { get; set; } = XElementParser.LoadFromXmlReader;
 
+        /// <summary>
+        /// Parses an Html string into a HtmlDocument
+        /// </summary>
+        /// <param name="html">Html content</param>
+        /// <returns>Html Document</returns>
+        public static HtmlDocument ParseHtmlDocument(string html)
+        {
+            // Static configs
+            HtmlNode.ElementsFlags.Remove("form");
+
+            HtmlDocument doc = new HtmlDocument
+            {
+                OptionOutputAsXml = true,
+                OptionFixNestedTags = true,
+                OptionReadEncoding = true
+            };
+            doc.LoadHtml(html);
+            return doc;
+        }
 
         /// <summary>
         /// Parses an HTML as a XElement with default options
@@ -72,17 +91,16 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// <returns>XElement parsed</returns>
         public static XElement Parse(string html, ParseOptions options)
         {
-            // Static configs
-            HtmlNode.ElementsFlags.Remove("form");
-
-            var doc = new HtmlDocument
-            {
-                OptionOutputAsXml = true,
-                OptionFixNestedTags = true,
-                OptionReadEncoding = true
-            };
-            doc.LoadHtml(html);
-
+            return Parse(ParseHtmlDocument(html), options);
+        }
+        /// <summary>
+        /// Parses an HtmlDocument as a XElement
+        /// </summary>
+        /// <param name="doc">HtmlDocument to be processed</param>
+        /// <param name="options">Parse options</param>
+        /// <returns>XElement returned</returns>
+        public static XElement Parse(HtmlDocument doc, ParseOptions options)
+        {
             if (options.SearchAndRemoveScripts)
             {
                 foreach (var e in doc.DocumentNode.Descendants("script").ToArray())
