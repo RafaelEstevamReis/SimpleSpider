@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using HtmlAgilityPack;
 using Net.RafaelEstevam.Spider.Helper;
 using Net.RafaelEstevam.Spider.Wrappers;
 
@@ -51,6 +52,16 @@ namespace Net.RafaelEstevam.Spider
             }
         }
 
+        HtmlDocument document;
+        public HtmlDocument GetDocument()
+        {
+            if (document == null)
+            {
+                document = HtmlToXElement.ParseHtmlDocument(Html);
+            }
+            return document;
+        }
+
         // Lazy loaded xElement
         XElement xElement;
         /// <summary>
@@ -61,7 +72,7 @@ namespace Net.RafaelEstevam.Spider
         {
             if (xElement == null)
             {
-                xElement = HtmlToXElement.Parse(Html, new HtmlToXElement.ParseOptions()
+                xElement = HtmlToXElement.Parse(GetDocument(), new HtmlToXElement.ParseOptions()
                 {
                     XElementParserMode = HtmlToXElement.XElementParser.LoadFromXmlReader,
                     SearchAndRemoveStyleElements = true,
