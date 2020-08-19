@@ -2304,6 +2304,18 @@
             </summary>
             <returns>String array containing all the Ids</returns>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetNameValue">
+            <summary>
+            Gets the value of the Name attribute of the first item
+            </summary>
+            <returns>String containing the Name</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetNameValues">
+            <summary>
+            Gets the value of all the Name attribute of all items
+            </summary>
+            <returns>String array containing all the Names</returns>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetStyleValue">
             <summary>
             Gets the value of the Style attribute of the first item

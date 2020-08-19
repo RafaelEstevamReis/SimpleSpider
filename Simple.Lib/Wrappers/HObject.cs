@@ -373,6 +373,22 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         {
             return GetAttributeValues("id");
         }
+        /// <summary>
+        /// Gets the value of the Name attribute of the first item
+        /// </summary>
+        /// <returns>String containing the Name</returns>
+        public string GetNameValue()
+        {
+            return GetAttributeValue("name");
+        }
+        /// <summary>
+        /// Gets the value of all the Name attribute of all items
+        /// </summary>
+        /// <returns>String array containing all the Names</returns>
+        public string[] GetNameValues()
+        {
+            return GetAttributeValues("name");
+        }
 
         /// <summary>
         /// Gets the value of the Style attribute of the first item
