@@ -70,20 +70,20 @@ namespace Net.RafaelEstevam.Spider.Wrappers
             return n.Attributes.Any(a => a.Name == AttributeName);
         }
 
-        [Obsolete("XElement was removed", true)]
         /// <summary>
         /// Initializes a new instance of the HObject class
         /// </summary>
         /// <param name="x">A root XElement</param>
+        [Obsolete("XElement was removed", true)]
         public HObject(XElement x)
         {
             throw new NotImplementedException();
         }
-        [Obsolete("XElement was removed", true)]
         /// <summary>
         /// Initializes a new instance of the HObject class
         /// </summary>
         /// <param name="xs">A collection of XElements</param>
+        [Obsolete("XElement was removed", true)]
         public HObject(IEnumerable<XElement> xs)
         {
             throw new NotImplementedException();
@@ -317,20 +317,20 @@ namespace Net.RafaelEstevam.Spider.Wrappers
             throw new NotImplementedException();
         }
 
-        [Obsolete("XElement is too slow, avoid using")]
         /// <summary>
         /// Returns first XElement of the collection
         /// </summary>
+        [Obsolete("XElement is too slow, avoid using")]
         public XElement GetXElement()
         {
             return GetXElements().FirstOrDefault();
             throw new NotImplementedException();
         }
-        [Obsolete("XElement is too slow, avoid using")]
         /// <summary>
         /// Returns all XElements of the collection
         /// </summary>
         /// <returns></returns>
+        [Obsolete("XElement is too slow, avoid using")]
         public IEnumerable<XElement> GetXElements()
         {
             //return xElements;
@@ -454,20 +454,20 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         }
 
         #endregion
-        [Obsolete("XElement is slow")]
         /// <summary>
         /// Returns first XElement of the collection
         /// </summary>
         /// <param name="h">A HObject to be converted</param>
+        [Obsolete("XElement is slow")]
         public static implicit operator XElement(HObject h)
         {
             return h.GetXElement();
         }
-        [Obsolete("XElement is slow")]
         /// <summary>
         /// Returns all XElements of the collection
         /// </summary>
         /// <param name="h">A HObject to be converted</param>
+        [Obsolete("XElement is slow")]
         public static implicit operator XElement[](HObject h)
         {
             return h.GetXElements().ToArray();

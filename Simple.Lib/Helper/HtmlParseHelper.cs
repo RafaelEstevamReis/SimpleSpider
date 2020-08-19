@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Net.RafaelEstevam.Spider.Helper
 {
+    /// <summary>
+    /// Class to parse html with HtmlAgilityPack
+    /// </summary>
     public class HtmlParseHelper
     {
         /// <summary>

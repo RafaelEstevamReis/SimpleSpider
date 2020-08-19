@@ -5,10 +5,10 @@ using Net.RafaelEstevam.Spider.Interfaces;
 
 namespace Net.RafaelEstevam.Spider.Parsers
 {
-    [Obsolete("Slow execution")]
     /// <summary>
     /// Html to XElement parser
     /// </summary>
+    [Obsolete("Slow execution")]
     public class HtmlXElementParser : IParser<XElement>
     {
         /// <summary>

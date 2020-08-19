@@ -1186,6 +1186,18 @@
             String representation of the object
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Helper.HtmlParseHelper">
+            <summary>
+            Class to parse html with HtmlAgilityPack
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.HtmlParseHelper.ParseHtmlDocument(System.String)">
+            <summary>
+            Parses an Html string into a HtmlDocument
+            </summary>
+            <param name="html">Html content</param>
+            <returns>Html Document</returns>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Helper.HtmlToXElement">
             <summary>
             Class to convert Html to XElement, uses HtmlAgilityPack
@@ -1235,13 +1247,6 @@
             <summary>
             Sets the default XElement parsing mode
             </summary>
-        </member>
-        <member name="M:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.ParseHtmlDocument(System.String)">
-            <summary>
-            Parses an Html string into a HtmlDocument
-            </summary>
-            <param name="html">Html content</param>
-            <returns>Html Document</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.Parse(System.String)">
             <summary>
@@ -2133,6 +2138,18 @@
             Initializes a new instance of the HObject class
             </summary>
             <param name="xs">A collection of XElements</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.#ctor(HtmlAgilityPack.HtmlNode)">
+            <summary>
+            Initializes a new instance of the HObject class
+            </summary>
+            <param name="n"></param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.#ctor(System.Collections.Generic.IEnumerable{HtmlAgilityPack.HtmlNode})">
+            <summary>
+            Initializes a new instance of the HObject class
+            </summary>
+            <param name="ns"></param>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Wrappers.HObject.Item(Net.RafaelEstevam.Spider.Wrappers.HObject.SearchType,System.String)">
             <summary>
