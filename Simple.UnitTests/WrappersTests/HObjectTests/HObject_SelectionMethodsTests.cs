@@ -12,6 +12,8 @@ namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HObjectTests
             var h = GetHObject();
             Assert.Equal(5, h.Tags("p").Count());
             Assert.Equal(3, h.Tags("li").Count());
+            Assert.False(h.Tags("li").IsEmpty());
+            Assert.True(h.Tags("zzz").IsEmpty());
         }
 
         [Fact]
@@ -25,6 +27,5 @@ namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HObjectTests
         {
             return HObject_IndexingTests.GetHObject(TestHelper.BaseHtml());
         }
-
     }
 }

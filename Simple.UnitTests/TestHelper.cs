@@ -32,6 +32,13 @@ namespace Net.RafaelEstevam.Spider.UnitTests
             <p>My fourth paragraph.</p>
         </div>
         <p>Closing arguments</p>
+        <form method=""POST"" action=""/"">
+            <input type=""text"" name=""nTxt1"" id=""iTxt1"">
+            <input type=""text"" name=""nTxt2"" id=""iTxt2"">
+            <input type=""text"" name=""nTxt3"" id=""iTxt3"">
+            <input type=""text"" name=""nTxt4"" id=""iTxt4"">
+            <input type=""submit"" id=""btn1"" value=""Insert"">
+        </form>
     </body>
 </html>";
         }        
