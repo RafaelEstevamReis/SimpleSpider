@@ -62,7 +62,7 @@ namespace Net.RafaelEstevam.Spider
         {
             if (document == null)
             {
-                document = HtmlToXElement.ParseHtmlDocument(Html);
+                document = HtmlParseHelper.ParseHtmlDocument(Html);
             }
             return document;
         }
@@ -94,7 +94,7 @@ namespace Net.RafaelEstevam.Spider
         /// <returns>A HObject</returns>
         public HObject GetHObject()
         {
-            return new HObject(GetXElement());
+            return new HObject(GetDocument().DocumentNode);
         }
 
         /// <summary>

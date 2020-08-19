@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using Net.RafaelEstevam.Spider.Helper;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +46,9 @@ namespace Net.RafaelEstevam.Spider.Wrappers
             FilterClass,
         }
 
-        private IEnumerable<XElement> xElements;
+        //private IEnumerable<XElement> xElements;
+        private IEnumerable<HtmlNode> nodes;
+
 
         /// <summary>
         /// Checks if the filtering results in an empty object
@@ -52,7 +56,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         /// <returns>True if there are no elements left</returns>
         public bool IsEmpty()
         {
-            return xElements.Count() == 0;
+            return nodes.Count() == 0;
         }
         /// <summary>
         /// Checks if the first element has the specified attribute
@@ -61,25 +65,47 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         /// <returns>True if the first element has the Attribute</returns>
         public bool HasAttribute(string AttributeName)
         {
-            return GetXElement().Attribute(AttributeName) != null;
+            var n = nodes.FirstOrDefault();
+            if (n == null) return false;
+            return n.Attributes.Any(a => a.Name == AttributeName);
         }
 
+        [Obsolete("XElement was removed", true)]
         /// <summary>
         /// Initializes a new instance of the HObject class
         /// </summary>
         /// <param name="x">A root XElement</param>
         public HObject(XElement x)
         {
-            this.xElements = new XElement[] { x };
+            throw new NotImplementedException();
         }
+        [Obsolete("XElement was removed", true)]
         /// <summary>
         /// Initializes a new instance of the HObject class
         /// </summary>
         /// <param name="xs">A collection of XElements</param>
         public HObject(IEnumerable<XElement> xs)
         {
-            this.xElements = xs;
+            throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// Initializes a new instance of the HObject class
+        /// </summary>
+        /// <param name="n"></param>
+        public HObject(HtmlNode n)
+        {
+            nodes = new HtmlNode[] { n };
+        }
+        /// <summary>
+        /// Initializes a new instance of the HObject class
+        /// </summary>
+        /// <param name="ns"></param>
+        public HObject(IEnumerable<HtmlNode> ns)
+        {
+            nodes = ns;
+        }
+
         /// <summary>
         /// Gets a HObject with specified Name matching Type
         /// </summary>
@@ -151,7 +177,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         /// <returns>HObject at specified position</returns>
         public HObject this[int Position]
         {
-            get { return new HObject(xElements.ElementAt(Position)); }
+            get { return new HObject(nodes.ElementAt(Position)); }
         }
 
         #region Element Name
@@ -163,9 +189,9 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         /// <returns>A HObject filtered</returns>
         public HObject Tags(string TagName)
         {
-            var x = xElements
+            var x = nodes
                          .SelectMany(el => el.DescendantsAndSelf()
-                                             .Where(d => d.Name.LocalName == TagName))
+                                             .Where(d => d.Name == TagName))
                          .ToArray(); // force enumerate
             return new HObject(x);
         }
@@ -176,9 +202,9 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         /// <returns>A HObject filtered</returns>
         public HObject Children(string TagName)
         {
-            var x = xElements
-                         .SelectMany(el => el.Elements()
-                                             .Where(d => d.Name.LocalName == TagName))
+            var x = nodes
+                         .SelectMany(el => el.ChildNodes
+                                             .Where(d => d.Name == TagName))
                          .ToArray(); // force enumerate
             return new HObject(x);
         }
@@ -216,10 +242,10 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         /// <returns>A HObject</returns>
         public HObject Classes(string ClassName)
         {
-            var x = xElements
+            var x = nodes
                       .SelectMany(el => el.DescendantsAndSelf()
-                                          .Where(d => d.Attributes()
-                                                       .Any(a => a.Name.LocalName == "class" && a.Value.Split(' ').Contains(ClassName))))
+                                          .Where(d => d.Attributes
+                                                       .Any(a => a.Name == "class" && a.Value.Split(' ').Contains(ClassName))))
                       .ToArray();
 
             return new HObject(x);
@@ -232,10 +258,10 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         /// <returns>A HObject</returns>
         public HObject OfClass(string ClassName)
         {
-            return new HObject(xElements
-                .Where(x => x.Attribute("class")?.Value != null)
-                .Where(x => x.Attribute("class").Value == ClassName
-                            || x.Attribute("class").Value.Split(' ').Contains(ClassName)).ToArray());
+            return new HObject(nodes
+                .Where(n => n.Attributes.Any(a => a.Name == "class"
+                                                  && (a.Value == ClassName || a.Value.Split(' ').Any(av => av == ClassName))))
+                .ToArray());
         }
 
         #endregion
@@ -249,7 +275,13 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         /// <returns>A HObject</returns>
         public HObject Having(string AttributeName, string AttributeValue)
         {
-            return new HObject(xElements.DescendantsAndSelf().Where(x => x.Attribute(AttributeName)?.Value == AttributeValue).ToArray());
+            //return new HObject(xElements.DescendantsAndSelf().Where(x => x.Attribute(AttributeName)?.Value == AttributeValue).ToArray());
+
+            return new HObject(nodes
+                .SelectMany(n => n.DescendantsAndSelf())
+                .Where(x => x.Attributes.Any(a => a.Name == AttributeName && a.Value == AttributeValue))
+                .ToArray());
+
         }
         /// <summary>
         /// Filters current tags selecting only the ones with Named Attribute equals to specified parameter. Search only in root elements
@@ -259,7 +291,9 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         /// <returns>A HObject</returns>
         public HObject OfWhich(string AttributeName, string AttributeValue)
         {
-            return new HObject(xElements.Where(x => x.Attribute(AttributeName)?.Value == AttributeValue).ToArray());
+            return new HObject(nodes
+                .Where(x => x.Attributes.Any(a => a.Name == AttributeName && a.Value == AttributeValue))
+                .ToArray());
         }
 
         /// <summary>
@@ -269,7 +303,8 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         /// <returns>HObject selected</returns>
         public HObject CssSelect(string Query)
         {
-            return this[Query.Split('>')];
+            //return this[Query.Split('>')];
+            throw new NotImplementedException();
         }
         /// <summary>
         /// Executes a XPath Select query in each element and returns all results
@@ -278,23 +313,29 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         /// <returns>HObject elements with all results</returns>
         public HObject XPathSelect(string Query)
         {
-            return new HObject(xElements.SelectMany(x => x.XPathSelectElements(Query)));
+            //return new HObject(xElements.SelectMany(x => x.XPathSelectElements(Query)));
+            throw new NotImplementedException();
         }
 
+        [Obsolete("XElement is too slow, avoid using")]
         /// <summary>
         /// Returns first XElement of the collection
         /// </summary>
         public XElement GetXElement()
         {
-            return xElements.FirstOrDefault();
+            return GetXElements().FirstOrDefault();
+            throw new NotImplementedException();
         }
+        [Obsolete("XElement is too slow, avoid using")]
         /// <summary>
         /// Returns all XElements of the collection
         /// </summary>
         /// <returns></returns>
         public IEnumerable<XElement> GetXElements()
         {
-            return xElements;
+            //return xElements;
+            //throw new NotImplementedException();
+            return nodes.Select(n => HtmlToXElement.Parse(n.OuterHtml));
         }
 
         /// <summary>
@@ -303,7 +344,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         /// <returns>The string Value of the element</returns>
         public string GetValue()
         {
-            return GetXElement()?.Value;
+            return nodes.FirstOrDefault()?.InnerText;
         }
         /// <summary>
         /// Returns an array with all Elements values
@@ -311,7 +352,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         /// <returns>String array of the values</returns>
         public string[] GetValues()
         {
-            return xElements.Select(x => x.Value).ToArray();
+            return nodes.Select(x => x.InnerText).ToArray();
         }
 
         /// <summary>
@@ -321,7 +362,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         /// <returns>Value of the attribute</returns>
         public string GetAttributeValue(string AttributeName)
         {
-            return GetXElement()?.Attribute(AttributeName)?.Value;
+            return nodes.FirstOrDefault()?.GetAttributeValue(AttributeName, (string)null);
         }
         /// <summary>
         /// Gets all the values of the attribute named AttributeName of all items
@@ -330,7 +371,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         /// <returns>String array of Values</returns>
         public string[] GetAttributeValues(string AttributeName)
         {
-            return GetXElements().Select(e => e.Attribute(AttributeName)?.Value).ToArray();
+            return nodes.Select(n => n.GetAttributeValue(AttributeName, (string)null)).ToArray();
         }
 
         /// <summary>
@@ -405,7 +446,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         /// <returns>An HObject enumerator that can be used to iterate through the collection.</returns>
         public IEnumerator<HObject> GetEnumerator()
         {
-            return xElements.Select(x => new HObject(x)).GetEnumerator();
+            return nodes.Select(x => new HObject(x)).GetEnumerator();
         }
         IEnumerator IEnumerable.GetEnumerator()
         {
@@ -413,6 +454,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         }
 
         #endregion
+        [Obsolete("XElement is slow")]
         /// <summary>
         /// Returns first XElement of the collection
         /// </summary>
@@ -421,6 +463,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         {
             return h.GetXElement();
         }
+        [Obsolete("XElement is slow")]
         /// <summary>
         /// Returns all XElements of the collection
         /// </summary>
@@ -429,6 +472,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         {
             return h.GetXElements().ToArray();
         }
+
         /// <summary>
         /// Returns the Value of the first element of the collection
         /// </summary>

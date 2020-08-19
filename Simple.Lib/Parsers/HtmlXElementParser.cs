@@ -1,9 +1,11 @@
-﻿using System.Xml.Linq;
+﻿using System;
+using System.Xml.Linq;
 using Net.RafaelEstevam.Spider.Helper;
 using Net.RafaelEstevam.Spider.Interfaces;
 
 namespace Net.RafaelEstevam.Spider.Parsers
 {
+    [Obsolete("Slow execution")]
     /// <summary>
     /// Html to XElement parser
     /// </summary>

@@ -51,6 +51,7 @@ namespace Net.RafaelEstevam.Spider.Helper
 
             return enc.GetString(data);
         }
+
         /// <summary>
         /// Fetch resource from uri and parse a XElement from it
         /// </summary>
@@ -69,7 +70,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// <returns>HObject with data fetched</returns>
         public static HObject FetchResourceHObject(Uri uri, Encoding enc = null)
         {
-            return new HObject(FetchResourceXElement(uri, enc));
+            return new HObject(HtmlParseHelper.ParseHtmlDocument(FetchResourceText(uri, enc)).DocumentNode);
         }
         /// <summary>
         /// Fetch resource from uri and parse a JObject from it

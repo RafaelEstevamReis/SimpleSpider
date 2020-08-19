@@ -55,26 +55,6 @@ namespace Net.RafaelEstevam.Spider.Helper
         public static XElementParser DefaultXElementParserMode { get; set; } = XElementParser.LoadFromXmlReader;
 
         /// <summary>
-        /// Parses an Html string into a HtmlDocument
-        /// </summary>
-        /// <param name="html">Html content</param>
-        /// <returns>Html Document</returns>
-        public static HtmlDocument ParseHtmlDocument(string html)
-        {
-            // Static configs
-            HtmlNode.ElementsFlags.Remove("form");
-
-            HtmlDocument doc = new HtmlDocument
-            {
-                OptionOutputAsXml = true,
-                OptionFixNestedTags = true,
-                OptionReadEncoding = true
-            };
-            doc.LoadHtml(html);
-            return doc;
-        }
-
-        /// <summary>
         /// Parses an HTML as a XElement with default options
         /// </summary>
         /// <param name="html">Html content to be parsed</param>
@@ -91,7 +71,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// <returns>XElement parsed</returns>
         public static XElement Parse(string html, ParseOptions options)
         {
-            return Parse(ParseHtmlDocument(html), options);
+            return Parse(HtmlParseHelper.ParseHtmlDocument(html), options);
         }
         /// <summary>
         /// Parses an HtmlDocument as a XElement
@@ -165,9 +145,9 @@ namespace Net.RafaelEstevam.Spider.Helper
             {
                 XElement fn;
                 if (x.FirstNode is XComment) fn = (XElement)x.FirstNode.NextNode;
-                else fn = (XElement)x.FirstNode;
+                else fn = x.FirstNode as XElement;
 
-                if (fn.Name.LocalName == "html")
+                if (fn != null && fn.Name.LocalName == "html")
                 {
                     return fn;
                 }
