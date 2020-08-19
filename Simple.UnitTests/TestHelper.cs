@@ -17,19 +17,26 @@ namespace Net.RafaelEstevam.Spider.UnitTests
     <body>
         <nav>
             <ul>
-                <li class=""blue""><a href = ""?a=1""> A = 1 </a></li>
-                <li class=""green""><a href = ""?a=2""> A = 2 </a></li>
-                <li class=""green""><a href = ""?a=3""> A = 3 </a></li>
+                <li class=""blue"" ><a href=""?a=1""> A = 1 </a></li>
+                <li class=""green""><a href=""?a=2""> A = 2 </a></li>
+                <li class=""green""><a href=""?a=3""> A = 3 </a></li>
             </ul>
         </nav>
         <h1>My First Heading</h1>
         <div class=""cTest1"" id=""iTest1"">
             <p>My first paragraph.</p>
-            <p>My second paragraph.</p>
+            <p style=""color:blue;"">My second paragraph.</p>
         </div>
         <div class=""cTest2"" id=""iTest2"">
             <p>My third paragraph.</p>
             <p>My fourth paragraph.</p>
+        </div>
+        <div class=""cTest3"" id=""iTest3"">
+            <ol>
+                <li id=""opt1"">Option 1</li>
+                <li id=""opt2"">Option 2</li>
+                <li id=""opt3"">Option 3</li>  
+            </ol>
         </div>
         <p>Closing arguments</p>
         <form method=""POST"" action=""/"">

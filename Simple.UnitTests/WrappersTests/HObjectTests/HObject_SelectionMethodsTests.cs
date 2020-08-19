@@ -11,9 +11,7 @@ namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HObjectTests
         {
             var h = GetHObject();
             Assert.Equal(5, h.Tags("p").Count());
-            Assert.Equal(3, h.Tags("li").Count());
-            Assert.False(h.Tags("li").IsEmpty());
-            Assert.True(h.Tags("zzz").IsEmpty());
+            Assert.Equal(6, h.Tags("li").Count());
         }
 
         [Fact]

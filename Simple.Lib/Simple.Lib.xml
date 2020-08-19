@@ -2115,6 +2115,13 @@
             </summary>
             <returns>True if there are no elements left</returns>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.HasAttribute(System.String)">
+            <summary>
+            Checks if the first element has the specified attribute
+            </summary>
+            <param name="AttributeName">Name of the attribute</param>
+            <returns>True if the first element has the Attribute</returns>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.#ctor(System.Xml.Linq.XElement)">
             <summary>
             Initializes a new instance of the HObject class
@@ -2314,13 +2321,6 @@
             Gets the value of the Style attribute of the first item
             </summary>
             <returns>String containing the Style</returns>
-        </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.HasAttribute(System.String)">
-            <summary>
-            Checks if the first element has the specified attribute
-            </summary>
-            <param name="AttributeName">Name of the attribute</param>
-            <returns>True if the first element has the Attribute</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetEnumerator">
             <summary>

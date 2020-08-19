@@ -45,6 +45,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         }
 
         private IEnumerable<XElement> xElements;
+
         /// <summary>
         /// Checks if the filtering results in an empty object
         /// </summary>
@@ -53,7 +54,6 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         {
             return xElements.Count() == 0;
         }
-
         /// <summary>
         /// Checks if the first element has the specified attribute
         /// </summary>
