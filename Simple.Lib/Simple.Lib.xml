@@ -2267,13 +2267,6 @@
             <param name="AttributeName">Name of the attribute</param>
             <returns>String array of Values</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.HasAttribute(System.String)">
-            <summary>
-            Checks if the first element has the specified attribute
-            </summary>
-            <param name="AttributeName">Name of the attribute</param>
-            <returns>True if the first element has the Attribute</returns>
-        </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetHrefValue">
             <summary>
             Gets the value of attribute 'href' of the first item
@@ -2321,6 +2314,13 @@
             Gets the value of the Style attribute of the first item
             </summary>
             <returns>String containing the Style</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.HasAttribute(System.String)">
+            <summary>
+            Checks if the first element has the specified attribute
+            </summary>
+            <param name="AttributeName">Name of the attribute</param>
+            <returns>True if the first element has the Attribute</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetEnumerator">
             <summary>

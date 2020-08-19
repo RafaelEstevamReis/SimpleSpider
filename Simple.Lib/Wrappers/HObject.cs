@@ -55,6 +55,16 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         }
 
         /// <summary>
+        /// Checks if the first element has the specified attribute
+        /// </summary>
+        /// <param name="AttributeName">Name of the attribute</param>
+        /// <returns>True if the first element has the Attribute</returns>
+        public bool HasAttribute(string AttributeName)
+        {
+            return GetXElement().Attribute(AttributeName) != null;
+        }
+
+        /// <summary>
         /// Initializes a new instance of the HObject class
         /// </summary>
         /// <param name="x">A root XElement</param>
@@ -321,16 +331,6 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         public string[] GetAttributeValues(string AttributeName)
         {
             return GetXElements().Select(e => e.Attribute(AttributeName)?.Value).ToArray();
-        }
-
-        /// <summary>
-        /// Checks if the first element has the specified attribute
-        /// </summary>
-        /// <param name="AttributeName">Name of the attribute</param>
-        /// <returns>True if the first element has the Attribute</returns>
-        public bool HasAttribute(string AttributeName)
-        {
-            return GetXElement().Attribute(AttributeName) != null;
         }
 
         /// <summary>
