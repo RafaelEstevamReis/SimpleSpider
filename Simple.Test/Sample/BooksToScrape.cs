@@ -49,16 +49,16 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
         {
             // ignore all pages except the catalogue
             if (!args.Link.ToString().Contains("/catalogue/")) return;
-
-            var XElement = HtmlToXElement.Parse(args.Html);
+            // HObject also processes XPath
+            var hObj = args.GetHObject();
             // collect book data
-            var articleProd = XElement.XPathSelectElement("//article[@class=\"product_page\"]");
-            if (articleProd == null) return; // not a book
+            var articleProd = hObj.XPathSelect("//article[@class=\"product_page\"]");
+            if (articleProd.IsEmpty()) return; // not a book
             // Book info
-            string sTitle = articleProd.XPathSelectElement("//h1").Value;
-            string sPrice = articleProd.XPathSelectElement("//p[@class=\"price_color\"]").Value;
-            string sStock = articleProd.XPathSelectElement("//p[@class=\"instock availability\"]").Value.Trim();
-            string sDesc = articleProd.XPathSelectElement("p")?.Value; // books can be descriptionless
+            string sTitle = articleProd.XPathSelect("//h1");
+            string sPrice = articleProd.XPathSelect("//p[@class=\"price_color\"]");
+            string sStock = articleProd.XPathSelect("//p[@class=\"instock availability\"]").GetValue().Trim();
+            string sDesc = articleProd.XPathSelect("p")?.GetValue(); // books can be descriptionless
             // convert price to Decimal
             decimal.TryParse(sPrice, NumberStyles.Currency, new CultureInfo("en-GB", false), out decimal price);
 
@@ -68,7 +68,6 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
                 Price = price,
                 Description = sDesc,
                 StockInfo = sStock,
-                ProductInfoTable = XElement.GetAllTables().FirstOrDefault(),
             }, args.Link);
         }
         // Example using HObject
@@ -79,13 +78,13 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
 
             var hObj = args.GetHObject();
             // collect book data
-            var articleProd = hObj["article > .product_page"]; // .XPathSelectElement("//article[@class=\"product_page\"]");
+            var articleProd = hObj["article > .product_page"]; // .XPathSelect("//article[@class=\"product_page\"]");
             if (articleProd.IsEmpty()) return; // not a book
             // Book info
-            string sTitle = articleProd["h1"];  // .XPathSelectElement("//h1").Value;
-            string sPrice = articleProd["p > .price_color"];// .XPathSelectElement("//p[@class=\"price_color\"]").Value;
-            string sStock = articleProd["p > .instock"].GetValue().Trim();// .XPathSelectElement("//p[@class=\"instock\"]").Value.Trim();
-            string sDesc =  articleProd.Children("p");// .XPathSelectElement("p")?.Value; // books can be descriptionless
+            string sTitle = articleProd["h1"];  // .XPathSelect("//h1").Value;
+            string sPrice = articleProd["p > .price_color"];// .XPathSelect("//p[@class=\"price_color\"]").Value;
+            string sStock = articleProd["p > .instock"].GetValue().Trim();// .XPathSelect("//p[@class=\"instock\"]").Value.Trim();
+            string sDesc =  articleProd.Children("p");// .XPathSelect("p")?.Value; // books can be descriptionless
             // convert price to Decimal
             decimal.TryParse(sPrice, NumberStyles.Currency, new CultureInfo("en-GB", false), out decimal price);
 
@@ -95,7 +94,6 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
                 Price = price,
                 Description = sDesc,
                 StockInfo = sStock,
-                ProductInfoTable = null // HObject does not have an extension to DataTable
             }, args.Link);
         }
 

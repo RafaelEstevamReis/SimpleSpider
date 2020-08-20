@@ -14,14 +14,14 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>spider</PackageTags>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>0.5.239</Version>
+    <Version>0.5.266</Version>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Description>A simple to use web spider with an example rich GitHub repository
 (work in progress)</Description>
     <PackageReleaseNotes>Work in progress. See examples and documentation on GitHub page
 Better redirect handling, added HObject support
 Commit 29d3a44</PackageReleaseNotes>
-    <AssemblyVersion>0.5.239.0</AssemblyVersion>
+    <AssemblyVersion>0.5.266.0</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

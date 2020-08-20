@@ -24,7 +24,7 @@ A simple and modular web spider written in C# .Net Core
 ## Some advantages
 
 * Very simple to use and operate, ideal for lots of small projects or personal ones
-* Easy html filter with [HObject](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_HObject.cs) (a XElement wrap with use similar to JObject)
+* Easy html filter with [HObject](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_HObject.cs) (a HtmlNode wrap with use similar to JObject)
 * Internal conversion from html to XElement, no need to external tools on use
 * Automatic Json parser to JObject
 * Automatic Json deserialize <T>
@@ -129,16 +129,16 @@ void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
 {
     // ignore all pages except the catalogue
     if (!args.Link.ToString().Contains("/catalogue/")) return;
-
-    var XElement = args.GetXElement();
+    // HObject also processes XPath
+    var hObj = args.GetHObject();
     // collect book data
-    var articleProd = XElement.XPathSelectElement("//article[@class=\"product_page\"]");
-    if (articleProd == null) return; // not a book
+    var articleProd = hObj.XPathSelect("//article[@class=\"product_page\"]");
+    if (articleProd.IsEmpty()) return; // not a book
     // Book info
-    string sTitle = articleProd.XPathSelectElement("//h1").Value;
-    string sPrice = articleProd.XPathSelectElement("//p[@class=\"price_color\"]").Value;
-    string sStock = articleProd.XPathSelectElement("//p[@class=\"instock availability\"]").Value.Trim();
-    string sDesc = articleProd.XPathSelectElement("p")?.Value; // books can be description less
+    string sTitle = articleProd.XPathSelect("//h1");
+    string sPrice = articleProd.XPathSelect("//p[@class=\"price_color\"]");
+    string sStock = articleProd.XPathSelect("//p[@class=\"instock availability\"]").GetValue().Trim();
+    string sDesc = articleProd.XPathSelect("p")?.GetValue(); // books can be description less
 }
 ```
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using System.Xml.XPath;
 using HtmlAgilityPack;
 
 namespace Net.RafaelEstevam.Spider.Helper
@@ -143,10 +144,7 @@ namespace Net.RafaelEstevam.Spider.Helper
             //remove Span root
             if (x.Name.LocalName == "span")
             {
-                XElement fn;
-                if (x.FirstNode is XComment) fn = (XElement)x.FirstNode.NextNode;
-                else fn = x.FirstNode as XElement;
-
+                XElement fn = x.XPathSelectElement("html");
                 if (fn != null && fn.Name.LocalName == "html")
                 {
                     return fn;

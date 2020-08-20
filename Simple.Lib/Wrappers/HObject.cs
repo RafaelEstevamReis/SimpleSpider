@@ -313,8 +313,19 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         /// <returns>HObject elements with all results</returns>
         public HObject XPathSelect(string Query)
         {
-            //return new HObject(xElements.SelectMany(x => x.XPathSelectElements(Query)));
-            throw new NotImplementedException();
+            return new HObject(xpath(Query).ToArray());
+        }
+        private IEnumerable<HtmlNode> xpath(string Query)
+        {
+            foreach (var n in nodes)
+            {
+                var sn = n.SelectNodes(Query);
+                if (sn == null) continue;
+                foreach (var q in sn)
+                {
+                    yield return q;
+                }
+            }
         }
 
         /// <summary>
