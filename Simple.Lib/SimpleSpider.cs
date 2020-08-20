@@ -188,17 +188,14 @@ namespace Net.RafaelEstevam.Spider
             {
                 if (!Configuration.Auto_AnchorsLinks) return;
                 if (string.IsNullOrEmpty(args.Html)) return;
-                //if (args.Html[0] != '<') return;
 
-                var parentUri = args.Link.Uri;
-
-                var links = Helper.AnchorHelper.GetAnchors(parentUri, args.Html);
+                var links = AnchorHelper.GetAnchors(args.Link.Uri, args.Html);
 #if DEBUG
                 var arr = links.ToArray(); // enumerate to test results
 #endif
 
                 // Add the collected links to the queue
-                this.AddPages(links, args.Link);
+                AddPages(links, args.Link);
             }
             catch (Exception ex)
             {

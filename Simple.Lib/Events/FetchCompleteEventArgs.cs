@@ -22,6 +22,15 @@ namespace Net.RafaelEstevam.Spider
     /// </summary>
     public class FetchCompleteEventArgs : FetchEventArgs
     {
+        /// <summary>
+        /// Defines an default Enconding to be used when no instance Encoding is defined 
+        /// </summary>
+        public static Encoding DefaultEncoding = Encoding.UTF8;
+        /// <summary>
+        /// Instance encoding to be used. If null, static DefaultEncoding will be used
+        /// </summary>
+        public Encoding Encoding = null;
+
         static readonly string saveBoundary = "--------------------";
 
         /// <summary>
@@ -38,7 +47,7 @@ namespace Net.RafaelEstevam.Spider
         // Lazy loaded html string
         string htmlCache;
         /// <summary>
-        /// LazyLoaded Text (Html?) content parsed from byte[] Result encoded with UTF8
+        /// LazyLoaded Text (Html?) content parsed from byte[] Result encoded with static DefaultEncoding (UTF-8) or Encoding properties
         /// </summary>
         public string Html
         {
@@ -46,9 +55,8 @@ namespace Net.RafaelEstevam.Spider
             {
                 if (htmlCache == null)
                 {
-                    var enc = Encoding.UTF8;
                     // check ResponseHeaders for encoding
-                    return HtmlContent(enc);
+                    return HtmlContent(Encoding ?? DefaultEncoding);
                 }
                 return htmlCache;
             }
@@ -56,14 +64,26 @@ namespace Net.RafaelEstevam.Spider
 
         HtmlDocument document;
         /// <summary>
-        /// Get the HtmlDocument representation of the Html property. 
+        /// Parses the Result bytes with HtmlAgilityPack
         /// </summary>
         public HtmlDocument GetDocument()
         {
             if (document == null)
             {
-                document = HtmlParseHelper.ParseHtmlDocument(Html);
+                using MemoryStream ms = new MemoryStream(Result);
+                document = HtmlParseHelper.ParseHtmlDocument(ms);
             }
+            return document;
+        }
+        /// <summary>
+        /// Parses the Html string with HtmlAgilityPack using specified encoding
+        /// </summary>
+        /// <param name="SpecifyEncoding">Encoding to use, if NULL instance Encoding will be used. If NULL static DefaultEncoding will be used.</param>
+        public HtmlDocument GetDocument(Encoding SpecifyEncoding)
+        {
+            if (SpecifyEncoding == null) SpecifyEncoding = Encoding ?? DefaultEncoding;
+
+            document = HtmlParseHelper.ParseHtmlDocument(HtmlContent(SpecifyEncoding));
             return document;
         }
 
@@ -89,7 +109,7 @@ namespace Net.RafaelEstevam.Spider
             return xElement;
         }
         /// <summary>
-        /// Get the HObject representation of the Html property
+        /// Get the HObject representation of the HtmlDocument using GetDocument()
         /// </summary>
         /// <returns>A HObject</returns>
         public HObject GetHObject()
@@ -105,7 +125,6 @@ namespace Net.RafaelEstevam.Spider
         {
             xElement = null; // discards Lazy properties
             return htmlCache = enc.GetString(Result);
-
         }
 
         #endregion
@@ -120,6 +139,7 @@ namespace Net.RafaelEstevam.Spider
             this.RequestHeaders = requestHeaders;
             this.ResponseHeaders = responseHeaders;
         }
+        
         /// <summary>
         /// Load a FetchCompleteEventArgs from a stream
         /// </summary>
@@ -140,7 +160,6 @@ namespace Net.RafaelEstevam.Spider
 
             return new FetchCompleteEventArgs(Link.LoadLink(link), bytes, HeaderCollection.LoadHeader(req), HeaderCollection.LoadHeader(resp));
         }
-
         private static byte[] readToEnd(BinaryReader br)
         {
             MemoryStream ms = new MemoryStream();

@@ -1,6 +1,7 @@
 ﻿using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Net.RafaelEstevam.Spider.Helper
@@ -30,5 +31,24 @@ namespace Net.RafaelEstevam.Spider.Helper
             return doc;
         }
 
+        /// <summary>
+        /// Parses an stream into a HtmlDocument
+        /// </summary>
+        /// <param name="stream">stream content</param>
+        /// <returns>Html Document</returns>
+        public static HtmlDocument ParseHtmlDocument(Stream stream)
+        {
+            // Static configs
+            HtmlNode.ElementsFlags.Remove("form");
+
+            HtmlDocument doc = new HtmlDocument
+            {
+                OptionOutputAsXml = true,
+                OptionFixNestedTags = true,
+                OptionReadEncoding = true
+            };
+            doc.Load(stream);
+            return doc;
+        }
     }
 }

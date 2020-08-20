@@ -46,9 +46,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers
             FilterClass,
         }
 
-        //private IEnumerable<XElement> xElements;
-        private IEnumerable<HtmlNode> nodes;
-
+        private readonly IEnumerable<HtmlNode> nodes;
 
         /// <summary>
         /// Checks if the filtering results in an empty object

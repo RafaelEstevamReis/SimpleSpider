@@ -501,6 +501,16 @@
             Arguments to de FetchComplete event
             </summary>
         </member>
+        <member name="F:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.DefaultEncoding">
+            <summary>
+            Defines an default Enconding to be used when no instance Encoding is defined 
+            </summary>
+        </member>
+        <member name="F:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.Encoding">
+            <summary>
+            Instance encoding to be used. If null, static DefaultEncoding will be used
+            </summary>
+        </member>
         <member name="P:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.Result">
             <summary>
             Byte array with the data fetched
@@ -513,13 +523,19 @@
         </member>
         <member name="P:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.Html">
             <summary>
-            LazyLoaded Text (Html?) content parsed from byte[] Result encoded with UTF8
+            LazyLoaded Text (Html?) content parsed from byte[] Result encoded with static DefaultEncoding (UTF-8) or Encoding properties
             </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.GetDocument">
             <summary>
-            Get the HtmlDocument representation of the Html property. 
+            Parses the Result bytes with HtmlAgilityPack
             </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.GetDocument(System.Text.Encoding)">
+            <summary>
+            Parses the Html string with HtmlAgilityPack using specified encoding
+            </summary>
+            <param name="SpecifyEncoding">Encoding to use, if NULL instance Encoding will be used. If NULL static DefaultEncoding will be used.</param>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.GetXElement">
             <summary>
@@ -529,7 +545,7 @@
         </member>
         <member name="M:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.GetHObject">
             <summary>
-            Get the HObject representation of the Html property
+            Get the HObject representation of the HtmlDocument using GetDocument()
             </summary>
             <returns>A HObject</returns>
         </member>
@@ -1196,6 +1212,13 @@
             Parses an Html string into a HtmlDocument
             </summary>
             <param name="html">Html content</param>
+            <returns>Html Document</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.HtmlParseHelper.ParseHtmlDocument(System.IO.Stream)">
+            <summary>
+            Parses an stream into a HtmlDocument
+            </summary>
+            <param name="stream">stream content</param>
             <returns>Html Document</returns>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Helper.HtmlToXElement">
