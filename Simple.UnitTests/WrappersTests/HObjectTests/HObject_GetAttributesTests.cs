@@ -1,12 +1,8 @@
-﻿using Net.RafaelEstevam.Spider.Wrappers;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
+﻿using Xunit;
 
 namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HObjectTests
 {
-    public class HObject_GetAttributesTests
+    public class HObject_GetAttributesTests : HObjectTestBase
     {
         [Fact]
         public void Wrappers_HObject_GetValue()
@@ -95,9 +91,5 @@ namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HObjectTests
             Assert.Equal("color:blue;", h["p"][1].GetStyleValue());
         }
 
-        public static HObject GetHObject()
-        {
-            return HObject_IndexingTests.GetHObject(TestHelper.BaseHtml());
-        }
     }
 }

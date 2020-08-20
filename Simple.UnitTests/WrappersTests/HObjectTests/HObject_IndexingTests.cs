@@ -1,14 +1,9 @@
-﻿using Net.RafaelEstevam.Spider.Helper;
-using Net.RafaelEstevam.Spider.Wrappers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Net.RafaelEstevam.Spider.Wrappers;
 using Xunit;
 
 namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HObjectTests
 {
-    public class HObject_IndexingTests
+    public class HObject_IndexingTests : HObjectTestBase
     {
         [Fact]
         public void Wrappers_HObject_ElementFilters()
@@ -54,15 +49,6 @@ namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HObjectTests
             Assert.Equal("My second paragraph.", h["div"][0]["p"][1]);
             Assert.Equal("My third paragraph.", h["div"][1]["p"]);
             Assert.Equal("My fourth paragraph.", h["div"][1]["p"][1]);
-        }
-
-        public static HObject GetHObject()
-        {
-            return GetHObject(TestHelper.BaseHtml());
-        }
-        public static HObject GetHObject(string Html)
-        {
-            return new HObject(HtmlParseHelper.ParseHtmlDocument(Html).DocumentNode);
         }
     }
 }

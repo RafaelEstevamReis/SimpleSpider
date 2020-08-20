@@ -1,12 +1,8 @@
-﻿using Net.RafaelEstevam.Spider.Wrappers;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
+﻿using Xunit;
 
 namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HObjectTests
 {
-    public class HObject_FilterTests
+    public class HObject_FilterTests : HObjectTestBase
     {
         [Fact]
         public void Wrappers_HObject_OfID()
@@ -27,13 +23,6 @@ namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HObjectTests
         {
             var h = GetHObject();
             Assert.Equal("/", h["form"].OfWhich("method", "POST").GetAttributeValue("action"));
-        }
-
-
-
-        public static HObject GetHObject()
-        {
-            return HObject_IndexingTests.GetHObject(TestHelper.BaseHtml());
         }
     }
 }

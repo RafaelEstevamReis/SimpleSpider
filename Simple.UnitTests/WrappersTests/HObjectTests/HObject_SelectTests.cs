@@ -1,13 +1,9 @@
-﻿using Net.RafaelEstevam.Spider.Wrappers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using Xunit;
 
 namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HObjectTests
 {
-    public class HObject_SelectTests
+    public class HObject_SelectTests : HObjectTestBase
     {
         [Fact]
         public void Wrappers_HObject_IDs()
@@ -28,11 +24,6 @@ namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HObjectTests
         {
             var h = GetHObject();
             Assert.Equal("iTxt2", h.Having("name", "nTxt2").GetIdValue());
-        }
-
-        public static HObject GetHObject()
-        {
-            return HObject_IndexingTests.GetHObject(TestHelper.BaseHtml());
         }
     }
 }

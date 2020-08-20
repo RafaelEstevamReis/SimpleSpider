@@ -1,10 +1,9 @@
-﻿using Net.RafaelEstevam.Spider.Wrappers;
-using System.Linq;
+﻿using System.Linq;
 using Xunit;
 
 namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HObjectTests
 {
-    public class HObject_SelectionMethodsTests
+    public class HObject_SelectionMethodsTests : HObjectTestBase
     {
         [Fact]
         public void Wrappers_HObject_Tag()
@@ -19,11 +18,6 @@ namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HObjectTests
         {
             var h = GetHObject();
             Assert.Equal("Closing arguments", h["body"].Children("p"));
-        }
-
-        public static HObject GetHObject()
-        {
-            return HObject_IndexingTests.GetHObject(TestHelper.BaseHtml());
         }
     }
 }
