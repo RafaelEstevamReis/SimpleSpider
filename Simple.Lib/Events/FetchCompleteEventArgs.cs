@@ -94,7 +94,7 @@ namespace Net.RafaelEstevam.Spider
         /// <returns>A HObject</returns>
         public HObject GetHObject()
         {
-            return new HObject(GetDocument().DocumentNode);
+            return new HObject(GetDocument());
         }
 
         /// <summary>

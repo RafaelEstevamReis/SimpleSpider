@@ -70,7 +70,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// <returns>HObject with data fetched</returns>
         public static HObject FetchResourceHObject(Uri uri, Encoding enc = null)
         {
-            return new HObject(HtmlParseHelper.ParseHtmlDocument(FetchResourceText(uri, enc)).DocumentNode);
+            return new HObject(HtmlParseHelper.ParseHtmlDocument(FetchResourceText(uri, enc)));
         }
         /// <summary>
         /// Fetch resource from uri and parse a JObject from it

@@ -92,7 +92,13 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         /// <summary>
         /// Initializes a new instance of the HObject class
         /// </summary>
-        /// <param name="n"></param>
+        public HObject(HtmlDocument d)
+        {
+            nodes = new HtmlNode[] { d.DocumentNode };
+        }
+        /// <summary>
+        /// Initializes a new instance of the HObject class
+        /// </summary>
         public HObject(HtmlNode n)
         {
             nodes = new HtmlNode[] { n };
@@ -100,7 +106,6 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         /// <summary>
         /// Initializes a new instance of the HObject class
         /// </summary>
-        /// <param name="ns"></param>
         public HObject(IEnumerable<HtmlNode> ns)
         {
             nodes = ns;

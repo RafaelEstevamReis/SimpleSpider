@@ -11,7 +11,7 @@ namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HObjectTests
         }
         public static HObject GetHObject(string Html)
         {
-            return new HObject(HtmlParseHelper.ParseHtmlDocument(Html).DocumentNode);
+            return new HObject(HtmlParseHelper.ParseHtmlDocument(Html));
         }
     }
 }
