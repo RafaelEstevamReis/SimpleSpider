@@ -71,19 +71,19 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         }
 
         /// <summary>
-        /// Initializes a new instance of the HObject class
+        /// DO NOT USE. Initializes a new instance of the HObject class
         /// </summary>
         /// <param name="x">A root XElement</param>
-        [Obsolete("XElement was removed", true)]
+        [Obsolete("Legacy: XElement was removed", true)]
         public HObject(XElement x)
         {
             throw new NotImplementedException();
         }
         /// <summary>
-        /// Initializes a new instance of the HObject class
+        /// DO NOT USE. Initializes a new instance of the HObject class
         /// </summary>
         /// <param name="xs">A collection of XElements</param>
-        [Obsolete("XElement was removed", true)]
+        [Obsolete("Legacy: XElement was removed", true)]
         public HObject(IEnumerable<XElement> xs)
         {
             throw new NotImplementedException();
@@ -334,24 +334,39 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         }
 
         /// <summary>
-        /// Returns first XElement of the collection
+        /// DO NOT USE. Returns first XElement of the collection
         /// </summary>
-        [Obsolete("XElement is too slow, avoid using")]
+        [Obsolete("Legacy: XElement is too slow, will be removed")]
         public XElement GetXElement()
         {
             return GetXElements().FirstOrDefault();
             throw new NotImplementedException();
         }
         /// <summary>
-        /// Returns all XElements of the collection
+        /// DO NOT USE. Returns all XElements of the collection
         /// </summary>
-        /// <returns></returns>
-        [Obsolete("XElement is too slow, avoid using")]
+        [Obsolete("Legacy: XElement is too slow, will be removed")]
         public IEnumerable<XElement> GetXElements()
         {
             //return xElements;
             //throw new NotImplementedException();
             return nodes.Select(n => HtmlToXElement.Parse(n.OuterHtml));
+        }
+
+
+        /// <summary>
+        /// Returns all Nodes of the collection
+        /// </summary>
+        public HtmlNode GetNode()
+        {
+            return nodes.FirstOrDefault();
+        }
+        /// <summary>
+        /// Returns all Nodes of the collection
+        /// </summary>
+        public IEnumerable<HtmlNode> GetNodes()
+        {
+            return nodes.ToArray();
         }
 
         /// <summary>
@@ -471,22 +486,39 @@ namespace Net.RafaelEstevam.Spider.Wrappers
 
         #endregion
         /// <summary>
-        /// Returns first XElement of the collection
+        /// DO NOT USE. Returns first XElement of the collection
         /// </summary>
         /// <param name="h">A HObject to be converted</param>
-        [Obsolete("XElement is slow")]
+        [Obsolete("Legacy: XElement is slow, will be removed")]
         public static implicit operator XElement(HObject h)
         {
             return h.GetXElement();
         }
         /// <summary>
-        /// Returns all XElements of the collection
+        /// DO NOT USE. Returns all XElements of the collection
         /// </summary>
         /// <param name="h">A HObject to be converted</param>
-        [Obsolete("XElement is slow")]
+        [Obsolete("Legacy: XElement is slow, will be removed")]
         public static implicit operator XElement[](HObject h)
         {
             return h.GetXElements().ToArray();
+        }
+
+        /// <summary>
+        /// Returns first node of the collection
+        /// </summary>
+        /// <param name="h">A HObject to be converted</param>
+        public static implicit operator HtmlNode(HObject h)
+        {
+            return h.GetNode();
+        }
+        /// <summary>
+        /// Returns all Nodes of the collection
+        /// </summary>
+        /// <param name="h">A HObject to be converted</param>
+        public static implicit operator HtmlNode[](HObject h)
+        {
+            return h.GetNodes().ToArray();
         }
 
         /// <summary>

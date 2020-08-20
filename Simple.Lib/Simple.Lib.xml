@@ -2129,27 +2129,30 @@
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.#ctor(System.Xml.Linq.XElement)">
             <summary>
-            Initializes a new instance of the HObject class
+            DO NOT USE. Initializes a new instance of the HObject class
             </summary>
             <param name="x">A root XElement</param>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.#ctor(System.Collections.Generic.IEnumerable{System.Xml.Linq.XElement})">
             <summary>
-            Initializes a new instance of the HObject class
+            DO NOT USE. Initializes a new instance of the HObject class
             </summary>
             <param name="xs">A collection of XElements</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.#ctor(HtmlAgilityPack.HtmlDocument)">
+            <summary>
+            Initializes a new instance of the HObject class
+            </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.#ctor(HtmlAgilityPack.HtmlNode)">
             <summary>
             Initializes a new instance of the HObject class
             </summary>
-            <param name="n"></param>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.#ctor(System.Collections.Generic.IEnumerable{HtmlAgilityPack.HtmlNode})">
             <summary>
             Initializes a new instance of the HObject class
             </summary>
-            <param name="ns"></param>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Wrappers.HObject.Item(Net.RafaelEstevam.Spider.Wrappers.HObject.SearchType,System.String)">
             <summary>
@@ -2256,14 +2259,23 @@
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetXElement">
             <summary>
-            Returns first XElement of the collection
+            DO NOT USE. Returns first XElement of the collection
             </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetXElements">
             <summary>
-            Returns all XElements of the collection
+            DO NOT USE. Returns all XElements of the collection
             </summary>
-            <returns></returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetNode">
+            <summary>
+            Returns all Nodes of the collection
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetNodes">
+            <summary>
+            Returns all Nodes of the collection
+            </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetValue">
             <summary>
@@ -2347,13 +2359,25 @@
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.op_Implicit(Net.RafaelEstevam.Spider.Wrappers.HObject)~System.Xml.Linq.XElement">
             <summary>
-            Returns first XElement of the collection
+            DO NOT USE. Returns first XElement of the collection
             </summary>
             <param name="h">A HObject to be converted</param>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.op_Implicit(Net.RafaelEstevam.Spider.Wrappers.HObject)~System.Xml.Linq.XElement[]">
             <summary>
-            Returns all XElements of the collection
+            DO NOT USE. Returns all XElements of the collection
+            </summary>
+            <param name="h">A HObject to be converted</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.op_Implicit(Net.RafaelEstevam.Spider.Wrappers.HObject)~HtmlAgilityPack.HtmlNode">
+            <summary>
+            Returns first node of the collection
+            </summary>
+            <param name="h">A HObject to be converted</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.op_Implicit(Net.RafaelEstevam.Spider.Wrappers.HObject)~HtmlAgilityPack.HtmlNode[]">
+            <summary>
+            Returns all Nodes of the collection
             </summary>
             <param name="h">A HObject to be converted</param>
         </member>
