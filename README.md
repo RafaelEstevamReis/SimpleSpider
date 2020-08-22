@@ -63,9 +63,8 @@ void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
     // walk around ...
     // TIP: inspect args to see stuff
 
-    // Two good starts: XElement and HObject
-    var XElement = args.GetXElement();
     var hObj = args.GetHObject();
+    string[] quotes = hObj["span > .text"];
 }
 ```
 

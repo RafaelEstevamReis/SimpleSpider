@@ -12,16 +12,16 @@
     <PackageProjectUrl>https://github.com/RafaelEstevamReis/SimpleSpider</PackageProjectUrl>
     <RepositoryUrl>https://github.com/RafaelEstevamReis/SimpleSpider</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>spider</PackageTags>
+    <PackageTags>spider web crawling</PackageTags>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>0.5.266</Version>
+    <Version>0.5.272</Version>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Description>A simple to use web spider with an example rich GitHub repository
+    <Description>A simple to use spider for web crawling with an example rich GitHub repository
 (work in progress)</Description>
     <PackageReleaseNotes>Work in progress. See examples and documentation on GitHub page
-Better redirect handling, added HObject support
-Commit 29d3a44</PackageReleaseNotes>
-    <AssemblyVersion>0.5.266.0</AssemblyVersion>
+Improved performance
+Commit 2bd7336</PackageReleaseNotes>
+    <AssemblyVersion>0.5.272.0</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

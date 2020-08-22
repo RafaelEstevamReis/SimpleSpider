@@ -10,10 +10,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Text", "Text", "{78F66FBC-1B52-4851-89E3-798D6E6AE310}"
 	ProjectSection(SolutionItems) = preProject
 		LICENSE = LICENSE
+		NugetPage.md = NugetPage.md
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.UnitTests", "Simple.UnitTests\Simple.UnitTests.csproj", "{A7EB8974-B50F-499A-BAAA-53C2CB33E08C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.UnitTests", "Simple.UnitTests\Simple.UnitTests.csproj", "{A7EB8974-B50F-499A-BAAA-53C2CB33E08C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
