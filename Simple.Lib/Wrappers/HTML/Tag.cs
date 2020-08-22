@@ -13,7 +13,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         public HtmlNode Node { get; }
 
         public Tag(HtmlDocument doc)
-        {            
+        {
             Node = doc.DocumentNode.SelectSingleNode("html");
             if (Node == null) Node = doc.DocumentNode;
         }
@@ -53,7 +53,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         {
             get
             {
-                if(childs == null) childs = GetChilds().ToArray();
+                if (childs == null) childs = GetChilds().ToArray();
                 return childs;
             }
         }
@@ -106,6 +106,15 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         public override string ToString()
         {
             return $"<{TagName} {string.Join(" ", Node.Attributes.Select(a => a.Name + "=" + a.Value))}>";
+        }
+
+        public static implicit operator HObject(Tag tag)
+        {
+            return new HObject(tag.Node);
+        }
+        public static implicit operator Tag(HObject hObj)
+        {
+            return new Tag(hObj.GetNode());
         }
     }
 }
