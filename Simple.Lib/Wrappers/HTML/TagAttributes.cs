@@ -12,7 +12,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
 
         public TagAttributes(NameValueCollection nameValueCollection)
         {
-            Attributes = nameValueCollection
+            Items = nameValueCollection
                         .AllKeys.Select(k => new TagAttribute()
                         {
                             Name = k,
@@ -21,28 +21,28 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
                         .ToArray();
         }
 
-        public TagAttribute[] Attributes { get; private set; }
+        public TagAttribute[] Items { get; private set; }
 
         public string this[string Name]
         {
             get
             {
-                return Attributes.FirstOrDefault(a => a.Name == Name)?.Value;
+                return Items.FirstOrDefault(a => a.Name == Name)?.Value;
             }
         }
 
         public IEnumerator<TagAttribute> GetEnumerator()
         {
-            return ((IEnumerable<TagAttribute>)Attributes).GetEnumerator();
+            return ((IEnumerable<TagAttribute>)Items).GetEnumerator();
         }
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return Attributes.GetEnumerator();
+            return Items.GetEnumerator();
         }
 
         public override string ToString()
         {
-            return string.Join<TagAttribute>("; ", Attributes);
+            return string.Join<TagAttribute>("; ", Items);
         }
     }
     public class TagAttribute

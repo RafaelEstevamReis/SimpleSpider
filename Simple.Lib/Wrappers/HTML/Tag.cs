@@ -9,15 +9,22 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
 {
     public class Tag
     {
+        /// <summary>
+        /// Exposes underlying HtmlNode
+        /// </summary>
         public HtmlNode Node { get; }
 
-        public Tag(HtmlDocument doc)
+        public Tag(HtmlDocument document)
         {
-            Node = doc.DocumentNode.SelectSingleNode("html");
-            if (Node == null) Node = doc.DocumentNode;
+            if (document == null) throw new ArgumentNullException("Document must be not null");
+
+            Node = document.DocumentNode.SelectSingleNode("html");
+            if (Node == null) Node = document.DocumentNode;
         }
         public Tag(HtmlNode node)
         {
+            if (node == null) throw new ArgumentNullException("Node must be not null");
+
             Node = node;
         }
 
@@ -68,7 +75,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         {
             return Node
                 .ChildNodes
-                .Where(n => n.Name != "#text" || !string.IsNullOrWhiteSpace(n.InnerHtml))
+                .Where(n => n.Name != "#text" /*|| !string.IsNullOrWhiteSpace(n.InnerHtml)*/)
                 .Where(n => n.Name != "#comment" || !string.IsNullOrWhiteSpace(n.InnerHtml))
                 .Select(n => new Tag(n));
         }

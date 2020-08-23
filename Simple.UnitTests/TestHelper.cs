@@ -11,7 +11,7 @@
         <meta charset=""UTF-8"">
     </head>  
     <body>
-        <nav>
+        <nav class=""bgwhite fgred"">
             <ul>
                 <li class=""blue"" ><a href=""?a=1""> A = 1 </a></li>
                 <li class=""green""><a href=""?a=2""> A = 2 </a></li>

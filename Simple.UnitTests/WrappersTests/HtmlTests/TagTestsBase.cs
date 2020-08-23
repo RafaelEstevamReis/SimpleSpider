@@ -1,4 +1,5 @@
-﻿using Net.RafaelEstevam.Spider.Helper;
+﻿using HtmlAgilityPack;
+using Net.RafaelEstevam.Spider.Helper;
 using Net.RafaelEstevam.Spider.Wrappers.HTML;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,17 @@ namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HtmlTests
     public class TagTestsBase
     {
 
-
+        public HtmlDocument GetRootDocument()
+        {
+            return HtmlParseHelper.ParseHtmlDocument(TestHelper.BaseHtml());
+        }
+        public HtmlNode GetRootNode()
+        {
+            return GetRootDocument().DocumentNode;
+        }
         public Tag GetRootTag()
         {
-            return new Tag(HtmlParseHelper.ParseHtmlDocument(TestHelper.BaseHtml()));
+            return new Tag(GetRootNode());
         }
     }
 }
