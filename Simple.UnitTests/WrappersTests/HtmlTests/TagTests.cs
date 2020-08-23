@@ -147,6 +147,19 @@ namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HtmlTests
             Assert.Equal("iTest3", tag.SelectTag("//div[@class=\"cTest3\"]").Node.Id);
             Assert.Equal("Option 1", tag.SelectTag("//li[@id=\"opt1\"]").Node.InnerText);
         }
+        [Fact]
+        public void Wrappers_HtmlTag_SelectTags()
+        {
+            // All tests are made agains internal Node
+            var tag = GetRootTag();
+            Assert.Null(tag.SelectTags("//footer"));
+
+            Assert.Single(tag.SelectTags("//nav"));
+            var allAs = tag.SelectTags("//a");
+            Assert.Equal(3, allAs.Count());
+
+            foreach (var a in allAs) Assert.Equal("a", a.TagName);
+        }
 
         [Fact]
         public void Wrappers_HtmlTag_Childs()

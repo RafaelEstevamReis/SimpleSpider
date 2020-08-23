@@ -70,6 +70,12 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
             if (n == null) return null;
             return new Tag(n);
         }
+        public IEnumerable<Tag> SelectTags(string XPath)
+        {
+            var n = Node.SelectNodes(XPath);
+            if (n == null) return null;
+            return n.Select(o => new Tag(o));
+        }
 
         public IEnumerable<Tag> GetChilds()
         {

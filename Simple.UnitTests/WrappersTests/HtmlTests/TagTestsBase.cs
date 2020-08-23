@@ -22,5 +22,11 @@ namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HtmlTests
         {
             return new Tag(GetRootNode());
         }
+
+        public Tag GetTag(string XPath)
+        {
+            return new Tag(HtmlParseHelper.ParseHtmlDocument(TestHelper.AllElementsHtml()))
+                       .SelectTag(XPath);
+        }
     }
 }
