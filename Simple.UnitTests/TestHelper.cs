@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Net.RafaelEstevam.Spider.UnitTests
+﻿namespace Net.RafaelEstevam.Spider.UnitTests
 {
     public static class TestHelper
     {

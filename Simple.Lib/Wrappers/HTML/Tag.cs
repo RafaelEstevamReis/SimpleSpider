@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Data;
 using System.Linq;
-using System.Text;
 
 namespace Net.RafaelEstevam.Spider.Wrappers.HTML
 {
@@ -19,7 +18,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         }
         public Tag(HtmlNode node)
         {
-            this.Node = node;
+            Node = node;
         }
 
         public string TagName => Node.Name;
@@ -60,7 +59,9 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
 
         public Tag SelectTag(string XPath)
         {
-            return new Tag(Node.SelectSingleNode(XPath));
+            var n = Node.SelectSingleNode(XPath);
+            if (n == null) return null;
+            return new Tag(n);
         }
 
         public IEnumerable<Tag> GetChilds()
