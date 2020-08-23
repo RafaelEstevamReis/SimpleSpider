@@ -10,6 +10,7 @@ A simple and modular web spider written in C# .Net Core
 - [SimpleSpider](#simplespider)
 - [Content](#content)
   - [Some advantages](#some-advantages)
+  - [Installation](#installation)
   - [Getting started](#getting-started)
   - [Samples](#samples)
     - [Use Json to deserialize Quotes](#use-json-to-deserialize-quotes)
@@ -37,10 +38,14 @@ A simple and modular web spider written in C# .Net Core
 
 Easy **import with [NuGet](https://www.nuget.org/packages/Net.RafaelEstevam.Spider.Simple.Lib)**
 
+## Installation
+
+Install the SimpleSpider [NuGet package](https://www.nuget.org/packages/Net.RafaelEstevam.Spider.Simple.Lib): `Install-Package Net.RafaelEstevam.Spider.Simple.Lib`
+
 ## Getting started
 
 1. Start a new console project and add Nuget Reference
-2. PM> Install-Package Net.RafaelEstevam.Spider.Simple.Lib
+2. PM> `Install-Package Net.RafaelEstevam.Spider.Simple.Lib`
 3. Create a class for your spider (or leave in program)
 4. create a new instance of SimpleSpider
    1. Give it a name, cache and log will be saved with that name
