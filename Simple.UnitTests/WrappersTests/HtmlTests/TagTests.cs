@@ -151,8 +151,9 @@ namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HtmlTests
         public void Wrappers_HtmlTag_SelectTags()
         {
             // All tests are made agains internal Node
+            // Enumerators should not be null
             var tag = GetRootTag();
-            Assert.Null(tag.SelectTags("//footer"));
+            Assert.Empty(tag.SelectTags("//footer"));
 
             Assert.Single(tag.SelectTags("//nav"));
             var allAs = tag.SelectTags("//a");
