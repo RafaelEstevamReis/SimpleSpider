@@ -2,6 +2,7 @@
 using System.Net;
 using System.Text;
 using System.Xml.Linq;
+using HtmlAgilityPack;
 using Net.RafaelEstevam.Spider.Wrappers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -63,6 +64,16 @@ namespace Net.RafaelEstevam.Spider.Helper
             return HtmlToXElement.Parse(FetchResourceText(uri, enc));
         }
         /// <summary>
+        /// Fetch resource from uri and parse a HtmlDocument from it
+        /// </summary>
+        /// <param name="uri">Uri to fetch from</param>
+        /// <param name="enc">Defines which encoding should be used</param>
+        /// <returns>HtmlDocument with data fetched</returns>
+        public static HtmlDocument FetchResourceDocument(Uri uri, Encoding enc = null)
+        {
+            return HtmlParseHelper.ParseHtmlDocument(FetchResourceText(uri, enc));
+        }
+        /// <summary>
         /// Fetch resource from uri and parse a HObject from it
         /// </summary>
         /// <param name="uri">Uri to fetch from</param>
@@ -70,7 +81,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// <returns>HObject with data fetched</returns>
         public static HObject FetchResourceHObject(Uri uri, Encoding enc = null)
         {
-            return new HObject(HtmlParseHelper.ParseHtmlDocument(FetchResourceText(uri, enc)));
+            return new HObject(FetchResourceDocument(uri, enc));
         }
         /// <summary>
         /// Fetch resource from uri and parse a JObject from it

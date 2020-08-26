@@ -1035,6 +1035,14 @@
             <param name="enc">Defines which encoding should be used</param>
             <returns>XElement with data fetched</returns>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceDocument(System.Uri,System.Text.Encoding)">
+            <summary>
+            Fetch resource from uri and parse a HtmlDocument from it
+            </summary>
+            <param name="uri">Uri to fetch from</param>
+            <param name="enc">Defines which encoding should be used</param>
+            <returns>HtmlDocument with data fetched</returns>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceHObject(System.Uri,System.Text.Encoding)">
             <summary>
             Fetch resource from uri and parse a HObject from it
@@ -2415,6 +2423,11 @@
             Returns the Values of all elements of the collection
             </summary>
             <param name="h">A HObject to be converted</param>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.Node">
+            <summary>
+            Exposes underlying HtmlNode
+            </summary>
         </member>
     </members>
 </doc>
