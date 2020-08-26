@@ -15,7 +15,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
 
         public Input[] GetInputs()
         {
-            return GetChilds<Input>().ToArray();
+            return GetChildren<Input>().ToArray();
         }
     }
 }

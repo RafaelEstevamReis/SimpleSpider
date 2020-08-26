@@ -162,54 +162,54 @@ namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HtmlTests
         }
 
         [Fact]
-        public void Wrappers_HtmlTag_Childs()
+        public void Wrappers_HtmlTag_Children()
         {
             var root = GetRootNode();
             var nDiv = root.SelectSingleNode("//div[@id=\"iTest3\"]");
             var tDiv = new Tag(nDiv);
-            var tDivChilds = tDiv.Childs;
+            var tDivChilds = tDiv.Children;
 
             Assert.Single(tDivChilds);
             Assert.Equal("ol", tDivChilds[0].TagName);
 
-            var tLis = tDivChilds[0].Childs;
+            var tLis = tDivChilds[0].Children;
             Assert.Equal(3, tLis.Length);
             Assert.Equal("opt1", tLis[0].Id);
 
             var tP = new Tag(root.SelectSingleNode("//p"));
-            Assert.Empty(tP.Childs);
+            Assert.Empty(tP.Children);
         }
 
         [Fact]
-        public void Wrappers_HtmlTag_GetChilds()
+        public void Wrappers_HtmlTag_GetChildren()
         {
             var root = GetRootNode();
             var nDiv = root.SelectSingleNode("//div[@id=\"iTest3\"]");
             var tDiv = new Tag(nDiv);
-            var tDivChilds = tDiv.GetChilds().ToArray();
+            var tDivChilds = tDiv.GetChildren().ToArray();
 
             Assert.Single(tDivChilds);
             Assert.Equal("ol", tDivChilds[0].TagName);
 
-            var tLis = tDivChilds[0].GetChilds().ToArray();
+            var tLis = tDivChilds[0].GetChildren().ToArray();
             Assert.Equal(3, tLis.Length);
             Assert.Equal("opt1", tLis[0].Id);
 
             var tP = new Tag(root.SelectSingleNode("//p"));
-            Assert.Empty(tP.GetChilds());
+            Assert.Empty(tP.GetChildren());
         }
 
         [Fact]
-        public void Wrappers_HtmlTag_GetChildsNamed()
+        public void Wrappers_HtmlTag_GetChildrenNamed()
         {
             var root = GetRootNode();
             var tBody = new Tag(root.SelectSingleNode("//body"));
-            Assert.Equal(7, tBody.Childs.Length);
+            Assert.Equal(7, tBody.Children.Length);
 
-            var tUnob = tBody.GetChilds("Unobtainium");
+            var tUnob = tBody.GetChildren("Unobtainium");
             Assert.Empty(tUnob);
 
-            var divs = tBody.GetChilds("div").ToArray();
+            var divs = tBody.GetChildren("div").ToArray();
             Assert.Equal(3, divs.Length);
 
             Assert.Equal("iTest1", divs[0].Id);

@@ -55,7 +55,7 @@ namespace Net.RafaelEstevam.Spider.Interfaces
         /// </summary>
         public FetchCompleteEventArgs FetchInfo { get; }
         /// <summary>
-        /// Dataparsed by the parser
+        /// Data parsed by the parser
         /// </summary>
         public T ParsedData { get; }
     }

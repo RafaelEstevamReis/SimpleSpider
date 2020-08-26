@@ -1677,7 +1677,7 @@
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Interfaces.ParserEventArgs`1.ParsedData">
             <summary>
-            Dataparsed by the parser
+            Data parsed by the parser
             </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Link">
@@ -2424,9 +2424,117 @@
             </summary>
             <param name="h">A HObject to be converted</param>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag">
+            <summary>
+            Represents a HTML tag
+            </summary>
+        </member>
         <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.Node">
             <summary>
             Exposes underlying HtmlNode
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.#ctor(HtmlAgilityPack.HtmlDocument)">
+            <summary>
+            Initializes a new instance of the Tag class
+            </summary>
+            <param name="document">A HtmlDocument to initialize from</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.#ctor(HtmlAgilityPack.HtmlNode)">
+            <summary>
+            Initializes a new instance of the Tag class
+            </summary>
+            <param name="document">A HtmlNode to initialize from</param>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.TagName">
+            <summary>
+            Contains the name of the element
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.InnerText">
+            <summary>
+            Contains the Inner Text of the element
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.Id">
+            <summary>
+            Contains the Id attribute of the element
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.Class">
+            <summary>
+            Contains the Class attribute of the element
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.Style">
+            <summary>
+            Contains the Style attribute of the element
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.Classes">
+            <summary>
+            Gets an array of the Classes splitted by a space
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.Attributes">
+            <summary>
+            Gets a TagAttribute with the attributes of the element
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.Children">
+            <summary>
+            Gets element's children
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.SelectTag(System.String)">
+            <summary>
+            Selects an single element using XPath
+            </summary>
+            <param name="XPath">A string with the XPath query</param>
+            <returns>A tag with selected element or null if none matched</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.SelectTags(System.String)">
+            <summary>
+            Selects elements using XPath
+            </summary>
+            <param name="XPath">A string with the XPath query</param>
+            <returns>An Tag collection with selected elements</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.GetChildren">
+            <summary>
+            Enumerate all Children
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.GetChildren(System.String)">
+            <summary>
+            Enumerate all Children with specified TagName
+            </summary>
+            <param name="TagName">The name of the tags</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.GetChildren``1">
+            <summary>
+            Returns all Children of specified {T} Tag
+            </summary>
+            <typeparam name="T">Parameter type to be returned</typeparam>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.GetAttributes">
+            <summary>
+            Returns an all attributes as a NameValueCollection 
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.ToString">
+            <summary>
+            Returns a string that represents the current object
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.op_Implicit(Net.RafaelEstevam.Spider.Wrappers.HTML.Tag)~Net.RafaelEstevam.Spider.Wrappers.HObject">
+            <summary>
+            Implicitly converts between Tag and HObject
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.op_Implicit(Net.RafaelEstevam.Spider.Wrappers.HObject)~Net.RafaelEstevam.Spider.Wrappers.HTML.Tag">
+            <summary>
+            Implicitly converts between Tag and HObject
             </summary>
         </member>
     </members>

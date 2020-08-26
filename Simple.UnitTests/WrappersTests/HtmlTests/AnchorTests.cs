@@ -10,8 +10,8 @@ namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HtmlTests
         public void Wrappers_HtmlAnchor_Base()
         {
             var tUl = GetTag("//ul");
-            var lstA = tUl.Childs
-                          .Select(li => li.GetChilds<Anchor>()
+            var lstA = tUl.Children
+                          .Select(li => li.GetChildren<Anchor>()
                                           .FirstOrDefault())
                           .ToArray();
 

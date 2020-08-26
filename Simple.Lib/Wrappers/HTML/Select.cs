@@ -10,7 +10,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
 
         public Option[] GetItems()
         {
-            return GetChilds<Option>().ToArray();
+            return GetChildren<Option>().ToArray();
         }
     }
 }
