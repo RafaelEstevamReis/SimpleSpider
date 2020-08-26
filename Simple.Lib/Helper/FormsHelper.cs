@@ -11,6 +11,7 @@ namespace Net.RafaelEstevam.Spider.Helper
     /// <summary>
     /// Helper to do stuff with html Form tags 
     /// </summary>
+    [Obsolete]
     public class FormsHelper
     {
         /// <summary>
@@ -33,6 +34,7 @@ namespace Net.RafaelEstevam.Spider.Helper
     /// <summary>
     /// Class to represent a HtmlForm to easy Linq operations
     /// </summary>
+    [Obsolete("Use Wrappers.HTML.Form instead")]
     public class FormTag
     {
         internal FormTag(XElement element)
@@ -121,6 +123,7 @@ namespace Net.RafaelEstevam.Spider.Helper
     /// <summary>
     /// Class to represent a InputTag
     /// </summary>
+    [Obsolete("Use Wrappers.HTML.Input instead")]
     public class InputTag
     {
         internal InputTag(XElement element)

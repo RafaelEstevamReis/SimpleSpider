@@ -9,7 +9,7 @@ namespace Net.RafaelEstevam.Spider.Helper
     /// <summary>
     /// Class to parse html with HtmlAgilityPack
     /// </summary>
-    public class HtmlParseHelper
+    public static class HtmlParseHelper
     {
         /// <summary>
         /// Parses an Html string into a HtmlDocument

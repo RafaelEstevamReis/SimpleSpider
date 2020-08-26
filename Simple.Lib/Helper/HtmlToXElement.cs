@@ -11,7 +11,7 @@ namespace Net.RafaelEstevam.Spider.Helper
     /// <summary>
     /// Class to convert Html to XElement, uses HtmlAgilityPack
     /// </summary>
-    public class HtmlToXElement
+    public static class HtmlToXElement
     {
         private static readonly char[] InvalidCharsToRemove = { ':' };
 
