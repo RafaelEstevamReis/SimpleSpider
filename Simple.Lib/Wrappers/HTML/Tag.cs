@@ -30,7 +30,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         /// <summary>
         /// Initializes a new instance of the Tag class
         /// </summary>
-        /// <param name="document">A HtmlNode to initialize from</param>
+        /// <param name="node">A HtmlNode to initialize from</param>
         public Tag(HtmlNode node)
         {
             if (node == null) throw new ArgumentNullException("Node must be not null");
