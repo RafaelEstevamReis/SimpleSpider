@@ -2,8 +2,9 @@
 
 A simple and modular web spider written in C# .Net Core
 
- ![.NET Core](https://github.com/RafaelEstevamReis/SimpleSpider/workflows/.NET%20Core/badge.svg)
- [![NuGet](https://buildstats.info/nuget/Net.RafaelEstevam.Spider.Simple.Lib)](http://nuget.org/packages/Net.RafaelEstevam.Spider.Simple.Lib)
+[![The MIT License](https://img.shields.io/github/license/RafaelEstevamReis/SimpleSpider)](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/LICENSE)
+![.NET Core](https://github.com/RafaelEstevamReis/SimpleSpider/workflows/.NET%20Core/badge.svg)
+[![NuGet](https://buildstats.info/nuget/Net.RafaelEstevam.Spider.Simple.Lib)](http://nuget.org/packages/Net.RafaelEstevam.Spider.Simple.Lib)
 
 # Content
 <!-- TOC -->
