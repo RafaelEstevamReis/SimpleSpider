@@ -1,11 +1,8 @@
 ﻿using HtmlAgilityPack;
 using Net.RafaelEstevam.Spider.Wrappers.HTML;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xunit;
-using Xunit.Sdk;
 
 namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HtmlTests
 {

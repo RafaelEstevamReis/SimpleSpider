@@ -52,6 +52,7 @@
     <head>
         <title>My First HTML</title>
         <meta charset=""UTF-8"">
+        <link rel=""stylesheet"" href=""styles.css"">
     </head>  
     <body>
         <nav class=""bgwhite fgred"">
@@ -76,8 +77,15 @@
             <input type=""text"" name=""nTxt2"" id=""iTxt2"">
             <input type=""text"" name=""nTxt3"" id=""iTxt3"">
             <input type=""text"" name=""nTxt4"" id=""iTxt4"">
-            <input type=""submit"" id=""btn1"" value=""Insert"">
+            <select id=""cars"">
+                <option value=""car1"">Car 1</option>
+                <option value=""car1"">Car 2</option>
+            </select>
+            < input type=""submit"" id=""btn1"" value=""Insert"">
+            <button type=""reset"" class=""button button2"">Reset Form</button>
         </form>
+        <iframe src=""https://www.w3schools.com"" title=""W3Schools Free Online Web Tutorials""></iframe>
+        <img src=""img_girl.jpg"" width=""500"" height=""600"">
     </body>
 </html>";
         }
