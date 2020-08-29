@@ -18,8 +18,8 @@ namespace Net.RafaelEstevam.Spider.Helper
     public class RequestHelper
     {
         /// <summary>
-     /// Occurs when fetch is complete 
-     /// </summary>
+        /// Occurs when fetch is complete 
+        /// </summary>
         public event FetchComplete FetchCompleted;
         /// <summary>
         /// Occurs when fetch fails
@@ -65,7 +65,7 @@ namespace Net.RafaelEstevam.Spider.Helper
             RequestHeaders["Accept-Encoding"] = "gzip, deflate";
         }
         /// <summary>
-        /// Send an request as an asynchronous operation
+        /// Send an request an an asynchronous operation
         /// </summary>
         /// <param name="uri">The Uri the request is sent to</param>
         /// <returns>The task object representing the asynchronous operation</returns>
@@ -80,48 +80,27 @@ namespace Net.RafaelEstevam.Spider.Helper
             await processSendResult(req, resp, new Link(uri, uri));
         }
         /// <summary>
-        /// Send an request
+        /// Send a request
         /// </summary>
         /// <param name="uri">The Uri the request is sent to</param>
         public void SendGetRequest(Uri uri)
         {
-            SendGetRequestAsync(uri).Wait();
-        }
-        /// <summary>
-        /// Send an request as an asynchronous operation
-        /// </summary>
-        /// <param name="uri">The Uri the request is sent to</param>
-        /// <param name="stringData">The content the request sends</param>
-        /// <param name="ContentType">The content type of the request</param>
-        /// <returns>The task object representing the asynchronous operation</returns>
-        public async Task SendPostRequestAsync(Uri uri, string stringData, string ContentType)
-        {
-            await SendPostRequestAsync(uri, new StringContent(stringData, Encoding.UTF8, ContentType));
-        }
-        /// <summary>
-        /// Send a form data as an asynchronous operation
-        /// </summary>
-        /// <param name="uri">The Uri the request is sent to</param>
-        /// <param name="FormData">The content the request sends</param>
-        /// <returns>The task object representing the asynchronous operation</returns>
-        public async Task SendPostRequestAsync(Uri uri, IEnumerable<(string,string)> FormData)
-        {
-            await SendPostRequestAsync(uri, FormData.Select(p => new KeyValuePair<string, string>(p.Item1, p.Item2)));
-        }
-        /// <summary>
-        /// Send a form data as an asynchronous operation
-        /// </summary>
-        /// <param name="uri">The Uri the request is sent to</param>
-        /// <param name="FormData">The content the request sends</param>
-        /// <returns>The task object representing the asynchronous operation</returns>
-        public async Task SendPostRequestAsync(Uri uri, IEnumerable< KeyValuePair<string, string>> FormData)
-        {
-            var content = new FormUrlEncodedContent(FormData);
-            await SendPostRequestAsync(uri, content);
+            SendRequest(uri, HttpMethod.Get, null, null);
         }
 
         /// <summary>
-        /// Send an request as an asynchronous operation
+        /// Send a form data as an asynchronous operation
+        /// </summary>
+        /// <param name="uri">The Uri the request is sent to</param>
+        /// <param name="FormData">The content the request sends</param>
+        /// <returns>The task object representing the asynchronous operation</returns>
+        public async Task SendPostRequestAsync(Uri uri, IEnumerable<(string, string)> FormData)
+        {
+            await SendPostRequestAsync(uri, CreateFormContent(FormData));
+        }
+
+        /// <summary>
+        /// Send a request as an asynchronous operation
         /// </summary>
         /// <param name="uri">The Uri the request is sent to</param>
         /// <param name="postData">The content the request sends</param>
@@ -138,7 +117,7 @@ namespace Net.RafaelEstevam.Spider.Helper
             await processSendResult(req, resp, new Link(uri, uri));
         }
         /// <summary>
-        /// Send an request
+        /// Send a request
         /// </summary>
         /// <param name="uri">The Uri the request is sent to</param>
         /// <param name="stringData">The content the request sends</param>
@@ -146,7 +125,48 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// <returns>The task object representing the asynchronous operation</returns>
         public void SendPostRequest(Uri uri, string stringData, string ContentType)
         {
-            SendPostRequestAsync(uri, stringData, ContentType).Wait();
+            SendRequest(uri, HttpMethod.Post, new StringContent(stringData, Encoding.UTF8, ContentType), null);
+        }
+        /// <summary>
+        /// Sends a request
+        /// </summary>
+        /// <param name="uri">The Uri the request is sent to</param>
+        /// <param name="method">The HTTP method</param>
+        /// <param name="content">The contents of HTTP message</param>
+        /// <param name="completeCallback">A callback for completion event</param>
+        /// <returns>True if request sucess, false otherwise</returns>
+        public bool SendRequest(Uri uri, HttpMethod method, HttpContent content, FetchComplete completeCallback)
+        {
+            var lnk = new Link(uri, uri);
+
+            var req = new HttpRequestMessage(method, uri);
+            mergeHeaders(req, RequestHeaders);
+            BeforeRequest?.Invoke(this, new FetchTEventArgs<HttpRequestMessage>(lnk, req));
+
+            if (content != null) req.Content = content;
+            var resp = httpClient.SendAsync(req).Result;
+
+            var reqHeaders = processHeaders(req.Headers);
+            if (resp.IsSuccessStatusCode)
+            {
+                var respHeaders = processHeaders(resp.Headers);
+                var result = loadResponseDataDecompress(resp.Content.ReadAsByteArrayAsync().Result);
+
+                var args = new FetchCompleteEventArgs(lnk, result, reqHeaders, respHeaders);
+                FetchCompleted?.Invoke(this, args);
+                completeCallback?.Invoke(this, args);
+                return true;
+            }
+            else
+            {
+                var fail = new FetchFailEventArgs(lnk,
+                                                  (int)resp.StatusCode,
+                                                  new HttpRequestException($"[{(int)resp.StatusCode}] {resp.ReasonPhrase}"),
+                                                  new HeaderCollection(reqHeaders));
+                FetchFailed?.Invoke(this, fail);
+                return false;
+            }
+
         }
 
         private async Task processSendResult(HttpRequestMessage req, HttpResponseMessage resp, Link link)
@@ -178,7 +198,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         {
             return new HeaderCollection(processHeaders(headers.Cast<KeyValuePair<string, IEnumerable<string>>>()));
         }
-        private static HeaderCollection processHeaders(IEnumerable< KeyValuePair<string, IEnumerable<string>>> headers)
+        private static HeaderCollection processHeaders(IEnumerable<KeyValuePair<string, IEnumerable<string>>> headers)
         {
             return new HeaderCollection(headers
                     .Select(o => new KeyValuePair<string, string>(o.Key, string.Join(",", o.Value))));
@@ -214,6 +234,16 @@ namespace Net.RafaelEstevam.Spider.Helper
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Creates a FormContent from 
+        /// </summary>
+        /// <param name="FormData">Form data to be encoded</param>
+        /// <returns>A FormUrlEncodedContent object</returns>
+        public static FormUrlEncodedContent CreateFormContent(IEnumerable<(string, string)> FormData)
+        {
+            return new FormUrlEncodedContent(FormData.Select(p => new KeyValuePair<string, string>(p.Item1, p.Item2)));
         }
     }
 }

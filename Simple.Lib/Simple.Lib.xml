@@ -1374,25 +1374,16 @@
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendGetRequestAsync(System.Uri)">
             <summary>
-            Send an request as an asynchronous operation
+            Send an request an an asynchronous operation
             </summary>
             <param name="uri">The Uri the request is sent to</param>
             <returns>The task object representing the asynchronous operation</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendGetRequest(System.Uri)">
             <summary>
-            Send an request
+            Send a request
             </summary>
             <param name="uri">The Uri the request is sent to</param>
-        </member>
-        <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendPostRequestAsync(System.Uri,System.String,System.String)">
-            <summary>
-            Send an request as an asynchronous operation
-            </summary>
-            <param name="uri">The Uri the request is sent to</param>
-            <param name="stringData">The content the request sends</param>
-            <param name="ContentType">The content type of the request</param>
-            <returns>The task object representing the asynchronous operation</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendPostRequestAsync(System.Uri,System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,System.String}})">
             <summary>
@@ -1402,17 +1393,9 @@
             <param name="FormData">The content the request sends</param>
             <returns>The task object representing the asynchronous operation</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendPostRequestAsync(System.Uri,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}})">
-            <summary>
-            Send a form data as an asynchronous operation
-            </summary>
-            <param name="uri">The Uri the request is sent to</param>
-            <param name="FormData">The content the request sends</param>
-            <returns>The task object representing the asynchronous operation</returns>
-        </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendPostRequestAsync(System.Uri,System.Net.Http.HttpContent)">
             <summary>
-            Send an request as an asynchronous operation
+            Send a request as an asynchronous operation
             </summary>
             <param name="uri">The Uri the request is sent to</param>
             <param name="postData">The content the request sends</param>
@@ -1420,12 +1403,29 @@
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendPostRequest(System.Uri,System.String,System.String)">
             <summary>
-            Send an request
+            Send a request
             </summary>
             <param name="uri">The Uri the request is sent to</param>
             <param name="stringData">The content the request sends</param>
             <param name="ContentType">The content type of the request</param>
             <returns>The task object representing the asynchronous operation</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendRequest(System.Uri,System.Net.Http.HttpMethod,System.Net.Http.HttpContent,Net.RafaelEstevam.Spider.FetchComplete)">
+            <summary>
+            Sends a request
+            </summary>
+            <param name="uri">The Uri the request is sent to</param>
+            <param name="method">The HTTP method</param>
+            <param name="content">The contents of HTTP message</param>
+            <param name="completeCallback">A callback for completion event</param>
+            <returns>True if request sucess, false otherwise</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.CreateFormContent(System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,System.String}})">
+            <summary>
+            Creates a FormContent from 
+            </summary>
+            <param name="FormData">Form data to be encoded</param>
+            <returns>A FormUrlEncodedContent object</returns>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Helper.UriHelper">
             <summary>
