@@ -1379,11 +1379,13 @@
             <param name="uri">The Uri the request is sent to</param>
             <returns>The task object representing the asynchronous operation</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendGetRequest(System.Uri)">
+        <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendGetRequest(System.Uri,Net.RafaelEstevam.Spider.FetchComplete)">
             <summary>
             Send a request
             </summary>
             <param name="uri">The Uri the request is sent to</param>
+            <param name="completeCallback">A callback for completion event</param>
+            <returns>True if request sucess, false otherwise</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendPostRequestAsync(System.Uri,System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,System.String}})">
             <summary>
@@ -1420,11 +1422,27 @@
             <param name="completeCallback">A callback for completion event</param>
             <returns>True if request sucess, false otherwise</returns>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendFormData(System.Uri,System.Collections.Specialized.NameValueCollection,Net.RafaelEstevam.Spider.FetchComplete)">
+            <summary>
+            Sends a Post request with a form content
+            </summary>
+            <param name="uri">The Uri the request is sent to</param>
+            <param name="formFields">Form data to be sent</param>
+            <param name="completeCallback">A callback for completion event</param>
+            <returns>True if request sucess, false otherwise</returns>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.CreateFormContent(System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,System.String}})">
             <summary>
-            Creates a FormContent from 
+            Creates a FormContent from data
             </summary>
-            <param name="FormData">Form data to be encoded</param>
+            <param name="formData">Form data to be encoded</param>
+            <returns>A FormUrlEncodedContent object</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.CreateFormContent(System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Creates a FormContent from data
+            </summary>
+            <param name="formData">Form data to be encoded</param>
             <returns>A FormUrlEncodedContent object</returns>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Helper.UriHelper">
@@ -2629,6 +2647,11 @@
             Gets all children input tags
             </summary>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Form.GetFormData">
+            <summary>
+            Get all form inputs' Name and Value attributes
+            </summary>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.IFrame">
             <summary>
             Represents an html IFrame tag
@@ -2971,6 +2994,14 @@
             Selects an single element using XPath
             </summary>
             <param name="XPath">A string with the XPath query</param>
+            <returns>A tag with selected element or null if none matched</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.SelectTag``1(System.String)">
+            <summary>
+            Selects an single element using XPath
+            </summary>
+            <param name="XPath">A string with the XPath query</param>
+            <typeparam name="T">Parameter type to be returned</typeparam>
             <returns>A tag with selected element or null if none matched</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.SelectTags(System.String)">

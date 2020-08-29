@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Drawing;
 using System.IO;
 using System.IO.Compression;
@@ -83,9 +84,11 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// Send a request
         /// </summary>
         /// <param name="uri">The Uri the request is sent to</param>
-        public void SendGetRequest(Uri uri)
+        /// <param name="completeCallback">A callback for completion event</param>
+        /// <returns>True if request sucess, false otherwise</returns>
+        public bool SendGetRequest(Uri uri, FetchComplete completeCallback = null)
         {
-            SendRequest(uri, HttpMethod.Get, null, null);
+            return SendRequest(uri, HttpMethod.Get, null, completeCallback);
         }
 
         /// <summary>
@@ -168,6 +171,17 @@ namespace Net.RafaelEstevam.Spider.Helper
             }
 
         }
+        /// <summary>
+        /// Sends a Post request with a form content
+        /// </summary>
+        /// <param name="uri">The Uri the request is sent to</param>
+        /// <param name="formFields">Form data to be sent</param>
+        /// <param name="completeCallback">A callback for completion event</param>
+        /// <returns>True if request sucess, false otherwise</returns>
+        public bool SendFormData(Uri uri, NameValueCollection formFields, FetchComplete completeCallback)
+        {
+            return SendRequest(uri, HttpMethod.Post, CreateFormContent(formFields), completeCallback);
+        }
 
         private async Task processSendResult(HttpRequestMessage req, HttpResponseMessage resp, Link link)
         {
@@ -237,13 +251,22 @@ namespace Net.RafaelEstevam.Spider.Helper
         }
 
         /// <summary>
-        /// Creates a FormContent from 
+        /// Creates a FormContent from data
         /// </summary>
-        /// <param name="FormData">Form data to be encoded</param>
+        /// <param name="formData">Form data to be encoded</param>
         /// <returns>A FormUrlEncodedContent object</returns>
-        public static FormUrlEncodedContent CreateFormContent(IEnumerable<(string, string)> FormData)
+        public static FormUrlEncodedContent CreateFormContent(IEnumerable<(string, string)> formData)
         {
-            return new FormUrlEncodedContent(FormData.Select(p => new KeyValuePair<string, string>(p.Item1, p.Item2)));
+            return new FormUrlEncodedContent(formData.Select(p => new KeyValuePair<string, string>(p.Item1, p.Item2)));
+        }
+        /// <summary>
+        /// Creates a FormContent from data
+        /// </summary>
+        /// <param name="formData">Form data to be encoded</param>
+        /// <returns>A FormUrlEncodedContent object</returns>
+        public static FormUrlEncodedContent CreateFormContent(NameValueCollection formData)
+        {
+            return new FormUrlEncodedContent(formData.AllKeys.Select(k => new KeyValuePair<string, string>(k, formData[k])));
         }
     }
 }

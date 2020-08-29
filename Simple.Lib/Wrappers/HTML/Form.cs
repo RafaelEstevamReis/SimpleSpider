@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+using System.Collections.Specialized;
 using System.Linq;
 
 namespace Net.RafaelEstevam.Spider.Wrappers.HTML
@@ -42,6 +43,23 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
             return SelectTags("//input")
                    .Select(t => t.Cast<Input>())
                    .ToArray();
+        }
+        /// <summary>
+        /// Get all form inputs' Name and Value attributes
+        /// </summary>
+        public NameValueCollection GetFormData()
+        {
+            var nvc = new NameValueCollection();
+
+            foreach (var i in GetInputs())
+            {
+                if (string.IsNullOrEmpty(i.Name)) continue;
+                if (i.Value == null) continue;
+
+                nvc[i.Name] = i.Value;
+            }
+
+            return nvc;
         }
     }
 }

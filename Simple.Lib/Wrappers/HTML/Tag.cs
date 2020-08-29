@@ -127,6 +127,17 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
             return new Tag(n);
         }
         /// <summary>
+        /// Selects an single element using XPath
+        /// </summary>
+        /// <param name="XPath">A string with the XPath query</param>
+        /// <typeparam name="T">Parameter type to be returned</typeparam>
+        /// <returns>A tag with selected element or null if none matched</returns>
+        public T SelectTag<T>(string XPath) where T : Tag
+        {
+            return SelectTag(XPath)?.Cast<T>();
+        }
+
+        /// <summary>
         /// Selects elements using XPath
         /// </summary>
         /// <param name="XPath">A string with the XPath query</param>
