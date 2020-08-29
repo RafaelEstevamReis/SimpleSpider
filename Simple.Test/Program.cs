@@ -12,6 +12,7 @@ namespace Net.RafaelEstevam.Spider.Test
             //Sample.QuotesToScrape_Scroll_Deserialize.run();
 
             // Helper Samples, use the Debug Step Into feature (F11) to see the action
+            //Sample.QuotesToScrape_Login.run();    // Capture a form element and submit it
             //Sample.ApiPooler_FetcherHelper.run(); // Easy fetch of single resources
 
             // Easy-parsing sample, use the Debug Step Into feature (F11) to see the action
