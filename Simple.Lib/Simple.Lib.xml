@@ -1337,6 +1337,75 @@
             Get os sets when text blocks should be trimmed
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Helper.RequestHelper">
+            <summary>
+            Class to request stuff
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Helper.RequestHelper.FetchCompleted">
+            <summary>
+            Occurs when fetch is complete 
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Helper.RequestHelper.FetchFailed">
+            <summary>
+            Occurs when fetch fails
+            </summary>
+        </member>
+        <member name="E:Net.RafaelEstevam.Spider.Helper.RequestHelper.BeforeRequest">
+            <summary>
+            Occurs before fetch to allow request manipulation
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.RequestHelper.RequestHeaders">
+            <summary>
+            Collection of Headers to be included on the Request
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.#ctor">
+            <summary>
+            Create a new instance
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendGetRequestAsync(System.Uri)">
+            <summary>
+            Send an request as an asynchronous operation
+            </summary>
+            <param name="uri">The Uri the request is sent to</param>
+            <returns>The task object representing the asynchronous operation</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendGetRequest(System.Uri)">
+            <summary>
+            Send an request
+            </summary>
+            <param name="uri">The Uri the request is sent to</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendPostRequestAsync(System.Uri,System.String,System.String)">
+            <summary>
+            Send an request as an asynchronous operation
+            </summary>
+            <param name="uri">The Uri the request is sent to</param>
+            <param name="stringData">The content the request sends</param>
+            <param name="ContentType">The content type of the request</param>
+            <returns>The task object representing the asynchronous operation</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendPostRequestAsync(System.Uri,System.Net.Http.HttpContent)">
+            <summary>
+            Send an request as an asynchronous operation
+            </summary>
+            <param name="uri">The Uri the request is sent to</param>
+            <param name="postData">The content the request sends</param>
+            <returns>The task object representing the asynchronous operation</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendPostRequest(System.Uri,System.String,System.String)">
+            <summary>
+            Send an request
+            </summary>
+            <param name="uri">The Uri the request is sent to</param>
+            <param name="stringData">The content the request sends</param>
+            <param name="ContentType">The content type of the request</param>
+            <returns>The task object representing the asynchronous operation</returns>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Helper.UriHelper">
             <summary>
             Helper for Uri stuff

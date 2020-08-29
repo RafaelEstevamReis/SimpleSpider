@@ -35,7 +35,9 @@ namespace Net.RafaelEstevam.Spider.Helper
         public HeaderCollection RequestHeaders { get; }
 
         HttpClient httpClient;
-
+        /// <summary>
+        /// Create a new instance
+        /// </summary>
         public RequestHelper()
         {
             var hdl = new HttpClientHandler()
@@ -43,11 +45,15 @@ namespace Net.RafaelEstevam.Spider.Helper
                 AllowAutoRedirect = true
             };
             httpClient = new HttpClient(hdl);
-
+            RequestHeaders = new HeaderCollection();
             Extensions.RequestHeaderExtension.AddBaseRequestHeaders(RequestHeaders);
             RequestHeaders["Accept-Encoding"] = "gzip, deflate";
         }
-
+        /// <summary>
+        /// Send an request as an asynchronous operation
+        /// </summary>
+        /// <param name="uri">The Uri the request is sent to</param>
+        /// <returns>The task object representing the asynchronous operation</returns>
         public async Task SendGetRequestAsync(Uri uri)
         {
             var req = new HttpRequestMessage(HttpMethod.Get, uri);
@@ -58,25 +64,52 @@ namespace Net.RafaelEstevam.Spider.Helper
 
             await processSendResult(req, resp, new Link(uri, uri));
         }
+        /// <summary>
+        /// Send an request
+        /// </summary>
+        /// <param name="uri">The Uri the request is sent to</param>
         public void SendGetRequest(Uri uri)
         {
             SendGetRequestAsync(uri).RunSynchronously();
         }
-
-        public async Task SendPostRequestAsync(Uri uri, Stream postData)
+        /// <summary>
+        /// Send an request as an asynchronous operation
+        /// </summary>
+        /// <param name="uri">The Uri the request is sent to</param>
+        /// <param name="stringData">The content the request sends</param>
+        /// <param name="ContentType">The content type of the request</param>
+        /// <returns>The task object representing the asynchronous operation</returns>
+        public async Task SendPostRequestAsync(Uri uri, string stringData, string ContentType)
+        {
+            await SendPostRequestAsync(uri, new StringContent(stringData, Encoding.UTF8, ContentType));
+        }
+        /// <summary>
+        /// Send an request as an asynchronous operation
+        /// </summary>
+        /// <param name="uri">The Uri the request is sent to</param>
+        /// <param name="postData">The content the request sends</param>
+        /// <returns>The task object representing the asynchronous operation</returns>
+        public async Task SendPostRequestAsync(Uri uri, HttpContent postData)
         {
             var req = new HttpRequestMessage(HttpMethod.Post, uri);
             mergeHeaders(req, RequestHeaders);
             BeforeRequest?.Invoke(this, new FetchTEventArgs<HttpRequestMessage>(new Link(uri, uri), req));
 
-            req.Content = new StreamContent(postData);
+            req.Content = postData;
             var resp = await httpClient.SendAsync(req);
 
             await processSendResult(req, resp, new Link(uri, uri));
         }
-        public void SendPostRequest(Uri uri, Stream postData)
+        /// <summary>
+        /// Send an request
+        /// </summary>
+        /// <param name="uri">The Uri the request is sent to</param>
+        /// <param name="stringData">The content the request sends</param>
+        /// <param name="ContentType">The content type of the request</param>
+        /// <returns>The task object representing the asynchronous operation</returns>
+        public void SendPostRequest(Uri uri, string stringData, string ContentType)
         {
-            SendPostRequestAsync(uri, postData).RunSynchronously();
+            SendPostRequestAsync(uri, stringData, ContentType).Wait();
         }
 
         private async Task processSendResult(HttpRequestMessage req, HttpResponseMessage resp, Link link)
@@ -88,17 +121,15 @@ namespace Net.RafaelEstevam.Spider.Helper
                 var respHeaders = processHeaders(resp.Headers);
                 var content = loadResponseDataDecompress(await resp.Content.ReadAsByteArrayAsync());
 
-                FetchCompleted(this, new FetchCompleteEventArgs(link,
-                                  content,
-                                  reqHeaders,
-                                  respHeaders));
+                FetchCompleted?.Invoke(this, new FetchCompleteEventArgs(link, content, reqHeaders, respHeaders));
             }
             else
             {
-                FetchFailed(this, new FetchFailEventArgs(link,
-                                                         (int)resp.StatusCode,
-                                                         new HttpRequestException($"[{(int)resp.StatusCode}] {resp.ReasonPhrase}"),
-                                                         new HeaderCollection(reqHeaders)));
+                var fail = new FetchFailEventArgs(link,
+                                                  (int)resp.StatusCode,
+                                                  new HttpRequestException($"[{(int)resp.StatusCode}] {resp.ReasonPhrase}"),
+                                                  new HeaderCollection(reqHeaders));
+                FetchFailed?.Invoke(this, fail);
             }
         }
 
