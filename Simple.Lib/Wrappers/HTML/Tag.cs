@@ -98,7 +98,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         {
             get
             {
-                if (attributes == null) attributes = new TagAttributes(GetAttributes());
+                if (attributes == null) attributes = new TagAttributes(Node.Attributes);
                 return attributes;
             }
         }
@@ -199,15 +199,6 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
             throw new InvalidCastException("Requested type is not mapped");
         }
 
-        /// <summary>
-        /// Returns an all attributes as a NameValueCollection 
-        /// </summary>
-        public NameValueCollection GetAttributes()
-        {
-            NameValueCollection nvc = new NameValueCollection();
-            foreach (var a in Node.Attributes) nvc[a.Name] = a.Value;
-            return nvc;
-        }
         /// <summary>
         /// Returns a string that represents the current object
         /// </summary>

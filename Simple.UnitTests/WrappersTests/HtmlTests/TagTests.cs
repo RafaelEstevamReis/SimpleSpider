@@ -127,8 +127,8 @@ namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HtmlTests
         {
             var root = GetRootNode();
             var nDiv = root.SelectSingleNode("//div[@id=\"iTest3\"]");
-            Assert.Equal(2, new Tag(nDiv).Attributes.Items.Length);
-            Assert.Equal(2, new Tag(nDiv).Attributes.Items.Count()); // Enumerate results with Linq
+            //Assert.Equal(2, new Tag(nDiv).Attributes.Items.Length);
+            //Assert.Equal(2, new Tag(nDiv).Attributes.Items.Count()); // Enumerate results with Linq
             Assert.Equal("cTest3", new Tag(nDiv).Attributes["class"]);
             Assert.Equal("iTest3", new Tag(nDiv).Attributes["id"]);
             Assert.Null(new Tag(nDiv).Attributes["inexistent"]);
@@ -215,6 +215,6 @@ namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HtmlTests
             Assert.Equal("iTest3", divs[2].Id);
         }
         /* GetChilds<T> will be on each one's specific test */
-
+        /* Cast<T> will be on specific test */
     }
 }

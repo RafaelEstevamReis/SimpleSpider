@@ -2914,11 +2914,6 @@
             <typeparam name="T">Parameter type to be returned</typeparam>
             <returns>Tag object returned</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.GetAttributes">
-            <summary>
-            Returns an all attributes as a NameValueCollection 
-            </summary>
-        </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.ToString">
             <summary>
             Returns a string that represents the current object
@@ -2939,19 +2934,14 @@
             Represents an html tag attribute collection
             </summary>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.TagAttributes.#ctor">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.TagAttributes.#ctor(HtmlAgilityPack.HtmlAttributeCollection)">
             <summary>
             Initializes a new empty instance
             </summary>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.TagAttributes.#ctor(System.Collections.Specialized.NameValueCollection)">
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.TagAttributes.Contains(System.String)">
             <summary>
-            Initializes a new instance from a NameValueCollection
-            </summary>
-        </member>
-        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.TagAttributes.Items">
-            <summary>
-            Gets an array with all attributes
+            Checks for existance of attribute with given name
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.TagAttributes.Item(System.String)">
@@ -2972,26 +2962,6 @@
             </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.TagAttributes.ToString">
-            <summary>
-            Returns a string that represents the current object
-            </summary>
-        </member>
-        <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.TagAttribute">
-            <summary>
-            Represents an html tag attribute
-            </summary>
-        </member>
-        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.TagAttribute.Name">
-            <summary>
-            Attribute's name
-            </summary>
-        </member>
-        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.TagAttribute.Value">
-            <summary>
-            Attribute's value
-            </summary>
-        </member>
-        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.TagAttribute.ToString">
             <summary>
             Returns a string that represents the current object
             </summary>

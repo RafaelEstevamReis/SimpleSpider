@@ -1,37 +1,33 @@
 ﻿using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
+using HtmlAgilityPack;
 
 namespace Net.RafaelEstevam.Spider.Wrappers.HTML
 {
     /// <summary>
     /// Represents an html tag attribute collection
     /// </summary>
-    public class TagAttributes : IEnumerable<TagAttribute>
+    public class TagAttributes : IEnumerable<HtmlAttribute>
     {
+        private HtmlAttributeCollection attributes;
+
         /// <summary>
         /// Initializes a new empty instance
         /// </summary>
-        public TagAttributes() { }
+        public TagAttributes(HtmlAttributeCollection attributes)
+        {
+            this.attributes = attributes;
+        }
 
         /// <summary>
-        /// Initializes a new instance from a NameValueCollection
+        /// Checks for existance of attribute with given name
         /// </summary>
-        public TagAttributes(NameValueCollection nameValueCollection)
+        public bool Contains(string Name)
         {
-            Items = nameValueCollection
-                        .AllKeys.Select(k => new TagAttribute()
-                        {
-                            Name = k,
-                            Value = nameValueCollection[k]
-                        })
-                        .ToArray();
+            return attributes.Contains(Name);
         }
-        /// <summary>
-        /// Gets an array with all attributes
-        /// </summary>
-        public TagAttribute[] Items { get; private set; }
+
         /// <summary>
         /// Gets the value af the attribute named Value
         /// </summary>
@@ -41,51 +37,33 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         {
             get
             {
-                return Items.FirstOrDefault(a => a.Name == Name)?.Value;
+                return attributes[Name]?.Value;
+            }
+            set
+            {
+                attributes[Name].Value = value;
             }
         }
         /// <summary>
         /// Enumerates all attributes
         /// </summary>
-        public IEnumerator<TagAttribute> GetEnumerator()
+        public IEnumerator<HtmlAttribute> GetEnumerator()
         {
-            return ((IEnumerable<TagAttribute>)Items).GetEnumerator();
+            foreach (var a in attributes) yield return a;   
         }
         /// <summary>
         /// Enumerator for the attributes
         /// </summary>
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return Items.GetEnumerator();
+            return GetEnumerator();
         }
         /// <summary>
         /// Returns a string that represents the current object
         /// </summary>
         public override string ToString()
         {
-            return string.Join<TagAttribute>("; ", Items);
-        }
-    }
-    /// <summary>
-    /// Represents an html tag attribute
-    /// </summary>
-    public class TagAttribute
-    {
-        /// <summary>
-        /// Attribute's name
-        /// </summary>
-        public string Name { get; set; }
-        /// <summary>
-        /// Attribute's value
-        /// </summary>
-        public string Value { get; set; }
-
-        /// <summary>
-        /// Returns a string that represents the current object
-        /// </summary>
-        public override string ToString()
-        {
-            return $"{Name} = {Value}";
+            return string.Join("; ", attributes.Select(a => $"{a.Name}={a.Value}"));
         }
     }
 }
