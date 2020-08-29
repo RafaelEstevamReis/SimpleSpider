@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -33,17 +34,31 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// Collection of Headers to be included on the Request
         /// </summary>
         public HeaderCollection RequestHeaders { get; }
+        /// <summary>
+        /// Cookie container used to store server cookies
+        /// </summary>
+        public CookieContainer Cookies { get; }
 
         HttpClient httpClient;
         /// <summary>
         /// Create a new instance
         /// </summary>
-        public RequestHelper()
+        public RequestHelper(bool UseCookies = false)
         {
             var hdl = new HttpClientHandler()
             {
                 AllowAutoRedirect = true
             };
+            if (UseCookies)
+            {
+                Cookies = new CookieContainer();
+                hdl.CookieContainer = Cookies;
+                hdl.UseCookies = true;
+            }
+            else
+            {
+                hdl.UseCookies = false;
+            }
             httpClient = new HttpClient(hdl);
             RequestHeaders = new HeaderCollection();
             Extensions.RequestHeaderExtension.AddBaseRequestHeaders(RequestHeaders);
@@ -70,7 +85,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// <param name="uri">The Uri the request is sent to</param>
         public void SendGetRequest(Uri uri)
         {
-            SendGetRequestAsync(uri).RunSynchronously();
+            SendGetRequestAsync(uri).Wait();
         }
         /// <summary>
         /// Send an request as an asynchronous operation
@@ -83,6 +98,28 @@ namespace Net.RafaelEstevam.Spider.Helper
         {
             await SendPostRequestAsync(uri, new StringContent(stringData, Encoding.UTF8, ContentType));
         }
+        /// <summary>
+        /// Send a form data as an asynchronous operation
+        /// </summary>
+        /// <param name="uri">The Uri the request is sent to</param>
+        /// <param name="FormData">The content the request sends</param>
+        /// <returns>The task object representing the asynchronous operation</returns>
+        public async Task SendPostRequestAsync(Uri uri, IEnumerable<(string,string)> FormData)
+        {
+            await SendPostRequestAsync(uri, FormData.Select(p => new KeyValuePair<string, string>(p.Item1, p.Item2)));
+        }
+        /// <summary>
+        /// Send a form data as an asynchronous operation
+        /// </summary>
+        /// <param name="uri">The Uri the request is sent to</param>
+        /// <param name="FormData">The content the request sends</param>
+        /// <returns>The task object representing the asynchronous operation</returns>
+        public async Task SendPostRequestAsync(Uri uri, IEnumerable< KeyValuePair<string, string>> FormData)
+        {
+            var content = new FormUrlEncodedContent(FormData);
+            await SendPostRequestAsync(uri, content);
+        }
+
         /// <summary>
         /// Send an request as an asynchronous operation
         /// </summary>

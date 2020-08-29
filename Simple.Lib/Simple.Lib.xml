@@ -1362,7 +1362,12 @@
             Collection of Headers to be included on the Request
             </summary>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.#ctor">
+        <member name="P:Net.RafaelEstevam.Spider.Helper.RequestHelper.Cookies">
+            <summary>
+            Cookie container used to store server cookies
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.#ctor(System.Boolean)">
             <summary>
             Create a new instance
             </summary>
@@ -1387,6 +1392,22 @@
             <param name="uri">The Uri the request is sent to</param>
             <param name="stringData">The content the request sends</param>
             <param name="ContentType">The content type of the request</param>
+            <returns>The task object representing the asynchronous operation</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendPostRequestAsync(System.Uri,System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,System.String}})">
+            <summary>
+            Send a form data as an asynchronous operation
+            </summary>
+            <param name="uri">The Uri the request is sent to</param>
+            <param name="FormData">The content the request sends</param>
+            <returns>The task object representing the asynchronous operation</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendPostRequestAsync(System.Uri,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}})">
+            <summary>
+            Send a form data as an asynchronous operation
+            </summary>
+            <param name="uri">The Uri the request is sent to</param>
+            <param name="FormData">The content the request sends</param>
             <returns>The task object representing the asynchronous operation</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendPostRequestAsync(System.Uri,System.Net.Http.HttpContent)">
