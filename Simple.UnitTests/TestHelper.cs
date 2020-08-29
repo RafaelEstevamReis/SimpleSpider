@@ -81,7 +81,7 @@
                 <option value=""car1"">Car 1</option>
                 <option value=""car1"">Car 2</option>
             </select>
-            < input type=""submit"" id=""btn1"" value=""Insert"">
+            <input type=""submit"" id=""btn1"" value=""Insert"">
             <button type=""reset"" class=""button button2"">Reset Form</button>
         </form>
         <iframe src=""https://www.w3schools.com"" title=""W3Schools Free Online Web Tutorials""></iframe>

@@ -39,7 +39,9 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         /// </summary>
         public Input[] GetInputs()
         {
-            return GetChildren<Input>().ToArray();
+            return SelectTags("//input")
+                   .Select(t => t.Cast<Input>())
+                   .ToArray();
         }
     }
 }
