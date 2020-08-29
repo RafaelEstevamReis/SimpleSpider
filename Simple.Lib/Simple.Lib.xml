@@ -2814,6 +2814,11 @@
             Represents a HTML tag
             </summary>
         </member>
+        <member name="F:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.MappingTable">
+            <summary>
+            Tag name/type mapping table
+            </summary>
+        </member>
         <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.Node">
             <summary>
             Exposes underlying HtmlNode
@@ -2901,6 +2906,13 @@
             Returns all Children of specified {T} Tag
             </summary>
             <typeparam name="T">Parameter type to be returned</typeparam>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.Cast``1">
+            <summary>
+            Casts Tag to specific Html Tag type
+            </summary>
+            <typeparam name="T">Parameter type to be returned</typeparam>
+            <returns>Tag object returned</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.GetAttributes">
             <summary>

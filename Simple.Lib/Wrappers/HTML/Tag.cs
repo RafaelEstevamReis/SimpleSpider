@@ -12,6 +12,9 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
     /// </summary>
     public class Tag
     {
+        /// <summary>
+        /// Tag name/type mapping table
+        /// </summary>
         public static (string, Type)[] MappingTable ={
             ("a",typeof(Anchor)),
             ("button",typeof(Button)),
@@ -175,6 +178,11 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
             var tag = ctor.Invoke(new object[] { node });
             return (Tag)tag;
         }
+        /// <summary>
+        /// Casts Tag to specific Html Tag type
+        /// </summary>
+        /// <typeparam name="T">Parameter type to be returned</typeparam>
+        /// <returns>Tag object returned</returns>
         public T Cast<T>() where T : Tag
         {
             foreach (var p in MappingTable)
