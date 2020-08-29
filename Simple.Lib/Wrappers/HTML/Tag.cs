@@ -12,6 +12,23 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
     /// </summary>
     public class Tag
     {
+        public static (string, Type)[] MappingTable ={
+            ("a",typeof(Anchor)),
+            ("button",typeof(Button)),
+            ("div",typeof(Div)),
+            ("form",typeof(Form)),
+            ("iframe",typeof(IFrame)),
+            ("img",typeof(Img)),
+            ("input",typeof(Input)),
+            ("ol",typeof(Ol)),
+            ("ul",typeof(Ul)),
+            ("li",typeof(Li)),
+            ("link",typeof(Link)),
+            ("meta",typeof(Meta)),
+            ("select",typeof(Select)),
+            ("option",typeof(Option)),
+        };
+
         /// <summary>
         /// Exposes underlying HtmlNode
         /// </summary>
@@ -142,25 +159,38 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         /// <typeparam name="T">Parameter type to be returned</typeparam>
         public IEnumerable<T> GetChildren<T>() where T : Tag
         {
-            if (typeof(T) == typeof(Anchor)) return (IEnumerable<T>)GetChildren("a").Select(t => new Anchor(t.Node));
-            if (typeof(T) == typeof(Button)) return (IEnumerable<T>)GetChildren("button").Select(t => new Button(t.Node));
-            if (typeof(T) == typeof(Div)) return (IEnumerable<T>)GetChildren("div").Select(t => new Div(t.Node));
-            if (typeof(T) == typeof(Form)) return (IEnumerable<T>)GetChildren("form").Select(t => new Form(t.Node));
-            if (typeof(T) == typeof(IFrame)) return (IEnumerable<T>)GetChildren("iframe").Select(t => new IFrame(t.Node));
-            if (typeof(T) == typeof(Img)) return (IEnumerable<T>)GetChildren("img").Select(t => new Img(t.Node));
-            if (typeof(T) == typeof(Input)) return (IEnumerable<T>)GetChildren("input").Select(t => new Input(t.Node));
-            if (typeof(T) == typeof(Ol)) return (IEnumerable<T>)GetChildren("ol").Select(t => new Ol(t.Node));
-            if (typeof(T) == typeof(Ul)) return (IEnumerable<T>)GetChildren("ul").Select(t => new Ul(t.Node));
-            if (typeof(T) == typeof(Li)) return (IEnumerable<T>)GetChildren("li").Select(t => new Li(t.Node));
-            if (typeof(T) == typeof(Link)) return (IEnumerable<T>)GetChildren("link").Select(t => new Link(t.Node));
-            if (typeof(T) == typeof(Meta)) return (IEnumerable<T>)GetChildren("meta").Select(t => new Meta(t.Node));
-            if (typeof(T) == typeof(Select)) return (IEnumerable<T>)GetChildren("select").Select(t => new Select(t.Node));
-            if (typeof(T) == typeof(Option)) return (IEnumerable<T>)GetChildren("option").Select(t => new Option(t.Node));
-
-            if (typeof(T) == typeof(Tag)) return (IEnumerable<T>)GetChildren();
-
-            throw new InvalidCastException();
+            foreach (var p in MappingTable)
+            {
+                if (typeof(T) == p.Item2) return invokeChildrenMappingTuple<T>(p);
+            }
+            throw new InvalidCastException("Requested type is not mapped");
         }
+        private IEnumerable<T> invokeChildrenMappingTuple<T>((string, Type) p) where T : Tag
+        {
+            return GetChildren(p.Item1).Select(t => (T)invokeTag(p.Item2, t.Node));
+        }
+        private static Tag invokeTag(Type type, HtmlNode node)
+        {
+            var ctor = type.GetConstructor(new Type[] { typeof(HtmlNode) });
+            var tag = ctor.Invoke(new object[] { node });
+            return (Tag)tag;
+        }
+        public T Cast<T>() where T : Tag
+        {
+            foreach (var p in MappingTable)
+            {
+                if (typeof(T) == p.Item2)
+                {
+                    if (p.Item1 == TagName)
+                    {
+                        return (T)invokeTag(p.Item2, Node);
+                    }
+                    throw new InvalidCastException("Incorrect type");
+                }
+            }
+            throw new InvalidCastException("Requested type is not mapped");
+        }
+
         /// <summary>
         /// Returns an all attributes as a NameValueCollection 
         /// </summary>
