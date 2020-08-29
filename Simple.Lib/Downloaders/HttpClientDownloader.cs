@@ -129,37 +129,19 @@ namespace Net.RafaelEstevam.Spider.Downloaders
         private void fetch(Link current)
         {
             var req = new HttpRequestMessage(HttpMethod.Get, current.Uri);
-            mergeHeaders(req, IncludeRequestHeaders);
+            RequestHelper.mergeHeaders(req, IncludeRequestHeaders);
 
             BeforeRequest?.Invoke(this, new FetchTEventArgs<HttpRequestMessage>(current, req));
 
             var resp = httpClient.SendAsync(req).Result;
-
-            var reqHeaders = new HeaderCollection(req
-                .Headers
-                .Cast<KeyValuePair<string, IEnumerable<string>>>()
-                .Select(o => new KeyValuePair<string, string>(o.Key, string.Join(",", o.Value))));
+            var reqHeaders = RequestHelper.processHeaders(req.Headers);
 
             current.FetchEnd = DateTime.Now;
             if (resp.IsSuccessStatusCode)
             {
-                var respHeaders = new HeaderCollection(resp
-                    .Headers
-                    .Cast<KeyValuePair<string, IEnumerable<string>>>()
-                    .Select(o => new KeyValuePair<string, string>(o.Key, string.Join(",", o.Value))));
+                var respHeaders = RequestHelper.processHeaders(resp.Headers);
 
-                byte[] content = resp.Content.ReadAsByteArrayAsync().Result;
-                // do not trust headers
-                if (content.Length > 2 
-                    && content[0] == 0x1f // Gzip magic number
-                    && content[1] == 0x8b)
-                {
-                    using var to = new MemoryStream();
-                    using var from = new MemoryStream(content);
-                    using var gz = new GZipStream(from, CompressionMode.Decompress);
-                    gz.CopyTo(to);
-                    content = to.ToArray();
-                }
+                byte[] content = RequestHelper.loadResponseDataDecompress(resp.Content.ReadAsByteArrayAsync().Result);
 
                 FetchCompleted(this, new FetchCompleteEventArgs(current,
                                   content,
@@ -184,24 +166,6 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                                                          new HeaderCollection(reqHeaders)));
             }
         }
-        private static void mergeHeaders(HttpRequestMessage req, HeaderCollection addRequestHeaders)
-        {
-            if (addRequestHeaders.Count > 0)
-            {
-                foreach (var pair in addRequestHeaders)
-                {
-                    if (pair.Value == "")
-                    {
-                        if (req.Headers.Contains(pair.Key)) req.Headers.Remove(pair.Key);
-                    }
-                    else
-                    {
-                        req.Headers.Add(pair.Key, pair.Value);
-                    }
-                }
-            }
-        }
-
         /// <summary>
         /// Creates a new instance of HttpClientDownloader with Extensions.RequestHeaderExtension.AddBaseRequestHeaders
         /// </summary>
