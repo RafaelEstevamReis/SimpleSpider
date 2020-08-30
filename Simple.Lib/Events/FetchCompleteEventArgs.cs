@@ -23,7 +23,7 @@ namespace Net.RafaelEstevam.Spider
     public class FetchCompleteEventArgs : FetchEventArgs
     {
         /// <summary>
-        /// Defines an default Enconding to be used when no instance Encoding is defined 
+        /// Defines an default Encoding to be used when no instance Encoding is defined 
         /// </summary>
         public static Encoding DefaultEncoding = Encoding.UTF8;
         /// <summary>

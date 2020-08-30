@@ -85,7 +85,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// </summary>
         /// <param name="uri">The Uri the request is sent to</param>
         /// <param name="completeCallback">A callback for completion event</param>
-        /// <returns>True if request sucess, false otherwise</returns>
+        /// <returns>True if request success, false otherwise</returns>
         public bool SendGetRequest(Uri uri, FetchComplete completeCallback = null)
         {
             return SendRequest(uri, HttpMethod.Get, null, completeCallback);
@@ -137,7 +137,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// <param name="method">The HTTP method</param>
         /// <param name="content">The contents of HTTP message</param>
         /// <param name="completeCallback">A callback for completion event</param>
-        /// <returns>True if request sucess, false otherwise</returns>
+        /// <returns>True if request success, false otherwise</returns>
         public bool SendRequest(Uri uri, HttpMethod method, HttpContent content, FetchComplete completeCallback)
         {
             var lnk = new Link(uri, uri);
@@ -177,7 +177,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// <param name="uri">The Uri the request is sent to</param>
         /// <param name="formFields">Form data to be sent</param>
         /// <param name="completeCallback">A callback for completion event</param>
-        /// <returns>True if request sucess, false otherwise</returns>
+        /// <returns>True if request success, false otherwise</returns>
         public bool SendFormData(Uri uri, NameValueCollection formFields, FetchComplete completeCallback)
         {
             return SendRequest(uri, HttpMethod.Post, CreateFormContent(formFields), completeCallback);

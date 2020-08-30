@@ -21,7 +21,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         }
 
         /// <summary>
-        /// Checks for existance of attribute with given name
+        /// Checks for existence of attribute with given name
         /// </summary>
         public bool Contains(string Name)
         {

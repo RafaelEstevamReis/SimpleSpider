@@ -503,7 +503,7 @@
         </member>
         <member name="F:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.DefaultEncoding">
             <summary>
-            Defines an default Enconding to be used when no instance Encoding is defined 
+            Defines an default Encoding to be used when no instance Encoding is defined 
             </summary>
         </member>
         <member name="F:Net.RafaelEstevam.Spider.FetchCompleteEventArgs.Encoding">
@@ -1385,7 +1385,7 @@
             </summary>
             <param name="uri">The Uri the request is sent to</param>
             <param name="completeCallback">A callback for completion event</param>
-            <returns>True if request sucess, false otherwise</returns>
+            <returns>True if request success, false otherwise</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendPostRequestAsync(System.Uri,System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,System.String}})">
             <summary>
@@ -1420,7 +1420,7 @@
             <param name="method">The HTTP method</param>
             <param name="content">The contents of HTTP message</param>
             <param name="completeCallback">A callback for completion event</param>
-            <returns>True if request sucess, false otherwise</returns>
+            <returns>True if request success, false otherwise</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendFormData(System.Uri,System.Collections.Specialized.NameValueCollection,Net.RafaelEstevam.Spider.FetchComplete)">
             <summary>
@@ -1429,7 +1429,7 @@
             <param name="uri">The Uri the request is sent to</param>
             <param name="formFields">Form data to be sent</param>
             <param name="completeCallback">A callback for completion event</param>
-            <returns>True if request sucess, false otherwise</returns>
+            <returns>True if request success, false otherwise</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.CreateFormContent(System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,System.String}})">
             <summary>
@@ -2592,6 +2592,26 @@
             Gets the Disabled attribute of the tag
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.Data">
+            <summary>
+            Represents an html Data tag
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Data.#ctor(HtmlAgilityPack.HtmlDocument)">
+            <summary>
+            Initializes a new instance
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Data.#ctor(HtmlAgilityPack.HtmlNode)">
+            <summary>
+            Initializes a new instance
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.Data.Value">
+            <summary>
+            Gets the Value attribute of the tag
+            </summary>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.Div">
             <summary>
             Represents an html Div tag
@@ -2647,9 +2667,15 @@
             Gets all children input tags
             </summary>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Form.GetSelects">
+            <summary>
+            Gets all children select tags
+            </summary>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Form.GetFormData">
             <summary>
-            Get all form inputs' Name and Value attributes
+            Get all form inputs' Name and Value attributes. 
+            NameValueCollection does not support multiple values with the same key
             </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.IFrame">
@@ -2869,7 +2895,7 @@
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.Option">
             <summary>
-            Represents an html Option List tag
+            Represents an html Option tag
             </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Option.#ctor(HtmlAgilityPack.HtmlDocument)">
@@ -2902,6 +2928,31 @@
             Gets the Disabled attribute of the tag
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.Param">
+            <summary>
+            Represents an html Param tag
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Param.#ctor(HtmlAgilityPack.HtmlDocument)">
+            <summary>
+            Initializes a new instance
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Param.#ctor(HtmlAgilityPack.HtmlNode)">
+            <summary>
+            Initializes a new instance
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.Param.Name">
+            <summary>
+            Gets the Name attribute of the tag
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.Param.Value">
+            <summary>
+            Gets the Value attribute of the tag
+            </summary>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.Select">
             <summary>
             Represents an html Select tag
@@ -2916,6 +2967,22 @@
             <summary>
             Initializes a new instance
             </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.Select.Name">
+            <summary>
+            Gets the Name attribute of the tag
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.Select.Multiple">
+            <summary>
+            Gets the Multiple attribute of the tag
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Select.SelectedValue">
+            <summary>
+            Returns the 'Value' of the first Options with Selected attribute present
+            </summary>
+            <returns>The value of the option</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Select.GetItems">
             <summary>
@@ -3035,6 +3102,18 @@
             <typeparam name="T">Parameter type to be returned</typeparam>
             <returns>Tag object returned</returns>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.ThrowsIfNotName(HtmlAgilityPack.HtmlDocument,System.String)">
+            <summary>
+            Throws an InvalidCastException if the current document node name is incorrect
+            </summary>
+            <param name="doc"></param>
+            <param name="name"></param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.ThrowsIfNotName(HtmlAgilityPack.HtmlNode,System.String)">
+            <summary>
+            Throws an InvalidCastException if the current node name is incorrect
+            </summary>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.ToString">
             <summary>
             Returns a string that represents the current object
@@ -3062,7 +3141,7 @@
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.TagAttributes.Contains(System.String)">
             <summary>
-            Checks for existance of attribute with given name
+            Checks for existence of attribute with given name
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.TagAttributes.Item(System.String)">
@@ -3085,6 +3164,71 @@
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.TagAttributes.ToString">
             <summary>
             Returns a string that represents the current object
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.ITag">
+            <summary>
+            Interface for Html Tag, define Global Attributes
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.ITag.TagName">
+            <summary>
+            Name attribute
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.ITag.Id">
+            <summary>
+            Id attribute
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.ITag.Class">
+            <summary>
+            Class attribute
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.ITag.Style">
+            <summary>
+            Style attribute
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.ITagValue">
+            <summary>
+            Represents tags with Value attribute
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.ITagValue.Value">
+            <summary>
+            Value attribute
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.ITagType">
+            <summary>
+            Represents tags with Type attribute
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.ITagType.Type">
+            <summary>
+            Type attribute
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.ITagSrc">
+            <summary>
+            Represents tags with Src attribute
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.ITagSrc.Src">
+            <summary>
+            Src attribute
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.ITagName">
+            <summary>
+            Represents tags with Name attribute
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.ITagName.Name">
+            <summary>
+            Name attribute
             </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.Ul">
