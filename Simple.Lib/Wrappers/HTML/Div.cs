@@ -10,10 +10,10 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         /// <summary>
         /// Initializes a new instance
         /// </summary>
-        public Div(HtmlDocument doc) : base(doc) { }
+        public Div(HtmlDocument doc) : base(doc) { ThrowsIfNotName(doc, "div"); }
         /// <summary>
         /// Initializes a new instance
         /// </summary>
-        public Div(HtmlNode node) : base(node) { }
+        public Div(HtmlNode node) : base(node) { ThrowsIfNotName(node, "div"); }
     }
 }

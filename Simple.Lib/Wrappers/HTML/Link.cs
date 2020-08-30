@@ -10,11 +10,11 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         /// <summary>
         /// Initializes a new instance
         /// </summary>
-        public Link(HtmlDocument doc) : base(doc) { }
+        public Link(HtmlDocument doc) : base(doc) { ThrowsIfNotName(doc, "link"); }
         /// <summary>
         /// Initializes a new instance
         /// </summary>
-        public Link(HtmlNode node) : base(node) { }
+        public Link(HtmlNode node) : base(node) { ThrowsIfNotName(node, "link"); }
 
         /// <summary>
         /// Gets the Href attribute of the tag

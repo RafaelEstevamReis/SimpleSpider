@@ -10,11 +10,11 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         /// <summary>
         /// Initializes a new instance
         /// </summary>
-        public Input(HtmlDocument doc) : base(doc) { }
+        public Input(HtmlDocument doc) : base(doc) { ThrowsIfNotName(doc, "input"); }
         /// <summary>
         /// Initializes a new instance
         /// </summary>
-        public Input(HtmlNode node) : base(node) { }
+        public Input(HtmlNode node) : base(node) { ThrowsIfNotName(node, "input"); }
 
         /// <summary>
         /// Gets the Name attribute of the tag

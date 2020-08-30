@@ -11,11 +11,11 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         /// <summary>
         /// Initializes a new instance
         /// </summary>
-        public Ul(HtmlDocument doc) : base(doc) { }
+        public Ul(HtmlDocument doc) : base(doc) { ThrowsIfNotName(doc, "ul"); }
         /// <summary>
         /// Initializes a new instance
         /// </summary>
-        public Ul(HtmlNode node) : base(node) { }
+        public Ul(HtmlNode node) : base(node) { ThrowsIfNotName(node, "ul"); }
 
         /// <summary>
         /// Gets all children Li tags

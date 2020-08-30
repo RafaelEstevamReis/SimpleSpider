@@ -10,11 +10,11 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         /// <summary>
         /// Initializes a new instance
         /// </summary>
-        public IFrame(HtmlDocument doc) : base(doc) { }
+        public IFrame(HtmlDocument doc) : base(doc) { ThrowsIfNotName(doc, "iframe"); }
         /// <summary>
         /// Initializes a new instance
         /// </summary>
-        public IFrame(HtmlNode node) : base(node) { }
+        public IFrame(HtmlNode node) : base(node) { ThrowsIfNotName(node, "iframe"); }
 
         /// <summary>
         /// Gets the Name attribute of the tag

@@ -10,11 +10,11 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         /// <summary>
         /// Initializes a new instance
         /// </summary>
-        public Img(HtmlDocument doc) : base(doc) { }
+        public Img(HtmlDocument doc) : base(doc) { ThrowsIfNotName(doc, "img"); }
         /// <summary>
         /// Initializes a new instance
         /// </summary>
-        public Img(HtmlNode node) : base(node) { }
+        public Img(HtmlNode node) : base(node) { ThrowsIfNotName(node, "img"); }
 
         /// <summary>
         /// Gets the Src attribute of the tag

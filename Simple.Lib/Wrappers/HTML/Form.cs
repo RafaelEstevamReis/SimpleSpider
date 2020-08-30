@@ -12,11 +12,11 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         /// <summary>
         /// Initializes a new instance
         /// </summary>
-        public Form(HtmlDocument doc) : base(doc) { }
+        public Form(HtmlDocument doc) : base(doc) { ThrowsIfNotName(doc, "form"); }
         /// <summary>
         /// Initializes a new instance
         /// </summary>
-        public Form(HtmlNode node) : base(node) { }
+        public Form(HtmlNode node) : base(node) { ThrowsIfNotName(node, "form"); }
 
         /// <summary>
         /// Gets the Action attribute of the tag
@@ -45,7 +45,18 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
                    .ToArray();
         }
         /// <summary>
-        /// Get all form inputs' Name and Value attributes
+        /// Gets all children select tags
+        /// </summary>
+        public Select[] GetSelects()
+        {
+            return SelectTags("//select")
+                   .Select(t => t.Cast<Select>())
+                   .ToArray();
+        }
+
+        /// <summary>
+        /// Get all form inputs' Name and Value attributes. 
+        /// NameValueCollection does not support multiple values with the same key
         /// </summary>
         public NameValueCollection GetFormData()
         {
@@ -56,7 +67,17 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
                 if (string.IsNullOrEmpty(i.Name)) continue;
                 if (i.Value == null) continue;
 
+                if (i.Type == "checkbox" && !i.Checked) continue;
+
                 nvc[i.Name] = i.Value;
+            }
+            foreach (var s in GetSelects())
+            {
+                if (string.IsNullOrEmpty(s.Name)) continue;
+
+                string value = s.SelectedValue();
+                if (value == null) continue;
+                nvc[s.Name] = value;
             }
 
             return nvc;

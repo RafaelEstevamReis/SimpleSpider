@@ -210,6 +210,15 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
             throw new InvalidCastException("Requested type is not mapped");
         }
 
+        protected void ThrowsIfNotName(HtmlDocument doc, string name)
+        {
+            ThrowsIfNotName(doc.DocumentNode, name);
+        }
+        protected void ThrowsIfNotName(HtmlNode node, string name)
+        {
+            if (node.Name != name) throw new InvalidCastException($"The node must be {name}");
+        }
+
         /// <summary>
         /// Returns a string that represents the current object
         /// </summary>

@@ -10,11 +10,11 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         /// <summary>
         /// Initializes a new instance
         /// </summary>
-        public Meta(HtmlDocument doc) : base(doc) { }
+        public Meta(HtmlDocument doc) : base(doc) { ThrowsIfNotName(doc, "meta"); }
         /// <summary>
         /// Initializes a new instance
         /// </summary>
-        public Meta(HtmlNode node) : base(node) { }
+        public Meta(HtmlNode node) : base(node) { ThrowsIfNotName(node, "meta"); }
 
         /// <summary>
         /// Gets the Charset attribute of the tag
