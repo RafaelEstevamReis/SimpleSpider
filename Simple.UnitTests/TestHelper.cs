@@ -67,9 +67,9 @@
         <div class=""cTest1"" id=""iTest1"">
             <p> Shopping list: </p>
             <ol>
-                <li id=""opt1"">Option 1</li>
-                <li id=""opt2"">Option 2</li>
-                <li id=""opt3"">Option 3</li>  
+                <li id=""opt1""><data value=""123"">Option 1</li>
+                <li id=""opt2""><data value=""456"">Option 2</li>
+                <li id=""opt3""><data value=""789"">Option 3</li>  
             </ol>
         </div>
         <form method=""POST"" action=""/"">
@@ -86,6 +86,9 @@
         </form>
         <iframe src=""https://www.w3schools.com"" title=""W3Schools Free Online Web Tutorials""></iframe>
         <img src=""img_girl.jpg"" width=""500"" height=""600"">
+        <object data=""horse.wav"">
+            <param name=""autoplay"" value=""true"">
+        </object>
     </body>
 </html>";
         }

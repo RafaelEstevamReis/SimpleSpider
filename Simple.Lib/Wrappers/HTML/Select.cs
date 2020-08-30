@@ -6,7 +6,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
     /// <summary>
     /// Represents an html Select tag
     /// </summary>
-    public class Select : Tag
+    public class Select : Tag, ITagName
     {
         /// <summary>
         /// Initializes a new instance

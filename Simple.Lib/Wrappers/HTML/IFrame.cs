@@ -5,7 +5,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
     /// <summary>
     /// Represents an html IFrame tag
     /// </summary>
-    public class IFrame : Tag
+    public class IFrame : Tag, ITagSrc, ITagName
     {
         /// <summary>
         /// Initializes a new instance

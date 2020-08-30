@@ -5,7 +5,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
     /// <summary>
     /// Represents an html Option tag
     /// </summary>
-    public class Option : Tag
+    public class Option : Tag, ITagValue
     {
         /// <summary>
         /// Initializes a new instance

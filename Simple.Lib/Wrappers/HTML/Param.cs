@@ -1,22 +1,25 @@
 ﻿using HtmlAgilityPack;
-using System;
 
 namespace Net.RafaelEstevam.Spider.Wrappers.HTML
 {
     /// <summary>
-    /// Represents an html Data tag
+    /// Represents an html Param tag
     /// </summary>
-    public class Data : Tag, ITagValue
+    public class Param : Tag, ITagValue, ITagName
     {
         /// <summary>
         /// Initializes a new instance
         /// </summary>
-        public Data(HtmlDocument doc) : base(doc) { ThrowsIfNotName(doc, "data"); }
+        public Param(HtmlDocument doc) : base(doc) { ThrowsIfNotName(doc, "param"); }
         /// <summary>
         /// Initializes a new instance
         /// </summary>
-        public Data(HtmlNode node) : base(node) { ThrowsIfNotName(node, "data"); }
+        public Param(HtmlNode node) : base(node) { ThrowsIfNotName(node, "param"); }
 
+        /// <summary>
+        /// Gets the Name attribute of the tag
+        /// </summary>
+        public string Name => Attributes["name"];
         /// <summary>
         /// Gets the Value attribute of the tag
         /// </summary>

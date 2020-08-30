@@ -32,6 +32,15 @@ namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HtmlTests
         }
 
         [Fact]
+        public void Wrappers_HtmlTagCast_Data()
+        {
+            var tag = GetTag("//data");
+            var btn = tag.Cast<Data>();
+            Assert.Equal("data", btn.TagName);
+            Assert.Equal("123", btn.Value);
+        }
+
+        [Fact]
         public void Wrappers_HtmlTagCast_Div()
         {
             var tag = GetTag("//div");
@@ -113,6 +122,16 @@ namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HtmlTests
             var element = tag.Cast<Meta>();
             Assert.Equal("meta", element.TagName);
             Assert.Equal("UTF-8", element.Charset);
+        }
+
+        [Fact]
+        public void Wrappers_HtmlTagCast_Param()
+        {
+            var tag = GetTag("//param");
+            var element = tag.Cast<Param>();
+            Assert.Equal("param", element.TagName);
+            Assert.Equal("autoplay", element.Name);
+            Assert.Equal("true", element.Value);
         }
 
         [Fact]

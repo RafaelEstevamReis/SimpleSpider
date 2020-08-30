@@ -7,7 +7,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
     /// <summary>
     /// Represents an html Tag tag
     /// </summary>
-    public class Form : Tag
+    public class Form : Tag, ITagName
     {
         /// <summary>
         /// Initializes a new instance

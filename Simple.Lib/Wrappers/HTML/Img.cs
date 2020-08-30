@@ -5,7 +5,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
     /// <summary>
     /// Represents an html Image tag
     /// </summary>
-    public class Img : Tag
+    public class Img : Tag, ITagSrc
     {
         /// <summary>
         /// Initializes a new instance

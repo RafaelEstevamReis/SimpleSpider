@@ -10,7 +10,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
     /// <summary>
     /// Represents a HTML tag
     /// </summary>
-    public class Tag
+    public class Tag : ITag
     {
         /// <summary>
         /// Tag name/type mapping table
@@ -18,6 +18,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         public static (string, Type)[] MappingTable ={
             ("a",typeof(Anchor)),
             ("button",typeof(Button)),
+            ("data",typeof(Data)),
             ("div",typeof(Div)),
             ("form",typeof(Form)),
             ("iframe",typeof(IFrame)),
@@ -30,6 +31,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
             ("meta",typeof(Meta)),
             ("select",typeof(Select)),
             ("option",typeof(Option)),
+            ("param",typeof(Param)),
         };
 
         /// <summary>
@@ -209,11 +211,18 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
             }
             throw new InvalidCastException("Requested type is not mapped");
         }
-
+        /// <summary>
+        /// Throws an InvalidCastException if the current document node name is incorrect
+        /// </summary>
+        /// <param name="doc"></param>
+        /// <param name="name"></param>
         protected void ThrowsIfNotName(HtmlDocument doc, string name)
         {
             ThrowsIfNotName(doc.DocumentNode, name);
         }
+        /// <summary>
+        /// Throws an InvalidCastException if the current node name is incorrect
+        /// </summary>
         protected void ThrowsIfNotName(HtmlNode node, string name)
         {
             if (node.Name != name) throw new InvalidCastException($"The node must be {name}");

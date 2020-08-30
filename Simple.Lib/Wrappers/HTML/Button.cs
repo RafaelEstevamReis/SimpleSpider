@@ -5,7 +5,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
     /// <summary>
     /// Represents an html Button tag
     /// </summary>
-    public class Button : Tag
+    public class Button : Tag, ITagValue, ITagType, ITagName
     {
         /// <summary>
         /// Initializes a new instance
