@@ -40,7 +40,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         /// </summary>
         public Input[] GetInputs()
         {
-            return SelectTags("//input")
+            return SelectTags(".//input")
                    .Select(t => t.Cast<Input>())
                    .ToArray();
         }
@@ -49,7 +49,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         /// </summary>
         public Select[] GetSelects()
         {
-            return SelectTags("//select")
+            return SelectTags(".//select")
                    .Select(t => t.Cast<Select>())
                    .ToArray();
         }
