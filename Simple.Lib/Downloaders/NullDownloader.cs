@@ -65,7 +65,7 @@ namespace Net.RafaelEstevam.Spider.Downloaders
 
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
-            workQueue.TryDequeue(out Link l);
+            if (!workQueue.TryDequeue(out Link l)) return;
 
             if (ShouldFetch != null)
             {
