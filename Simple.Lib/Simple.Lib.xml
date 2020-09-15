@@ -1604,6 +1604,11 @@
             Gets the list of parsers the spider should be initialized with
             </summary>
         </member>
+        <member name="P:Net.RafaelEstevam.Spider.InitializationParams.StorageEngine">
+            <summary>
+            Gets or sets the storage engine to be used by the spider
+            </summary>
+        </member>
         <member name="P:Net.RafaelEstevam.Spider.InitializationParams.SpiderDirectory">
             <summary>
             Gets or sets the working SpiderDirectory to be used by the spider
@@ -1642,6 +1647,11 @@
         <member name="M:Net.RafaelEstevam.Spider.InitializationParams.AddParser``1(Net.RafaelEstevam.Spider.Interfaces.IParser{``0})">
             <summary>
             Adds a Parser to the spider. Parsers can be added and removed on-the-fly
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.InitializationParams.SetStorage(Net.RafaelEstevam.Spider.Interfaces.IStorage)">
+            <summary>
+            Instructs spider to use this specific Storage Engine
             </summary>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.InitializationParams.SetLogger(Serilog.ILogger)">
@@ -2092,6 +2102,11 @@
         <member name="P:Net.RafaelEstevam.Spider.SimpleSpider.Parsers">
             <summary>
             Current Parsers
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.SimpleSpider.Storage">
+            <summary>
+            Current storage engine
             </summary>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.SimpleSpider.SpiderWorkData">

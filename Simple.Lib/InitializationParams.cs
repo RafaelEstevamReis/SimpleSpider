@@ -32,6 +32,10 @@ namespace Net.RafaelEstevam.Spider
         /// </summary>
         public List<IParserBase> Parsers { get; }
         /// <summary>
+        /// Gets or sets the storage engine to be used by the spider
+        /// </summary>
+        public IStorage StorageEngine { get; set; }
+        /// <summary>
         /// Gets or sets the working SpiderDirectory to be used by the spider
         /// </summary>
         public DirectoryInfo SpiderDirectory { get; set; }
@@ -91,6 +95,14 @@ namespace Net.RafaelEstevam.Spider
         {
             Parsers.Add(Parser);
             return this; // Chaining
+        }
+        /// <summary>
+        /// Instructs spider to use this specific Storage Engine
+        /// </summary>
+        public InitializationParams SetStorage(IStorage storage)
+        {
+            this.StorageEngine = storage;
+            return this;
         }
         /// <summary>
         /// Sets a logger to be used by the spider instance

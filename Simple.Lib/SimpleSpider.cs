@@ -70,6 +70,11 @@ namespace Net.RafaelEstevam.Spider
         /// </summary>
         public List<IParserBase> Parsers { get; }
         /// <summary>
+        /// Current storage engine
+        /// </summary>
+        public IStorage Storage { get; }
+
+        /// <summary>
         /// Spider private work data, mess with care
         /// </summary>
         public SpiderData SpiderWorkData { get; private set; }
@@ -116,6 +121,8 @@ namespace Net.RafaelEstevam.Spider
 
             Parsers = new List<IParserBase>();
             if (@params?.Parsers != null) Parsers.AddRange(@params.Parsers);
+
+            if (@params?.StorageEngine != null) Storage = @params.StorageEngine;
 
             logInitialStatus();
         }
