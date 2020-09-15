@@ -15,6 +15,7 @@ namespace Net.RafaelEstevam.Spider.UnitTests.CoreTests.InitParamsTests
             Assert.IsType<ContentCacher>(init.Cacher);
             Assert.IsType<WebClientDownloader>(init.Downloader);
             Assert.Empty(init.Parsers);
+            Assert.Null(init.StorageEngine);
             Assert.Null(init.SpiderDirectory);
 
             var cfg = init.ConfigurationPrototype;
@@ -39,6 +40,7 @@ namespace Net.RafaelEstevam.Spider.UnitTests.CoreTests.InitParamsTests
             Assert.IsType<HttpClientDownloader>(init.Downloader); // Different from 001
             Assert.NotEmpty((init.Downloader as HttpClientDownloader).IncludeRequestHeaders); // Different from 001 | Specific to HttpClientDownloader
             Assert.Empty(init.Parsers);
+            Assert.Null(init.StorageEngine);
             Assert.Null(init.SpiderDirectory);
 
             var cfg = init.ConfigurationPrototype;

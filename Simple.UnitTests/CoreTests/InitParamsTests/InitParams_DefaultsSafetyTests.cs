@@ -79,7 +79,6 @@ namespace Net.RafaelEstevam.Spider.UnitTests.CoreTests.InitParamsTests
             }
         }
 
-
         private static IEnumerable<string> serializeParams(InitializationParams init)
         {
             var cfg = init.ConfigurationPrototype;
@@ -89,6 +88,7 @@ namespace Net.RafaelEstevam.Spider.UnitTests.CoreTests.InitParamsTests
                 if (!p.CanRead) continue;
                 if (p.Name == "Parsers") continue; // Will be checked later
                 if (p.Name == "ConfigurationPrototype") continue; // Will be checked later
+                if (p.Name == "StorageEngine") continue; // Will be checked later
                 string val = "";
                 if (p.PropertyType.IsInterface)
                 {
