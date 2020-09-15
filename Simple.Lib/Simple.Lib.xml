@@ -1788,6 +1788,41 @@
             Data parsed by the parser
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Interfaces.IStorage">
+            <summary>
+            Represents a Interface to store collected data
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Interfaces.IStorage.Initialize(Net.RafaelEstevam.Spider.Configuration)">
+            <summary>
+            Initialize the Storage with spider config
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Interfaces.IStorage.LoadData">
+            <summary>
+            Instructs the storage to load saved data (optional)
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Interfaces.IStorage.SaveData(System.Boolean)">
+            <summary>
+            Instructs the storage to save data
+            </summary>
+            <param name="IsAutoSave">Indicates if was initiated by the auto-save</param>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Interfaces.IStorage.AddItem(Net.RafaelEstevam.Spider.Link,System.Object)">
+            <summary>
+            Adds an item to the collection
+            </summary>
+            <param name="link">Link where the object was found</param>
+            <param name="item">Item to be collected</param>
+            <returns>Returns true if the item was added to the collection</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Interfaces.IStorage.Count">
+            <summary>
+            Countes the number of items collected
+            </summary>
+            <returns>Returns the number of items collected</returns>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Link">
             <summary>
             Represents a Link enqueued or fetched
