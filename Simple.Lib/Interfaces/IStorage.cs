@@ -16,7 +16,7 @@
         /// <summary>
         /// Instructs the storage to save data
         /// </summary>
-        /// <param name="IsAutoSave">Indicates if was initiated by the auto-save</param>
+        /// <param name="IsAutoSave">Indicates if was initiated by the auto-save. If false the spider finished its queue</param>
         void SaveData(bool IsAutoSave);
 
         /// <summary>

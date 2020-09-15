@@ -122,7 +122,11 @@ namespace Net.RafaelEstevam.Spider
             Parsers = new List<IParserBase>();
             if (@params?.Parsers != null) Parsers.AddRange(@params.Parsers);
 
-            if (@params?.StorageEngine != null) Storage = @params.StorageEngine;
+            if (@params?.StorageEngine != null)
+            {
+                Storage = @params.StorageEngine;
+                Storage.Initialize(Configuration);
+            }
 
             logInitialStatus();
         }
@@ -244,6 +248,7 @@ namespace Net.RafaelEstevam.Spider
             bool running = true;
             Cacher.Start();
             Downloader.Start();
+            Storage?.LoadData();
 
             if (QueueSize() == 0) addPage(BaseUri, BaseUri);
 
@@ -281,15 +286,15 @@ namespace Net.RafaelEstevam.Spider
                 if (saveCount++ > 1000) // Each loop is 0,1 or 0,5s, 1 min => ~600
                 {
                     saveCount = 0;
-                    saveSpiderData();
+                    saveSpiderData(true);
                 }
             }
 
-            saveSpiderData();
+            saveSpiderData(false);
             Cacher.Stop();
             Downloader.Stop();
         }
-        private void saveSpiderData()
+        private void saveSpiderData(bool autoSave)
         {
             lock (spiderWorkDataPath)
             {
@@ -303,6 +308,7 @@ namespace Net.RafaelEstevam.Spider
                     log.Error(ex, "Failed to save spider internal data");
                 }
             }
+            Storage?.SaveData(autoSave);
         }
 
         private bool workQueue()
