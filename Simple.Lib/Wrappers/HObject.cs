@@ -376,12 +376,28 @@ namespace Net.RafaelEstevam.Spider.Wrappers
             return nodes.FirstOrDefault()?.InnerText;
         }
         /// <summary>
+        /// Returns first element Value trimmed
+        /// </summary>
+        /// <returns>The trimmed string Value of the element</returns>
+        public string Trim()
+        {
+            return GetValue().Trim();
+        }
+        /// <summary>
         /// Returns an array with all Elements values
         /// </summary>
         /// <returns>String array of the values</returns>
         public string[] GetValues()
         {
             return nodes.Select(x => x.InnerText).ToArray();
+        }
+        /// <summary>
+        /// Returns an array with all Elements values trimmed
+        /// </summary>
+        /// <returns>String array of the values trimmed</returns>
+        public string[] TrimAll()
+        {
+            return nodes.Select(x => x.InnerText.Trim()).ToArray();
         }
 
         /// <summary>

@@ -2472,11 +2472,23 @@
             </summary>
             <returns>The string Value of the element</returns>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.Trim">
+            <summary>
+            Returns first element Value trimmed
+            </summary>
+            <returns>The trimmed string Value of the element</returns>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetValues">
             <summary>
             Returns an array with all Elements values
             </summary>
             <returns>String array of the values</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.TrimAll">
+            <summary>
+            Returns an array with all Elements values trimmed
+            </summary>
+            <returns>String array of the values trimmed</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HObject.GetAttributeValue(System.String)">
             <summary>
