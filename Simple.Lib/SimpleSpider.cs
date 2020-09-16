@@ -190,6 +190,7 @@ namespace Net.RafaelEstevam.Spider
             log.Information($" > BaseUri:    {BaseUri}");
             log.Information($" > Cacher:     {Cacher}");
             log.Information($" > Downloader: {Downloader}");
+            log.Information($" > Storage:    {Storage}");
             log.Information($" > Directory:  {Configuration.SpiderDirectory}");
         }
 
