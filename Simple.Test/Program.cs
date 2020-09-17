@@ -8,6 +8,7 @@ namespace Net.RafaelEstevam.Spider.Test
         {
             // Spider Samples:
             //Sample.BooksToScrape.run();
+            //Sample.BooksToScrape_StorageJsonLines.run();
             //Sample.QuotesToScrape_Scroll.run();
             //Sample.QuotesToScrape_Scroll_Deserialize.run();
 
