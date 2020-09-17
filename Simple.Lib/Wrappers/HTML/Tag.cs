@@ -32,6 +32,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
             ("meta",typeof(Meta)),
             ("select",typeof(Select)),
             ("option",typeof(Option)),
+            ("p",typeof(Paragraph)),
             ("param",typeof(Param)),
         };
 

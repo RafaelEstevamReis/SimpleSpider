@@ -3040,6 +3040,21 @@
             Gets the Disabled attribute of the tag
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.Paragraph">
+            <summary>
+            Represents an html Paragraph tag
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Paragraph.#ctor(HtmlAgilityPack.HtmlDocument)">
+            <summary>
+            Initializes a new instance
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Paragraph.#ctor(HtmlAgilityPack.HtmlNode)">
+            <summary>
+            Initializes a new instance
+            </summary>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.Param">
             <summary>
             Represents an html Param tag
