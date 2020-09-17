@@ -2263,35 +2263,36 @@
             DO NOT USE - Serializable version of internal dictionary
             </summary>
         </member>
-        <member name="T:Net.RafaelEstevam.Spider.Storage.LJsonStorage">
+        <member name="T:Net.RafaelEstevam.Spider.Storage.JsonLinesStorage">
             <summary>
-            LineJson-based storage engine
+            JsonLines-based storage engine
+            <a href="https://jsonlines.org/">See more</a>
             </summary>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Storage.LJsonStorage.Initialize(Net.RafaelEstevam.Spider.Configuration)">
+        <member name="M:Net.RafaelEstevam.Spider.Storage.JsonLinesStorage.Initialize(Net.RafaelEstevam.Spider.Configuration)">
             <summary>
             Initializes the storage
             </summary>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Storage.LJsonStorage.AddItem(Net.RafaelEstevam.Spider.Link,System.Object)">
+        <member name="M:Net.RafaelEstevam.Spider.Storage.JsonLinesStorage.AddItem(Net.RafaelEstevam.Spider.Link,System.Object)">
             <summary>
             Adds a new item
             </summary>
             <param name="link">Link where the object was found</param>
             <param name="item">Item to be collected</param>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Storage.LJsonStorage.Count">
+        <member name="M:Net.RafaelEstevam.Spider.Storage.JsonLinesStorage.Count">
             <summary>
             Not supported by this Storage
             </summary>
             <returns>Returns -1</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Storage.LJsonStorage.LoadData">
+        <member name="M:Net.RafaelEstevam.Spider.Storage.JsonLinesStorage.LoadData">
             <summary>
             Not supported by this storage, does nothing
             </summary>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Storage.LJsonStorage.SaveData(System.Boolean)">
+        <member name="M:Net.RafaelEstevam.Spider.Storage.JsonLinesStorage.SaveData(System.Boolean)">
             <summary>
             Saves all data
             </summary>

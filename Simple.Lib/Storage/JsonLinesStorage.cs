@@ -8,6 +8,7 @@ namespace Net.RafaelEstevam.Spider.Storage
 {
     /// <summary>
     /// JsonLines-based storage engine
+    /// <a href="https://jsonlines.org/">See more</a>
     /// </summary>
     public class JsonLinesStorage : IStorage
     {
