@@ -21,20 +21,54 @@ namespace Net.RafaelEstevam.Spider.Storage
         {
             this.config = Config;
             filePath = Path.Combine(config.SpiderDataDirectory.FullName, "results.ljson");
+
+            if (File.Exists(filePath))
+            {
+                backupFile();
+            }
+
             stream = new StreamWriter(filePath, true);
 
             config.Logger.Information("LineJson Storage: " + filePath);
         }
+        private void backupFile()
+        {
+            var bkp1 = Path.Combine(config.SpiderDataDirectory.FullName, "results.bkp.gz");
+            var bkp2 = Path.Combine(config.SpiderDataDirectory.FullName, "results.old.gz");
+            var tmp = Path.GetTempFileName();
+            using (var fs = new FileStream(tmp, FileMode.Create, FileAccess.Write))
+            {
+                using var gz = new System.IO.Compression.GZipStream(fs, System.IO.Compression.CompressionMode.Compress);
+                using var fileToSave = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+                fileToSave.CopyTo(gz);
+                gz.Flush();
+                fs.Flush();
+            }
+
+            if (File.Exists(bkp1))
+                File.Move(bkp1, bkp2, true);
+
+            File.Move(tmp, bkp1);
+        }
+
         /// <summary>
         /// Adds a new item
         /// </summary>
         /// <param name="link">Link where the object was found</param>
         /// <param name="item">Item to be collected</param>
-        /// <returns>Returns true always</returns>
         public bool AddItem(Link link, dynamic item)
         {
+            if (stream == null)
+            {
+                config.Logger.Error(new Exception("Unable to store Item, the stream was closed"), $"Unable to store {link} data");
+                return false;
+            }
+
             var line = Newtonsoft.Json.JsonConvert.SerializeObject(item, Newtonsoft.Json.Formatting.None);
-            stream.WriteLine(line);
+            lock (filePath)
+            {
+                stream.WriteLine(line);
+            }
             return true;
         }
         /// <summary>
@@ -56,7 +90,11 @@ namespace Net.RafaelEstevam.Spider.Storage
         public void SaveData(bool IsAutoSave)
         {
             stream.Flush();
-            if (!IsAutoSave) stream.Dispose();
+            if (!IsAutoSave)
+            {
+                stream.Dispose();
+                stream = null;
+            }
         }
     }
 }

@@ -2279,7 +2279,6 @@
             </summary>
             <param name="link">Link where the object was found</param>
             <param name="item">Item to be collected</param>
-            <returns>Returns true always</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Storage.LJsonStorage.Count">
             <summary>
