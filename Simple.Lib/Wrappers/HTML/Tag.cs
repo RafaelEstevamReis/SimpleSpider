@@ -17,6 +17,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         /// </summary>
         public static (string, Type)[] MappingTable ={
             ("a",typeof(Anchor)),
+            ("article",typeof(Article)),
             ("button",typeof(Button)),
             ("data",typeof(Data)),
             ("div",typeof(Div)),
@@ -154,6 +155,28 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
             var n = Node.SelectNodes(XPath);
             if (n == null) return new Tag[0]; // Empty
             return n.Select(o => new Tag(o));
+        }
+        /// <summary>
+        /// Selects elements using XPath
+        /// </summary>
+        /// <typeparam name="T">Parameter type to be returned</typeparam>
+        /// <param name="XPath">A string with the XPath query</param>
+        /// <returns>An Tag collection with selected converted elements</returns>
+        public IEnumerable<T> SelectTags<T>(string XPath) where T : Tag
+        {
+            var n = Node.SelectNodes(XPath);
+            if (n == null) return new T[0]; // Empty
+            return n.Select(o => new Tag(o).Cast<T>());
+        }
+        /// <summary>
+        /// Selects elements by type
+        /// </summary>
+        /// <typeparam name="T">Parameter type to be selected and returned</typeparam>
+        /// <returns>An Tag collection with selected converted elements</returns>
+        public IEnumerable<T> SelectTags<T>() where T : Tag
+        {
+            string tagName = MappingTable.First(t => t.Item2 == typeof(T)).Item1;
+            return SelectTags<T>($".//{tagName}");
         }
         /// <summary>
         /// Enumerate all Children

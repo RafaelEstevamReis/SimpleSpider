@@ -2654,6 +2654,21 @@
             Gets the Target attribute of the tag
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.Article">
+            <summary>
+            Represents an html Article tag
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Article.#ctor(HtmlAgilityPack.HtmlDocument)">
+            <summary>
+            Initializes a new instance
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Article.#ctor(HtmlAgilityPack.HtmlNode)">
+            <summary>
+            Initializes a new instance
+            </summary>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.Button">
             <summary>
             Represents an html Button tag
@@ -3179,6 +3194,21 @@
             </summary>
             <param name="XPath">A string with the XPath query</param>
             <returns>An Tag collection with selected elements</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.SelectTags``1(System.String)">
+            <summary>
+            Selects elements using XPath
+            </summary>
+            <typeparam name="T">Parameter type to be returned</typeparam>
+            <param name="XPath">A string with the XPath query</param>
+            <returns>An Tag collection with selected converted elements</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.SelectTags``1">
+            <summary>
+            Selects elements by type
+            </summary>
+            <typeparam name="T">Parameter type to be selected and returned</typeparam>
+            <returns>An Tag collection with selected converted elements</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.GetChildren">
             <summary>
