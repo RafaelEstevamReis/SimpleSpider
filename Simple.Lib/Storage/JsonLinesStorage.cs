@@ -47,7 +47,11 @@ namespace Net.RafaelEstevam.Spider.Storage
             }
 
             if (File.Exists(bkp1))
-                File.Move(bkp1, bkp2, true);
+            {
+                // netstandard2.1 File.Move don't have OverrideFile parameter
+                if (File.Exists(bkp2)) File.Delete(bkp2);
+                File.Move(bkp1, bkp2);
+            }
 
             File.Move(tmp, bkp1);
         }
