@@ -309,7 +309,14 @@ namespace Net.RafaelEstevam.Spider
                     log.Error(ex, "Failed to save spider internal data");
                 }
             }
-            Storage?.SaveData(autoSave);
+            try
+            {
+                Storage?.SaveData(autoSave);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "Failed to save storage data");
+            }
         }
 
         private bool workQueue()

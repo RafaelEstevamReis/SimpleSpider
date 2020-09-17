@@ -381,7 +381,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers
         /// <returns>The trimmed string Value of the element</returns>
         public string Trim()
         {
-            return GetValue().Trim();
+            return GetValue()?.Trim();
         }
         /// <summary>
         /// Returns an array with all Elements values
