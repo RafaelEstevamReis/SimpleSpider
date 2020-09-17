@@ -3188,6 +3188,13 @@
             <typeparam name="T">Parameter type to be returned</typeparam>
             <returns>A tag with selected element or null if none matched</returns>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.SelectTag``1">
+            <summary>
+             Selects an single element by type
+            </summary>
+            <typeparam name="T">Parameter type to be selected and returned</typeparam>
+            <returns>A tag with selected element or null if none matched</returns>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.SelectTags(System.String)">
             <summary>
             Selects elements using XPath

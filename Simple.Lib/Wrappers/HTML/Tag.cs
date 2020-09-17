@@ -144,6 +144,16 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         {
             return SelectTag(XPath)?.Cast<T>();
         }
+        /// <summary>
+        ///  Selects an single element by type
+        /// </summary>
+        /// <typeparam name="T">Parameter type to be selected and returned</typeparam>
+        /// <returns>A tag with selected element or null if none matched</returns>
+        public T SelectTag<T>() where T : Tag
+        {
+            string tagName = MappingTable.First(t => t.Item2 == typeof(T)).Item1;
+            return SelectTag<T>($".//{tagName}");
+        }
 
         /// <summary>
         /// Selects elements using XPath
