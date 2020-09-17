@@ -2263,6 +2263,41 @@
             DO NOT USE - Serializable version of internal dictionary
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Storage.LJsonStorage">
+            <summary>
+            LineJson-based storage engine
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Storage.LJsonStorage.Initialize(Net.RafaelEstevam.Spider.Configuration)">
+            <summary>
+            Initializes the storage
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Storage.LJsonStorage.AddItem(Net.RafaelEstevam.Spider.Link,System.Object)">
+            <summary>
+            Adds a new item
+            </summary>
+            <param name="link">Link where the object was found</param>
+            <param name="item">Item to be collected</param>
+            <returns>Returns true always</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Storage.LJsonStorage.Count">
+            <summary>
+            Not supported by this Storage
+            </summary>
+            <returns>Returns -1</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Storage.LJsonStorage.LoadData">
+            <summary>
+            Not supported by this storage, does nothing
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Storage.LJsonStorage.SaveData(System.Boolean)">
+            <summary>
+            Saves all data
+            </summary>
+            <param name="IsAutoSave">Indicates if is an Auto-save or if is closing. Call with True will dispose the stream</param>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Wrappers.HObject">
             <summary>
             Represents a Html Tags Collection
