@@ -80,6 +80,11 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         /// </summary>
         public string Style => Attributes["style"];
         /// <summary>
+        /// Contains the Itemprop attribute of the element
+        /// </summary>
+        public string ItemProp => Attributes["itemprop"];
+
+        /// <summary>
         /// Gets an array of the Classes splitted by a space
         /// </summary>
         public string[] Classes

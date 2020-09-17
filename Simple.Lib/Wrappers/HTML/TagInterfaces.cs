@@ -25,6 +25,10 @@
         /// Style attribute
         /// </summary>
         public string Style { get; }
+        /// <summary>
+        /// Itemprop attribute
+        /// </summary>
+        public string ItemProp { get; }
     }
     /// <summary>
     /// Represents tags with Value attribute

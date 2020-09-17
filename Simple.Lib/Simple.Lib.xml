@@ -3138,6 +3138,11 @@
             Contains the Style attribute of the element
             </summary>
         </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.ItemProp">
+            <summary>
+            Contains the Itemprop attribute of the element
+            </summary>
+        </member>
         <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag.Classes">
             <summary>
             Gets an array of the Classes splitted by a space
@@ -3286,6 +3291,11 @@
         <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.ITag.Style">
             <summary>
             Style attribute
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.ITag.ItemProp">
+            <summary>
+            Itemprop attribute
             </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.ITagValue">
