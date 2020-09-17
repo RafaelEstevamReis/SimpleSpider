@@ -7,9 +7,9 @@ using Net.RafaelEstevam.Spider.Interfaces;
 namespace Net.RafaelEstevam.Spider.Storage
 {
     /// <summary>
-    /// LineJson-based storage engine
+    /// JsonLines-based storage engine
     /// </summary>
-    public class LJsonStorage : IStorage
+    public class JsonLinesStorage : IStorage
     {
         private Configuration config;
         string filePath;
@@ -20,7 +20,7 @@ namespace Net.RafaelEstevam.Spider.Storage
         public void Initialize(Configuration Config)
         {
             this.config = Config;
-            filePath = Path.Combine(config.SpiderDataDirectory.FullName, "results.ljson");
+            filePath = Path.Combine(config.SpiderDataDirectory.FullName, "results.jsonl");
 
             if (File.Exists(filePath))
             {
@@ -29,12 +29,12 @@ namespace Net.RafaelEstevam.Spider.Storage
 
             stream = new StreamWriter(filePath, true);
 
-            config.Logger.Information("LineJson Storage: " + filePath);
+            config.Logger.Information("JsonLines Storage at " + filePath);
         }
         private void backupFile()
         {
-            var bkp1 = Path.Combine(config.SpiderDataDirectory.FullName, "results.bkp.gz");
-            var bkp2 = Path.Combine(config.SpiderDataDirectory.FullName, "results.old.gz");
+            var bkp1 = Path.Combine(config.SpiderDataDirectory.FullName, "results.old.gz");
+            var bkp2 = Path.Combine(config.SpiderDataDirectory.FullName, "results.older.gz");
             var tmp = Path.GetTempFileName();
             using (var fs = new FileStream(tmp, FileMode.Create, FileAccess.Write))
             {
