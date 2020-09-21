@@ -12,10 +12,11 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// </summary>
         /// <param name="parent">Base Uri</param>
         /// <param name="relative">Relative Url</param>
+        /// <param name="RemoveWhitespace">Indicates whenever it should remove all whitespaces from Url before comining</param>
         /// <returns>New combined Uri</returns>
-        public static Uri Combine(this Uri parent, string relative)
+        public static Uri Combine(this Uri parent, string relative, bool RemoveWhitespace = false)
         {
-            // This method allows for future improvement on Uri combining and edge case handling
+            if (RemoveWhitespace) relative = RemoveWhitespaceChars(relative);
 
             return new Uri(parent, relative);
         }
@@ -78,6 +79,15 @@ namespace Net.RafaelEstevam.Spider.Helper
         public static string UrlWithoutHost(this Uri uri)
         {
             return uri.PathAndQuery;
+        }
+
+        /// <summary>
+        /// Remove whitespace from string <a href="https://stackoverflow.com/questions/6219454/efficient-way-to-remove-all-whitespace-from-string/30732794#30732794"/>
+        /// </summary>
+        public static string RemoveWhitespaceChars(this string str)
+        {
+            // split then join, but is fast enough without using UNSAFE
+            return string.Join("", str.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
         }
     }
 }
