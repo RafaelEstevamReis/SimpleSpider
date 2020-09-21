@@ -28,7 +28,7 @@
         bool AddItem(Link link, dynamic item);
 
         /// <summary>
-        /// Countes the number of items collected
+        /// Counts the number of items collected
         /// </summary>
         /// <returns>Returns the number of items collected</returns>
         int Count();

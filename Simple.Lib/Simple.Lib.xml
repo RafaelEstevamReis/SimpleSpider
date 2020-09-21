@@ -1841,7 +1841,7 @@
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Interfaces.IStorage.Count">
             <summary>
-            Countes the number of items collected
+            Counts the number of items collected
             </summary>
             <returns>Returns the number of items collected</returns>
         </member>
@@ -2924,6 +2924,31 @@
             Gets the Disabled attribute of the tag
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.Label">
+            <summary>
+            Represents an html Label tag
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Label.#ctor(HtmlAgilityPack.HtmlDocument)">
+            <summary>
+            Initializes a new instance
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Label.#ctor(HtmlAgilityPack.HtmlNode)">
+            <summary>
+            Initializes a new instance
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.Label.For">
+            <summary>
+            Gets the for attribute of the tag as Text
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.Label.ForElement">
+            <summary>
+            Gets the element indicated in the For attribute of the tag
+            </summary>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.Li">
             <summary>
             Represents an html List Item tag
@@ -3133,6 +3158,21 @@
         <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Select.GetItems">
             <summary>
             Gets all children Option tags
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.Span">
+            <summary>
+            Represents an html Span tag
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Span.#ctor(HtmlAgilityPack.HtmlDocument)">
+            <summary>
+            Initializes a new instance
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Span.#ctor(HtmlAgilityPack.HtmlNode)">
+            <summary>
+            Initializes a new instance
             </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.Tag">
@@ -3407,6 +3447,11 @@
         <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.ITagName.Name">
             <summary>
             Name attribute
+            </summary>
+        </member>
+        <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.ILabelable">
+            <summary>
+            Represents tags associated with Label element
             </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.Ul">
