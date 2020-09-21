@@ -70,14 +70,10 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
             string ex10C = hObj["span > .text"][2]; // Get the 3rd item, index[2]
 
             //Example 11
-            // Exports elements as XElements both with GetXElements method or implicitly
-            IEnumerable<XElement> ex11A = hObj["span"][".text"].GetXElements();
-            XElement[] ex11B = hObj["span"][".text"];
+            // - Removed as Obsolete
 
             //Example 12
-            // Exports first element as XElement both with GetXElement method or implicitly
-            XElement ex12A = hObj["span"][".text"].GetXElement();
-            XElement ex12B = hObj["span"][".text"];
+            // - Removed as Obsolete
 
             //Example 13
             // Gets Attribute's value
