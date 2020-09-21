@@ -18,6 +18,7 @@ A simple and modular web spider written in C#. Multi Target with:
   - [Samples](#samples)
     - [Use XPath to select content](#use-xpath-to-select-content)
     - [Use our HObject implementation to select content](#use-our-hobject-implementation-to-select-content)
+    - [Easy storage with StorageEngines](#easy-storage-with-storageengines)
     - [Easy initialization with chaining](#easy-initialization-with-chaining)
     - [Easy single resource fetch](#easy-single-resource-fetch)
     - [Use Json to deserialize Quotes](#use-json-to-deserialize-quotes)
@@ -180,6 +181,48 @@ Use indexing style object representation of the html document similar to Newtons
 }
 ```
 *[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_HObject.cs)*
+
+
+### Easy storage with StorageEngines
+
+Store you data with Attached Storage Engines, some included !
+
+```C#
+void run()
+{
+    var iP = new InitializationParams()
+                // Defines a Storage Engine
+                // All stored items will be in spider folder as JsonLines
+                .SetStorage(new Storage.JsonLinesStorage()); 
+    var spider = new SimpleSpider("BooksToScrape", new Uri("http://books.toscrape.com/"), iP);
+    // callback to gather items
+    spider.FetchCompleted += fetchCompleted_items;
+    // execute
+    spider.Execute();
+}
+static void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
+{
+    // ignore all pages except the catalogue
+    if (!args.Link.ToString().Contains("/catalogue/")) return;
+
+    var tag = new Tag(args.GetDocument());
+    var books = tag.SelectTags<Article>("//article[@class=\"product_page\"]");
+
+    foreach (var book in books)
+    {
+        // process prices
+        var priceP = book.SelectTag<Paragraph>(".//p[@class=\"price_color\"]");
+        var price = priceP.InnerText.Trim();
+        // Store name and prices
+        (Sender as SimpleSpider).Storage.AddItem(args.Link, new
+        {
+            name = book.SelectTag("//h1").InnerText,
+            price
+        });
+    }
+}
+```
+*[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/BooksToScrape_StorageJsonLines.cs)*
 
 ### Easy initialization with chaining
 

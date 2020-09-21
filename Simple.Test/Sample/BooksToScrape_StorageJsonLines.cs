@@ -8,7 +8,8 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
         public static void run()
         {
             var iP = new InitializationParams()
-                // Defines Storage Engine
+                // Defines a Storage Engine
+                // All stored items will be in spider folder as JsonLines
                 .SetStorage(new Storage.JsonLinesStorage()); // JsonLines: https://jsonlines.org/
 
             var spider = new SimpleSpider("BooksToScrape", new Uri("http://books.toscrape.com/"), iP);
@@ -30,11 +31,14 @@ namespace Net.RafaelEstevam.Spider.Test.Sample
 
             foreach (var book in books)
             {
-                var name = book.SelectTag("//h1").InnerText;
                 var priceP = book.SelectTag<Paragraph>(".//p[@class=\"price_color\"]");
                 var price = priceP.InnerText.Trim();
 
-                (Sender as SimpleSpider).Storage.AddItem(args.Link, new { Name = name, Proce = price });
+                (Sender as SimpleSpider).Storage.AddItem(args.Link, new
+                {
+                    name = book.SelectTag("//h1").InnerText,
+                    price
+                });
             }
         }
     }
