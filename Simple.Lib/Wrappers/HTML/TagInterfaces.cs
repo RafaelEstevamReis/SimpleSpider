@@ -86,5 +86,10 @@
         /// </summary>
         public string Name { get; }
     }
-
+    /// <summary>
+    /// Represents tags associated with Label element
+    /// </summary>
+    public interface ILabelable : ITag
+    {
+    }
 }
