@@ -1,4 +1,7 @@
 ﻿using HtmlAgilityPack;
+using Net.RafaelEstevam.Spider.Helper;
+using System;
+using System.Text;
 
 namespace Net.RafaelEstevam.Spider.Wrappers.HTML
 {
@@ -19,6 +22,16 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         /// Gets the Href attribute of the tag
         /// </summary>
         public string Href => Attributes["href"];
+        /// <summary>
+        /// Combines ParentUri with Href and returns a clean Uri
+        /// </summary>
+        /// <param name="ParentUri">Parent Uri to combine to</param>
+        /// <returns>An Uri combined without whitespaces</returns>
+        public Uri GetUri(Uri ParentUri)
+        {
+            return UriHelper.Combine(ParentUri, Href, true);
+        }
+
         /// <summary>
         /// Gets the Target attribute of the tag
         /// </summary>
