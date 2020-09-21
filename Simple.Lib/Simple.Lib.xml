@@ -1450,12 +1450,13 @@
             Helper for Uri stuff
             </summary>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Helper.UriHelper.Combine(System.Uri,System.String)">
+        <member name="M:Net.RafaelEstevam.Spider.Helper.UriHelper.Combine(System.Uri,System.String,System.Boolean)">
             <summary>
             Combines a Uri with a Relative Url into a new combined Uri
             </summary>
             <param name="parent">Base Uri</param>
             <param name="relative">Relative Url</param>
+            <param name="RemoveWhitespace">Indicates whenever it should remove all whitespaces from Url before comining</param>
             <returns>New combined Uri</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.UriHelper.HasFragment(System.Uri)">
@@ -1499,6 +1500,11 @@
             </summary>
             <param name="uri">Uri to return from</param>
             <returns>Returns the Url</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.UriHelper.RemoveWhitespaceChars(System.String)">
+            <summary>
+            Remove whitespace from string <a href="https://stackoverflow.com/questions/6219454/efficient-way-to-remove-all-whitespace-from-string/30732794#30732794"/>
+            </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Helper.XElementHelper">
             <summary>
@@ -2654,6 +2660,13 @@
             <summary>
             Gets the Href attribute of the tag
             </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.Anchor.GetUri(System.Uri)">
+            <summary>
+            Combines ParentUri with Href and returns a clean Uri
+            </summary>
+            <param name="ParentUri">Parent Uri to combine to</param>
+            <returns>An Uri combined without whitespaces</returns>
         </member>
         <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.Anchor.Target">
             <summary>
