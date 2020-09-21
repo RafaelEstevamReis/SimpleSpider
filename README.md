@@ -16,11 +16,11 @@ A simple and modular web spider written in C#. Multi Target with:
   - [Installation](#installation)
   - [Getting started](#getting-started)
   - [Samples](#samples)
-    - [Use Json to deserialize Quotes](#use-json-to-deserialize-quotes)
     - [Use XPath to select content](#use-xpath-to-select-content)
-    - [Easy single resource fetch](#easy-single-resource-fetch)
     - [Use our HObject implementation to select content](#use-our-hobject-implementation-to-select-content)
     - [Easy initialization with chaining](#easy-initialization-with-chaining)
+    - [Easy single resource fetch](#easy-single-resource-fetch)
+    - [Use Json to deserialize Quotes](#use-json-to-deserialize-quotes)
   - [Some Helpers](#some-helpers)
   - [Giants' shoulders](#giants-shoulders)
 <!-- /TOC -->
@@ -82,40 +82,6 @@ void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
 
 Inside the [Simple.Tests](https://github.com/RafaelEstevamReis/SimpleSpider/tree/master/Simple.Test/Sample) folders are all samples, these are some of them:
 
-### Use Json to deserialize Quotes
-
-Json response? Get a event with your data already deserialized.
-
-( yes, these few lines below are full functional examples! )
-
-```C#
-void run()
-{
-    var spider = new SimpleSpider("QuotesToScrape", new Uri("http://quotes.toscrape.com/"));
-    // create a json parser for our QuotesObject class
-    spider.Parsers.Add(new JsonDeserializeParser<QuotesObject>(parsedResult_event));
-    // add first page /api/quotes?page={pageNo}
-    spider.AddPage(buildPageUri(1), spider.BaseUri);
-    // execute
-    spider.Execute();
-}
-void parsedResult_event(object sender, ParserEventArgs<QuotesObject> args)
-{
-    // add next
-    if (args.ParsedData.has_next)
-    {
-        int next = args.ParsedData.page + 1;
-        (sender as SimpleSpider).AddPage(buildPageUri(next), args.FetchInfo.Link);
-    }
-    // process data (show on console)
-    foreach (var q in args.ParsedData.quotes)
-    {
-        Console.WriteLine($"{q.author.name }: { q.text }");
-    }
-}
-```
-*[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_Scroll_Deserialize.cs)*
-
 ### Use XPath to select content
 
 Use XPath to select html elements and filter data.
@@ -170,27 +136,6 @@ void fetchCompleted_items(object Sender, FetchCompleteEventArgs args)
 ```
 *[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/BooksToScrape.cs)*
 
-
-### Easy single resource fetch
-
-Easy API pooling for updates with single resource fetch.
-```C#
-void run()
-{
-    var uri = new Uri("http://quotes.toscrape.com/api/quotes?page=1");
-    var quotes = FetchHelper.FetchResourceJson<QuotesObject>(uri);
-    // show the quotes deserialized
-    foreach (var quote in quotes.quotes)
-    {
-        Console.WriteLine($"Quote: {quote.text}");
-        Console.WriteLine($"       - {quote.author.name}");
-        Console.WriteLine();
-    }
-}
-```
-*[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/ApiPooler_FetcherHelper.cs)*
-
-
 ### Use our HObject implementation to select content
 
 Use indexing style object representation of the html document similar to Newtonsoft's JObject.
@@ -236,7 +181,6 @@ Use indexing style object representation of the html document similar to Newtons
 ```
 *[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_HObject.cs)*
 
-
 ### Easy initialization with chaining
 
 Initialize your spider easily with chaining and a good variety of options.
@@ -265,6 +209,59 @@ void run()
 }
 ```
 *[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_Chaining.cs)*
+
+### Easy single resource fetch
+
+Easy API pooling for updates with single resource fetch.
+```C#
+void run()
+{
+    var uri = new Uri("http://quotes.toscrape.com/api/quotes?page=1");
+    var quotes = FetchHelper.FetchResourceJson<QuotesObject>(uri);
+    // show the quotes deserialized
+    foreach (var quote in quotes.quotes)
+    {
+        Console.WriteLine($"Quote: {quote.text}");
+        Console.WriteLine($"       - {quote.author.name}");
+        Console.WriteLine();
+    }
+}
+```
+*[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/ApiPooler_FetcherHelper.cs)*
+
+### Use Json to deserialize Quotes
+
+Json response? Get a event with your data already deserialized.
+
+( yes, these few lines below are full functional examples! )
+
+```C#
+void run()
+{
+    var spider = new SimpleSpider("QuotesToScrape", new Uri("http://quotes.toscrape.com/"));
+    // create a json parser for our QuotesObject class
+    spider.Parsers.Add(new JsonDeserializeParser<QuotesObject>(parsedResult_event));
+    // add first page /api/quotes?page={pageNo}
+    spider.AddPage(buildPageUri(1), spider.BaseUri);
+    // execute
+    spider.Execute();
+}
+void parsedResult_event(object sender, ParserEventArgs<QuotesObject> args)
+{
+    // add next
+    if (args.ParsedData.has_next)
+    {
+        int next = args.ParsedData.page + 1;
+        (sender as SimpleSpider).AddPage(buildPageUri(next), args.FetchInfo.Link);
+    }
+    // process data (show on console)
+    foreach (var q in args.ParsedData.quotes)
+    {
+        Console.WriteLine($"{q.author.name }: { q.text }");
+    }
+}
+```
+*[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_Scroll_Deserialize.cs)*
 
 
 ## Some [Helpers](https://github.com/RafaelEstevamReis/SimpleSpider/tree/master/Simple.Lib/Helper)
