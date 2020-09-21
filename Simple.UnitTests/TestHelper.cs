@@ -89,6 +89,11 @@
         <object data=""horse.wav"">
             <param name=""autoplay"" value=""true"">
         </object>
+        <div id=""idProds"">
+            <article>Product 1<br>Price $ 213,00<br><span class=""stock"">On Stock</span></article>
+            <article>Product 2<br>Price $ 132,00<br><span class=""empty"">Out of Stock</span></article>
+            <article>Product 3<br>Price $ 321,00<br><span class=""stock"">On Stock</span></article>
+        </div>
     </body>
 </html>";
         }

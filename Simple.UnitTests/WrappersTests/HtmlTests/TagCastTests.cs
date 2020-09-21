@@ -1,4 +1,5 @@
-﻿using Net.RafaelEstevam.Spider.Wrappers.HTML;
+﻿using Net.RafaelEstevam.Spider.Helper;
+using Net.RafaelEstevam.Spider.Wrappers.HTML;
 using System;
 using Xunit;
 
@@ -20,6 +21,14 @@ namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HtmlTests
             var anchor = tag.Cast<Anchor>();
             Assert.Equal("a", anchor.TagName);
             Assert.Equal("?a=1", anchor.Href);
+        }
+
+        [Fact]
+        public void Wrappers_HtmlTagCast_Article()
+        {
+            var tag = GetTag("//article");
+            var btn = tag.Cast<Article>();
+            Assert.Equal("article", btn.TagName);
         }
 
         [Fact]
@@ -107,6 +116,16 @@ namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HtmlTests
         }
 
         [Fact]
+        public void Wrappers_HtmlTagCast_Label()
+        {
+            //var tag = GetTag("//label");
+            var tag = new Tag(HtmlParseHelper.ParseHtmlDocument(LabelTests.html1));
+            var lbl = tag.SelectTag("//label");
+            var element = lbl.Cast<Label>();
+            Assert.Equal("label", element.TagName);
+        }
+
+        [Fact]
         public void Wrappers_HtmlTagCast_Link()
         {
             var tag = GetTag("//link");
@@ -148,6 +167,22 @@ namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HtmlTests
             var element = tag.Cast<Option>();
             Assert.Equal("option", element.TagName);
             Assert.Equal("car1", element.Value);
+        }
+
+        [Fact]
+        public void Wrappers_HtmlTagCast_Paragraph()
+        {
+            var tag = GetTag("//p");
+            var element = tag.Cast<Paragraph>();
+            Assert.Equal("p", element.TagName);
+        }
+
+        [Fact]
+        public void Wrappers_HtmlTagCast_Span()
+        {
+            var tag = GetTag("//span");
+            var element = tag.Cast<Span>();
+            Assert.Equal("span", element.TagName);
         }
     }
 }
