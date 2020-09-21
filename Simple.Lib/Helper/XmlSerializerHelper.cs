@@ -16,7 +16,8 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// <param name="file">File path of the file</param>
         public static void SerializeToFile<T>(T obj, string file) where T : new()
         {
-            Serialize(obj, new StreamWriter(file));
+            using var sw = new StreamWriter(file);
+            Serialize(obj, sw);
         }
         /// <summary>
         /// Serialize a generic {T} object to a stream
