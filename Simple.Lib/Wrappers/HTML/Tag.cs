@@ -28,12 +28,14 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
             ("ol",typeof(Ol)),
             ("ul",typeof(Ul)),
             ("li",typeof(Li)),
+            ("label",typeof(Label)),
             ("link",typeof(Link)),
             ("meta",typeof(Meta)),
             ("select",typeof(Select)),
             ("option",typeof(Option)),
             ("p",typeof(Paragraph)),
             ("param",typeof(Param)),
+            ("span",typeof(Span)),
         };
 
         /// <summary>
