@@ -5,7 +5,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
     /// <summary>
     /// Represents an html Input tag
     /// </summary>
-    public class Input : Tag, ITagValue, ITagType
+    public class Input : Tag, ITagValue, ITagType, ILabelable
     {
         /// <summary>
         /// Initializes a new instance
