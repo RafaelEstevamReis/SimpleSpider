@@ -237,7 +237,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
         /// </summary>
         /// <typeparam name="T">Parameter type to be returned</typeparam>
         /// <returns>Tag object returned</returns>
-        public T Cast<T>() where T : Tag
+        public T Cast<T>() where T : ITag
         {
             foreach (var p in MappingTable)
             {
@@ -245,7 +245,7 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
                 {
                     if (p.Item1 == TagName)
                     {
-                        return (T)invokeTag(p.Item2, Node);
+                        return (T)(ITag)invokeTag(p.Item2, Node);
                     }
                     throw new InvalidCastException("Incorrect type");
                 }

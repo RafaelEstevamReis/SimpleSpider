@@ -29,6 +29,8 @@
         /// Itemprop attribute
         /// </summary>
         public string ItemProp { get; }
+
+        public T Cast<T>() where T : ITag;
     }
     /// <summary>
     /// Represents tags with Value attribute
