@@ -2673,6 +2673,29 @@
             Gets the Target attribute of the tag
             </summary>
         </member>
+        <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.AnchorExtensions">
+            <summary>
+            Exposes extensions methods for Anchor
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.AnchorExtensions.AddPage(Net.RafaelEstevam.Spider.SimpleSpider,Net.RafaelEstevam.Spider.Wrappers.HTML.Anchor,System.Uri)">
+            <summary>
+            Add an Anchor to fetch
+            </summary>
+            <param name="spider">Spider to add</param>
+            <param name="anchor">Anchor to fetch</param>
+            <param name="SourcePage">Uri where the Anchor was found</param>
+            <returns>Link object</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.AnchorExtensions.AddPages(Net.RafaelEstevam.Spider.SimpleSpider,System.Collections.Generic.IEnumerable{Net.RafaelEstevam.Spider.Wrappers.HTML.Anchor},System.Uri)">
+            <summary>
+            Adds an Anchors to fetch
+            </summary>
+            <param name="spider">Spider to add</param>
+            <param name="anchors">Anchors to fetch</param>
+            <param name="SourcePage">Uri where the Anchor was found</param>
+            <returns>Array of Links</returns>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.Article">
             <summary>
             Represents an html Article tag
