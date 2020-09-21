@@ -30,7 +30,15 @@ namespace Net.RafaelEstevam.Spider.Wrappers.HTML
             get
             {
                 // Don't have one
-                if (forElement == null && string.IsNullOrEmpty(For)) return null;
+                if (forElement == null && string.IsNullOrEmpty(For))
+                {
+                    // May be an direct Input element
+                    var inp = SelectTag<Input>("./input");
+
+                    if (inp != null) forElement = inp;
+
+                    return inp;
+                }
                 // May have one ... (Lazy loaded)
                 if (forElement == null)
                 {
