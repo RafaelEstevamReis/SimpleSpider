@@ -6,6 +6,27 @@ namespace Net.RafaelEstevam.Spider
     public partial class InitializationParams
     {
         /// <summary>
+        /// Frozen in time default: Minimal features, nothing enabled
+        /// </summary>
+        /// <param name="DownloadDelay">Config.DownloadDelay in milliseconds</param>
+        public static InitializationParams Default000(int DownloadDelay = 5000)
+        {
+            // Have non-changing defaults helps with not breaking stuff
+            return new InitializationParams()
+                // Future change in defaults
+                //will not affect this template
+                .SetCacher(new ContentCacher())
+                .SetDownloader(new WebClientDownloader())
+                .SetStorage(null)
+                .SetConfig(c => c.Enable_Caching()
+                                 .Set_CachingNoLimit()
+                                 .Disable_Cookies()
+                                 .Set_DownloadDelay(DownloadDelay)
+                                 .Disable_AutoRewriteRemoveFragment()
+                                 .Disable_AutoAnchorsLinks());
+        }
+
+        /// <summary>
         /// Frozen in time default: ContentCacher, WebClientDownloader, NoLimitCaching, and AutoAnchorsLinks enabled
         /// </summary>
         /// <param name="DownloadDelay">Config.DownloadDelay in milliseconds</param>

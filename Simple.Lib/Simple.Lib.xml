@@ -1664,6 +1664,12 @@
             Allows to a chainable Action to set some configurations
             </summary>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.InitializationParams.Default000(System.Int32)">
+            <summary>
+            Frozen in time default: Minimal features, nothing enabled
+            </summary>
+            <param name="DownloadDelay">Config.DownloadDelay in milliseconds</param>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.InitializationParams.Default001(System.Int32)">
             <summary>
             Frozen in time default: ContentCacher, WebClientDownloader, NoLimitCaching, and AutoAnchorsLinks enabled

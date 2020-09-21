@@ -14,6 +14,38 @@ namespace Net.RafaelEstevam.Spider.UnitTests.CoreTests.InitParamsTests
     public class InitParams_DefaultsSafetyTests
     {
         [Fact]
+        public void InitializationParams_SafetyCheck_Default000()
+        {
+            var init = InitializationParams.Default000();
+            var ls = serializeParams(init).ToArray();
+
+            string[] expected = {
+                "Cacher: Net.RafaelEstevam.Spider.Cachers.ContentCacher",
+                "Downloader: Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader",
+                "SpiderDirectory: ",
+                "Parsers: 0",
+                "Config.SpiderDirectory ",
+                "Config.SpiderDataDirectory ",
+                "Config.Spider_LogFile ",
+                "Config.Logger ",
+                "Config.Auto_RewriteRemoveFragment False",
+                "Config.Cache_Enable True",
+                "Config.Cache_Lifetime ",
+                "Config.DownloadDelay 5000",
+                "Config.Cookies_Enable False",
+                "Config.Paused False",
+                "Config.Paused_Cacher False",
+                "Config.Paused_Downloader False",
+                "Config.Auto_AnchorsLinks False",
+            };
+            Assert.Equal(expected.Length, ls.Length);
+
+            for (int i = 0; i < ls.Length; i++)
+            {
+                Assert.Equal(expected[i], ls[i]);
+            }
+        }
+        [Fact]
         public void InitializationParams_SafetyCheck_Default001()
         {
             var init = InitializationParams.Default001();
@@ -37,7 +69,7 @@ namespace Net.RafaelEstevam.Spider.UnitTests.CoreTests.InitParamsTests
                 "Config.Paused_Cacher False",
                 "Config.Paused_Downloader False",
                 "Config.Auto_AnchorsLinks True",
-            }; 
+            };
             Assert.Equal(expected.Length, ls.Length);
 
             for (int i = 0; i < ls.Length; i++)
