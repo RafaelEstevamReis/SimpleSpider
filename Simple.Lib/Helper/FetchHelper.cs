@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
 using HtmlAgilityPack;
@@ -34,20 +36,58 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// <returns>Byte array with data fetched</returns>
         public static byte[] FetchResource(Uri uri)
         {
-            Console.WriteLine($"{DateTime.Now.ToShortTimeString()} [FETCH] {uri}");
-            return getClient().DownloadData(uri);
+            return FetchResource(uri, false);
         }
+        /// <summary>
+        /// Fetch resource from uri with caching supported
+        /// </summary>
+        /// <param name="uri">Uri to fetch from</param>
+        /// <param name="enableCaching">Defines if should use caching</param>
+        /// <returns>Byte array with data fetched</returns>
+        public static byte[] FetchResource(Uri uri, bool enableCaching)
+        {
+            string cacheFile = null;
+            if (enableCaching)
+            {
+                cacheFile = generateCacheFileName(uri);
+                if (File.Exists(cacheFile))
+                {
+                    Console.WriteLine($"{DateTime.Now.ToShortTimeString()} [CACHE] {uri}");
+                    return File.ReadAllBytes(cacheFile);
+                }
+            }
+
+            Console.WriteLine($"{DateTime.Now.ToShortTimeString()} [FETCH] {uri}");
+            var data = getClient().DownloadData(uri);
+
+            if (enableCaching) File.WriteAllBytes(cacheFile, data);
+
+            return data;
+        }
+        private static string generateCacheFileName(Uri uri)
+        {
+            string uriFileName = $"{uri.Host}{uri.PathAndQuery.Replace("/", ".")}.cache";
+            var dir = generateCacheDirName();
+            if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+
+            return Path.Combine(dir, uriFileName);
+        }
+        private static string generateCacheDirName()
+        {
+            string dir = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
+            return Path.Combine(dir, "FetchHelper", "CACHE");
+        }
+
         /// <summary>
         /// Fetch resource from uri
         /// </summary>
         /// <param name="uri">Uri to fetch from</param>
         /// <param name="enc">Defines which encoding should be used</param>
+        /// <param name="enableCaching">Defines if should use caching</param>
         /// <returns>String with data fetched</returns>
-        public static string FetchResourceText(Uri uri, Encoding enc = null)
+        public static string FetchResourceText(Uri uri, Encoding enc = null, bool enableCaching = false)
         {
-            var data = FetchResource(uri);
-            //var contentType = getClient().ResponseHeaders[HttpResponseHeader.ContentType];
-            //if (!string.IsNullOrEmpty(contentType) && enc == null) { }
+            var data = FetchResource(uri, enableCaching);
             if (enc == null) enc = Encoding.UTF8;
 
             return enc.GetString(data);
@@ -68,10 +108,11 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// </summary>
         /// <param name="uri">Uri to fetch from</param>
         /// <param name="enc">Defines which encoding should be used</param>
+        /// <param name="enableCaching">Defines if should use caching</param>
         /// <returns>HtmlDocument with data fetched</returns>
-        public static HtmlDocument FetchResourceDocument(Uri uri, Encoding enc = null)
+        public static HtmlDocument FetchResourceDocument(Uri uri, Encoding enc = null, bool enableCaching = false)
         {
-            return HtmlParseHelper.ParseHtmlDocument(FetchResourceText(uri, enc));
+            return HtmlParseHelper.ParseHtmlDocument(FetchResourceText(uri, enc, enableCaching));
         }
         /// <summary>
         /// Fetch resource from uri and parse a HObject from it
