@@ -244,6 +244,11 @@
             Enable auto collection of html Anchors tags
             </summary>
         </member>
+        <member name="P:Net.RafaelEstevam.Spider.Configuration.SpiderAllowHostViolation">
+            <summary>
+            Enable Host violation, use with caution or the entire internet will be downloaded
+            </summary>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Configuration.Enable_AutoAnchorsLinks">
             <summary>
             Enable auto collection of html Anchors tags, uses Auto_AnchorsLinks property
@@ -1019,12 +1024,21 @@
             <param name="uri">Uri to fetch from</param>
             <returns>Byte array with data fetched</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceText(System.Uri,System.Text.Encoding)">
+        <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResource(System.Uri,System.Boolean)">
+            <summary>
+            Fetch resource from uri with caching supported
+            </summary>
+            <param name="uri">Uri to fetch from</param>
+            <param name="enableCaching">Defines if should use caching</param>
+            <returns>Byte array with data fetched</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceText(System.Uri,System.Text.Encoding,System.Boolean)">
             <summary>
             Fetch resource from uri
             </summary>
             <param name="uri">Uri to fetch from</param>
             <param name="enc">Defines which encoding should be used</param>
+            <param name="enableCaching">Defines if should use caching</param>
             <returns>String with data fetched</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceXElement(System.Uri,System.Text.Encoding)">
@@ -1035,12 +1049,13 @@
             <param name="enc">Defines which encoding should be used</param>
             <returns>XElement with data fetched</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceDocument(System.Uri,System.Text.Encoding)">
+        <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceDocument(System.Uri,System.Text.Encoding,System.Boolean)">
             <summary>
             Fetch resource from uri and parse a HtmlDocument from it
             </summary>
             <param name="uri">Uri to fetch from</param>
             <param name="enc">Defines which encoding should be used</param>
+            <param name="enableCaching">Defines if should use caching</param>
             <returns>HtmlDocument with data fetched</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceHObject(System.Uri,System.Text.Encoding)">
@@ -1500,6 +1515,13 @@
             </summary>
             <param name="uri">Uri to return from</param>
             <returns>Returns the Url</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.UriHelper.GetQueryInfo(System.Uri)">
+            <summary>
+            Returns Uri.Query items as a NameValueCollection
+            </summary>
+            <param name="uri">Uri containing the query string to parse</param>
+            <returns>A System.Collections.Specialized.NameValueCollection of query parameters and values</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.UriHelper.RemoveWhitespaceChars(System.String)">
             <summary>
@@ -3430,6 +3452,11 @@
         <member name="P:Net.RafaelEstevam.Spider.Wrappers.HTML.ITag.ItemProp">
             <summary>
             Itemprop attribute
+            </summary>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Wrappers.HTML.ITag.Cast``1">
+            <summary>
+            Casts Tag to specific Html Tag type
             </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Wrappers.HTML.ITagValue">

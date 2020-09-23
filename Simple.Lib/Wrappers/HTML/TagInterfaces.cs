@@ -29,7 +29,9 @@
         /// Itemprop attribute
         /// </summary>
         public string ItemProp { get; }
-
+        /// <summary>
+        /// Casts Tag to specific Html Tag type
+        /// </summary>
         public T Cast<T>() where T : ITag;
     }
     /// <summary>
