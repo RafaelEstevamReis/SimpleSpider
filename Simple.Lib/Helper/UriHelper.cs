@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 
 namespace Net.RafaelEstevam.Spider.Helper
 {
@@ -79,6 +80,16 @@ namespace Net.RafaelEstevam.Spider.Helper
         public static string UrlWithoutHost(this Uri uri)
         {
             return uri.PathAndQuery;
+        }
+
+        /// <summary>
+        /// Returns Uri.Query items as a NameValueCollection
+        /// </summary>
+        /// <param name="uri">Uri containing the query string to parse</param>
+        /// <returns>A System.Collections.Specialized.NameValueCollection of query parameters and values</returns>
+        public static NameValueCollection GetQueryInfo(this Uri uri)
+        {
+            return System.Web.HttpUtility.ParseQueryString(uri.Query);
         }
 
         /// <summary>
