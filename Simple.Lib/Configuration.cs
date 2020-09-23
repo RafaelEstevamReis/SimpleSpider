@@ -174,6 +174,11 @@ namespace Net.RafaelEstevam.Spider
         /// </summary>
         public bool Auto_AnchorsLinks { get; set; } = true;
         /// <summary>
+        /// Enable Host violation, use with caution or the entire internet will be downloaded
+        /// </summary>
+        public bool SpiderAllowHostViolation { get; set; } = false;
+
+        /// <summary>
         /// Enable auto collection of html Anchors tags, uses Auto_AnchorsLinks property
         /// </summary>
         public Configuration Enable_AutoAnchorsLinks()

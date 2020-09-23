@@ -37,6 +37,7 @@ namespace Net.RafaelEstevam.Spider.UnitTests.CoreTests.InitParamsTests
                 "Config.Paused_Cacher False",
                 "Config.Paused_Downloader False",
                 "Config.Auto_AnchorsLinks False",
+                "Config.SpiderAllowHostViolation False",
             };
             Assert.Equal(expected.Length, ls.Length);
 
@@ -69,6 +70,7 @@ namespace Net.RafaelEstevam.Spider.UnitTests.CoreTests.InitParamsTests
                 "Config.Paused_Cacher False",
                 "Config.Paused_Downloader False",
                 "Config.Auto_AnchorsLinks True",
+                "Config.SpiderAllowHostViolation False",
             };
             Assert.Equal(expected.Length, ls.Length);
 
@@ -102,6 +104,7 @@ namespace Net.RafaelEstevam.Spider.UnitTests.CoreTests.InitParamsTests
                 "Config.Paused_Cacher False",
                 "Config.Paused_Downloader False",
                 "Config.Auto_AnchorsLinks True",
+                "Config.SpiderAllowHostViolation False",
             };
             Assert.Equal(expected.Length, ls.Length);
 

@@ -27,6 +27,12 @@ namespace Net.RafaelEstevam.Spider
     /// </example>
     public sealed partial class SimpleSpider
     {
+        private static object lockDataPathObject;
+        static SimpleSpider()
+        {
+            lockDataPathObject = new object();
+        }
+
         /// <summary>
         /// Resource fetched completed
         /// </summary>
@@ -144,10 +150,13 @@ namespace Net.RafaelEstevam.Spider
             Configuration.SpiderDataDirectory = dataPath;
 
             spiderWorkDataPath = Path.Combine(dataPath.FullName, "privateData.xml");
-            if (File.Exists(spiderWorkDataPath))
-                SpiderWorkData = Helper.XmlSerializerHelper.DeserializeFromFile<SpiderData>(spiderWorkDataPath);
-            else
-                SpiderWorkData = new SpiderData();
+            lock (lockDataPathObject)
+            {
+                if (File.Exists(spiderWorkDataPath))
+                    SpiderWorkData = XmlSerializerHelper.DeserializeFromFile<SpiderData>(spiderWorkDataPath);
+                else
+                    SpiderWorkData = new SpiderData();
+            }
 
             if (Configuration.Logger == null)
             {
@@ -202,9 +211,6 @@ namespace Net.RafaelEstevam.Spider
                 if (string.IsNullOrEmpty(args.Html)) return;
 
                 var links = AnchorHelper.GetAnchors(args.Link.Uri, args.Html);
-#if DEBUG
-                var arr = links.ToArray(); // enumerate to test results
-#endif
 
                 // Add the collected links to the queue
                 AddPages(links, args.Link);
@@ -297,7 +303,7 @@ namespace Net.RafaelEstevam.Spider
         }
         private void saveSpiderData(bool autoSave)
         {
-            lock (spiderWorkDataPath)
+            lock (lockDataPathObject)
             {
                 try
                 {
@@ -380,7 +386,7 @@ namespace Net.RafaelEstevam.Spider
         }
         private Link addPage(Uri pageToVisit, Uri sourcePage)
         {
-            if (pageToVisit.Host != BaseUri.Host)
+            if (pageToVisit.Host != BaseUri.Host && !Configuration.SpiderAllowHostViolation)
             {
                 string host = pageToVisit.Host;
                 if (!hViolated.Contains(host)) // ignore the entire domain
