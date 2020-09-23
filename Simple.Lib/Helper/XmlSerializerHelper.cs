@@ -18,6 +18,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         {
             using var sw = new StreamWriter(file);
             Serialize(obj, sw);
+            sw.Close();
         }
         /// <summary>
         /// Serialize a generic {T} object to a stream
@@ -53,7 +54,9 @@ namespace Net.RafaelEstevam.Spider.Helper
         {
             XmlSerializer x = new XmlSerializer(typeof(T));
             using var reader = new StreamReader(file);
-            return (T)x.Deserialize(reader);
+            var t = (T)x.Deserialize(reader);
+            reader.Close();
+            return t;
         }
     }
 }
