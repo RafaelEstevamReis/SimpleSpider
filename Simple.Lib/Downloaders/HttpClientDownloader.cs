@@ -120,7 +120,14 @@ namespace Net.RafaelEstevam.Spider.Downloaders
                     config.Logger.Information($"[WEB] {current.Uri.UrlWithoutHost()}");
                     current.FetchStart = DateTime.Now;
 
-                    fetch(current);
+                    try
+                    {
+                        fetch(current);
+                    }
+                    catch (Exception ex)
+                    {
+                        FetchFailed(this, new FetchFailEventArgs(current, 0, ex, new HeaderCollection()));
+                    }
 
                     IsProcessing = false;
                 }
