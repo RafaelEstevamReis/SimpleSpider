@@ -1098,7 +1098,16 @@
             <param name="uri">Uri to fetch from></param>
             <param name="enc">Defines which encoding should be used</param>
             <param name="settings">JsonSerializerSettings Settings</param>
-            <returns>>T deserialized with data fetched</returns>
+            <returns>T deserialized with data fetched</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceXml``1(System.Uri,System.Text.Encoding,System.Boolean)">
+            <summary>
+            Fetch resource from uri and deserialize T from it
+            </summary>
+            <param name="uri">Uri to fetch from></param>
+            <param name="enc">Defines which encoding should be used</param>
+            <param name="enableCaching">Defines if should use caching</param>
+            <returns>T deserialized with data fetched</returns>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Helper.FormsHelper">
             <summary>
@@ -1606,6 +1615,14 @@
             <typeparam name="T">Type of the objects to be deserialized</typeparam>
             <param name="file">File path of the file</param>
             <returns>An instance of {T} with data from the file</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.XmlSerializerHelper.Deserialize``1(System.IO.TextReader)">
+            <summary>
+            Deserialize a generic {T} object from a stream
+            </summary>
+            <typeparam name="T">Type of the objects to be deserialized</typeparam>
+            <param name="reader">Stream to load object from</param>
+            <returns>An instance of {T} with data from the stream</returns>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.InitializationParams">
             <summary>

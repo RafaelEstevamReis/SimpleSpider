@@ -175,10 +175,11 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// </summary>
         /// <param name="uri">Uri to fetch from></param>
         /// <param name="enc">Defines which encoding should be used</param>
+        /// <param name="enableCaching">Defines if should use caching</param>
         /// <returns>T deserialized with data fetched</returns>
-        public static T FetchResourceXml<T>(Uri uri, Encoding enc = null) where T : new()
+        public static T FetchResourceXml<T>(Uri uri, Encoding enc = null, bool enableCaching = false) where T : new()
         {
-            var data = FetchResource(uri);
+            var data = FetchResource(uri, enableCaching);
             using var ms = new MemoryStream(data);
             using var reader = new StreamReader(ms, enc ?? Encoding.UTF8);
             return XmlSerializerHelper.Deserialize<T>(reader);
