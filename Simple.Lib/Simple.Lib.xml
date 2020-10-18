@@ -1083,12 +1083,13 @@
             <param name="enc">Defines which encoding should be used</param>
             <returns>JObject with data fetched</returns>
         </member>
-        <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceJson``1(System.Uri,System.Text.Encoding)">
+        <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceJson``1(System.Uri,System.Text.Encoding,System.Boolean)">
             <summary>
             Fetch resource from uri and deserialize T from it
             </summary>
             <param name="uri">Uri to fetch from</param>
             <param name="enc">Defines which encoding should be used</param>
+            <param name="enableCaching">Defines if should use caching</param>
             <returns>T deserialized with data fetched</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.FetchHelper.FetchResourceJson``1(System.Uri,Newtonsoft.Json.JsonSerializerSettings,System.Text.Encoding)">

@@ -150,10 +150,11 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// </summary>
         /// <param name="uri">Uri to fetch from</param>
         /// <param name="enc">Defines which encoding should be used</param>
+        /// <param name="enableCaching">Defines if should use caching</param>
         /// <returns>T deserialized with data fetched</returns>
-        public static T FetchResourceJson<T>(Uri uri, Encoding enc = null)
+        public static T FetchResourceJson<T>(Uri uri, Encoding enc = null, bool enableCaching = false)
         {
-            var json = FetchResourceText(uri, enc);
+            var json = FetchResourceText(uri, enc, enableCaching);
             return JsonConvert.DeserializeObject<T>(json);
         }
 
