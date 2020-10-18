@@ -72,11 +72,12 @@ namespace Net.RafaelEstevam.Spider.Helper
             if (encoding == null) encoding = Encoding.Default;
 
             using var fs = fi.OpenRead();
-            string[] compressed = { ".gz", ".zip" };
 
             IEnumerable<string[]> items;
             // choose the correct source
-            if (compressed.Contains(fi.Extension))
+            if (fi.Extension.Equals(".zip", StringComparison.InvariantCultureIgnoreCase))
+                items = zippedFileSpit(fs, encoding, delimiter);
+            else if (fi.Extension.Equals(".gz", StringComparison.InvariantCultureIgnoreCase))
                 items = compressedFileSpit(fs, encoding, delimiter);
             else
                 items = FileSplit(new StreamReader(fs, encoding), delimiter);
@@ -88,8 +89,16 @@ namespace Net.RafaelEstevam.Spider.Helper
 
         private static IEnumerable<string[]> compressedFileSpit(FileStream fs, Encoding encoding, char delimiter)
         {
-            var zip = new ZipArchive(fs, ZipArchiveMode.Read);
+            var gz = new GZipStream(fs,  CompressionMode.Decompress);
+            foreach (var v in FileSplit(new StreamReader(gz, encoding), delimiter))
+            {
+                yield return v;
+            }
+        }
 
+        private static IEnumerable<string[]> zippedFileSpit(FileStream fs, Encoding encoding, char delimiter)
+        {
+            var zip = new ZipArchive(fs, ZipArchiveMode.Read);
             foreach (var entry in zip.Entries)
             {
                 using var zipStream = entry.Open();
