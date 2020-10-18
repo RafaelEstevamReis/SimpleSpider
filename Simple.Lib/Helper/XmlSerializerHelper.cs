@@ -52,10 +52,19 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// <returns>An instance of {T} with data from the file</returns>
         public static T DeserializeFromFile<T>(string file) where T : new()
         {
-            XmlSerializer x = new XmlSerializer(typeof(T));
             using var reader = new StreamReader(file);
+            return Deserialize<T>(reader);
+        }
+        /// <summary>
+        /// Deserialize a generic {T} object from a stream
+        /// </summary>
+        /// <typeparam name="T">Type of the objects to be deserialized</typeparam>
+        /// <param name="reader">Stream to load object from</param>
+        /// <returns>An instance of {T} with data from the stream</returns>
+        public static T Deserialize<T>(TextReader reader) where T : new()
+        {
+            XmlSerializer x = new XmlSerializer(typeof(T));
             var t = (T)x.Deserialize(reader);
-            reader.Close();
             return t;
         }
     }
