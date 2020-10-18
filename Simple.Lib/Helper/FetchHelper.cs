@@ -156,17 +156,32 @@ namespace Net.RafaelEstevam.Spider.Helper
             var json = FetchResourceText(uri, enc);
             return JsonConvert.DeserializeObject<T>(json);
         }
+
         /// <summary>
         /// Fetch resource from uri and deserialize T from it
         /// </summary>
         /// <param name="uri">Uri to fetch from></param>
         /// <param name="enc">Defines which encoding should be used</param>
         /// <param name="settings">JsonSerializerSettings Settings</param>
-        /// <returns>>T deserialized with data fetched</returns>
+        /// <returns>T deserialized with data fetched</returns>
         public static T FetchResourceJson<T>(Uri uri, JsonSerializerSettings settings, Encoding enc = null)
         {
             var json = FetchResourceText(uri, enc);
             return JsonConvert.DeserializeObject<T>(json, settings);
         }
-    }
+
+        /// <summary>
+        /// Fetch resource from uri and deserialize T from it
+        /// </summary>
+        /// <param name="uri">Uri to fetch from></param>
+        /// <param name="enc">Defines which encoding should be used</param>
+        /// <returns>T deserialized with data fetched</returns>
+        public static T FetchResourceXml<T>(Uri uri, Encoding enc = null) where T : new()
+        {
+            var data = FetchResource(uri);
+            using var ms = new MemoryStream(data);
+            using var reader = new StreamReader(ms, enc ?? Encoding.UTF8);
+            return XmlSerializerHelper.Deserialize<T>(reader);
+        }
+ }
 }
