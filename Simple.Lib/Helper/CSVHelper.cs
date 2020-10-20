@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -60,6 +61,20 @@ namespace Net.RafaelEstevam.Spider.Helper
             }
             yield return sb.ToString();
         }
+
+
+        /// <summary>
+        /// Splits a CSV file even if its compressed as .gz or .zip
+        /// </summary>
+        /// <param name="path">Path of the file</param>
+        /// <param name="encoding">Specify which encoding should be used</param>
+        /// <param name="delimiter">Specify which delimiter should be used</param>
+        /// <returns>Enumeration of an array of strings</returns>
+        public static IEnumerable<string[]> FileSplit(string path, Encoding encoding = null, char delimiter = ';')
+        {
+            return FileSplit(new FileInfo(path), encoding, delimiter);
+        }
+
         /// <summary>
         /// Splits a CSV file even if its compressed as .gz or .zip
         /// </summary>
@@ -85,6 +100,54 @@ namespace Net.RafaelEstevam.Spider.Helper
             foreach (var i in items) yield return i;
             // close after finished all items
             fs.Close();
+        }
+
+        /// <summary>
+        /// Load DataRows from csv file
+        /// </summary>
+        /// <param name="path">Path of the file</param>
+        /// <param name="encoding">Specify which encoding should be used</param>
+        /// <param name="delimiter">Specify which delimiter should be used</param>
+        /// <param name="hasHeader">Defines if the first row is the header</param>
+        /// <returns></returns>
+        public static IEnumerable<DataRow> LoadRows(string path, Encoding encoding = null, char delimiter = ';', bool hasHeader = false)
+        {
+            DataTable dt = null;
+            foreach (var line in FileSplit(path, encoding, delimiter))
+            {
+                if (dt == null) // first
+                {
+                    dt = new DataTable();
+
+                    for (int i = 0; i < line.Length; i++)
+                    {
+                        dt.Columns.Add();
+                    }
+
+                    if (hasHeader)
+                    {
+                        // skip this line
+                        continue;
+                    }
+                }
+
+                var row = dt.NewRow();
+                row.ItemArray = line;
+                yield return row;
+            }
+        }
+
+        /// <summary>
+        /// Read a CSV file even if its compressed as .gz or .zip
+        /// </summary>
+        /// <param name="path">Path of the file</param>
+        /// <param name="encoding">Specify which encoding should be used</param>
+        /// <param name="delimiter">Specify which delimiter should be used</param>
+        /// <param name="hasHeader">Defines if the first row is the header</param>
+        /// <returns>A datatable with data</returns>
+        public static DataTable LoadFile(string path, Encoding encoding = null, char delimiter = ';', bool hasHeader = false)
+        {
+            return ToDataTable(FileSplit(path, encoding, delimiter), hasHeader);
         }
 
         private static IEnumerable<string[]> compressedFileSpit(FileStream fs, Encoding encoding, char delimiter)
@@ -121,6 +184,35 @@ namespace Net.RafaelEstevam.Spider.Helper
             {
                 yield return splitLine(line, delimiter).ToArray();
             }
+        }
+
+        /// <summary>
+        /// Exports the CSV result to a DataTable
+        /// </summary>
+        /// <param name="data">Data returned from other methods</param>
+        /// <param name="hasHeader">Defines if the first row is the header</param>
+        /// <returns>A datatable with data</returns>
+        public static DataTable ToDataTable(this IEnumerable<string[]> data, bool hasHeader = false)
+        {
+            DataTable dt = new DataTable();
+
+            var e = data.GetEnumerator(); // lets do it in steps ...
+
+            if (hasHeader)
+            {
+                if (e.MoveNext())
+                {
+                    foreach (var c in e.Current)
+                    {
+                        dt.Columns.Add(c);
+                    }
+                }
+            }
+            while (e.MoveNext())
+            {
+                dt.Rows.Add(e.Current);
+            }
+            return dt;
         }
 
     }

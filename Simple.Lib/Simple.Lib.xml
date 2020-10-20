@@ -990,6 +990,15 @@
             <param name="delimiter">Specify which delimiter should be used</param>
             <returns>Enumeration of an array of strings</returns>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.CSVHelper.FileSplit(System.String,System.Text.Encoding,System.Char)">
+            <summary>
+            Splits a CSV file even if its compressed as .gz or .zip
+            </summary>
+            <param name="path">Path of the file</param>
+            <param name="encoding">Specify which encoding should be used</param>
+            <param name="delimiter">Specify which delimiter should be used</param>
+            <returns>Enumeration of an array of strings</returns>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.CSVHelper.FileSplit(System.IO.FileInfo,System.Text.Encoding,System.Char)">
             <summary>
             Splits a CSV file even if its compressed as .gz or .zip
@@ -999,6 +1008,26 @@
             <param name="delimiter">Specify which delimiter should be used</param>
             <returns>Enumeration of an array of strings</returns>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.CSVHelper.LoadRows(System.String,System.Text.Encoding,System.Char,System.Boolean)">
+            <summary>
+            Load DataRows from csv file
+            </summary>
+            <param name="path">Path of the file</param>
+            <param name="encoding">Specify which encoding should be used</param>
+            <param name="delimiter">Specify which delimiter should be used</param>
+            <param name="hasHeader">Defines if the first row is the header</param>
+            <returns></returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.CSVHelper.LoadFile(System.String,System.Text.Encoding,System.Char,System.Boolean)">
+            <summary>
+            Read a CSV file even if its compressed as .gz or .zip
+            </summary>
+            <param name="path">Path of the file</param>
+            <param name="encoding">Specify which encoding should be used</param>
+            <param name="delimiter">Specify which delimiter should be used</param>
+            <param name="hasHeader">Defines if the first row is the header</param>
+            <returns>A datatable with data</returns>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.CSVHelper.FileSplit(System.IO.StreamReader,System.Char)">
             <summary>
             Splits lines from a stream
@@ -1006,6 +1035,14 @@
             <param name="streamReader">Stream to get lines from</param>
             <param name="delimiter">Specify which delimiter should be used</param>
             <returns>Enumeration of an array of strings</returns>
+        </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.CSVHelper.ToDataTable(System.Collections.Generic.IEnumerable{System.String[]},System.Boolean)">
+            <summary>
+            Exports the CSV result to a DataTable
+            </summary>
+            <param name="data">Data returned from other methods</param>
+            <param name="hasHeader">Defines if the first row is the header</param>
+            <returns>A datatable with data</returns>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Helper.FetchHelper">
             <summary>
