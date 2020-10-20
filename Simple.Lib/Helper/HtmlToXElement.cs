@@ -9,7 +9,7 @@ using HtmlAgilityPack;
 namespace Net.RafaelEstevam.Spider.Helper
 {
     /// <summary>
-    /// Class to convert Html to XElement, uses HtmlAgilityPack
+    /// Class to convert Html to XElement, uses HtmlAgilityPack. Avoid XElement, use HtmlAgilityPack built in Document instead
     /// </summary>
     public static class HtmlToXElement
     {

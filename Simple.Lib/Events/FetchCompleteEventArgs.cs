@@ -93,6 +93,7 @@ namespace Net.RafaelEstevam.Spider
         /// Get the XElement representation of the Html property. 
         /// You can use Helper.HtmlToXElement properties to control XElement parsing
         /// </summary>
+        [Obsolete("Legacy: XElement is too slow, will be removed")]
         public XElement GetXElement()
         {
             if (xElement == null)

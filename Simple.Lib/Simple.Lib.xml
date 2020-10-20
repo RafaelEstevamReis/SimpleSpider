@@ -946,6 +946,11 @@
             Simple Substring based 'a' tag enumerator
             </summary>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.AnchorHelper.GetAnchors(System.Uri,HtmlAgilityPack.HtmlDocument)">
+            <summary>
+            Get all anchors ('a' tag) and convert to an Uri collection
+            </summary>
+        </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.AnchorHelper.GetAnchors(System.Uri,System.Xml.Linq.XElement)">
             <summary>
             Get all anchors ('a' tag) and convert to an Uri collection
@@ -1293,7 +1298,7 @@
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Helper.HtmlToXElement">
             <summary>
-            Class to convert Html to XElement, uses HtmlAgilityPack
+            Class to convert Html to XElement, uses HtmlAgilityPack. Avoid XElement, use HtmlAgilityPack built in Document instead
             </summary>
         </member>
         <member name="T:Net.RafaelEstevam.Spider.Helper.HtmlToXElement.XElementParser">

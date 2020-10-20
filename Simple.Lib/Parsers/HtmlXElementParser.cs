@@ -8,7 +8,7 @@ namespace Net.RafaelEstevam.Spider.Parsers
     /// <summary>
     /// Html to XElement parser
     /// </summary>
-    [Obsolete("Slow execution")]
+    [Obsolete("Legacy: XElement is too slow, will be removed")]
     public class HtmlXElementParser : IParser<XElement>
     {
         /// <summary>
