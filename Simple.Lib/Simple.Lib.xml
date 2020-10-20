@@ -1523,7 +1523,7 @@
             </summary>
             <param name="parent">Base Uri</param>
             <param name="relative">Relative Url</param>
-            <param name="RemoveWhitespace">Indicates whenever it should remove all whitespaces from Url before comining</param>
+            <param name="RemoveWhitespace">Indicates whenever it should remove all whitespaces from Url before combining</param>
             <returns>New combined Uri</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.UriHelper.HasFragment(System.Uri)">
