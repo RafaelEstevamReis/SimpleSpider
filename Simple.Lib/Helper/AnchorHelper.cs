@@ -42,6 +42,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// <summary>
         /// Get all anchors ('a' tag) and convert to an Uri collection
         /// </summary>
+        [Obsolete("XElement is slow")]
         public static IEnumerable<Uri> GetAnchors(Uri request, XElement root)
         {
             return root
