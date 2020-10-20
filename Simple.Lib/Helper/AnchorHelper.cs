@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using HtmlAgilityPack;
 
 namespace Net.RafaelEstevam.Spider.Helper
 {
@@ -37,6 +38,19 @@ namespace Net.RafaelEstevam.Spider.Helper
                 if (sHref.StartsWith("javascript:")) continue;
                 yield return request.Combine(sHref);
             }
+        }
+
+        /// <summary>
+        /// Get all anchors ('a' tag) and convert to an Uri collection
+        /// </summary>
+        public static IEnumerable<Uri> GetAnchors(Uri request, HtmlDocument root)
+        {
+            return root.DocumentNode
+                .SelectNodes(".//a")
+                .Select(x => x.Attributes["href"])
+                .Where(att => att != null)
+                .Where(at => !at.Value.Contains("javascript:"))
+                .Select(at => new Uri(request, at.Value));
         }
 
         /// <summary>
