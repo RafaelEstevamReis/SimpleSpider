@@ -11,7 +11,7 @@ namespace Net.RafaelEstevam.Spider.Helper
     /// <summary>
     /// Helper to do stuff with html Form tags 
     /// </summary>
-    [Obsolete]
+    [Obsolete("Use Wrappers.HTML.Form instead")]
     public class FormsHelper
     {
         /// <summary>
