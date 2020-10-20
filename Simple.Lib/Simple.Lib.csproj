@@ -14,13 +14,13 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>spider web crawling</PackageTags>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>0.5.364</Version>
+    <Version>0.6.365</Version>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Description>A simple to use spider for web crawling with an example rich GitHub repository
 (work in progress)</Description>
     <PackageReleaseNotes>Work in progress. See examples and documentation on GitHub page
-Commit a3bb338</PackageReleaseNotes>
-    <AssemblyVersion>0.5.364.0</AssemblyVersion>
+Commit da270fe</PackageReleaseNotes>
+    <AssemblyVersion>0.6.365.0</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
