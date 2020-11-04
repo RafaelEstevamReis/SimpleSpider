@@ -16,6 +16,12 @@ namespace Net.RafaelEstevam.Spider.Helper
     /// </summary>
     public static class FetchHelper
     {
+        static object lock_wc;
+        static FetchHelper()
+        {
+            lock_wc = new object();
+        }
+
         static WebClient wc;
         static WebClient getClient()
         {
@@ -46,6 +52,7 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// <returns>Byte array with data fetched</returns>
         public static byte[] FetchResource(Uri uri, bool enableCaching)
         {
+            //all cache functions calls that one
             string cacheFile = null;
             if (enableCaching)
             {
@@ -58,7 +65,13 @@ namespace Net.RafaelEstevam.Spider.Helper
             }
 
             Console.WriteLine($"{DateTime.Now.ToShortTimeString()} [FETCH] {uri}");
-            var data = getClient().DownloadData(uri);
+
+            byte[] data;
+            //only one thread can perform wc operations
+            lock (lock_wc)
+            {
+                data = getClient().DownloadData(uri);
+            }
 
             if (enableCaching) File.WriteAllBytes(cacheFile, data);
 
