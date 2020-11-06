@@ -1,8 +1,5 @@
 ﻿using HtmlAgilityPack;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Net.RafaelEstevam.Spider.Helper
 {
@@ -49,6 +46,14 @@ namespace Net.RafaelEstevam.Spider.Helper
             };
             doc.Load(stream);
             return doc;
+        }
+
+        /// <summary>
+        /// Decodes an HTML text using System.Net.WebUtility.HtmlDecode
+        /// </summary>
+        public static string HtmlDecode(string Encoded)
+        {
+            return System.Net.WebUtility.HtmlDecode(Encoded);
         }
     }
 }

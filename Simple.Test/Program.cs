@@ -21,10 +21,10 @@ namespace Net.RafaelEstevam.Spider.Test
 
             // IgnoreMe file to internal screwing around
             //  Add a file named IgnoreMe.cs with a static void run() on it to play around with the spider
-            //IgnoreMe.run();
+            IgnoreMe.run();
 
 
-            SimpleSpider.HowToUse_PrintToConsole();
+            //SimpleSpider.HowToUse_PrintToConsole();
 
             Console.WriteLine("-END-");
             Console.ReadKey();

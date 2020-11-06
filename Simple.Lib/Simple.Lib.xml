@@ -1296,6 +1296,11 @@
             <param name="stream">stream content</param>
             <returns>Html Document</returns>
         </member>
+        <member name="M:Net.RafaelEstevam.Spider.Helper.HtmlParseHelper.HtmlDecode(System.String)">
+            <summary>
+            Decodes an HTML text using System.Net.WebUtility.HtmlDecode
+            </summary>
+        </member>
         <member name="T:Net.RafaelEstevam.Spider.Helper.HtmlToXElement">
             <summary>
             Class to convert Html to XElement, uses HtmlAgilityPack. Avoid XElement, use HtmlAgilityPack built in Document instead
@@ -1477,7 +1482,6 @@
             <param name="uri">The Uri the request is sent to</param>
             <param name="stringData">The content the request sends</param>
             <param name="ContentType">The content type of the request</param>
-            <returns>The task object representing the asynchronous operation</returns>
         </member>
         <member name="M:Net.RafaelEstevam.Spider.Helper.RequestHelper.SendRequest(System.Uri,System.Net.Http.HttpMethod,System.Net.Http.HttpContent,Net.RafaelEstevam.Spider.FetchComplete)">
             <summary>

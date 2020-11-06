@@ -125,7 +125,6 @@ namespace Net.RafaelEstevam.Spider.Helper
         /// <param name="uri">The Uri the request is sent to</param>
         /// <param name="stringData">The content the request sends</param>
         /// <param name="ContentType">The content type of the request</param>
-        /// <returns>The task object representing the asynchronous operation</returns>
         public void SendPostRequest(Uri uri, string stringData, string ContentType)
         {
             SendRequest(uri, HttpMethod.Post, new StringContent(stringData, Encoding.UTF8, ContentType), null);
