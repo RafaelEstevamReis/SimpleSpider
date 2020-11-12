@@ -1054,6 +1054,11 @@
             Helper to fetch stuff
             </summary>
         </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.FetchHelper.Logger">
+            <summary>
+            Defines a default looger, if NULL Console.WriteLine(...) will be used
+            </summary>
+        </member>
         <member name="E:Net.RafaelEstevam.Spider.Helper.FetchHelper.BeforeFetch">
             <summary>
             Occurs before fetching a resource
@@ -1412,6 +1417,11 @@
         <member name="T:Net.RafaelEstevam.Spider.Helper.RequestHelper">
             <summary>
             Class to request stuff
+            </summary>
+        </member>
+        <member name="P:Net.RafaelEstevam.Spider.Helper.RequestHelper.Logger">
+            <summary>
+            Defines a default looger, if NULL Console.WriteLine(...) will be used
             </summary>
         </member>
         <member name="E:Net.RafaelEstevam.Spider.Helper.RequestHelper.FetchCompleted">
