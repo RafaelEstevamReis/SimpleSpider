@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace Net.RafaelEstevam.Spider.Helper
 {
@@ -18,6 +19,12 @@ namespace Net.RafaelEstevam.Spider.Helper
     /// </summary>
     public class RequestHelper
     {
+        /// <summary>
+        /// Defines a default looger, if NULL Console.WriteLine(...) will be used
+        /// </summary>
+        public ILogger Logger { get; set; }
+
+
         /// <summary>
         /// Occurs when fetch is complete 
         /// </summary>
@@ -76,6 +83,8 @@ namespace Net.RafaelEstevam.Spider.Helper
             mergeHeaders(req, RequestHeaders);
             BeforeRequest?.Invoke(this, new FetchTEventArgs<HttpRequestMessage>(new Link(uri, uri), req));
 
+            if (Logger != null) Logger.Information($"[GET] {uri}");
+
             var resp = await httpClient.SendAsync(req);
 
             await processSendResult(req, resp, new Link(uri, uri));
@@ -115,6 +124,7 @@ namespace Net.RafaelEstevam.Spider.Helper
             BeforeRequest?.Invoke(this, new FetchTEventArgs<HttpRequestMessage>(new Link(uri, uri), req));
 
             req.Content = postData;
+            if (Logger != null) Logger.Information($"[POST] {uri}");
             var resp = await httpClient.SendAsync(req);
 
             await processSendResult(req, resp, new Link(uri, uri));
@@ -146,6 +156,8 @@ namespace Net.RafaelEstevam.Spider.Helper
             BeforeRequest?.Invoke(this, new FetchTEventArgs<HttpRequestMessage>(lnk, req));
 
             if (content != null) req.Content = content;
+
+            if (Logger != null) Logger.Information($"[{method.Method}] {uri}");
             var resp = httpClient.SendAsync(req).Result;
 
             var reqHeaders = processHeaders(req.Headers);
