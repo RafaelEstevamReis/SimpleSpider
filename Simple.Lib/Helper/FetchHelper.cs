@@ -8,6 +8,7 @@ using HtmlAgilityPack;
 using Net.RafaelEstevam.Spider.Wrappers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Serilog;
 
 namespace Net.RafaelEstevam.Spider.Helper
 {
@@ -16,6 +17,11 @@ namespace Net.RafaelEstevam.Spider.Helper
     /// </summary>
     public static class FetchHelper
     {
+        /// <summary>
+        /// Defines a default looger, if NULL Console.WriteLine(...) will be used
+        /// </summary>
+        public static ILogger Logger { get; set; }
+
         static object lock_wc;
         static FetchHelper()
         {
@@ -59,12 +65,15 @@ namespace Net.RafaelEstevam.Spider.Helper
                 cacheFile = generateCacheFileName(uri);
                 if (File.Exists(cacheFile))
                 {
-                    Console.WriteLine($"{DateTime.Now.ToShortTimeString()} [CACHE] {uri}");
+                    if (Logger == null) Console.WriteLine($"{DateTime.Now.ToShortTimeString()} [CACHE] {uri}");
+                    else Logger.Information($"[CACHE] {uri}");
+
                     return File.ReadAllBytes(cacheFile);
                 }
             }
 
-            Console.WriteLine($"{DateTime.Now.ToShortTimeString()} [FETCH] {uri}");
+            if (Logger == null) Console.WriteLine($"{DateTime.Now.ToShortTimeString()} [FETCH] {uri}");
+            else Logger.Information($"[FETCH] {uri}");
 
             byte[] data;
             //only one thread can perform wc operations
