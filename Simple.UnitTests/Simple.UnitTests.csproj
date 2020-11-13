@@ -5,7 +5,7 @@
 
     <IsPackable>false</IsPackable>
 
-    <RootNamespace>Net.RafaelEstevam.Spider.UnitTests</RootNamespace>
+    <RootNamespace>RafaelEstevam.Simple.Spider.UnitTests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

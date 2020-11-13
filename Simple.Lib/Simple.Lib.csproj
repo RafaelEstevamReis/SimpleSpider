@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <RootNamespace>RafaelEstevam.Simple.Spider</RootNamespace>
     <PackageId>RafaelEstevam.Simple.Spider</PackageId>
     <Authors>Rafael Estevam</Authors>
