@@ -1,6 +1,6 @@
  **THIS BRANCH IS CHANGING THE NAMESPACE AND THE NuGet PACKAGE**
 
-# SimpleSpider
+# Simple.Spider
 
 A simple and modular web spider written in C#. Multi Target with:
 * .Net Core 3.1
@@ -13,7 +13,7 @@ A simple and modular web spider written in C#. Multi Target with:
 
 # Content
 <!-- TOC -->
-- [SimpleSpider](#simplespider)
+- [Simple.Spider](#simplespider)
 - [Content](#content)
   - [Some advantages](#some-advantages)
   - [Installation](#installation)

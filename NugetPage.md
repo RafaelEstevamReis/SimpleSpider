@@ -1,16 +1,20 @@
-# SimpleSpider
+# Simple.Spider
 
-A simple and modular web spider written in C# .Net Core
+A simple and modular web spider written in C# .Net
+* Core 3.1
+* Net 5.0
 
  ![.NET Core](https://github.com/RafaelEstevamReis/SimpleSpider/workflows/.NET%20Core/badge.svg)
 [![The MIT License](https://img.shields.io/github/license/RafaelEstevamReis/SimpleSpider)](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/LICENSE)
 
+This Package was moved from [Net.RafaelEstevam.Spider.Simple.Lib]
+
 # Content
-- [SimpleSpider](#simplespider)
+- [Simple.Spider](#simplespider)
 - [Content](#content)
-- [Some advantages](#some-advantages)
-- [Getting started](#getting-started)
-- [Samples](#samples)
+  - [Some advantages](#some-advantages)
+  - [Getting started](#getting-started)
+  - [Samples](#samples)
 
 ## Some advantages
 
