@@ -1,7 +1,7 @@
-﻿using Net.RafaelEstevam.Spider.Cachers;
-using Net.RafaelEstevam.Spider.Downloaders;
+﻿using RafaelEstevam.Simple.Spider.Cachers;
+using RafaelEstevam.Simple.Spider.Downloaders;
 
-namespace Net.RafaelEstevam.Spider
+namespace RafaelEstevam.Simple.Spider
 {
     public partial class InitializationParams
     {

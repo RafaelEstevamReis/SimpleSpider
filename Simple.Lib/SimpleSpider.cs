@@ -4,16 +4,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using Net.RafaelEstevam.Spider.Cachers;
-using Net.RafaelEstevam.Spider.Downloaders;
-using Net.RafaelEstevam.Spider.Helper;
-using Net.RafaelEstevam.Spider.Interfaces;
-using Net.RafaelEstevam.Spider.Parsers;
+using RafaelEstevam.Simple.Spider.Cachers;
+using RafaelEstevam.Simple.Spider.Downloaders;
+using RafaelEstevam.Simple.Spider.Helper;
+using RafaelEstevam.Simple.Spider.Interfaces;
+using RafaelEstevam.Simple.Spider.Parsers;
 using Newtonsoft.Json;
 using Serilog;
 using Serilog.Core;
 
-namespace Net.RafaelEstevam.Spider
+namespace RafaelEstevam.Simple.Spider
 {
     /// <summary>
     /// Simple spider class

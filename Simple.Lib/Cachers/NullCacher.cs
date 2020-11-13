@@ -1,8 +1,8 @@
-﻿using Net.RafaelEstevam.Spider.Interfaces;
+﻿using RafaelEstevam.Simple.Spider.Interfaces;
 using System;
 using System.Collections.Concurrent;
 
-namespace Net.RafaelEstevam.Spider.Cachers
+namespace RafaelEstevam.Simple.Spider.Cachers
 {
     /// <summary>
     /// Empty cacher, discards all cache requests

@@ -1,8 +1,8 @@
-﻿using Net.RafaelEstevam.Spider.Helper;
+﻿using RafaelEstevam.Simple.Spider.Helper;
 using System.Linq;
 using Xunit;
 
-namespace Net.RafaelEstevam.Spider.UnitTests.HelperTests.CSVHelperTests
+namespace RafaelEstevam.Simple.Spider.UnitTests.HelperTests.CSVHelperTests
 {
     public class DelimiterSplitTests
     {

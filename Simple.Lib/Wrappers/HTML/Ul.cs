@@ -1,7 +1,7 @@
 ﻿using HtmlAgilityPack;
 using System.Linq;
 
-namespace Net.RafaelEstevam.Spider.Wrappers.HTML
+namespace RafaelEstevam.Simple.Spider.Wrappers.HTML
 {
     /// <summary>
     /// Represents an html Unordered List tag

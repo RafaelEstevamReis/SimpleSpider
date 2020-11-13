@@ -1,4 +1,4 @@
-﻿namespace Net.RafaelEstevam.Spider
+﻿namespace RafaelEstevam.Simple.Spider
 {
     /// <summary>
     ///  Represents a method that checks if should fetch data

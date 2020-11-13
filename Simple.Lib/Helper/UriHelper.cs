@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 
-namespace Net.RafaelEstevam.Spider.Helper
+namespace RafaelEstevam.Simple.Spider.Helper
 {
     /// <summary>
     /// Helper for Uri stuff

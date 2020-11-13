@@ -4,9 +4,9 @@ using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
-using Net.RafaelEstevam.Spider.Helper;
+using RafaelEstevam.Simple.Spider.Helper;
 
-namespace Net.RafaelEstevam.Spider.Test.Sample
+namespace RafaelEstevam.Simple.Spider.Test.Sample
 {
     /// <summary>
     /// Simple spider to crawl http://books.toscrape.com/

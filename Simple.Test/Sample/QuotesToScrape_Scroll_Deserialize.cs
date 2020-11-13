@@ -1,8 +1,8 @@
 ﻿using System;
-using Net.RafaelEstevam.Spider.Interfaces;
-using Net.RafaelEstevam.Spider.Parsers;
+using RafaelEstevam.Simple.Spider.Interfaces;
+using RafaelEstevam.Simple.Spider.Parsers;
 
-namespace Net.RafaelEstevam.Spider.Test.Sample
+namespace RafaelEstevam.Simple.Spider.Test.Sample
 {
     public class QuotesToScrape_Scroll_Deserialize
     {

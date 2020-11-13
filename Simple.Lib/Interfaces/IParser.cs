@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Net.RafaelEstevam.Spider.Interfaces
+namespace RafaelEstevam.Simple.Spider.Interfaces
 {
     /// <summary>
     /// Represents a method that passes parsed data

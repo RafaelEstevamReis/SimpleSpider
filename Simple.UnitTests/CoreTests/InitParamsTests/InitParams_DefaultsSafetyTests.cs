@@ -1,11 +1,11 @@
-﻿using Net.RafaelEstevam.Spider.Helper;
+﻿using RafaelEstevam.Simple.Spider.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Xunit;
 
-namespace Net.RafaelEstevam.Spider.UnitTests.CoreTests.InitParamsTests
+namespace RafaelEstevam.Simple.Spider.UnitTests.CoreTests.InitParamsTests
 {
     /// <summary>
     /// Uses serialization to make SURE nothing changed. 
@@ -20,8 +20,8 @@ namespace Net.RafaelEstevam.Spider.UnitTests.CoreTests.InitParamsTests
             var ls = serializeParams(init).ToArray();
 
             string[] expected = {
-                "Cacher: Net.RafaelEstevam.Spider.Cachers.ContentCacher",
-                "Downloader: Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader",
+                "Cacher: RafaelEstevam.Simple.Spider.Cachers.ContentCacher",
+                "Downloader: RafaelEstevam.Simple.Spider.Downloaders.WebClientDownloader",
                 "SpiderDirectory: ",
                 "Parsers: 0",
                 "Config.SpiderDirectory ",
@@ -53,8 +53,8 @@ namespace Net.RafaelEstevam.Spider.UnitTests.CoreTests.InitParamsTests
             var ls = serializeParams(init).ToArray();
 
             string[] expected = {
-                "Cacher: Net.RafaelEstevam.Spider.Cachers.ContentCacher",
-                "Downloader: Net.RafaelEstevam.Spider.Downloaders.WebClientDownloader",
+                "Cacher: RafaelEstevam.Simple.Spider.Cachers.ContentCacher",
+                "Downloader: RafaelEstevam.Simple.Spider.Downloaders.WebClientDownloader",
                 "SpiderDirectory: ",
                 "Parsers: 0",
                 "Config.SpiderDirectory ",
@@ -87,8 +87,8 @@ namespace Net.RafaelEstevam.Spider.UnitTests.CoreTests.InitParamsTests
             var ls = serializeParams(init).ToArray();
 
             string[] expected = {
-                "Cacher: Net.RafaelEstevam.Spider.Cachers.ContentCacher",
-                "Downloader: Net.RafaelEstevam.Spider.Downloaders.HttpClientDownloader",
+                "Cacher: RafaelEstevam.Simple.Spider.Cachers.ContentCacher",
+                "Downloader: RafaelEstevam.Simple.Spider.Downloaders.HttpClientDownloader",
                 "SpiderDirectory: ",
                 "Parsers: 0",
                 "Config.SpiderDirectory ",

@@ -1,4 +1,4 @@
-﻿namespace Net.RafaelEstevam.Spider.Wrappers.HTML
+﻿namespace RafaelEstevam.Simple.Spider.Wrappers.HTML
 {
     /// <summary>
     /// Interface for Html Tag, define Global Attributes

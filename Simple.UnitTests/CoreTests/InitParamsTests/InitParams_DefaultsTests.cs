@@ -1,8 +1,8 @@
-﻿using Net.RafaelEstevam.Spider.Cachers;
-using Net.RafaelEstevam.Spider.Downloaders;
+﻿using RafaelEstevam.Simple.Spider.Cachers;
+using RafaelEstevam.Simple.Spider.Downloaders;
 using Xunit;
 
-namespace Net.RafaelEstevam.Spider.UnitTests.CoreTests.InitParamsTests
+namespace RafaelEstevam.Simple.Spider.UnitTests.CoreTests.InitParamsTests
 {
     public class InitParams_DefaultsTests
     {

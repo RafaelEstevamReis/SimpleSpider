@@ -4,16 +4,16 @@ using System.Data;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace Net.RafaelEstevam.Spider.Extensions
+namespace RafaelEstevam.Simple.Spider.Extensions
 {
     /// <summary>
-    /// Obsolete, use Net.RafaelEstevam.Spider.Helper.XElementHelper instead
+    /// Obsolete, use RafaelEstevam.Simple.Spider.Helper.XElementHelper instead
     /// </summary>
     [Obsolete]
     public static class XElementExtensions
     {
         /// <summary>
-        /// Obsolete, use Net.RafaelEstevam.Spider.Helper.XElementHelper instead
+        /// Obsolete, use RafaelEstevam.Simple.Spider.Helper.XElementHelper instead
         /// </summary>
         [Obsolete]
         public static IEnumerable<XElement> GetAllTablesX(this XElement Root)
@@ -24,7 +24,7 @@ namespace Net.RafaelEstevam.Spider.Extensions
             }
         }
         /// <summary>
-        /// Obsolete, use Net.RafaelEstevam.Spider.Helper.XElementHelper instead
+        /// Obsolete, use RafaelEstevam.Simple.Spider.Helper.XElementHelper instead
         /// </summary>
         [Obsolete]
         public static IEnumerable<DataTable> GetAllTables(this XElement Root)
@@ -32,7 +32,7 @@ namespace Net.RafaelEstevam.Spider.Extensions
             return GetAllTablesX(Root).Select(t => GetDataTable(t));
         }
         /// <summary>
-        /// Obsolete, use Net.RafaelEstevam.Spider.Helper.XElementHelper instead
+        /// Obsolete, use RafaelEstevam.Simple.Spider.Helper.XElementHelper instead
         /// </summary>
         [Obsolete]
         public static DataTable GetDataTable(this XElement TableElement)

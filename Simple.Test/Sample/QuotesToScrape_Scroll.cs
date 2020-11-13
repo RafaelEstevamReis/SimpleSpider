@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Net.RafaelEstevam.Spider.Parsers;
+using RafaelEstevam.Simple.Spider.Parsers;
 using Newtonsoft.Json.Linq;
 
-namespace Net.RafaelEstevam.Spider.Test.Sample
+namespace RafaelEstevam.Simple.Spider.Test.Sample
 {
     public class QuotesToScrape_Scroll
     {

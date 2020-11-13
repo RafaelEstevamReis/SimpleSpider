@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Net.RafaelEstevam.Spider
+namespace RafaelEstevam.Simple.Spider
 {
     /// <summary>
     /// Represents a Link enqueued or fetched

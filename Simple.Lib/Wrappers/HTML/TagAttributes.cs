@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using HtmlAgilityPack;
 
-namespace Net.RafaelEstevam.Spider.Wrappers.HTML
+namespace RafaelEstevam.Simple.Spider.Wrappers.HTML
 {
     /// <summary>
     /// Represents an html tag attribute collection

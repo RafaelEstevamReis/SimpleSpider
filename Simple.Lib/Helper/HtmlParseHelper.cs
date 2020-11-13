@@ -1,7 +1,7 @@
 ﻿using HtmlAgilityPack;
 using System.IO;
 
-namespace Net.RafaelEstevam.Spider.Helper
+namespace RafaelEstevam.Simple.Spider.Helper
 {
     /// <summary>
     /// Class to parse html with HtmlAgilityPack

@@ -1,8 +1,8 @@
-﻿using Net.RafaelEstevam.Spider.Wrappers.HTML;
+﻿using RafaelEstevam.Simple.Spider.Wrappers.HTML;
 using System.Linq;
 using Xunit;
 
-namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HtmlTests
+namespace RafaelEstevam.Simple.Spider.UnitTests.WrappersTests.HtmlTests
 {
     public class AnchorTests : TagTestsBase
     {

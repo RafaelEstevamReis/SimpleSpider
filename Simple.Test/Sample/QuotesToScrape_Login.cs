@@ -1,8 +1,8 @@
-﻿using Net.RafaelEstevam.Spider.Helper;
-using Net.RafaelEstevam.Spider.Wrappers.HTML;
+﻿using RafaelEstevam.Simple.Spider.Helper;
+using RafaelEstevam.Simple.Spider.Wrappers.HTML;
 using System;
 
-namespace Net.RafaelEstevam.Spider.Test.Sample
+namespace RafaelEstevam.Simple.Spider.Test.Sample
 {
     /// <summary>
     /// Simple example to demonstrate authentication

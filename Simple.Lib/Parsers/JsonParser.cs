@@ -1,7 +1,7 @@
-﻿using Net.RafaelEstevam.Spider.Interfaces;
+﻿using RafaelEstevam.Simple.Spider.Interfaces;
 using Newtonsoft.Json.Linq;
 
-namespace Net.RafaelEstevam.Spider.Parsers
+namespace RafaelEstevam.Simple.Spider.Parsers
 {
     /// <summary>
     ///  Generic Json parser, return Newtonsoft's JObject

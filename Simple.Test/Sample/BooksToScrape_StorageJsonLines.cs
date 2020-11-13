@@ -1,7 +1,7 @@
 ﻿using System;
-using Net.RafaelEstevam.Spider.Wrappers.HTML;
+using RafaelEstevam.Simple.Spider.Wrappers.HTML;
 
-namespace Net.RafaelEstevam.Spider.Test.Sample
+namespace RafaelEstevam.Simple.Spider.Test.Sample
 {
     public class BooksToScrape_StorageJsonLines
     {

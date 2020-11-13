@@ -1,8 +1,8 @@
 ﻿using System.Text;
 using System.Xml.Linq;
-using Net.RafaelEstevam.Spider.Interfaces;
+using RafaelEstevam.Simple.Spider.Interfaces;
 
-namespace Net.RafaelEstevam.Spider.Parsers
+namespace RafaelEstevam.Simple.Spider.Parsers
 {
     /// <summary>
     /// Generic Xml to XElement parser

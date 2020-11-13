@@ -6,7 +6,7 @@ using System.Text;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
-namespace Net.RafaelEstevam.Spider.Helper
+namespace RafaelEstevam.Simple.Spider.Helper
 {
     /// <summary>
     /// Helper to do stuff with html Form tags 

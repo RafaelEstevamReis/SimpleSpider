@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 
 [assembly: InternalsVisibleToAttribute("Simple.UnitTests")]
-namespace Net.RafaelEstevam.Spider.Helper
+namespace RafaelEstevam.Simple.Spider.Helper
 {
     /// <summary>
     /// Helper to do stuff with CSV data

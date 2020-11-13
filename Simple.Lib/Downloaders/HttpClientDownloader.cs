@@ -6,10 +6,10 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
-using Net.RafaelEstevam.Spider.Helper;
-using Net.RafaelEstevam.Spider.Interfaces;
+using RafaelEstevam.Simple.Spider.Helper;
+using RafaelEstevam.Simple.Spider.Interfaces;
 
-namespace Net.RafaelEstevam.Spider.Downloaders
+namespace RafaelEstevam.Simple.Spider.Downloaders
 {
     /// <summary>
     /// Simple Downloader using System.Net.Http.HttpClient

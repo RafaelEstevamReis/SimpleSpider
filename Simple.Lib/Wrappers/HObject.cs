@@ -1,5 +1,5 @@
 ﻿using HtmlAgilityPack;
-using Net.RafaelEstevam.Spider.Helper;
+using RafaelEstevam.Simple.Spider.Helper;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
-namespace Net.RafaelEstevam.Spider.Wrappers
+namespace RafaelEstevam.Simple.Spider.Wrappers
 {
     /// <summary>
     /// Represents a Html Tags Collection

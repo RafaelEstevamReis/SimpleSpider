@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace Net.RafaelEstevam.Spider
+namespace RafaelEstevam.Simple.Spider
 {
     public sealed partial class SimpleSpider
     {

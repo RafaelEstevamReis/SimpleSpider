@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using Net.RafaelEstevam.Spider.UnitTests.CoreTests.LinkTests;
+using RafaelEstevam.Simple.Spider.UnitTests.CoreTests.LinkTests;
 using Xunit;
 
-namespace Net.RafaelEstevam.Spider.UnitTests.EventsTests
+namespace RafaelEstevam.Simple.Spider.UnitTests.EventsTests
 {
     public class FetchCompleteSaveLoadTests
     {

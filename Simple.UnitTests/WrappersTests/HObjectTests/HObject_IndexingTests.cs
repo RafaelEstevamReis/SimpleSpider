@@ -1,7 +1,7 @@
-﻿using Net.RafaelEstevam.Spider.Wrappers;
+﻿using RafaelEstevam.Simple.Spider.Wrappers;
 using Xunit;
 
-namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HObjectTests
+namespace RafaelEstevam.Simple.Spider.UnitTests.WrappersTests.HObjectTests
 {
     public class HObject_IndexingTests : HObjectTestBase
     {

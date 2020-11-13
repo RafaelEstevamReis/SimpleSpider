@@ -3,10 +3,10 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading;
-using Net.RafaelEstevam.Spider.Helper;
-using Net.RafaelEstevam.Spider.Interfaces;
+using RafaelEstevam.Simple.Spider.Helper;
+using RafaelEstevam.Simple.Spider.Interfaces;
 
-namespace Net.RafaelEstevam.Spider.Downloaders
+namespace RafaelEstevam.Simple.Spider.Downloaders
 {
     /// <summary>
     /// Simple Downloader using WebClient

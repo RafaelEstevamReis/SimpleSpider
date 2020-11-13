@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Net.RafaelEstevam.Spider.Wrappers.HTML
+namespace RafaelEstevam.Simple.Spider.Wrappers.HTML
 {
     /// <summary>
     /// Exposes extensions methods for Anchor

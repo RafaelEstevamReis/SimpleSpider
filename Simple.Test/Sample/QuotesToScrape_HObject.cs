@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
-using Net.RafaelEstevam.Spider.Helper;
-using Net.RafaelEstevam.Spider.Wrappers;
+using RafaelEstevam.Simple.Spider.Helper;
+using RafaelEstevam.Simple.Spider.Wrappers;
 
-namespace Net.RafaelEstevam.Spider.Test.Sample
+namespace RafaelEstevam.Simple.Spider.Test.Sample
 {
     public class QuotesToScrape_HObject
     {

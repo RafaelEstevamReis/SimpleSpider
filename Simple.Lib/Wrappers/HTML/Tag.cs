@@ -5,7 +5,7 @@ using System.Collections.Specialized;
 using System.Data;
 using System.Linq;
 
-namespace Net.RafaelEstevam.Spider.Wrappers.HTML
+namespace RafaelEstevam.Simple.Spider.Wrappers.HTML
 {
     /// <summary>
     /// Represents a HTML tag

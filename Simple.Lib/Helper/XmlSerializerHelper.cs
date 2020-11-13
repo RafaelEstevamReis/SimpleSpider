@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
 
-namespace Net.RafaelEstevam.Spider.Helper
+namespace RafaelEstevam.Simple.Spider.Helper
 {
     /// <summary>
     /// Helper class to serialize and deserialize stuff using XML

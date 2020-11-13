@@ -1,5 +1,5 @@
 ﻿
-namespace Net.RafaelEstevam.Spider.Test.Sample
+namespace RafaelEstevam.Simple.Spider.Test.Sample
 {
     public class QuotesObject
     {

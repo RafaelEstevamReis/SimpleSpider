@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using HtmlAgilityPack;
-using Net.RafaelEstevam.Spider.Helper;
-using Net.RafaelEstevam.Spider.Wrappers;
+using RafaelEstevam.Simple.Spider.Helper;
+using RafaelEstevam.Simple.Spider.Wrappers;
 
-namespace Net.RafaelEstevam.Spider
+namespace RafaelEstevam.Simple.Spider
 {
     /// <summary>
     /// Represents a method that passes fetch completed data
