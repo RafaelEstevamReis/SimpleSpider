@@ -3,6 +3,7 @@
 A simple and modular web spider written in C#. Multi Target with:
 * .Net Core 3.1
 * .NET Standard 2.1
+* .NET 5.0
 
 [![The MIT License](https://img.shields.io/github/license/RafaelEstevamReis/SimpleSpider)](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/LICENSE)
 [![NuGet](https://buildstats.info/nuget/Net.RafaelEstevam.Spider.Simple.Lib)](http://nuget.org/packages/Net.RafaelEstevam.Spider.Simple.Lib)
