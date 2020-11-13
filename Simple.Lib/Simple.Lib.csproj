@@ -19,7 +19,7 @@
     <Description>A simple to use spider for web crawling with an example rich GitHub repository
 (work in progress)</Description>
     <PackageReleaseNotes>Work in progress. See examples and documentation on GitHub page
-Commit da270fe</PackageReleaseNotes>
+Commit 87274fb</PackageReleaseNotes>
     <AssemblyVersion>0.7.378.0</AssemblyVersion>
   </PropertyGroup>
 
