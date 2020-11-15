@@ -40,8 +40,7 @@ namespace RafaelEstevam.Simple.Spider.Test.Sample
             // List all books
             foreach (var b in items)
             {
-                Console.WriteLine($"{b.CollectAt:g} {b.CollectedOn}");
-                Console.WriteLine($" > {((BookData)b.Object).Price:C2} {((BookData)b.Object).Title}");
+                Console.WriteLine($" > {b.Price:C2} {b.Title}");
             }
         }
         // Example using XPath
