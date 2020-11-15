@@ -434,40 +434,40 @@ namespace RafaelEstevam.Simple.Spider
             return hExecuted.Contains(pageToVisit.ToString());
         }
 
-        [Obsolete("DEPRECATED: Use an Storage Engine instead")]
         /// <summary>
-        /// Add items to the volatile collection. Don't forget to retrieve them later with CollectedItems()
+        /// [DEPRECATED] Add items to the volatile collection. Don't forget to retrieve them later with CollectedItems()
         /// </summary>
         /// <param name="Objects">Objects collected</param>
         /// <param name="CollectedOn">Uri where the Object was found</param>
+        [Obsolete("DEPRECATED: Use an Storage Engine instead")]
         public void Collect(IEnumerable<dynamic> Objects, Uri CollectedOn)
         {
             foreach (var o in Objects) Collect(o, CollectedOn);
         }
 
-        [Obsolete("DEPRECATED: Use an Storage Engine instead")]
         /// <summary>
-        /// Add item to the volatile collection. Don't forget to retrieve them later with CollectedItems()
+        /// [DEPRECATED] Add item to the volatile collection. Don't forget to retrieve them later with CollectedItems()
         /// </summary>
         /// <param name="Object">Object collected</param>
+        [Obsolete("DEPRECATED: Use an Storage Engine instead")]
         /// <param name="CollectedOn">Uri where the Object was found</param>
         public void Collect(dynamic Object, Uri CollectedOn)
         {
             lstCollected.Add(new CollectedData(Object: Object, CollectedOn: CollectedOn.ToString()));
         }
 
-        [Obsolete("DEPRECATED: Use an Storage Engine instead")]
         /// <summary>
-        /// Get array with all Collected Objects
+        /// [DEPRECATED] Get array with all Collected Objects
         /// </summary>
+        [Obsolete("DEPRECATED: Use an Storage Engine instead")]
         public CollectedData[] CollectedItems() { return lstCollected.ToArray(); }
 
-        [Obsolete("DEPRECATED: Use an Storage Engine instead")]
         /// <summary>
-        /// Writes all Collected Objects to the stream
+        /// [DEPRECATED] Writes all Collected Objects to the stream
         /// </summary>
         /// <param name="writer">Stream to write to</param>
         /// <param name="IncludeMetadata">Defines if should include the metadata. Set to false to export data only</param>
+        [Obsolete("DEPRECATED: Use an Storage Engine instead")]
         public void SaveCollectedItems(StreamWriter writer, bool IncludeMetadata = true)
         {
             using var jw = new JsonTextWriter(writer);
