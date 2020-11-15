@@ -1,9 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
-using System.Linq;
-using System.Xml.Linq;
-using System.Xml.XPath;
 using RafaelEstevam.Simple.Spider.Helper;
 
 namespace RafaelEstevam.Simple.Spider.Test.Sample
@@ -13,8 +11,10 @@ namespace RafaelEstevam.Simple.Spider.Test.Sample
     /// </summary>
     public class BooksToScrape
     {
+        static List<BookData> items;
         public static void run()
         {
+            items = new List<BookData>();
             var spider = new SimpleSpider("BooksToScrape", new Uri("http://books.toscrape.com/"));
             // callback to gather links
             spider.FetchCompleted += (s, a) =>
@@ -38,7 +38,7 @@ namespace RafaelEstevam.Simple.Spider.Test.Sample
             spider.Execute();
 
             // List all books
-            foreach (var b in spider.CollectedItems())
+            foreach (var b in items)
             {
                 Console.WriteLine($"{b.CollectAt:g} {b.CollectedOn}");
                 Console.WriteLine($" > {((BookData)b.Object).Price:C2} {((BookData)b.Object).Title}");
@@ -62,13 +62,13 @@ namespace RafaelEstevam.Simple.Spider.Test.Sample
             // convert price to Decimal
             decimal.TryParse(sPrice, NumberStyles.Currency, new CultureInfo("en-GB", false), out decimal price);
 
-            (Sender as SimpleSpider).Collect(new BookData()
+            items.Add(new BookData()
             {
                 Title = sTitle,
                 Price = price,
                 Description = sDesc,
                 StockInfo = sStock,
-            }, args.Link);
+            });
         }
         // Example using HObject
         private static void fetchCompleted_items_HObject(object Sender, FetchCompleteEventArgs args)
@@ -88,13 +88,13 @@ namespace RafaelEstevam.Simple.Spider.Test.Sample
             // convert price to Decimal
             decimal.TryParse(sPrice, NumberStyles.Currency, new CultureInfo("en-GB", false), out decimal price);
 
-            (Sender as SimpleSpider).Collect(new BookData()
+            items.Add(new BookData()
             {
                 Title = sTitle,
                 Price = price,
                 Description = sDesc,
                 StockInfo = sStock,
-            }, args.Link);
+            });
         }
 
         public class BookData
