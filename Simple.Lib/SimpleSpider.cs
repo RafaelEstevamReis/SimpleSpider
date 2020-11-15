@@ -8,7 +8,6 @@ using RafaelEstevam.Simple.Spider.Cachers;
 using RafaelEstevam.Simple.Spider.Downloaders;
 using RafaelEstevam.Simple.Spider.Helper;
 using RafaelEstevam.Simple.Spider.Interfaces;
-using RafaelEstevam.Simple.Spider.Parsers;
 using Newtonsoft.Json;
 using Serilog;
 using Serilog.Core;
@@ -307,7 +306,7 @@ namespace RafaelEstevam.Simple.Spider
             {
                 try
                 {
-                    XmlSerializerHelper.SerializeToFile<SpiderData>(SpiderWorkData, spiderWorkDataPath);
+                    XmlSerializerHelper.SerializeToFile(SpiderWorkData, spiderWorkDataPath);
                     log.Debug("Spider internal data saved");
                 }
                 catch (Exception ex)
@@ -388,12 +387,11 @@ namespace RafaelEstevam.Simple.Spider
         {
             if (pageToVisit.Host != BaseUri.Host && !Configuration.SpiderAllowHostViolation)
             {
-                string host = pageToVisit.Host;
-                if (!hViolated.Contains(host)) // ignore the entire domain
+                if (!hViolated.Contains(pageToVisit.Host)) // ignore the entire domain
                 {
                     lock (hViolated)
                     {
-                        hViolated.Add(host);
+                        hViolated.Add(pageToVisit.Host);
                     }
                     log.Warning($"[WRN] Host Violation {pageToVisit}");
                 }
@@ -420,7 +418,6 @@ namespace RafaelEstevam.Simple.Spider
                 lnk.ResourceMoved(new Uri(newUri));
 
                 if (alreadyExecuted(lnk.Uri)) return null; 
-                //log.Information($"[A301] {pageToVisit} -> {newUri}");
             }
 
             if (alreadyExecuted(lnk.Uri)) return null;
@@ -436,6 +433,8 @@ namespace RafaelEstevam.Simple.Spider
         {
             return hExecuted.Contains(pageToVisit.ToString());
         }
+
+        [Obsolete("DEPRECATED: Use an Storage Engine instead")]
         /// <summary>
         /// Add items to the volatile collection. Don't forget to retrieve them later with CollectedItems()
         /// </summary>
@@ -445,6 +444,8 @@ namespace RafaelEstevam.Simple.Spider
         {
             foreach (var o in Objects) Collect(o, CollectedOn);
         }
+
+        [Obsolete("DEPRECATED: Use an Storage Engine instead")]
         /// <summary>
         /// Add item to the volatile collection. Don't forget to retrieve them later with CollectedItems()
         /// </summary>
@@ -454,10 +455,14 @@ namespace RafaelEstevam.Simple.Spider
         {
             lstCollected.Add(new CollectedData(Object: Object, CollectedOn: CollectedOn.ToString()));
         }
+
+        [Obsolete("DEPRECATED: Use an Storage Engine instead")]
         /// <summary>
         /// Get array with all Collected Objects
         /// </summary>
         public CollectedData[] CollectedItems() { return lstCollected.ToArray(); }
+
+        [Obsolete("DEPRECATED: Use an Storage Engine instead")]
         /// <summary>
         /// Writes all Collected Objects to the stream
         /// </summary>
