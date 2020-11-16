@@ -10,7 +10,6 @@ using RafaelEstevam.Simple.Spider.Helper;
 using RafaelEstevam.Simple.Spider.Interfaces;
 using Newtonsoft.Json;
 using Serilog;
-using Serilog.Core;
 
 namespace RafaelEstevam.Simple.Spider
 {
@@ -94,7 +93,7 @@ namespace RafaelEstevam.Simple.Spider
         private List<Link> lCompleted;
 
         private List<CollectedData> lstCollected;
-        private Logger log; // short to type reference, is accessible through configuration
+        private ILogger log { get { return Configuration.Logger; } }
 
         /// <summary>
         /// Create a new spider to fetch data from some website
@@ -151,22 +150,21 @@ namespace RafaelEstevam.Simple.Spider
             spiderWorkDataPath = Path.Combine(dataPath.FullName, "privateData.xml");
             lock (lockDataPathObject)
             {
-                if (File.Exists(spiderWorkDataPath))
-                    SpiderWorkData = XmlSerializerHelper.DeserializeFromFile<SpiderData>(spiderWorkDataPath);
-                else
-                    SpiderWorkData = new SpiderData();
+                SpiderWorkData = File.Exists(spiderWorkDataPath)
+                                    ? SpiderWorkData = XmlSerializerHelper.DeserializeFromFile<SpiderData>(spiderWorkDataPath)
+                                    : SpiderWorkData = new SpiderData();
             }
 
             if (Configuration.Logger == null)
             {
                 Configuration.Spider_LogFile = Path.Combine(spiderPath.FullName, $"{ spiderName }.log");
-                log = new LoggerConfiguration()
+                
+                Configuration.Logger = new LoggerConfiguration()
                    .MinimumLevel.Debug()
                    .WriteTo.Console()
                    .WriteTo.File(Configuration.Spider_LogFile, rollingInterval: RollingInterval.Day)
                    .CreateLogger();
             }
-            Configuration.Logger = log;
         }
         private void initializeQueues()
         {
@@ -190,16 +188,20 @@ namespace RafaelEstevam.Simple.Spider
             Downloader.FetchFailed += Downloader_FetchFailed;
             Downloader.ShouldFetch += Downloader_ShouldFetch;
         }
-
         private void logInitialStatus()
         {
             log.Information("Initialization complete");
             log.Information($" > Name:       {SpiderName}");
             log.Information($" > BaseUri:    {BaseUri}");
+            log.Information($" > Directory:  {Configuration.SpiderDirectory}");
             log.Information($" > Cacher:     {Cacher}");
             log.Information($" > Downloader: {Downloader}");
             log.Information($" > Storage:    {Storage}");
-            log.Information($" > Directory:  {Configuration.SpiderDirectory}");
+            log.Information($" > Parsers:    {Parsers.Count}");
+            foreach (var p in Parsers)
+            {
+                log.Information($"   > {p.MimeTypes} | {p.GetType().Name}");
+            }
         }
 
         private void fetchCompleted_AutoCollect(object Sender, FetchCompleteEventArgs args)
