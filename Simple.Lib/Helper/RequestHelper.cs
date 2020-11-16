@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Serilog;
 
-namespace Net.RafaelEstevam.Spider.Helper
+namespace RafaelEstevam.Simple.Spider.Helper
 {
     /// <summary>
     /// Class to request stuff

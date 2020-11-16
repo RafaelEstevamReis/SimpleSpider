@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>netcoreapp3.1;netstandard2.1</TargetFrameworks>
-    <RootNamespace>Net.RafaelEstevam.Spider.Test</RootNamespace>
+    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
+    <RootNamespace>RafaelEstevam.Simple.Spider.Test</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

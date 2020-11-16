@@ -5,7 +5,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace Net.RafaelEstevam.Spider
+namespace RafaelEstevam.Simple.Spider
 {
     /// <summary>
     /// Class to hold HTTP Header data

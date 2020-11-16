@@ -2,7 +2,7 @@
 using System.Linq;
 using Xunit;
 
-namespace Net.RafaelEstevam.Spider.UnitTests.CoreTests.HeaderCollectionTests
+namespace RafaelEstevam.Simple.Spider.UnitTests.CoreTests.HeaderCollectionTests
 {
     public class HeaderLoadSaveTests
     {

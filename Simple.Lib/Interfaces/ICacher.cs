@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Net.RafaelEstevam.Spider.Interfaces
+namespace RafaelEstevam.Simple.Spider.Interfaces
 {
     /// <summary>
     /// Represents a module to fetch resources from the disk/memory

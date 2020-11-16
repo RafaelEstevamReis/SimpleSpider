@@ -1,10 +1,10 @@
 ﻿using HtmlAgilityPack;
-using Net.RafaelEstevam.Spider.Wrappers.HTML;
+using RafaelEstevam.Simple.Spider.Wrappers.HTML;
 using System;
 using System.Linq;
 using Xunit;
 
-namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HtmlTests
+namespace RafaelEstevam.Simple.Spider.UnitTests.WrappersTests.HtmlTests
 {
     public class TagTests : TagTestsBase
     {

@@ -1,8 +1,8 @@
 ﻿using HtmlAgilityPack;
-using Net.RafaelEstevam.Spider.Helper;
-using Net.RafaelEstevam.Spider.Wrappers.HTML;
+using RafaelEstevam.Simple.Spider.Helper;
+using RafaelEstevam.Simple.Spider.Wrappers.HTML;
 
-namespace Net.RafaelEstevam.Spider.UnitTests.WrappersTests.HtmlTests
+namespace RafaelEstevam.Simple.Spider.UnitTests.WrappersTests.HtmlTests
 {
     public class TagTestsBase
     {

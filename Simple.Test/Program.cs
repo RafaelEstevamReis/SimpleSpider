@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Net.RafaelEstevam.Spider.Test
+namespace RafaelEstevam.Simple.Spider.Test
 {
     class Program
     {

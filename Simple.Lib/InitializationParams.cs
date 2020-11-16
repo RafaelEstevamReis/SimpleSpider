@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Net.RafaelEstevam.Spider.Interfaces;
+using RafaelEstevam.Simple.Spider.Interfaces;
 
-namespace Net.RafaelEstevam.Spider
+namespace RafaelEstevam.Simple.Spider
 {
     /// <summary>
     /// Defines Initialization Parameters to a SimpleSpider instance

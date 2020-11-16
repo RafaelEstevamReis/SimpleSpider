@@ -6,7 +6,7 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 using HtmlAgilityPack;
 
-namespace Net.RafaelEstevam.Spider.Helper
+namespace RafaelEstevam.Simple.Spider.Helper
 {
     /// <summary>
     /// Class to convert Html to XElement, uses HtmlAgilityPack. Avoid XElement, use HtmlAgilityPack built in Document instead

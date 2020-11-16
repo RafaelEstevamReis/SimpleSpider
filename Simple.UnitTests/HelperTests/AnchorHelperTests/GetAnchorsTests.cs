@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Net.RafaelEstevam.Spider.Helper;
+using RafaelEstevam.Simple.Spider.Helper;
 using Xunit;
 
-namespace Net.RafaelEstevam.Spider.UnitTests.HelperTests.AnchorHelperTests
+namespace RafaelEstevam.Simple.Spider.UnitTests.HelperTests.AnchorHelperTests
 {
     public class GetAnchorsTests
     {

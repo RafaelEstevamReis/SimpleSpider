@@ -1,8 +1,8 @@
 ﻿using System;
-using Net.RafaelEstevam.Spider.Cachers;
-using Net.RafaelEstevam.Spider.Downloaders;
+using RafaelEstevam.Simple.Spider.Cachers;
+using RafaelEstevam.Simple.Spider.Downloaders;
 
-namespace Net.RafaelEstevam.Spider.Test.Sample
+namespace RafaelEstevam.Simple.Spider.Test.Sample
 {
     public class QuotesToScrape_Chaining
     {

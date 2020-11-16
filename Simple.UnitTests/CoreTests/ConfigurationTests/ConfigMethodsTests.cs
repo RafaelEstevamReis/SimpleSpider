@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit;
 
-namespace Net.RafaelEstevam.Spider.UnitTests.CoreTests.ConfigurationTests
+namespace RafaelEstevam.Simple.Spider.UnitTests.CoreTests.ConfigurationTests
 {
     public class ConfigMethodsTests
     {

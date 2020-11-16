@@ -4,16 +4,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using Net.RafaelEstevam.Spider.Cachers;
-using Net.RafaelEstevam.Spider.Downloaders;
-using Net.RafaelEstevam.Spider.Helper;
-using Net.RafaelEstevam.Spider.Interfaces;
-using Net.RafaelEstevam.Spider.Parsers;
+using RafaelEstevam.Simple.Spider.Cachers;
+using RafaelEstevam.Simple.Spider.Downloaders;
+using RafaelEstevam.Simple.Spider.Helper;
+using RafaelEstevam.Simple.Spider.Interfaces;
 using Newtonsoft.Json;
 using Serilog;
 using Serilog.Core;
 
-namespace Net.RafaelEstevam.Spider
+namespace RafaelEstevam.Simple.Spider
 {
     /// <summary>
     /// Simple spider class
@@ -307,7 +306,7 @@ namespace Net.RafaelEstevam.Spider
             {
                 try
                 {
-                    XmlSerializerHelper.SerializeToFile<SpiderData>(SpiderWorkData, spiderWorkDataPath);
+                    XmlSerializerHelper.SerializeToFile(SpiderWorkData, spiderWorkDataPath);
                     log.Debug("Spider internal data saved");
                 }
                 catch (Exception ex)
@@ -388,12 +387,11 @@ namespace Net.RafaelEstevam.Spider
         {
             if (pageToVisit.Host != BaseUri.Host && !Configuration.SpiderAllowHostViolation)
             {
-                string host = pageToVisit.Host;
-                if (!hViolated.Contains(host)) // ignore the entire domain
+                if (!hViolated.Contains(pageToVisit.Host)) // ignore the entire domain
                 {
                     lock (hViolated)
                     {
-                        hViolated.Add(host);
+                        hViolated.Add(pageToVisit.Host);
                     }
                     log.Warning($"[WRN] Host Violation {pageToVisit}");
                 }
@@ -420,7 +418,6 @@ namespace Net.RafaelEstevam.Spider
                 lnk.ResourceMoved(new Uri(newUri));
 
                 if (alreadyExecuted(lnk.Uri)) return null; 
-                //log.Information($"[A301] {pageToVisit} -> {newUri}");
             }
 
             if (alreadyExecuted(lnk.Uri)) return null;
@@ -436,33 +433,41 @@ namespace Net.RafaelEstevam.Spider
         {
             return hExecuted.Contains(pageToVisit.ToString());
         }
+
         /// <summary>
-        /// Add items to the volatile collection. Don't forget to retrieve them later with CollectedItems()
+        /// [DEPRECATED] Add items to the volatile collection. Don't forget to retrieve them later with CollectedItems()
         /// </summary>
         /// <param name="Objects">Objects collected</param>
         /// <param name="CollectedOn">Uri where the Object was found</param>
+        [Obsolete("DEPRECATED: Use an Storage Engine instead")]
         public void Collect(IEnumerable<dynamic> Objects, Uri CollectedOn)
         {
             foreach (var o in Objects) Collect(o, CollectedOn);
         }
+
         /// <summary>
-        /// Add item to the volatile collection. Don't forget to retrieve them later with CollectedItems()
+        /// [DEPRECATED] Add item to the volatile collection. Don't forget to retrieve them later with CollectedItems()
         /// </summary>
         /// <param name="Object">Object collected</param>
+        [Obsolete("DEPRECATED: Use an Storage Engine instead")]
         /// <param name="CollectedOn">Uri where the Object was found</param>
         public void Collect(dynamic Object, Uri CollectedOn)
         {
             lstCollected.Add(new CollectedData(Object: Object, CollectedOn: CollectedOn.ToString()));
         }
+
         /// <summary>
-        /// Get array with all Collected Objects
+        /// [DEPRECATED] Get array with all Collected Objects
         /// </summary>
+        [Obsolete("DEPRECATED: Use an Storage Engine instead")]
         public CollectedData[] CollectedItems() { return lstCollected.ToArray(); }
+
         /// <summary>
-        /// Writes all Collected Objects to the stream
+        /// [DEPRECATED] Writes all Collected Objects to the stream
         /// </summary>
         /// <param name="writer">Stream to write to</param>
         /// <param name="IncludeMetadata">Defines if should include the metadata. Set to false to export data only</param>
+        [Obsolete("DEPRECATED: Use an Storage Engine instead")]
         public void SaveCollectedItems(StreamWriter writer, bool IncludeMetadata = true)
         {
             using var jw = new JsonTextWriter(writer);

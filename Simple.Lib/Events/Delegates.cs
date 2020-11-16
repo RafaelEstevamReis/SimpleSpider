@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Net.RafaelEstevam.Spider
+namespace RafaelEstevam.Simple.Spider
 {
     /// <summary>
     /// Multi-purpose Fetch event args

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Net.RafaelEstevam.Spider.Interfaces;
+using RafaelEstevam.Simple.Spider.Interfaces;
 
-namespace Net.RafaelEstevam.Spider.Storage
+namespace RafaelEstevam.Simple.Spider.Storage
 {
     /// <summary>
     /// JsonLines-based storage engine

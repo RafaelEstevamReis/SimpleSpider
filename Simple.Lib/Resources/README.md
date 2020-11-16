@@ -5,13 +5,17 @@ See full project at https://github.com/RafaelEstevamReis/SimpleSpider
 A simple and modular web spider written in C# .Net Core
 
 Some advantages
-* Very simple to use and operate, ideal to personal or one of projects
+* Very simple to use and operate, ideal for lots of small projects or personal ones
+* Easy html filter with HObject (a HtmlNode wrap with use similar to JObject)
 * Internal conversion from html to XElement, no need to external tools on use
 * Automatic Json parser to JObject
 * Automatic Json deserialize <T>
 * Modular Parser engine (you can add your own parsers!)
+  * JSON and XML already included
 * Modular Caching engine (you can add your own!)
+  * Stand alone Cache engine included, no need to external softwares
 * Modular Downloader engine (you can add your own!)
+  * WebClient with cookies or HttpClient download engine included
 
 ## Samples
 
@@ -173,18 +177,16 @@ void run()
 ```
 *[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_Chaining.cs)*
 
-
-
-## Some [Helpers](https://github.com/RafaelEstevamReis/SimpleSpider/tree/master/Simple.Lib/Helper)
-* [FormsHelper](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Lib/Helper/FormsHelper.cs): Deserialize html forms to easy manipulate data and create new requests
-* [XmlSerializerHelper](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Lib/Helper/XmlSerializerHelper.cs): Generic class to serialize and deserialize stuff using Xml, easy way to save what you collected without any database
-* [CSV Helper](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Lib/Helper/CSVHelper.cs): Read csv files even compressed without external libraries
-* XElement to Stuff: Extract [tables](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Lib/Helper/XElementHelper.cs#L17) from page in DataTable
+## Some Helpers
+* FetchHelper: Fast single resource fetch with lots of parsers
+* RequestHelper: Make requests (gets and posts) easily
+* XmlSerializerHelper: Generic class to serialize and deserialize stuff using Xml, easy way to save what you collected without any database
+* CSV Helper: Read csv files (even compressed) without external libraries
+* UriHelper: Manipulates parts of the Uri
 
 ## Giants' shoulders
-* Html parsing with [Html Agility Pack](https://html-agility-pack.net/)
-* Json parsing with [Newtonsoft](https://www.newtonsoft.com/json)
-* Logging with [Serilog](https://serilog.net/)
+* Html parsing with Html Agility Pack
+* Json parsing with Newtonsoft
+* Logging with Serilog
 
-
-Readme.md | Commit 08739e3 from 2020-07-31
+Readme.md | Commit b4968d3 from 2020-11-13

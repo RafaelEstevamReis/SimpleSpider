@@ -1,7 +1,7 @@
-﻿using Net.RafaelEstevam.Spider.Interfaces;
-using Net.RafaelEstevam.Spider.Wrappers;
+﻿using RafaelEstevam.Simple.Spider.Interfaces;
+using RafaelEstevam.Simple.Spider.Wrappers;
 
-namespace Net.RafaelEstevam.Spider.Parsers
+namespace RafaelEstevam.Simple.Spider.Parsers
 {
     /// <summary>
     /// Html to HObject parser

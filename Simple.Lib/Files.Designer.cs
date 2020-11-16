@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Net.RafaelEstevam.Spider {
+namespace RafaelEstevam.Simple.Spider {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Net.RafaelEstevam.Spider {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Net.RafaelEstevam.Spider.Files", typeof(Files).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RafaelEstevam.Simple.Spider.Files", typeof(Files).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

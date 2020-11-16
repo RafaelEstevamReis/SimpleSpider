@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit;
 
-namespace Net.RafaelEstevam.Spider.UnitTests.CoreTests.LinkTests
+namespace RafaelEstevam.Simple.Spider.UnitTests.CoreTests.LinkTests
 {
     public class LinkLoadSaveTests
     {

@@ -1,4 +1,4 @@
-﻿namespace Net.RafaelEstevam.Spider.UnitTests
+﻿namespace RafaelEstevam.Simple.Spider.UnitTests
 {
     public static class TestHelper
     {

@@ -1,9 +1,9 @@
 ﻿using HtmlAgilityPack;
-using Net.RafaelEstevam.Spider.Helper;
+using RafaelEstevam.Simple.Spider.Helper;
 using System;
 using System.Text;
 
-namespace Net.RafaelEstevam.Spider.Wrappers.HTML
+namespace RafaelEstevam.Simple.Spider.Wrappers.HTML
 {
     /// <summary>
     /// Represents an html Anchor tag

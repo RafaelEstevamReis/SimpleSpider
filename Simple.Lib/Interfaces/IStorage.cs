@@ -1,4 +1,4 @@
-﻿namespace Net.RafaelEstevam.Spider.Interfaces
+﻿namespace RafaelEstevam.Simple.Spider.Interfaces
 {
     /// <summary>
     /// Represents a Interface to store collected data

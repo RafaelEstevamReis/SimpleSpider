@@ -5,12 +5,12 @@ using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
 using HtmlAgilityPack;
-using Net.RafaelEstevam.Spider.Wrappers;
+using RafaelEstevam.Simple.Spider.Wrappers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Serilog;
 
-namespace Net.RafaelEstevam.Spider.Helper
+namespace RafaelEstevam.Simple.Spider.Helper
 {
     /// <summary>
     /// Helper to fetch stuff

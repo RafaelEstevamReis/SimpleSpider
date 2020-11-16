@@ -1,5 +1,5 @@
 ﻿
-namespace Net.RafaelEstevam.Spider.Extensions
+namespace RafaelEstevam.Simple.Spider.Extensions
 {
     /// <summary>
     /// Request Headers extensions

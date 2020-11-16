@@ -5,10 +5,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using Net.RafaelEstevam.Spider.Helper;
-using Net.RafaelEstevam.Spider.Interfaces;
+using RafaelEstevam.Simple.Spider.Helper;
+using RafaelEstevam.Simple.Spider.Interfaces;
 
-namespace Net.RafaelEstevam.Spider.Cachers
+namespace RafaelEstevam.Simple.Spider.Cachers
 {
     /// <summary>
     /// Simple cacher, stores the content of the resource fetched locally

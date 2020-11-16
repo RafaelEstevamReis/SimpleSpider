@@ -1,17 +1,19 @@
-# SimpleSpider
+ **THIS BRANCH IS CHANGING THE NAMESPACE AND THE NuGet PACKAGE**
+
+# Simple.Spider
 
 A simple and modular web spider written in C#. Multi Target with:
 * .Net Core 3.1
-* .NET Standard 2.1
-* .NET 5.0 - Reverted because GitHub actions explode with this version
 
 [![The MIT License](https://img.shields.io/github/license/RafaelEstevamReis/SimpleSpider)](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/LICENSE)
-[![NuGet](https://buildstats.info/nuget/Net.RafaelEstevam.Spider.Simple.Lib)](http://nuget.org/packages/Net.RafaelEstevam.Spider.Simple.Lib)
+[![NuGet](https://buildstats.info/nuget/RafaelEstevam.Simple.Spider)](https://www.nuget.org/packages/RafaelEstevam.Simple.Spider/)
 ![.NET Core](https://github.com/RafaelEstevamReis/SimpleSpider/workflows/.NET%20Core/badge.svg)
+
+Old package: [![NuGet](https://buildstats.info/nuget/Net.RafaelEstevam.Spider.Simple.Lib)](http://nuget.org/packages/Net.RafaelEstevam.Spider.Simple.Lib)
 
 # Content
 <!-- TOC -->
-- [SimpleSpider](#simplespider)
+- [Simple.Spider](#simplespider)
 - [Content](#content)
   - [Some advantages](#some-advantages)
   - [Installation](#installation)
@@ -41,16 +43,16 @@ A simple and modular web spider written in C#. Multi Target with:
 * Modular Downloader engine (you can add your own!)
   * WebClient with cookies or HttpClient download engine included
 
-Easy **import with [NuGet](https://www.nuget.org/packages/Net.RafaelEstevam.Spider.Simple.Lib)**
+Easy **import with [NuGet](https://www.nuget.org/packages/RafaelEstevam.Simple.Spider)**
 
 ## Installation
 
-Install the SimpleSpider [NuGet package](https://www.nuget.org/packages/Net.RafaelEstevam.Spider.Simple.Lib): `Install-Package Net.RafaelEstevam.Spider.Simple.Lib`
+Install the SimpleSpider [NuGet package](https://www.nuget.org/packages/RafaelEstevam.Simple.Spider): `Install-Package RafaelEstevam.Simple.Spider`
 
 ## Getting started
 
 1. Start a new console project and add Nuget Reference
-2. PM> `Install-Package Net.RafaelEstevam.Spider.Simple.Lib`
+2. PM> `Install-Package RafaelEstevam.Simple.Spider`
 3. Create a class for your spider (or leave in program)
 4. create a new instance of SimpleSpider
    1. Give it a name, cache and log will be saved with that name

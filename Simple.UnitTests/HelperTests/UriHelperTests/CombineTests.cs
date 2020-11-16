@@ -1,8 +1,8 @@
 ﻿using System;
-using Net.RafaelEstevam.Spider.Helper;
+using RafaelEstevam.Simple.Spider.Helper;
 using Xunit;
 
-namespace Net.RafaelEstevam.Spider.UnitTests.HelperTests.UriHelperTests
+namespace RafaelEstevam.Simple.Spider.UnitTests.HelperTests.UriHelperTests
 {
     public class CombineTests
     {
