@@ -52,19 +52,5 @@ namespace RafaelEstevam.Simple.Spider.Helper
                 .Where(at => !at.Value.Contains("javascript:"))
                 .Select(at => new Uri(request, at.Value));
         }
-
-        /// <summary>
-        /// Get all anchors ('a' tag) and convert to an Uri collection
-        /// </summary>
-        [Obsolete("XElement is slow")]
-        public static IEnumerable<Uri> GetAnchors(Uri request, XElement root)
-        {
-            return root
-                .XPathSelectElements(".//a")
-                .Select(x => x.Attribute("href"))
-                .Where(att => att != null)
-                .Where(at => !at.Value.Contains("javascript:"))
-                .Select(at => new Uri(request, at.Value));
-        }
     }
 }

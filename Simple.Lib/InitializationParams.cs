@@ -54,7 +54,7 @@ namespace RafaelEstevam.Simple.Spider
             // Typo detection
             if (!dir.Exists) throw new DirectoryNotFoundException($"Path '{Path}' not found");
 
-            this.SpiderDirectory = dir;
+            SpiderDirectory = dir;
             return this; // Chaining
         }
         /// <summary>
@@ -62,7 +62,7 @@ namespace RafaelEstevam.Simple.Spider
         /// </summary>
         public InitializationParams SetSpiderStartupDirectory(DirectoryInfo Directory)
         {
-            this.SpiderDirectory = Directory;
+            SpiderDirectory = Directory;
             return this; // Chaining
         }
         /// <summary>
@@ -101,7 +101,7 @@ namespace RafaelEstevam.Simple.Spider
         /// </summary>
         public InitializationParams SetStorage(IStorage storage)
         {
-            this.StorageEngine = storage;
+            StorageEngine = storage;
             return this;
         }
         /// <summary>
@@ -117,7 +117,7 @@ namespace RafaelEstevam.Simple.Spider
         /// </summary>
         public InitializationParams SetConfig(Action<Configuration> Action)
         {
-            Action(this.ConfigurationPrototype);
+            Action(ConfigurationPrototype);
             return this; // Chaining
         }
 

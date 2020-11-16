@@ -173,15 +173,5 @@ namespace RafaelEstevam.Simple.Spider.Downloaders
                                                          new HeaderCollection(reqHeaders)));
             }
         }
-        /// <summary>
-        /// Creates a new instance of HttpClientDownloader with Extensions.RequestHeaderExtension.AddBaseRequestHeaders
-        /// </summary>
-        [Obsolete]
-        public static HttpClientDownloader BuildDownloaderWithDefaulGenerictHeadders()
-        {
-            var http = new HttpClientDownloader();
-            Extensions.RequestHeaderExtension.AddBaseRequestHeaders(http.IncludeRequestHeaders);
-            return http;
-        }
     }
 }

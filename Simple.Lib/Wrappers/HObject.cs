@@ -69,25 +69,6 @@ namespace RafaelEstevam.Simple.Spider.Wrappers
         }
 
         /// <summary>
-        /// DO NOT USE. Initializes a new instance of the HObject class
-        /// </summary>
-        /// <param name="x">A root XElement</param>
-        [Obsolete("Legacy: XElement was removed", true)]
-        public HObject(XElement x)
-        {
-            throw new NotImplementedException();
-        }
-        /// <summary>
-        /// DO NOT USE. Initializes a new instance of the HObject class
-        /// </summary>
-        /// <param name="xs">A collection of XElements</param>
-        [Obsolete("Legacy: XElement was removed", true)]
-        public HObject(IEnumerable<XElement> xs)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
         /// Initializes a new instance of the HObject class
         /// </summary>
         public HObject(HtmlDocument d)
@@ -332,27 +313,6 @@ namespace RafaelEstevam.Simple.Spider.Wrappers
         }
 
         /// <summary>
-        /// DO NOT USE. Returns first XElement of the collection
-        /// </summary>
-        [Obsolete("Legacy: XElement is too slow, will be removed")]
-        public XElement GetXElement()
-        {
-            return GetXElements().FirstOrDefault();
-            throw new NotImplementedException();
-        }
-        /// <summary>
-        /// DO NOT USE. Returns all XElements of the collection
-        /// </summary>
-        [Obsolete("Legacy: XElement is too slow, will be removed")]
-        public IEnumerable<XElement> GetXElements()
-        {
-            //return xElements;
-            //throw new NotImplementedException();
-            return nodes.Select(n => HtmlToXElement.Parse(n.OuterHtml));
-        }
-
-
-        /// <summary>
         /// Returns all Nodes of the collection
         /// </summary>
         public HtmlNode GetNode()
@@ -499,24 +459,6 @@ namespace RafaelEstevam.Simple.Spider.Wrappers
         }
 
         #endregion
-        /// <summary>
-        /// DO NOT USE. Returns first XElement of the collection
-        /// </summary>
-        /// <param name="h">A HObject to be converted</param>
-        [Obsolete("Legacy: XElement is slow, will be removed")]
-        public static implicit operator XElement(HObject h)
-        {
-            return h.GetXElement();
-        }
-        /// <summary>
-        /// DO NOT USE. Returns all XElements of the collection
-        /// </summary>
-        /// <param name="h">A HObject to be converted</param>
-        [Obsolete("Legacy: XElement is slow, will be removed")]
-        public static implicit operator XElement[](HObject h)
-        {
-            return h.GetXElements().ToArray();
-        }
 
         /// <summary>
         /// Returns first node of the collection

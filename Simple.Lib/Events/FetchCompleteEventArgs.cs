@@ -87,28 +87,6 @@ namespace RafaelEstevam.Simple.Spider
             return document;
         }
 
-        // Lazy loaded xElement
-        XElement xElement;
-        /// <summary>
-        /// Get the XElement representation of the Html property. 
-        /// You can use Helper.HtmlToXElement properties to control XElement parsing
-        /// </summary>
-        [Obsolete("Legacy: XElement is too slow, will be removed")]
-        public XElement GetXElement()
-        {
-            if (xElement == null)
-            {
-                xElement = HtmlToXElement.Parse(GetDocument(), new HtmlToXElement.ParseOptions()
-                {
-                    XElementParserMode = HtmlToXElement.XElementParser.LoadFromXmlReader,
-                    SearchAndRemoveStyleElements = true,
-                    SearchAndRemoveComments = true,
-                    SearchAndRemoveScripts = true,
-                    SearchForInvalidNames = true,
-                });
-            }
-            return xElement;
-        }
         /// <summary>
         /// Get the HObject representation of the HtmlDocument using GetDocument()
         /// </summary>
@@ -124,7 +102,6 @@ namespace RafaelEstevam.Simple.Spider
         /// <param name="enc">Encoding to be used</param>
         public string HtmlContent(Encoding enc)
         {
-            xElement = null; // discards Lazy properties
             return htmlCache = enc.GetString(Result);
         }
 

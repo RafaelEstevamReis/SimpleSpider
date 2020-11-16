@@ -105,14 +105,14 @@ namespace RafaelEstevam.Simple.Spider
         /// <param name="params">Additional initialization parameters</param>
         public SimpleSpider(string spiderName, Uri baseUri, InitializationParams @params = null)
         {
-            this.SpiderName = spiderName;
-            this.BaseUri = baseUri;
+            SpiderName = spiderName;
+            BaseUri = baseUri;
 
-            this.Cacher = @params?.Cacher;
-            this.Downloader = @params?.Downloader;
+            Cacher = @params?.Cacher;
+            Downloader = @params?.Downloader;
 
             lstCollected = new List<CollectedData>();
-            this.Configuration = @params?.ConfigurationPrototype ?? new Configuration();
+            Configuration = @params?.ConfigurationPrototype ?? new Configuration();
             initializeConfiguration(spiderName, @params);
 
             initializeQueues();
@@ -363,16 +363,7 @@ namespace RafaelEstevam.Simple.Spider
                 yield return AddPage(p, SourcePage);
             }
         }
-        /// <summary>
-        /// Old method with a typo (singular) on name. Use [AddPages] (with 's') instead
-        /// Will be removed soon
-        /// </summary>
-        [Obsolete]
-        public void AddPage(IEnumerable<Uri> PagesToVisit, Uri SourcePage)
-        {
-            AddPages(PagesToVisit, SourcePage);
-        }
-
+       
         /// <summary>
         /// Add page to fetch
         /// </summary>
@@ -435,21 +426,23 @@ namespace RafaelEstevam.Simple.Spider
         }
 
         /// <summary>
-        /// [DEPRECATED] Add items to the volatile collection. Don't forget to retrieve them later with CollectedItems()
+        /// [DEPRECATED] Will be removed in next version
+        /// Add items to the volatile collection.
         /// </summary>
         /// <param name="Objects">Objects collected</param>
         /// <param name="CollectedOn">Uri where the Object was found</param>
-        [Obsolete("DEPRECATED: Use an Storage Engine instead")]
+        [Obsolete("DEPRECATED: Use an Storage Engine instead, will be removed in next version")]
         public void Collect(IEnumerable<dynamic> Objects, Uri CollectedOn)
         {
             foreach (var o in Objects) Collect(o, CollectedOn);
         }
 
         /// <summary>
-        /// [DEPRECATED] Add item to the volatile collection. Don't forget to retrieve them later with CollectedItems()
+        /// [DEPRECATED] Will be removed in next version
+        /// Add item to the volatile collection.
         /// </summary>
         /// <param name="Object">Object collected</param>
-        [Obsolete("DEPRECATED: Use an Storage Engine instead")]
+        [Obsolete("DEPRECATED: Use an Storage Engine instead, will be removed in next version")]
         /// <param name="CollectedOn">Uri where the Object was found</param>
         public void Collect(dynamic Object, Uri CollectedOn)
         {
@@ -457,17 +450,19 @@ namespace RafaelEstevam.Simple.Spider
         }
 
         /// <summary>
-        /// [DEPRECATED] Get array with all Collected Objects
+        /// [DEPRECATED] Will be removed in next version
+        /// Get array with all Collected Objects
         /// </summary>
-        [Obsolete("DEPRECATED: Use an Storage Engine instead")]
+        [Obsolete("DEPRECATED: Use an Storage Engine instead, will be removed in next version")]
         public CollectedData[] CollectedItems() { return lstCollected.ToArray(); }
 
         /// <summary>
-        /// [DEPRECATED] Writes all Collected Objects to the stream
+        /// [DEPRECATED] Will be removed in next version
+        /// Writes all Collected Objects to the stream
         /// </summary>
         /// <param name="writer">Stream to write to</param>
         /// <param name="IncludeMetadata">Defines if should include the metadata. Set to false to export data only</param>
-        [Obsolete("DEPRECATED: Use an Storage Engine instead")]
+        [Obsolete("DEPRECATED: Use an Storage Engine instead, will be removed in next version")]
         public void SaveCollectedItems(StreamWriter writer, bool IncludeMetadata = true)
         {
             using var jw = new JsonTextWriter(writer);

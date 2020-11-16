@@ -26,16 +26,6 @@ namespace RafaelEstevam.Simple.Spider
         /// <summary>
         /// Constructs a FetchFailEventArgs
         /// </summary>
-        [Obsolete]
-        public FetchFailEventArgs(Link link, Exception error, HeaderCollection requestHeaders)
-        {
-            this.Link = link;
-            this.Error = error;
-            this.RequestHeaders = requestHeaders;
-        }
-        /// <summary>
-        /// Constructs a FetchFailEventArgs
-        /// </summary>
         public FetchFailEventArgs(Link link, int errorCode, Exception error, HeaderCollection requestHeaders)
         {
             this.Link = link;
