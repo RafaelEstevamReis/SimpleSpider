@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{2EA1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Storages", "Storages", "{5B37C1FD-B78F-4325-BFA3-09DC5E8DFE75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqliteStorage", "SqliteStorage\SqliteStorage.csproj", "{72CB63FD-B3C0-4D8A-8A27-77602CED3EF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Storage.Sqlite", "SqliteStorage\Storage.Sqlite.csproj", "{72CB63FD-B3C0-4D8A-8A27-77602CED3EF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
