@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace RafaelEstevam.Simple.Spider.Storage
+namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
 {
     public class TableMapper
     {

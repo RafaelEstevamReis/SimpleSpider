@@ -5,22 +5,22 @@ using System.Data;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
-using System.Text;
 
-namespace RafaelEstevam.Simple.Spider.Storage
+namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
 {
     // Based on my https://github.com/RafaelEstevamReis/SqliteWrapper repository
 
     public class Database
     {
-        private readonly object lockWrite;
+        // Manual lock on Writes to avoid Exceptions
+        private readonly object lockNonQuery;
         private readonly string cnnString;
 
         public string DatabaseFileName { get; }
 
         public Database(string fileName)
         {
-            lockWrite = new object();
+            lockNonQuery = new object();
             DatabaseFileName = new FileInfo(fileName).FullName;
             // if now exists, creates one (can be done in the ConnectionString)
             if (!File.Exists(DatabaseFileName)) SQLiteConnection.CreateFile(DatabaseFileName);
@@ -64,7 +64,7 @@ namespace RafaelEstevam.Simple.Spider.Storage
 
             return reader.GetSchemaTable();
         }
-        public int ExecuteNonReader(string Text, object Parameters = null)
+        public int ExecuteNonQuery(string Text, object Parameters = null)
         {
             using var cnn = getConnection();
             using var cmd = cnn.CreateCommand();
@@ -72,7 +72,33 @@ namespace RafaelEstevam.Simple.Spider.Storage
             cmd.CommandText = Text;
             fillParameters(cmd, Parameters);
 
-            return cmd.ExecuteNonQuery();
+            lock (lockNonQuery)
+            {
+                return cmd.ExecuteNonQuery();
+            }
+        }
+
+        public T ExecuteScalar<T>(string Text, object Parameters)
+        {
+            using var cnn = getConnection();
+            using var cmd = cnn.CreateCommand();
+
+            cmd.CommandText = Text;
+            fillParameters(cmd, Parameters);
+
+            var obj = cmd.ExecuteScalar();
+
+            // In SQLite DateTime is returned as STRING after aggregate operations
+            if (typeof(T) == typeof(DateTime))
+            {
+                if (DateTime.TryParse(obj.ToString(), out DateTime dt))
+                {
+                    return (T)(object)dt;
+                }
+                return default;
+            }
+
+            return (T)Convert.ChangeType(obj, typeof(T));
         }
 
         public DataTable ExecuteReader(string Text, object Parameters)
@@ -89,7 +115,8 @@ namespace RafaelEstevam.Simple.Spider.Storage
             return dt;
         }
 
-        public IEnumerable<T> ExecuteQuery<T>(string Text, object Parameters) where T : new()
+        public IEnumerable<T> ExecuteQuery<T>(string Text, object Parameters)
+            where T : new()
         {
             using var cnn = getConnection();
             using var cmd = cnn.CreateCommand();
@@ -105,7 +132,7 @@ namespace RafaelEstevam.Simple.Spider.Storage
                 var colNames = schema.Rows
                     .Cast<DataRow>()
                     .Select(r => (string)r["ColumnName"])
-                    .ToArray();
+                    .ToHashSet();
 
                 while (reader.Read())
                 {
@@ -116,43 +143,101 @@ namespace RafaelEstevam.Simple.Spider.Storage
                     {
                         if (!colNames.Contains(p.Name)) continue;
 
-                        object objVal;
-
-                        if (p.PropertyType == typeof(string)) objVal = reader.GetValue(p.Name);
-                        else if (p.PropertyType == typeof(Uri)) objVal = new Uri((string)reader.GetValue(p.Name));
-                        else if (p.PropertyType == typeof(double)) objVal = reader.GetDouble(p.Name);
-                        else if (p.PropertyType == typeof(float)) objVal = reader.GetFloat(p.Name);
-                        else if (p.PropertyType == typeof(decimal)) objVal = reader.GetDecimal(p.Name);
-                        else if (p.PropertyType == typeof(int)) objVal = reader.GetInt32(p.Name);
-                        else if (p.PropertyType == typeof(long)) objVal = reader.GetInt64(p.Name);
-                        else if (p.PropertyType == typeof(bool)) objVal = reader.GetBoolean(p.Name);
-                        else if (p.PropertyType == typeof(DateTime)) objVal = reader.GetDateTime(p.Name);
-                        else if (p.PropertyType == typeof(byte[])) objVal = (byte[])reader.GetValue(p.Name);
-                        else objVal = reader.GetValue(p.Name);
-
-                        if (objVal is DBNull) objVal = null;
-
-                        p.SetValue(t, objVal);
+                        mapColumn(t, p, reader);
                     }
                     yield return t;
                 }
             }
         }
 
-        public T Get<T>(object KeyValue) where T : new()
+        private static void mapColumn<T>(T obj, System.Reflection.PropertyInfo p, SQLiteDataReader reader)
+            where T : new()
         {
-            string keyColumn = null;
-            //var keyColumn = 
+            object objVal;
+
+            if (p.PropertyType == typeof(string)) objVal = reader.GetValue(p.Name);
+            else if (p.PropertyType == typeof(Uri)) objVal = new Uri((string)reader.GetValue(p.Name));
+            else if (p.PropertyType == typeof(double)) objVal = reader.GetDouble(p.Name);
+            else if (p.PropertyType == typeof(float)) objVal = reader.GetFloat(p.Name);
+            else if (p.PropertyType == typeof(decimal)) objVal = reader.GetDecimal(p.Name);
+            else if (p.PropertyType == typeof(int)) objVal = reader.GetInt32(p.Name);
+            else if (p.PropertyType == typeof(long)) objVal = reader.GetInt64(p.Name);
+            else if (p.PropertyType == typeof(bool)) objVal = reader.GetBoolean(p.Name);
+            else if (p.PropertyType == typeof(DateTime)) objVal = reader.GetDateTime(p.Name);
+            else if (p.PropertyType == typeof(byte[])) objVal = (byte[])reader.GetValue(p.Name);
+            else objVal = reader.GetValue(p.Name);
+
+            if (objVal is DBNull) objVal = null;
+
+            p.SetValue(obj, objVal);
+        }
+
+        public T Get<T>(object KeyValue)
+            where T : new()
+        {
+            var TypeT = typeof(T);
+
+            string keyColumn = TypeT.GetProperties()
+                                    .Where(p => p.GetCustomAttributes(true) 
+                                                 .Any(a => a is KeyAttribute))
+                                    .FirstOrDefault()
+                                    ?.Name;            
             if (keyColumn == null) throw new ArgumentException("Type dows not define a Key Column");
 
-            var tableName = typeof(T).Name;
+            var tableName = TypeT.Name;
 
             return ExecuteQuery<T>($"SELECT * FROM {tableName} WHERE {keyColumn} = @KeyValue ", new { KeyValue })
                     .FirstOrDefault();
         }
+        public IEnumerable<T> GetAll<T>()
+            where T : new()
+        {
+            var tableName = typeof(T).Name;
+
+            return ExecuteQuery<T>($"SELECT * FROM {tableName} ", null);
+        }
+
+        public void Insert<T>(T Item)
+        {
+            string sql = buildInsertSql<T>();
+            // lock(lockWrite) // NonQuery already locks
+            ExecuteNonQuery(sql, Item);
+        }
+        private static string buildInsertSql<T>()
+        {
+            var TypeT = typeof(T);
+            var tableName = TypeT.Name;
+
+            var names = getNames(TypeT, false); // Not the Keys
+            var fields = string.Join(',', names);
+            var values = string.Join(',', names.Select(n => $"@{n}"));
+
+            return $"INSERT INTO {tableName} ({fields}) VALUES ({values})";
+        }
+        public void BulkInsert<T>(IEnumerable<T> Items)
+        {
+            string sql = buildInsertSql<T>();
+
+            using var cnn = getConnection();
+
+            lock (lockNonQuery)
+            {
+                using var trn = cnn.BeginTransaction();
+
+                foreach (var item in Items)
+                {
+                    using var cmd = new SQLiteCommand(sql, cnn, trn);
+                    fillParameters(cmd, item);
+                    cmd.ExecuteNonQuery();
+                }
+
+                trn.Commit();
+            }
+        }
 
         private static void fillParameters(SQLiteCommand cmd, object Parameters)
         {
+            if (Parameters == null) return;
             foreach (var p in Parameters.GetType().GetProperties())
             {
                 cmd.Parameters.AddWithValue(p.Name, p.GetValue(Parameters));
