@@ -128,9 +128,7 @@ namespace RafaelEstevam.Simple.Spider.Storage
                 {
                     throw new Exception($"Type {info.PropertyType.Name} is not supported on field {info.Name}");
                 }
-
-                bool isKey = info.GetCustomAttributes(typeof(KeyAttribute), true)
-                                 .FirstOrDefault() != null;
+                bool isKey = IsKeyProp(info);
 
                 return new Column()
                 {
@@ -143,6 +141,12 @@ namespace RafaelEstevam.Simple.Spider.Storage
                     IsPK = isKey,
                     IsAI = isKey && dataType == SqliteType.INTEGER
                 };
+            }
+
+            internal static bool IsKeyProp(PropertyInfo info)
+            {
+                return info.GetCustomAttributes(typeof(KeyAttribute), true)
+                           .FirstOrDefault() != null;
             }
 
             public string ExportColumnAsStatement()
