@@ -31,6 +31,10 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
 
         public void Commit()
         {
+            foreach (var t in tables)
+            {
+                db.ExecuteNonQuery(t.ExportCreateTable(), null);
+            }
 
             tables.Clear();
         }
