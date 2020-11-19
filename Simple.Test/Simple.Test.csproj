@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Modules\Storage\SqliteStorage\Storage.Sqlite.csproj" />
     <ProjectReference Include="..\Simple.Lib\Simple.Lib.csproj" />
-    <ProjectReference Include="..\SqliteStorage\Storage.Sqlite.csproj" />
   </ItemGroup>
 
 </Project>
