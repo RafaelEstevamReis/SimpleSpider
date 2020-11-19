@@ -197,11 +197,11 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
             return ExecuteQuery<T>($"SELECT * FROM {tableName} ", null);
         }
 
-        public void Insert<T>(T Item)
+        public long Insert<T>(T Item)
         {
             string sql = buildInsertSql<T>();
             // lock(lockWrite) // NonQuery already locks
-            ExecuteNonQuery(sql, Item);
+            return ExecuteScalar<long>(sql, Item);
         }
         private static string buildInsertSql<T>()
         {
@@ -212,7 +212,7 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
             var fields = string.Join(',', names);
             var values = string.Join(',', names.Select(n => $"@{n}"));
 
-            return $"INSERT INTO {tableName} ({fields}) VALUES ({values})";
+            return $"INSERT INTO {tableName} ({fields}) VALUES ({values}); SELECT last_insert_rowid();";
         }
         public void BulkInsert<T>(IEnumerable<T> Items)
         {
