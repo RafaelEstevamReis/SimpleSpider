@@ -21,6 +21,7 @@ namespace RafaelEstevam.Simple.Spider.Storage
 
             db.CreateTables()
               .Add<T>()
+              .Add<ObjectReference>()
               .Commit();
         }
 
@@ -36,7 +37,14 @@ namespace RafaelEstevam.Simple.Spider.Storage
         public bool AddItem(Link link, T item)
         {
             // I'll not store the Link YET
-            db.Insert(item);
+            var id = db.Insert(item);
+            db.Insert(new ObjectReference()
+            {
+                CrawTime = DateTime.Now,
+                Uri = link.Uri,
+                InsertedItem = id,
+            });
+
             return true;
         }
 
