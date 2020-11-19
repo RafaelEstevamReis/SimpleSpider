@@ -444,8 +444,8 @@ namespace RafaelEstevam.Simple.Spider
         /// Add item to the volatile collection.
         /// </summary>
         /// <param name="Object">Object collected</param>
-        [Obsolete("DEPRECATED: Use an Storage Engine instead, will be removed in next version")]
         /// <param name="CollectedOn">Uri where the Object was found</param>
+        [Obsolete("DEPRECATED: Use an Storage Engine instead, will be removed in next version")]
         public void Collect(dynamic Object, Uri CollectedOn)
         {
             lstCollected.Add(new CollectedData(Object: Object, CollectedOn: CollectedOn.ToString()));

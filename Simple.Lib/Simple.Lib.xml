@@ -2090,6 +2090,7 @@
             Add item to the volatile collection.
             </summary>
             <param name="Object">Object collected</param>
+            <param name="CollectedOn">Uri where the Object was found</param>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.SimpleSpider.CollectedItems">
             <summary>
