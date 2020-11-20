@@ -1,4 +1,4 @@
- **THIS BRANCH IS CHANGING THE NAMESPACE AND THE NuGet PACKAGE**
+ **BREAKING CHANGE: Altered NAMESPACE and the NuGet package**
 
 # Simple.Spider
 
