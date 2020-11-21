@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RafaelEstevam.Simple.Spider.Storage</name>
+    </assembly>
+    <members>
+        <member name="T:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1">
+            <summary>
+            Store values in a Sqlite database
+            </summary>
+            <typeparam name="T">Type of data to be stored</typeparam>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1.#ctor">
+            <summary>
+            Create a new instance
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1.Initialize(RafaelEstevam.Simple.Spider.Configuration)">
+            <summary>
+            Initialization method, will be called by the spider. Do not call it
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1.LoadData">
+            <summary>
+            LoadData, in Sqlite data is aways avalailable
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1.SaveData(System.Boolean)">
+            <summary>
+            Saves the data on Disk NOW
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1.AddItem(RafaelEstevam.Simple.Spider.Link,System.Object)">
+            <summary>
+            Adds and item the the database
+            </summary>
+            <param name="link">Link containing data about where the item was found</param>
+            <param name="item">Item to be saved</param>
+            <returns>For this storage, aways true</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1.AddItem(RafaelEstevam.Simple.Spider.Link,`0)">
+            <summary>
+            Adds and item the the database
+            </summary>
+            <param name="link">Link containing data about where the item was found</param>
+            <param name="item">Item to be saved</param>
+            <returns>For this storage, aways true</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1.Count">
+            <summary>
+            Counts all records on the table, can be expensive on big tables
+            </summary>
+            <returns>How many records are on the table</returns>
+        </member>
+    </members>
+</doc>

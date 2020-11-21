@@ -7,6 +7,10 @@ using System.Timers;
 
 namespace RafaelEstevam.Simple.Spider.Storage
 {
+    /// <summary>
+    /// Store values in a Sqlite database
+    /// </summary>
+    /// <typeparam name="T">Type of data to be stored</typeparam>
     public class SQLiteStorage<T> : IStorage
         where T : new()
     {
@@ -17,6 +21,9 @@ namespace RafaelEstevam.Simple.Spider.Storage
         private readonly string tableNameT;
         private Sqlite.Database db;
 
+        /// <summary>
+        /// Create a new instance
+        /// </summary>
         public SQLiteStorage()
         {
             tableNameT = typeof(T).Name;
@@ -30,6 +37,9 @@ namespace RafaelEstevam.Simple.Spider.Storage
             };
             tmrInsertBlock.Elapsed += TmrInsertBlock_Elapsed;
         }
+        /// <summary>
+        /// Initialization method, will be called by the spider. Do not call it
+        /// </summary>
         public void Initialize(Configuration Config)
         {
             db = new Sqlite.Database(System.IO.Path.Combine(Config.SpiderDataDirectory.FullName,
@@ -41,17 +51,34 @@ namespace RafaelEstevam.Simple.Spider.Storage
               .Commit();
         }
 
-        // There is no need to load
+        /// <summary>
+        /// LoadData, in Sqlite data is aways avalailable
+        /// </summary>
         public void LoadData() { }
+        /// <summary>
+        /// Saves the data on Disk NOW
+        /// </summary>
         public void SaveData(bool IsAutoSave)
         {
             commitQueue();
         }
 
+        /// <summary>
+        /// Adds and item the the database
+        /// </summary>
+        /// <param name="link">Link containing data about where the item was found</param>
+        /// <param name="item">Item to be saved</param>
+        /// <returns>For this storage, aways true</returns>
         public bool AddItem(Link link, dynamic item)
         {
             return AddItem(link, (T)item);
         }
+        /// <summary>
+        /// Adds and item the the database
+        /// </summary>
+        /// <param name="link">Link containing data about where the item was found</param>
+        /// <param name="item">Item to be saved</param>
+        /// <returns>For this storage, aways true</returns>
         public bool AddItem(Link link, T item)
         {
             enqueue((link, item));
@@ -102,7 +129,10 @@ namespace RafaelEstevam.Simple.Spider.Storage
                 tmrInsertBlock.Enabled = true;
             }
         }
-
+        /// <summary>
+        /// Counts all records on the table, can be expensive on big tables
+        /// </summary>
+        /// <returns>How many records are on the table</returns>
         public int Count()
         {
             return db.ExecuteScalar<int>($"SELECT COUNT(*) FROM {tableNameT}", null);
