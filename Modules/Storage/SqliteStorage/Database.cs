@@ -214,8 +214,9 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
 
             return $"INSERT INTO {tableName} ({fields}) VALUES ({values}); SELECT last_insert_rowid();";
         }
-        public void BulkInsert<T>(IEnumerable<T> Items)
+        public long[] BulkInsert<T>(IEnumerable<T> Items)
         {
+            List<long> ids = new List<long>();
             string sql = buildInsertSql<T>();
 
             using var cnn = getConnection();
@@ -228,11 +229,12 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
                 {
                     using var cmd = new SQLiteCommand(sql, cnn, trn);
                     fillParameters(cmd, item);
-                    cmd.ExecuteNonQuery();
+                    ids.Add((long)cmd.ExecuteScalar());
                 }
 
                 trn.Commit();
             }
+            return ids.ToArray();
         }
 
         private static void fillParameters(SQLiteCommand cmd, object Parameters)
