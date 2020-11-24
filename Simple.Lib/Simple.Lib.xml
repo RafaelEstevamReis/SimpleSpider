@@ -934,6 +934,30 @@
             <param name="dateTime">Datetime component to be converted</param>
             <returns>>Numeric representation of Unix time</returns>
         </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Helper.ConversionHelper.ToDecimal(System.String,System.Decimal)">
+            <summary>
+            Try convert Text to Decimal using InvariantCulture
+            </summary>
+            <param name="Text">Texto to be converted</param>
+            <param name="OnError">Value returned if conversion fails</param>
+            <returns>Value converted or OnError value</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Helper.ConversionHelper.ToInt(System.String,System.Int32)">
+            <summary>
+            Try convert Text to Int using InvariantCulture
+            </summary>
+            <param name="Text">Texto to be converted</param>
+            <param name="OnError">Value returned if conversion fails</param>
+            <returns>Value converted or OnError value</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Helper.ConversionHelper.ToDouble(System.String,System.Double)">
+            <summary>
+            Try convert Text to Double using InvariantCulture
+            </summary>
+            <param name="Text">Texto to be converted</param>
+            <param name="OnError">Value returned if conversion fails</param>
+            <returns>Value converted or OnError value</returns>
+        </member>
         <member name="T:RafaelEstevam.Simple.Spider.Helper.CSVHelper">
             <summary>
             Helper to do stuff with CSV data
@@ -2090,6 +2114,7 @@
             Add item to the volatile collection.
             </summary>
             <param name="Object">Object collected</param>
+            <param name="CollectedOn">Uri where the Object was found</param>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.SimpleSpider.CollectedItems">
             <summary>

@@ -19,6 +19,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
         {
             int idx;
             int offSet = 0;
+            char quote = '"';
             while ((idx = htmlContent.IndexOf("<a ", offSet)) >= 0)
             {
                 offSet = idx + 1; // Advance
@@ -32,8 +33,12 @@ namespace RafaelEstevam.Simple.Spider.Helper
                 if (href > end) continue; //this <a don't have href
 
                 string sHref = htmlContent[href..end];
-                sHref = sHref.Substring(sHref.IndexOf("\"") + 1);
-                sHref = sHref.Substring(0, sHref.IndexOf("\""));
+
+                if (sHref.Contains('"')) quote = '"';
+                if (sHref.Contains('\'')) quote = '\'';
+
+                sHref = sHref.Substring(sHref.IndexOf(quote) + 1);
+                sHref = sHref.Substring(0, sHref.IndexOf(quote));
 
                 if (sHref.StartsWith("javascript:")) continue;
                 yield return request.Combine(sHref);

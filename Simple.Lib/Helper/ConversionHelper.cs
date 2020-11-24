@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace RafaelEstevam.Simple.Spider.Helper
@@ -28,6 +29,40 @@ namespace RafaelEstevam.Simple.Spider.Helper
         {
             // I really don't like it be a double ... ...
             return (int)(dateTime - DateTime.UnixEpoch).TotalSeconds;
+        }
+
+        /// <summary>
+        /// Try convert Text to Decimal using InvariantCulture
+        /// </summary>
+        /// <param name="Text">Texto to be converted</param>
+        /// <param name="OnError">Value returned if conversion fails</param>
+        /// <returns>Value converted or OnError value</returns>
+        public static decimal ToDecimal(string Text, decimal OnError)
+        {
+            if (decimal.TryParse(Text, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal v)) return v;
+            return OnError;
+        }
+        /// <summary>
+        /// Try convert Text to Int using InvariantCulture
+        /// </summary>
+        /// <param name="Text">Texto to be converted</param>
+        /// <param name="OnError">Value returned if conversion fails</param>
+        /// <returns>Value converted or OnError value</returns>
+        public static int ToInt(string Text, int OnError)
+        {
+            if (int.TryParse(Text, NumberStyles.Any, CultureInfo.InvariantCulture, out int v)) return v;
+            return OnError;
+        }
+        /// <summary>
+        /// Try convert Text to Double using InvariantCulture
+        /// </summary>
+        /// <param name="Text">Texto to be converted</param>
+        /// <param name="OnError">Value returned if conversion fails</param>
+        /// <returns>Value converted or OnError value</returns>
+        public static double ToDouble(string Text, double OnError)
+        {
+            if (double.TryParse(Text, NumberStyles.Any, CultureInfo.InvariantCulture, out double v)) return v;
+            return OnError;
         }
     }
 }
