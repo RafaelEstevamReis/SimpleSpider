@@ -92,7 +92,13 @@ namespace RafaelEstevam.Simple.Spider.Storage
 
         private void TmrInsertBlock_Elapsed(object sender, ElapsedEventArgs e)
         {
-            commitQueue();
+            try
+            {
+                commitQueue();
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         private void commitQueue()
