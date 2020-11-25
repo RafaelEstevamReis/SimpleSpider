@@ -14,7 +14,8 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>spider web crawling sqlite</PackageTags>
     <Version>0.8.1</Version>
-    <PackageReleaseNotes>Working release</PackageReleaseNotes>
+    <PackageReleaseNotes>Working release
+Commit 74898f3</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
