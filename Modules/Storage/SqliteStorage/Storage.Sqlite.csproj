@@ -4,6 +4,16 @@
     <TargetFrameworks>netcoreapp3.1;net5.0</TargetFrameworks>
     <RootNamespace>RafaelEstevam.Simple.Spider.Storage</RootNamespace>
     <AssemblyName>RafaelEstevam.Simple.Spider.Storage</AssemblyName>
+    <PackageId>RafaelEstevam.Simple.Spider.SqliteStorage</PackageId>
+    <Authors>Rafael Estevam</Authors>
+    <Company>RafaelEstevam.net</Company>
+    <Product>Simple Spider Sqlite Storage</Product>
+    <Description>Sqlite-based storage engine to the SimpleSpider</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/RafaelEstevamReis/SimpleSpider</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>spider web crawling sqlite</PackageTags>
+    <Version>0.8.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
