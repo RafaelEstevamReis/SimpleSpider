@@ -135,6 +135,7 @@ namespace RafaelEstevam.Simple.Spider.Storage
                 tmrInsertBlock.Enabled = true;
             }
         }
+
         /// <summary>
         /// Counts all records on the table, can be expensive on big tables
         /// </summary>

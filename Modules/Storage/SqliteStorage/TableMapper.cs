@@ -7,7 +7,7 @@ using System.Text;
 
 namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
 {
-    public class TableMapper
+    internal class TableMapper
     {
         private readonly Database db;
         private readonly List<Table> tables;

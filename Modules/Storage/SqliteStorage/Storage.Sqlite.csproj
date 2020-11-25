@@ -9,11 +9,13 @@
     <Company>RafaelEstevam.net</Company>
     <Product>Simple Spider Sqlite Storage</Product>
     <Description>Sqlite-based storage engine to the SimpleSpider</Description>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageLicenseExpression></PackageLicenseExpression>
     <RepositoryUrl>https://github.com/RafaelEstevamReis/SimpleSpider</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>spider web crawling sqlite</PackageTags>
     <Version>0.8.1</Version>
+    <PackageReleaseNotes>Working release</PackageReleaseNotes>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
@@ -30,6 +32,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Simple.Lib\Simple.Lib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
   
 </Project>

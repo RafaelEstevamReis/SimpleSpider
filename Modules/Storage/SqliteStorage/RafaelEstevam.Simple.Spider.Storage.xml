@@ -4,6 +4,98 @@
         <name>RafaelEstevam.Simple.Spider.Storage</name>
     </assembly>
     <members>
+        <member name="T:RafaelEstevam.Simple.Spider.Storage.Sqlite.Database">
+            <summary>
+            Database access class
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Storage.Sqlite.Database.DatabaseFileName">
+            <summary>
+            Database file full path
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.Database.#ctor(System.String)">
+            <summary>
+            Creates a new instance
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.Database.CreateTables">
+            <summary>
+            Builds the table creation sequence, should be finished with Commit()
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.Database.GetAllTables">
+            <summary>
+            Get a list of all tables
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.Database.GetTableSchema(System.String)">
+            <summary>
+            Gets the schema for a table
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.Database.ExecuteNonQuery(System.String,System.Object)">
+            <summary>
+            Executes a NonQUery command, this method locks the execution
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.Database.ExecuteScalar``1(System.String,System.Object)">
+            <summary>
+            Executes a Scalar commands and return the value as T
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.Database.ExecuteReader(System.String,System.Object)">
+            <summary>
+            Executes a query and returns as DataTable
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.Database.ExecuteQuery``1(System.String,System.Object)">
+            <summary>
+            Executes a query and returns the value as a T collection
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.Database.Get``1(System.Object)">
+            <summary>
+            Gets a single T with specified table Key
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.Database.GetAll``1">
+            <summary>
+            Queries the database to all T rows in the table
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.Database.Insert``1(``0)">
+            <summary>
+            Inserts a new T and return it's ID, this method locks the execution
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.Database.BulkInsert``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Inserts many T items into the database and return their IDs, this method locks the execution
+            </summary>
+        </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Storage.ObjectReference">
+            <summary>
+            Intermediate class to storage item metadata
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Storage.ObjectReference.Uri">
+            <summary>
+            Crawl Uri 
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Storage.ObjectReference.CrawTime">
+            <summary>
+            Crawl timestamp
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Storage.ObjectReference.InsertedItem">
+            <summary>
+            ID on the Item table
+            </summary>
+        </member>
         <member name="T:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1">
             <summary>
             Store values in a Sqlite database

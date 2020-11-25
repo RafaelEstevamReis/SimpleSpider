@@ -10,14 +10,22 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
 {
     // Based on my https://github.com/RafaelEstevamReis/SqliteWrapper repository
 
-    public class Database
+    /// <summary>
+    /// Database access class
+    /// </summary>
+    internal class Database
     {
         // Manual lock on Writes to avoid Exceptions
         private readonly object lockNonQuery;
         private readonly string cnnString;
 
+        /// <summary>
+        /// Database file full path
+        /// </summary>
         public string DatabaseFileName { get; }
-
+        /// <summary>
+        /// Creates a new instance
+        /// </summary>
         public Database(string fileName)
         {
             lockNonQuery = new object();
@@ -40,12 +48,16 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
             sqliteConnection.Open();
             return sqliteConnection;
         }
-
+        /// <summary>
+        /// Builds the table creation sequence, should be finished with Commit()
+        /// </summary>
         public TableMapper CreateTables()
         {
             return new TableMapper(this);
         }
-
+        /// <summary>
+        /// Get a list of all tables
+        /// </summary>
         public string[] GetAllTables()
         {
             var dt = ExecuteReader(@"SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;", null);
@@ -53,6 +65,9 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
                           .Select(row => (string)row[0])
                           .ToArray();
         }
+        /// <summary>
+        /// Gets the schema for a table
+        /// </summary>
         public DataTable GetTableSchema(string TableName)
         {
             using var cnn = getConnection();
@@ -64,6 +79,9 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
 
             return reader.GetSchemaTable();
         }
+        /// <summary>
+        /// Executes a NonQUery command, this method locks the execution
+        /// </summary>
         public int ExecuteNonQuery(string Text, object Parameters = null)
         {
             using var cnn = getConnection();
@@ -77,7 +95,9 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
                 return cmd.ExecuteNonQuery();
             }
         }
-
+        /// <summary>
+        /// Executes a Scalar commands and return the value as T
+        /// </summary>
         public T ExecuteScalar<T>(string Text, object Parameters)
         {
             using var cnn = getConnection();
@@ -100,7 +120,9 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
 
             return (T)Convert.ChangeType(obj, typeof(T));
         }
-
+        /// <summary>
+        /// Executes a query and returns as DataTable
+        /// </summary>
         public DataTable ExecuteReader(string Text, object Parameters)
         {
             using var cnn = getConnection();
@@ -114,7 +136,9 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
             da.Fill(dt);
             return dt;
         }
-
+        /// <summary>
+        /// Executes a query and returns the value as a T collection
+        /// </summary>
         public IEnumerable<T> ExecuteQuery<T>(string Text, object Parameters)
             where T : new()
         {
@@ -171,7 +195,9 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
 
             p.SetValue(obj, objVal);
         }
-
+        /// <summary>
+        /// Gets a single T with specified table Key
+        /// </summary>
         public T Get<T>(object KeyValue)
             where T : new()
         {
@@ -189,6 +215,11 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
             return ExecuteQuery<T>($"SELECT * FROM {tableName} WHERE {keyColumn} = @KeyValue ", new { KeyValue })
                     .FirstOrDefault();
         }
+        /// <summary>
+        /// Queries the database to all T rows in the table
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public IEnumerable<T> GetAll<T>()
             where T : new()
         {
@@ -196,7 +227,9 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
 
             return ExecuteQuery<T>($"SELECT * FROM {tableName} ", null);
         }
-
+        /// <summary>
+        /// Inserts a new T and return it's ID, this method locks the execution
+        /// </summary>
         public long Insert<T>(T Item)
         {
             string sql = buildInsertSql<T>();
@@ -214,6 +247,9 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
 
             return $"INSERT INTO {tableName} ({fields}) VALUES ({values}); SELECT last_insert_rowid();";
         }
+        /// <summary>
+        /// Inserts many T items into the database and return their IDs, this method locks the execution
+        /// </summary>
         public long[] BulkInsert<T>(IEnumerable<T> Items)
         {
             List<long> ids = new List<long>();
