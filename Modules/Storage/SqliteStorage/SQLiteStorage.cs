@@ -172,5 +172,13 @@ namespace RafaelEstevam.Simple.Spider.Storage
                 yield return (r, item);
             }
         }
+
+        /// <summary>
+        /// Retrieve all stored items
+        /// </summary>
+        public IEnumerable<dynamic> RetrieveAllItems()
+        {
+            foreach (var i in ReadAll()) yield return i;
+        }
     }
 }
