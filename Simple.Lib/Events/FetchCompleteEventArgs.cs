@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Xml.Linq;
 using HtmlAgilityPack;
 using RafaelEstevam.Simple.Spider.Helper;
 using RafaelEstevam.Simple.Spider.Wrappers;
