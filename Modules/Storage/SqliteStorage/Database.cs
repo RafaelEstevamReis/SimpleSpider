@@ -41,7 +41,7 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
             };
             cnnString = sb.ToString();
         }
-        
+
         private SQLiteConnection getConnection()
         {
             var sqliteConnection = new SQLiteConnection(cnnString);
@@ -205,9 +205,9 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
         {
             var TypeT = typeof(T);
 
-            string keyColumn = KeyColumn 
+            string keyColumn = KeyColumn
                             ?? TypeT.GetProperties()
-                                    .Where(p => p.GetCustomAttributes(true) 
+                                    .Where(p => p.GetCustomAttributes(true)
                                                  .Any(a => a is KeyAttribute))
                                     .FirstOrDefault()
                                     ?.Name

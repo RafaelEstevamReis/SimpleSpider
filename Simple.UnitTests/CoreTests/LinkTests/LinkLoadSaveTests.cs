@@ -8,7 +8,7 @@ namespace RafaelEstevam.Simple.Spider.UnitTests.CoreTests.LinkTests
         [Fact]
         public void Core_LinkTests_Load()
         {
-            string[] lines = 
+            string[] lines =
             {
                 "Uri: http://quotes.toscrape.com/",
                 "SourceUri: http://books.toscrape.com/"

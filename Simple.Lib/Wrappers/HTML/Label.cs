@@ -20,7 +20,7 @@ namespace RafaelEstevam.Simple.Spider.Wrappers.HTML
         /// Gets the for attribute of the tag as Text
         /// </summary>
         public string For => Attributes["for"];
-        
+
         ILabelable forElement;
         /// <summary>
         /// Gets the element indicated in the For attribute of the tag

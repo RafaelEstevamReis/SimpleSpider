@@ -1,5 +1,4 @@
 ﻿using HtmlAgilityPack;
-using System;
 
 namespace RafaelEstevam.Simple.Spider.Wrappers.HTML
 {

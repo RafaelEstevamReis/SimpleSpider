@@ -1,6 +1,6 @@
-﻿using RafaelEstevam.Simple.Spider.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
+using RafaelEstevam.Simple.Spider.Interfaces;
 
 namespace RafaelEstevam.Simple.Spider.Cachers
 {

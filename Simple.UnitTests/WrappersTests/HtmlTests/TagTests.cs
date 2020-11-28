@@ -1,7 +1,7 @@
-﻿using HtmlAgilityPack;
-using RafaelEstevam.Simple.Spider.Wrappers.HTML;
-using System;
+﻿using System;
 using System.Linq;
+using HtmlAgilityPack;
+using RafaelEstevam.Simple.Spider.Wrappers.HTML;
 using Xunit;
 
 namespace RafaelEstevam.Simple.Spider.UnitTests.WrappersTests.HtmlTests

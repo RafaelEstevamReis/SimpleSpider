@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using RafaelEstevam.Simple.Spider.Parsers;
 using Newtonsoft.Json.Linq;
+using RafaelEstevam.Simple.Spider.Parsers;
 
 namespace RafaelEstevam.Simple.Spider.Test.Sample
 {
@@ -23,7 +23,7 @@ namespace RafaelEstevam.Simple.Spider.Test.Sample
             // add next
             if ((bool)args.ParsedData["has_next"])
             {
-                int currPage = (int)args.ParsedData["page"];                
+                int currPage = (int)args.ParsedData["page"];
                 ((SimpleSpider)sender).AddPage(buildPageUri(currPage + 1), args.FetchInfo.Link);
             }
             // process data (show on console)

@@ -78,7 +78,7 @@ namespace RafaelEstevam.Simple.Spider.Downloaders
             {
                 case DiscardModeTypes.Fail:
                     FetchFailed?.Invoke(this,
-                                        new FetchFailEventArgs(l, 
+                                        new FetchFailEventArgs(l,
                                                                0,
                                                                new Exception("NullDownloader:DiscardModeTypes.Fail"),
                                                                new HeaderCollection()));

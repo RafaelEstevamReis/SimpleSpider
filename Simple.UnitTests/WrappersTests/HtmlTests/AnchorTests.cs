@@ -1,5 +1,5 @@
-﻿using RafaelEstevam.Simple.Spider.Wrappers.HTML;
-using System.Linq;
+﻿using System.Linq;
+using RafaelEstevam.Simple.Spider.Wrappers.HTML;
 using Xunit;
 
 namespace RafaelEstevam.Simple.Spider.UnitTests.WrappersTests.HtmlTests

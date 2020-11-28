@@ -5,8 +5,9 @@ namespace RafaelEstevam.Simple.Spider.UnitTests.CoreTests.HeaderCollectionTests
     public class HeaderEnumeratorsTest
     {
         private HeaderCollection newHeader()
-        {string[] lines =
-            {
+        {
+            string[] lines =
+               {
                 "Referer: http://quotes.toscrape.com/",
                 "Content-Type: text/html; charset=UTF-8",
             };

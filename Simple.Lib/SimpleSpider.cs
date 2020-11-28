@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using Newtonsoft.Json;
 using RafaelEstevam.Simple.Spider.Cachers;
 using RafaelEstevam.Simple.Spider.Downloaders;
 using RafaelEstevam.Simple.Spider.Helper;
 using RafaelEstevam.Simple.Spider.Interfaces;
-using Newtonsoft.Json;
 using Serilog;
 
 namespace RafaelEstevam.Simple.Spider
@@ -158,7 +158,7 @@ namespace RafaelEstevam.Simple.Spider
             if (Configuration.Logger == null)
             {
                 Configuration.Spider_LogFile = Path.Combine(spiderPath.FullName, $"{ spiderName }.log");
-                
+
                 Configuration.Logger = new LoggerConfiguration()
                    .MinimumLevel.Debug()
                    .WriteTo.Console()
@@ -332,7 +332,7 @@ namespace RafaelEstevam.Simple.Spider
             {
                 if (alreadyExecuted(lnk.Uri)) return true;
 
-                if(hDispatched.Contains(lnk.Uri.ToString())) return true;
+                if (hDispatched.Contains(lnk.Uri.ToString())) return true;
                 hDispatched.Add(lnk.Uri.ToString());
 
                 if (Cacher.HasCache(lnk.Uri))
@@ -365,7 +365,7 @@ namespace RafaelEstevam.Simple.Spider
                 yield return AddPage(p, SourcePage);
             }
         }
-       
+
         /// <summary>
         /// Add page to fetch
         /// </summary>
@@ -410,7 +410,7 @@ namespace RafaelEstevam.Simple.Spider
                 string newUri = SpiderWorkData.Moved301[lnk.Uri.ToString()];
                 lnk.ResourceMoved(new Uri(newUri));
 
-                if (alreadyExecuted(lnk.Uri)) return null; 
+                if (alreadyExecuted(lnk.Uri)) return null;
             }
 
             if (alreadyExecuted(lnk.Uri)) return null;

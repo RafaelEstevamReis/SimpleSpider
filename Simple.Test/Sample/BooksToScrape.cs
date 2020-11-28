@@ -33,7 +33,7 @@ namespace RafaelEstevam.Simple.Spider.Test.Sample
             spider.FetchCompleted += fetchCompleted_items_HObject; //Sample using HObject
             // Ignore (cancel) the pages containing "/reviews/" 
             spider.ShouldFetch += (s, a) => { a.Cancel = a.Link.Uri.ToString().Contains("/reviews/"); };
-            
+
             // execute from first page
             spider.Execute();
 
@@ -83,7 +83,7 @@ namespace RafaelEstevam.Simple.Spider.Test.Sample
             string sTitle = articleProd["h1"];  // .XPathSelect("//h1").Value;
             string sPrice = articleProd["p > .price_color"];// .XPathSelect("//p[@class=\"price_color\"]").Value;
             string sStock = articleProd["p > .instock"].GetValue().Trim();// .XPathSelect("//p[@class=\"instock\"]").Value.Trim();
-            string sDesc =  articleProd.Children("p");// .XPathSelect("p")?.Value; // books can be descriptionless
+            string sDesc = articleProd.Children("p");// .XPathSelect("p")?.Value; // books can be descriptionless
             // convert price to Decimal
             decimal.TryParse(sPrice, NumberStyles.Currency, new CultureInfo("en-GB", false), out decimal price);
 

@@ -1,8 +1,5 @@
-﻿using RafaelEstevam.Simple.Spider.Helper;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace RafaelEstevam.Simple.Spider.UnitTests.CoreTests.InitParamsTests
@@ -135,7 +132,7 @@ namespace RafaelEstevam.Simple.Spider.UnitTests.CoreTests.InitParamsTests
                 }
                 yield return $"{p.Name}: {val}";
             }
-            
+
             yield return $"Parsers: {init.Parsers.Count()}";
             for (int i = 0; i < init.Parsers.Count; i++)
             {

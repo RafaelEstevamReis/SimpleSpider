@@ -46,7 +46,7 @@ namespace RafaelEstevam.Simple.Spider.UnitTests.CoreTests.HeaderCollectionTests
             Assert.Equal(3, hdrLoaded.Count);
             Assert.Equal("text/html; charset=UTF-8", hdrLoaded["Content-Type"]);
             Assert.Equal("http://quotes.toscrape.com/", hdrLoaded["Referer"]);
-            Assert.Equal("text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9", 
+            Assert.Equal("text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
                          hdrLoaded["Accept"]);
 
             var savedLines = HeaderCollection.SaveHeader(hdrLoaded);

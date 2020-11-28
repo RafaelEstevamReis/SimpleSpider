@@ -152,7 +152,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
 
         private static IEnumerable<string[]> compressedFileSpit(FileStream fs, Encoding encoding, char delimiter)
         {
-            var gz = new GZipStream(fs,  CompressionMode.Decompress);
+            var gz = new GZipStream(fs, CompressionMode.Decompress);
             foreach (var v in FileSplit(new StreamReader(gz, encoding), delimiter))
             {
                 yield return v;

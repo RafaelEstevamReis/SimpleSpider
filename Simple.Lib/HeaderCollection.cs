@@ -39,7 +39,7 @@ namespace RafaelEstevam.Simple.Spider
         /// Creates a new instance with specified parameter
         /// </summary>
         /// <param name="kvp">Enumerable of KeyValuePairs</param>
-        public HeaderCollection(IEnumerable<KeyValuePair<string,string>> kvp)
+        public HeaderCollection(IEnumerable<KeyValuePair<string, string>> kvp)
            : this()
         {
             AddItems(kvp);
@@ -145,7 +145,7 @@ namespace RafaelEstevam.Simple.Spider
         {
             return dicValues.GetEnumerator();
         }
-        
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return dicValues.GetEnumerator();

@@ -39,7 +39,7 @@ namespace RafaelEstevam.Simple.Spider.Interfaces
         /// <summary>
         /// Retrieve all stored items
         /// </summary>
-        IEnumerable<dynamic> RetrieveAllItems() 
+        IEnumerable<dynamic> RetrieveAllItems()
         {
             throw new NotImplementedException();
         }

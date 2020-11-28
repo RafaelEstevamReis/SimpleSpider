@@ -1,5 +1,5 @@
-﻿using HtmlAgilityPack;
-using System.IO;
+﻿using System.IO;
+using HtmlAgilityPack;
 
 namespace RafaelEstevam.Simple.Spider.Helper
 {

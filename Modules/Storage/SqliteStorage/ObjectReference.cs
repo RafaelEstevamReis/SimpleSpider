@@ -10,7 +10,7 @@ namespace RafaelEstevam.Simple.Spider.Storage
         /// <summary>
         /// Crawl Uri 
         /// </summary>
-        public Uri Uri { get; set; } 
+        public Uri Uri { get; set; }
         /// <summary>
         /// Crawl timestamp
         /// </summary>

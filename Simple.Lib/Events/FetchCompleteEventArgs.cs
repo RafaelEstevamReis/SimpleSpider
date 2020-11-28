@@ -116,7 +116,7 @@ namespace RafaelEstevam.Simple.Spider
             this.RequestHeaders = requestHeaders;
             this.ResponseHeaders = responseHeaders;
         }
-        
+
         /// <summary>
         /// Load a FetchCompleteEventArgs from a stream
         /// </summary>

@@ -1,9 +1,8 @@
-﻿using RafaelEstevam.Simple.Spider.Interfaces;
-using System;
-using System.Collections.Concurrent;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
+using RafaelEstevam.Simple.Spider.Interfaces;
 
 namespace RafaelEstevam.Simple.Spider.Storage
 {
@@ -83,7 +82,7 @@ namespace RafaelEstevam.Simple.Spider.Storage
         {
             enqueue((link, item));
             return true;
-        }        
+        }
 
         private void enqueue((Link link, T item) p)
         {

@@ -1,6 +1,6 @@
-﻿using HtmlAgilityPack;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.Linq;
+using HtmlAgilityPack;
 
 namespace RafaelEstevam.Simple.Spider.Wrappers.HTML
 {

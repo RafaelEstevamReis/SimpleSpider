@@ -1,8 +1,5 @@
 ﻿using RafaelEstevam.Simple.Spider.Helper;
 using RafaelEstevam.Simple.Spider.Wrappers.HTML;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace RafaelEstevam.Simple.Spider.UnitTests.WrappersTests.HtmlTests

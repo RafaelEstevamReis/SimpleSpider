@@ -1,5 +1,5 @@
-﻿using RafaelEstevam.Simple.Spider.Helper;
-using System.Linq;
+﻿using System.Linq;
+using RafaelEstevam.Simple.Spider.Helper;
 using Xunit;
 
 namespace RafaelEstevam.Simple.Spider.UnitTests.HelperTests.CSVHelperTests

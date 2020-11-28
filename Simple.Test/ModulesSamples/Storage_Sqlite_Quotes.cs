@@ -13,7 +13,7 @@ namespace RafaelEstevam.Simple.Spider.Test.ModulesSamples
                         .SetStorage(new Storage.SQLiteStorage<Quotes>());
 
             var spider = new SimpleSpider("QuotesToScrape",
-                                   new Uri("http://quotes.toscrape.com/"), 
+                                   new Uri("http://quotes.toscrape.com/"),
                                           init);
             spider.FetchCompleted += spider_FetchCompleted;
             spider.Execute();
@@ -38,10 +38,10 @@ namespace RafaelEstevam.Simple.Spider.Test.ModulesSamples
                 };
 
                 ((SimpleSpider)Sender).Storage.AddItem(args.Link, quote);
-            }                
+            }
         }
 
-        public class Quotes 
+        public class Quotes
         {
             public string Author { get; set; }
             public string Text { get; set; }

@@ -1,6 +1,6 @@
-﻿using RafaelEstevam.Simple.Spider.Helper;
+﻿using System;
+using RafaelEstevam.Simple.Spider.Helper;
 using RafaelEstevam.Simple.Spider.Wrappers.HTML;
-using System;
 
 namespace RafaelEstevam.Simple.Spider.Test.Sample
 {
@@ -29,7 +29,7 @@ namespace RafaelEstevam.Simple.Spider.Test.Sample
             success = req.SendFormData(login, formData, null);
 
             if (!success) throw new InvalidOperationException(" We did't make it =( ");
-            Console.WriteLine("We make it !");            
+            Console.WriteLine("We make it !");
         }
     }
 }

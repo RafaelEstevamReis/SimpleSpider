@@ -5,9 +5,9 @@ using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
 using HtmlAgilityPack;
-using RafaelEstevam.Simple.Spider.Wrappers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RafaelEstevam.Simple.Spider.Wrappers;
 using Serilog;
 
 namespace RafaelEstevam.Simple.Spider.Helper
@@ -207,5 +207,5 @@ namespace RafaelEstevam.Simple.Spider.Helper
             using var reader = new StreamReader(ms, enc ?? Encoding.UTF8);
             return XmlSerializerHelper.Deserialize<T>(reader);
         }
- }
+    }
 }

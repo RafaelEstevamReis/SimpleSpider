@@ -101,6 +101,7 @@ namespace RafaelEstevam.Simple.Spider.Storage
                 stream = null;
             }
         }
+
         /// <summary>
         /// Retieve all items
         /// </summary>

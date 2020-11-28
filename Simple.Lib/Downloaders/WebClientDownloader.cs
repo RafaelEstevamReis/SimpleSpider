@@ -30,7 +30,7 @@ namespace RafaelEstevam.Simple.Spider.Downloaders
         /// <summary>
         /// List with last Fetch duration
         /// </summary>
-        public List<TimeSpan> FetchTempo { get;  }
+        public List<TimeSpan> FetchTempo { get; }
         /// <summary>
         /// Creates a new instance
         /// </summary>
@@ -114,7 +114,7 @@ namespace RafaelEstevam.Simple.Spider.Downloaders
                     ShouldFetch(this, args);
                     if (args.Cancel) continue;
 
-                    IsProcessing = true; 
+                    IsProcessing = true;
                     config.Logger.Information($"[WEB] {current.Uri.UrlWithoutHost()}");
                     webClient.EnableCookies = config.Cookies_Enable;
                     current.FetchStart = DateTime.Now;
@@ -136,10 +136,10 @@ namespace RafaelEstevam.Simple.Spider.Downloaders
             // process result
             if (e.Error == null)
             {
-                FetchCompleted(this, 
-                               new FetchCompleteEventArgs(current, 
-                                                          e.Result, 
-                                                          new HeaderCollection(webClient.Headers), 
+                FetchCompleted(this,
+                               new FetchCompleteEventArgs(current,
+                                                          e.Result,
+                                                          new HeaderCollection(webClient.Headers),
                                                           new HeaderCollection(webClient.ResponseHeaders)));
             }
             else
@@ -151,7 +151,7 @@ namespace RafaelEstevam.Simple.Spider.Downloaders
                     if (webError.Response is HttpWebResponse resp)
                     {
                         code = (int)resp.StatusCode;
-                        
+
                         var loc = resp.Headers[HttpResponseHeader.Location];
                         if (!string.IsNullOrEmpty(loc))
                         {

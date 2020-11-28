@@ -1,5 +1,5 @@
-﻿using HtmlAgilityPack;
-using System.Linq;
+﻿using System.Linq;
+using HtmlAgilityPack;
 
 namespace RafaelEstevam.Simple.Spider.Wrappers.HTML
 {

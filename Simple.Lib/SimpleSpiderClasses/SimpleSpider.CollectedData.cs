@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace RafaelEstevam.Simple.Spider
 {
@@ -24,11 +24,11 @@ namespace RafaelEstevam.Simple.Spider
             /// <summary>
             /// Object stored
             /// </summary>
-            public dynamic Object { get;  }
+            public dynamic Object { get; }
             /// <summary>
             /// Url of where was it found
             /// </summary>
-            public string CollectedOn { get;  }
+            public string CollectedOn { get; }
             /// <summary>
             /// DateTime of when was it found (in fact, stored)
             /// </summary>

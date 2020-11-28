@@ -1,8 +1,5 @@
 ﻿using RafaelEstevam.Simple.Spider.Helper;
 using RafaelEstevam.Simple.Spider.Wrappers.HTML;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace RafaelEstevam.Simple.Spider.UnitTests.WrappersTests.HtmlTests
@@ -30,7 +27,7 @@ namespace RafaelEstevam.Simple.Spider.UnitTests.WrappersTests.HtmlTests
 <label>Do you like peas?
   <input type=""checkbox"" name=""peas"">
 </label>";
-        
+
 
         [Fact]
         public void Wrappers_HtmlLabel_Nothing()

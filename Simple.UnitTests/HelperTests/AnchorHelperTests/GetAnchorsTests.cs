@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using RafaelEstevam.Simple.Spider.Helper;
 using Xunit;
 
@@ -27,7 +25,7 @@ namespace RafaelEstevam.Simple.Spider.UnitTests.HelperTests.AnchorHelperTests
             string html = "<html><div><a></a><li><a href=\"TEST\"> test </a><a href=\"T2\"> test2 </a>";
             var arr = AnchorHelper.GetAnchors(uri, html).ToArray();
 
-            Assert.Equal(new Uri[] 
+            Assert.Equal(new Uri[]
                          {
                              new Uri("http://foo.bar/TEST"),
                              new Uri("http://foo.bar/T2")

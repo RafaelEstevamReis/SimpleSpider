@@ -1,6 +1,6 @@
-﻿using System.Linq;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using HtmlAgilityPack;
 
 namespace RafaelEstevam.Simple.Spider.Wrappers.HTML
@@ -49,7 +49,7 @@ namespace RafaelEstevam.Simple.Spider.Wrappers.HTML
         /// </summary>
         public IEnumerator<HtmlAttribute> GetEnumerator()
         {
-            foreach (var a in attributes) yield return a;   
+            foreach (var a in attributes) yield return a;
         }
         /// <summary>
         /// Enumerator for the attributes

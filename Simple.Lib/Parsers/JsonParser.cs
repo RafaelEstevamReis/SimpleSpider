@@ -1,5 +1,5 @@
-﻿using RafaelEstevam.Simple.Spider.Interfaces;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
+using RafaelEstevam.Simple.Spider.Interfaces;
 
 namespace RafaelEstevam.Simple.Spider.Parsers
 {
