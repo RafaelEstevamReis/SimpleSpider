@@ -152,11 +152,7 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
 
             if (reader.HasRows)
             {
-                var schema = reader.GetSchemaTable();
-                var colNames = schema.Rows
-                    .Cast<DataRow>()
-                    .Select(r => (string)r["ColumnName"])
-                    .ToHashSet();
+                var colNames = getSchemaColumns(reader);
 
                 while (reader.Read())
                 {
@@ -195,20 +191,27 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
 
             p.SetValue(obj, objVal);
         }
-        /// <summary>
-        /// Gets a single T with specified table Key
-        /// </summary>
         public T Get<T>(object KeyValue)
+                 where T : new()
+        {
+            return Get<T>(null, KeyValue);
+        }
+
+        /// <summary>
+        /// Gets a single T with specified table KeyValue on KeyColumn
+        /// </summary>
+        public T Get<T>(string KeyColumn, object KeyValue)
             where T : new()
         {
             var TypeT = typeof(T);
 
-            string keyColumn = TypeT.GetProperties()
+            string keyColumn = KeyColumn 
+                            ?? TypeT.GetProperties()
                                     .Where(p => p.GetCustomAttributes(true) 
                                                  .Any(a => a is KeyAttribute))
                                     .FirstOrDefault()
-                                    ?.Name;            
-            if (keyColumn == null) throw new ArgumentException("Type dows not define a Key Column");
+                                    ?.Name
+                            ?? "_rowid_";
 
             var tableName = TypeT.Name;
 
@@ -227,6 +230,16 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
 
             return ExecuteQuery<T>($"SELECT * FROM {tableName} ", null);
         }
+
+        private HashSet<string> getSchemaColumns(SQLiteDataReader reader)
+        {
+            var schema = reader.GetSchemaTable();
+            return schema.Rows
+                .Cast<DataRow>()
+                .Select(r => (string)r["ColumnName"])
+                .ToHashSet();
+        }
+
         /// <summary>
         /// Inserts a new T and return it's ID, this method locks the execution
         /// </summary>
