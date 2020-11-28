@@ -154,5 +154,10 @@
             Returns all added items with it's metadata
             </summary>
         </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1.RetrieveAllItems">
+            <summary>
+            Retrieve all stored items
+            </summary>
+        </member>
     </members>
 </doc>

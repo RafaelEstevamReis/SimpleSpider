@@ -1799,6 +1799,11 @@
             </summary>
             <returns>Returns the number of items collected</returns>
         </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Interfaces.IStorage.RetrieveAllItems">
+            <summary>
+            Retrieve all stored items
+            </summary>
+        </member>
         <member name="T:RafaelEstevam.Simple.Spider.Link">
             <summary>
             Represents a Link enqueued or fetched
@@ -2246,6 +2251,16 @@
             Saves all data
             </summary>
             <param name="IsAutoSave">Indicates if is an Auto-save or if is closing. Call with True will dispose the stream</param>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.JsonLinesStorage.RetrieveAllItems">
+            <summary>
+            Retieve all items
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.JsonLinesStorage.RetrieveAllItems``1">
+            <summary>
+            Retieve all items
+            </summary>
         </member>
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HObject">
             <summary>

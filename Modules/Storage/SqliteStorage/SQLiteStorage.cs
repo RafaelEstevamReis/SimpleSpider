@@ -95,8 +95,9 @@ namespace RafaelEstevam.Simple.Spider.Storage
             {
                 commitQueue();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
+                //this is still here for testing and debug
             }
         }
 
