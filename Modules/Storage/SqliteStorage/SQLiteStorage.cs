@@ -144,5 +144,33 @@ namespace RafaelEstevam.Simple.Spider.Storage
         {
             return db.ExecuteScalar<int>($"SELECT COUNT(*) FROM {tableNameT}", null);
         }
+
+        /// <summary>
+        /// Returns all added items
+        /// </summary>
+        public IEnumerable<T> ReadAll()
+        {
+            // https://www.sqlite.org/rowidtable.html
+            // > Access to records via rowid is highly optimized and very fast.
+
+            return db.GetAll<T>();
+        }
+        /// <summary>
+        /// Returns all added items with it's metadata
+        /// </summary>
+        public IEnumerable<(ObjectReference, T)> ReadAllReferenced()
+        {
+            // https://www.sqlite.org/rowidtable.html
+            // > Access to records via rowid is highly optimized and very fast.
+            // > BUT ... is not persistent and might change ... applications should not normally access the rowid directly ...
+
+            var refs = db.GetAll<ObjectReference>();
+            foreach (var r in refs)
+            {
+                var item = db.Get<T>("_rowid_", r.InsertedItem);
+
+                yield return (r, item);
+            }
+        }
     }
 }
