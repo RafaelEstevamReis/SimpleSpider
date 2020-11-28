@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RafaelEstevam.Simple.Spider.Interfaces;
 
 namespace RafaelEstevam.Simple.Spider.Storage
@@ -97,6 +99,28 @@ namespace RafaelEstevam.Simple.Spider.Storage
             {
                 stream.Dispose();
                 stream = null;
+            }
+        }
+        /// <summary>
+        /// Retieve all items
+        /// </summary>
+        public System.Collections.Generic.IEnumerable<dynamic> RetrieveAllItems()
+        {
+            foreach (var line in File.ReadAllLines(filePath))
+            {
+                if (string.IsNullOrWhiteSpace(line)) continue;
+                yield return JObject.Parse(line);
+            }
+        }
+        /// <summary>
+        /// Retieve all items
+        /// </summary>
+        public System.Collections.Generic.IEnumerable<T> RetrieveAllItems<T>()
+        {
+            foreach (var line in File.ReadAllLines(filePath))
+            {
+                if (string.IsNullOrWhiteSpace(line)) continue;
+                yield return JsonConvert.DeserializeObject<T>(line);
             }
         }
     }
