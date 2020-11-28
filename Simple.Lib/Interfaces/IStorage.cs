@@ -1,4 +1,6 @@
-﻿namespace RafaelEstevam.Simple.Spider.Interfaces
+﻿using System.Collections.Generic;
+
+namespace RafaelEstevam.Simple.Spider.Interfaces
 {
     /// <summary>
     /// Represents a Interface to store collected data
@@ -32,5 +34,10 @@
         /// </summary>
         /// <returns>Returns the number of items collected</returns>
         int Count();
+
+        /// <summary>
+        /// Retrieve all stored items
+        /// </summary>
+        IEnumerable<dynamic> RetrieveAllItems();
     }
 }
