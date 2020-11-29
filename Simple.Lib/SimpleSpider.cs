@@ -92,7 +92,6 @@ namespace RafaelEstevam.Simple.Spider
         private HashSet<string> hViolated;
         private List<Link> lCompleted;
 
-        private List<CollectedData> lstCollected;
         private ILogger log { get { return Configuration.Logger; } }
 
         /// <summary>
@@ -110,7 +109,6 @@ namespace RafaelEstevam.Simple.Spider
             Cacher = @params?.Cacher;
             Downloader = @params?.Downloader;
 
-            lstCollected = new List<CollectedData>();
             Configuration = @params?.ConfigurationPrototype ?? new Configuration();
             initializeConfiguration(spiderName, @params);
 
@@ -425,53 +423,6 @@ namespace RafaelEstevam.Simple.Spider
         private bool alreadyExecuted(Uri pageToVisit)
         {
             return hExecuted.Contains(pageToVisit.ToString());
-        }
-
-        /// <summary>
-        /// [DEPRECATED] Will be removed in next version
-        /// Add items to the volatile collection.
-        /// </summary>
-        /// <param name="Objects">Objects collected</param>
-        /// <param name="CollectedOn">Uri where the Object was found</param>
-        [Obsolete("DEPRECATED: Use an Storage Engine instead, will be removed in next version")]
-        public void Collect(IEnumerable<dynamic> Objects, Uri CollectedOn)
-        {
-            foreach (var o in Objects) Collect(o, CollectedOn);
-        }
-
-        /// <summary>
-        /// [DEPRECATED] Will be removed in next version
-        /// Add item to the volatile collection.
-        /// </summary>
-        /// <param name="Object">Object collected</param>
-        /// <param name="CollectedOn">Uri where the Object was found</param>
-        [Obsolete("DEPRECATED: Use an Storage Engine instead, will be removed in next version")]
-        public void Collect(dynamic Object, Uri CollectedOn)
-        {
-            lstCollected.Add(new CollectedData(Object: Object, CollectedOn: CollectedOn.ToString()));
-        }
-
-        /// <summary>
-        /// [DEPRECATED] Will be removed in next version
-        /// Get array with all Collected Objects
-        /// </summary>
-        [Obsolete("DEPRECATED: Use an Storage Engine instead, will be removed in next version")]
-        public CollectedData[] CollectedItems() { return lstCollected.ToArray(); }
-
-        /// <summary>
-        /// [DEPRECATED] Will be removed in next version
-        /// Writes all Collected Objects to the stream
-        /// </summary>
-        /// <param name="writer">Stream to write to</param>
-        /// <param name="IncludeMetadata">Defines if should include the metadata. Set to false to export data only</param>
-        [Obsolete("DEPRECATED: Use an Storage Engine instead, will be removed in next version")]
-        public void SaveCollectedItems(StreamWriter writer, bool IncludeMetadata = true)
-        {
-            using var jw = new JsonTextWriter(writer);
-            var serializer = new JsonSerializer();
-
-            if (IncludeMetadata) serializer.Serialize(jw, lstCollected);
-            else serializer.Serialize(jw, lstCollected.Select(c => c.Object));
         }
 
         #region Scheduler callbacks
