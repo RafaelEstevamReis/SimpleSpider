@@ -102,6 +102,21 @@
             </summary>
             <typeparam name="T">Type of data to be stored</typeparam>
         </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1.DatabaseFilePath">
+            <summary>
+            Gets the database full path
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1.TableNameOfT">
+            <summary>
+            Gets the name of the table used to store the items
+            </summary>
+        </member>
+        <member name="F:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1.TableNameOfMetadata">
+            <summary>
+             Gets the name of the table used to store item metadata as Url and Timestamp
+            </summary>
+        </member>
         <member name="M:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1.#ctor">
             <summary>
             Create a new instance
@@ -158,6 +173,33 @@
             <summary>
             Retrieve all stored items
             </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1.GetItemsWith(System.String,System.Object)">
+            <summary>
+            Retrieve items where [Property] equals [Value]
+            </summary>
+            <param name="Property"></param>
+            <param name="Value"></param>
+            <returns>Stored items</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1.GetItemsCollectedBeween(System.DateTime,System.DateTime)">
+            <summary>
+            Retrieve items collected between [start] and [end]
+            </summary>
+            <returns>Stored items</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1.GetItemsCollectedAt(System.Uri)">
+            <summary>
+            Retrieve items collected at [collectedUri]
+            </summary>
+            <returns>Stored items</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1.GetItemsWithUriContaining(System.String)">
+            <summary>
+            Retrieve items collected at a url that contains [uriContains]
+            </summary>
+            <param name="uriContains">Partial content of the Url</param>
+            <returns>Stored items</returns>
         </member>
     </members>
 </doc>

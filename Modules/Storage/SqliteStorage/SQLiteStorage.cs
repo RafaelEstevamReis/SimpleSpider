@@ -21,11 +21,25 @@ namespace RafaelEstevam.Simple.Spider.Storage
         private Sqlite.Database db;
 
         /// <summary>
+        /// Gets the database full path
+        /// </summary>
+        public string DatabaseFilePath => db?.DatabaseFileName;
+        /// <summary>
+        /// Gets the name of the table used to store the items
+        /// </summary>
+        public string TableNameOfT => tableNameT;
+        /// <summary>
+        ///  Gets the name of the table used to store item metadata as Url and Timestamp
+        /// </summary>
+        public readonly string TableNameOfMetadata;
+
+        /// <summary>
         /// Create a new instance
         /// </summary>
         public SQLiteStorage()
         {
             tableNameT = typeof(T).Name;
+            TableNameOfMetadata = typeof(ObjectReference).Name;
             items = new List<(Link, T)>();
             lockCommit = new object();
             tmrInsertBlock = new Timer()
@@ -180,5 +194,51 @@ namespace RafaelEstevam.Simple.Spider.Storage
         {
             foreach (var i in ReadAll()) yield return i;
         }
+
+        /// <summary>
+        /// Retrieve items where [Property] equals [Value]
+        /// </summary>
+        /// <param name="Property"></param>
+        /// <param name="Value"></param>
+        /// <returns>Stored items</returns>
+        public IEnumerable<T> GetItemsWith(string Property, object Value)
+        {
+            return db.ExecuteQuery<T>($"SELECT * FROM {tableNameT} WHERE {Property} = @Value ", new { Value });
+        }
+        /// <summary>
+        /// Retrieve items collected between [start] and [end]
+        /// </summary>
+        /// <returns>Stored items</returns>
+        public IEnumerable<T> GetItemsCollectedBeween(DateTime start, DateTime end)
+        {
+            return db.ExecuteQuery<T>(@$"SELECT {tableNameT}.* 
+ FROM {tableNameT}
+ INNER JOIN ObjectReference ON ObjectReference.InsertedItem = {tableNameT}._rowid_
+ WHERE ObjectReference.CrawTime BETWEEN @start AND @end ", new { start, end });
+        }
+        /// <summary>
+        /// Retrieve items collected at [collectedUri]
+        /// </summary>
+        /// <returns>Stored items</returns>
+        public IEnumerable<T> GetItemsCollectedAt(Uri collectedUri)
+        {
+            return db.ExecuteQuery<T>(@$"SELECT {tableNameT}.* 
+ FROM {tableNameT}
+ INNER JOIN ObjectReference ON ObjectReference.InsertedItem = {tableNameT}._rowid_
+ WHERE ObjectReference.Uri = @uri ", new { uri = collectedUri.ToString() });
+        }
+        /// <summary>
+        /// Retrieve items collected at a url that contains [uriContains]
+        /// </summary>
+        /// <param name="uriContains">Partial content of the Url</param>
+        /// <returns>Stored items</returns>
+        public IEnumerable<T> GetItemsWithUriContaining(string uriContains)
+        {
+            return db.ExecuteQuery<T>(@$"SELECT {tableNameT}.* 
+ FROM {tableNameT}
+ INNER JOIN ObjectReference ON ObjectReference.InsertedItem = {tableNameT}._rowid_
+ WHERE ObjectReference.Uri LIKE @uri ", new { uri = $"%{uriContains}%" });
+        }
+
     }
 }
