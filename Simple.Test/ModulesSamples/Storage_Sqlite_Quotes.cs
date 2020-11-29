@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using RafaelEstevam.Simple.Spider.Test.Sample;
 
 namespace RafaelEstevam.Simple.Spider.Test.ModulesSamples
 {
@@ -10,7 +10,7 @@ namespace RafaelEstevam.Simple.Spider.Test.ModulesSamples
         public static void run()
         {
             // Creates a new instance
-            var storage = new Storage.SQLiteStorage<Quotes>();
+            var storage = new Storage.SQLiteStorage<Quote>();
             // set the spider to use it
             var init = new InitializationParams()
                         .SetStorage(storage);
@@ -27,12 +27,12 @@ namespace RafaelEstevam.Simple.Spider.Test.ModulesSamples
             spider.Execute();
 
             Console.WriteLine("Quotes from Albert Einstein");
-            foreach (Quotes q in storage.GetItemsWith("Author", "Albert Einstein"))
+            foreach (Quote q in storage.GetItemsWith("Author", "Albert Einstein"))
             {
                 Console.WriteLine($"{q.Author}: {q.Text}");
             }
             Console.WriteLine("All Quotes");
-            foreach (Quotes q in spider.Storage.RetrieveAllItems())
+            foreach (Quote q in spider.Storage.RetrieveAllItems())
             {
                 Console.WriteLine($"{q.Author}: {q.Text}");
             }
@@ -51,7 +51,7 @@ namespace RafaelEstevam.Simple.Spider.Test.ModulesSamples
             var divQuotes = hObj["div > .quote"];
             foreach (var q in divQuotes)
             {
-                var quote = new Quotes()
+                var quote = new Quote()
                 {
                     Author = q["small > .author"].GetValue(),
                     Text = q["span > .text"].GetValue(),
@@ -60,13 +60,6 @@ namespace RafaelEstevam.Simple.Spider.Test.ModulesSamples
 
                 ((SimpleSpider)Sender).Storage.AddItem(args.Link, quote);
             }
-        }
-
-        public class Quotes
-        {
-            public string Author { get; set; }
-            public string Text { get; set; }
-            public string Tags { get; set; }
         }
     }
 }
