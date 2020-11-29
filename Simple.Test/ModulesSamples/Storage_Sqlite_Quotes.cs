@@ -9,20 +9,31 @@ namespace RafaelEstevam.Simple.Spider.Test.ModulesSamples
         //   see for more in depth cover of the crawling part
         public static void run()
         {
+            // Creates a new instance
+            var storage = new Storage.SQLiteStorage<Quotes>();
+            // set the spider to use it
             var init = new InitializationParams()
-                        .SetStorage(new Storage.SQLiteStorage<Quotes>());
+                        .SetStorage(storage);
 
             var spider = new SimpleSpider("QuotesToScrape",
                                    new Uri("http://quotes.toscrape.com/"),
                                           init);
+
             spider.FetchCompleted += spider_FetchCompleted;
             spider.Execute();
 
+            Console.WriteLine("Quotes from Albert Einstein");
+            foreach (Quotes q in storage.GetItemsWith("Author", "Albert Einstein"))
+            {
+                Console.WriteLine($"{q.Author}: {q.Text}");
+            }
+            Console.WriteLine("All Quotes");
             foreach (Quotes q in spider.Storage.RetrieveAllItems())
             {
                 Console.WriteLine($"{q.Author}: {q.Text}");
             }
         }
+
         private static void spider_FetchCompleted(object Sender, FetchCompleteEventArgs args)
         {
             var hObj = args.GetHObject();
