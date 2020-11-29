@@ -20,6 +20,7 @@ namespace RafaelEstevam.Simple.Spider.Test.ModulesSamples
                                           init);
 
             spider.FetchCompleted += spider_FetchCompleted;
+            spider.ShouldFetch += Spider_ShouldFetch;
             spider.Execute();
 
             Console.WriteLine("Quotes from Albert Einstein");
@@ -32,6 +33,12 @@ namespace RafaelEstevam.Simple.Spider.Test.ModulesSamples
             {
                 Console.WriteLine($"{q.Author}: {q.Text}");
             }
+        }
+
+        private static void Spider_ShouldFetch(object Sender, ShouldFetchEventArgs args)
+        {
+            args.CancelIfContains("/login")
+                .CancelIfContains("/tag");
         }
 
         private static void spider_FetchCompleted(object Sender, FetchCompleteEventArgs args)
