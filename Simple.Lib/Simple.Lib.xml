@@ -1914,6 +1914,20 @@
             <param name="other">Second object to check</param>
             <returns>True if equals, false otherwise</returns>
         </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Link.Equals(System.String)">
+            <summary>
+            Checks if two objects are equal
+            </summary>
+            <param name="other">Second object to check</param>
+            <returns>True if equals, false otherwise</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Link.Contains(System.String)">
+            <summary>
+            Check if current Uri contains a specified string
+            </summary>
+            <param name="PartialUrl">String to be searched</param>
+            <returns>True if contains, false otherwise</returns>
+        </member>
         <member name="M:RafaelEstevam.Simple.Spider.Link.GetHashCode">
             <summary>
             Serves as the default hash function 

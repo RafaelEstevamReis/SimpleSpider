@@ -7,7 +7,7 @@ namespace RafaelEstevam.Simple.Spider
     /// <summary>
     /// Represents a Link enqueued or fetched
     /// </summary>
-    public class Link : IEquatable<Link>, IEquatable<Uri>
+    public class Link : IEquatable<Link>, IEquatable<Uri>, IEquatable<string>
     {
         /// <summary>
         /// Primary Uri, the resource to be fetched
@@ -161,6 +161,7 @@ namespace RafaelEstevam.Simple.Spider
         {
             if (obj is Link link) return Equals(link);
             if (obj is Uri uri) return Equals(uri);
+            if (obj is string url) return Equals(url);
             return false;
         }
 
@@ -192,6 +193,25 @@ namespace RafaelEstevam.Simple.Spider
             return true;
         }
         /// <summary>
+        /// Checks if two objects are equal
+        /// </summary>
+        /// <param name="other">Second object to check</param>
+        /// <returns>True if equals, false otherwise</returns>
+        public bool Equals(string other)
+        {
+            return Uri.ToString().Equals(other);
+        }
+        /// <summary>
+        /// Check if current Uri contains a specified string
+        /// </summary>
+        /// <param name="PartialUrl">String to be searched</param>
+        /// <returns>True if contains, false otherwise</returns>
+        public bool Contains(string PartialUrl)
+        {
+            return Uri.ToString().Contains(PartialUrl);
+        }
+
+        /// <summary>
         /// Serves as the default hash function 
         /// </summary>
         /// <returns>A hash code for the current object</returns>
@@ -199,5 +219,6 @@ namespace RafaelEstevam.Simple.Spider
         {
             return base.GetHashCode();
         }
+
     }
 }
