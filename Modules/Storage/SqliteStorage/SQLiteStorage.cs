@@ -17,7 +17,10 @@ namespace RafaelEstevam.Simple.Spider.Storage
         Timer tmrInsertBlock;
         object lockCommit;
 
-        private Sqlite.Database db;
+        /// <summary>
+        /// Exposes the internal database "engine"
+        /// </summary>
+        protected Sqlite.Database db;
 
         /// <summary>
         /// Gets the database full path

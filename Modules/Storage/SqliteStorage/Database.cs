@@ -13,7 +13,7 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
     /// <summary>
     /// Database access class
     /// </summary>
-    internal class Database
+    public class Database
     {
         // Manual lock on Writes to avoid Exceptions
         private readonly object lockNonQuery;
