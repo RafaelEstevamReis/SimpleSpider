@@ -54,6 +54,11 @@
             Executes a query and returns the value as a T collection
             </summary>
         </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.Database.Get``1(System.Object)">
+            <summary>
+            Gets a single T with specified table KeyValue on KeyColumn
+            </summary>
+        </member>
         <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.Database.Get``1(System.String,System.Object)">
             <summary>
             Gets a single T with specified table KeyValue on KeyColumn
@@ -74,6 +79,136 @@
         <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.Database.BulkInsert``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>
             Inserts many T items into the database and return their IDs, this method locks the execution
+            </summary>
+        </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper">
+            <summary>
+            Class to map tables from a Types
+            </summary>
+        </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.SqliteType">
+            <summary>
+            Sqlite types
+            </summary>
+        </member>
+        <member name="F:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.SqliteType.INTEGER">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.SqliteType.TEXT">
+            <summary>
+            The value is a text string, stored using the database encoding (UTF-8, UTF-16BE or UTF-16LE)
+            </summary>
+        </member>
+        <member name="F:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.SqliteType.BLOB">
+            <summary>
+            The value is a blob of data, stored exactly as it was input
+            </summary>
+        </member>
+        <member name="F:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.SqliteType.REAL">
+            <summary>
+            The value is a floating point value, stored as an 8-byte IEEE floating point number
+            </summary>
+        </member>
+        <member name="F:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.SqliteType.NUMERIC">
+            <summary>
+            For Decimal, Bool, Date, DateTime
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.#ctor(RafaelEstevam.Simple.Spider.Storage.Sqlite.Database)">
+            <summary>
+            Creates a new instance
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.Add``1">
+            <summary>
+            Adds a table
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.ConfigureTable(System.Action{RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.Table})">
+            <summary>
+            Allows last added table to be editted
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.Commit">
+            <summary>
+            Commit all new tables to the db (old schemas are not updated (yet)
+            </summary>
+        </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.Table">
+            <summary>
+            Represents a table schema
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.Table.TableName">
+            <summary>
+            Table's name
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.Table.Columns">
+            <summary>
+            Table's columns
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.Table.ExportCreateTable">
+            <summary>
+            Creates a CREATE TABLE statment from current schema
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.Table.FromType(System.Type)">
+            <summary>
+            Creates a table schema from a Type
+            </summary>
+        </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.Column">
+            <summary>
+            Represents a column schema
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.Column.ColumnName">
+            <summary>
+            Column name
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.Column.SqliteType">
+            <summary>
+            Type on SQLite database
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.Column.NativeType">
+            <summary>
+            Native object type
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.Column.IsPK">
+            <summary>
+            Is PrimaryKey ?
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.Column.IsAI">
+            <summary>
+            Is Auto-Increment ?
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.Column.AllowNulls">
+            <summary>
+            Allow null values ?
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.Column.DefaultValue">
+            <summary>
+            Default value on NULL
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.Column.FromType(System.Type,System.Reflection.PropertyInfo)">
+            <summary>
+            Creates a column schema from a Type
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.Sqlite.TableMapper.Column.ExportColumnAsStatement">
+            <summary>
+            Creates a CREATE TABLE column statment from current schema
             </summary>
         </member>
         <member name="T:RafaelEstevam.Simple.Spider.Storage.ObjectReference">

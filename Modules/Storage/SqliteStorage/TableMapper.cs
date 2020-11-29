@@ -7,28 +7,41 @@ using System.Text;
 
 namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
 {
-    public class TableMapper
+    /// <summary>
+    /// Class to map tables from a Types
+    /// </summary>
+    public partial class TableMapper
     {
         private readonly Database db;
         private readonly List<Table> tables;
 
+        /// <summary>
+        /// Creates a new instance
+        /// </summary>
         public TableMapper(Database database)
         {
             db = database;
             tables = new List<Table>();
         }
-
+        /// <summary>
+        /// Adds a table
+        /// </summary>
         public TableMapper Add<T>() where T : new()
         {
             tables.Add(Table.FromType(typeof(T)));
             return this;
         }
+        /// <summary>
+        /// Allows last added table to be editted
+        /// </summary>
         public TableMapper ConfigureTable(Action<Table> Options)
         {
             Options(tables[^1]);
             return this;
         }
-
+        /// <summary>
+        /// Commit all new tables to the db (old schemas are not updated (yet)
+        /// </summary>
         public void Commit()
         {
             foreach (var t in tables)
@@ -38,21 +51,23 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
 
             tables.Clear();
         }
-
-        public enum SqliteType
-        {
-            INTEGER,
-            TEXT,
-            BLOB,
-            REAL,
-            NUMERIC, // Include Bool, Date and Datetime
-        }
-
+        /// <summary>
+        /// Represents a table schema
+        /// </summary>
         public class Table
         {
+            /// <summary>
+            /// Table's name
+            /// </summary>
             public string TableName { get; set; }
+            /// <summary>
+            /// Table's columns
+            /// </summary>
             public Column[] Columns { get; set; }
-
+            
+            /// <summary>
+            /// Creates a CREATE TABLE statment from current schema
+            /// </summary>
             public string ExportCreateTable()
             {
                 if (string.IsNullOrEmpty(TableName)) throw new ArgumentNullException("TableName can not be null");
@@ -83,6 +98,10 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
 
                 return sb.ToString();
             }
+            
+            /// <summary>
+            /// Creates a table schema from a Type
+            /// </summary>
             public static Table FromType(Type t)
             {
                 var props = t.GetProperties();
@@ -95,17 +114,43 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
                 };
             }
         }
-
+        /// <summary>
+        /// Represents a column schema
+        /// </summary>
         public class Column
         {
+            /// <summary>
+            /// Column name
+            /// </summary>
             public string ColumnName { get; set; }
+            /// <summary>
+            /// Type on SQLite database
+            /// </summary>
             public SqliteType SqliteType { get; set; }
+            /// <summary>
+            /// Native object type
+            /// </summary>
             public Type NativeType { get; set; }
+            /// <summary>
+            /// Is PrimaryKey ?
+            /// </summary>
             public bool IsPK { get; set; }
+            /// <summary>
+            /// Is Auto-Increment ?
+            /// </summary>
             public bool IsAI { get; set; }
+            /// <summary>
+            /// Allow null values ?
+            /// </summary>
             public bool AllowNulls { get; set; }
+            /// <summary>
+            /// Default value on NULL
+            /// </summary>
             public object DefaultValue { get; set; }
-
+           
+            /// <summary>
+            /// Creates a column schema from a Type
+            /// </summary>
             public static Column FromType(Type t, PropertyInfo info)
             {
 
@@ -152,7 +197,9 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
                 return info.GetCustomAttributes(typeof(KeyAttribute), true)
                            .FirstOrDefault() != null;
             }
-
+            /// <summary>
+            /// Creates a CREATE TABLE column statment from current schema
+            /// </summary>
             public string ExportColumnAsStatement()
             {
                 {

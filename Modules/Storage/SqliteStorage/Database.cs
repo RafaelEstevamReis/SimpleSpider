@@ -191,12 +191,15 @@ namespace RafaelEstevam.Simple.Spider.Storage.Sqlite
 
             p.SetValue(obj, objVal);
         }
+        
+        /// <summary>
+        /// Gets a single T with specified table KeyValue on KeyColumn
+        /// </summary>
         public T Get<T>(object KeyValue)
                  where T : new()
         {
             return Get<T>(null, KeyValue);
         }
-
         /// <summary>
         /// Gets a single T with specified table KeyValue on KeyColumn
         /// </summary>

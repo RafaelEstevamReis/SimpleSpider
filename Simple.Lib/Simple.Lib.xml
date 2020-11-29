@@ -783,6 +783,11 @@
             Extensions to deal with text
             </summary>
         </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.TextExtensions.HtmlDecode(System.String)">
+            <summary>
+            Decodes text using helper HtmlParseHelper.HtmlDecode
+            </summary>
+        </member>
         <member name="M:RafaelEstevam.Simple.Spider.Extensions.TextExtensions.TruncateMax(System.String,System.Int32)">
             <summary>
             Truncates a string to a specified max length
