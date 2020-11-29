@@ -17,7 +17,6 @@ namespace RafaelEstevam.Simple.Spider.Storage
         Timer tmrInsertBlock;
         object lockCommit;
 
-        private readonly string tableNameT;
         private Sqlite.Database db;
 
         /// <summary>
@@ -27,7 +26,7 @@ namespace RafaelEstevam.Simple.Spider.Storage
         /// <summary>
         /// Gets the name of the table used to store the items
         /// </summary>
-        public string TableNameOfT => tableNameT;
+        public readonly string TableNameOfT;
         /// <summary>
         ///  Gets the name of the table used to store item metadata as Url and Timestamp
         /// </summary>
@@ -38,7 +37,7 @@ namespace RafaelEstevam.Simple.Spider.Storage
         /// </summary>
         public SQLiteStorage()
         {
-            tableNameT = typeof(T).Name;
+            TableNameOfT = typeof(T).Name;
             TableNameOfMetadata = typeof(ObjectReference).Name;
             items = new List<(Link, T)>();
             lockCommit = new object();
@@ -56,7 +55,7 @@ namespace RafaelEstevam.Simple.Spider.Storage
         public void Initialize(Configuration Config)
         {
             db = new Sqlite.Database(System.IO.Path.Combine(Config.SpiderDataDirectory.FullName,
-                                                            $"SqliteStorage_{tableNameT}.sqlite"));
+                                                            $"SqliteStorage_{TableNameOfT}.sqlite"));
 
             db.CreateTables()
               .Add<T>()
@@ -156,7 +155,7 @@ namespace RafaelEstevam.Simple.Spider.Storage
         /// <returns>How many records are on the table</returns>
         public int Count()
         {
-            return db.ExecuteScalar<int>($"SELECT COUNT(*) FROM {tableNameT}", null);
+            return db.ExecuteScalar<int>($"SELECT COUNT(*) FROM {TableNameOfT}", null);
         }
 
         /// <summary>
@@ -203,7 +202,7 @@ namespace RafaelEstevam.Simple.Spider.Storage
         /// <returns>Stored items</returns>
         public IEnumerable<T> GetItemsWith(string Property, object Value)
         {
-            return db.ExecuteQuery<T>($"SELECT * FROM {tableNameT} WHERE {Property} = @Value ", new { Value });
+            return db.ExecuteQuery<T>($"SELECT * FROM {TableNameOfT} WHERE {Property} = @Value ", new { Value });
         }
         /// <summary>
         /// Retrieve items collected between [start] and [end]
@@ -211,9 +210,9 @@ namespace RafaelEstevam.Simple.Spider.Storage
         /// <returns>Stored items</returns>
         public IEnumerable<T> GetItemsCollectedBeween(DateTime start, DateTime end)
         {
-            return db.ExecuteQuery<T>(@$"SELECT {tableNameT}.* 
- FROM {tableNameT}
- INNER JOIN ObjectReference ON ObjectReference.InsertedItem = {tableNameT}._rowid_
+            return db.ExecuteQuery<T>(@$"SELECT {TableNameOfT}.* 
+ FROM {TableNameOfT}
+ INNER JOIN ObjectReference ON ObjectReference.InsertedItem = {TableNameOfT}._rowid_
  WHERE ObjectReference.CrawTime BETWEEN @start AND @end ", new { start, end });
         }
         /// <summary>
@@ -222,9 +221,9 @@ namespace RafaelEstevam.Simple.Spider.Storage
         /// <returns>Stored items</returns>
         public IEnumerable<T> GetItemsCollectedAt(Uri collectedUri)
         {
-            return db.ExecuteQuery<T>(@$"SELECT {tableNameT}.* 
- FROM {tableNameT}
- INNER JOIN ObjectReference ON ObjectReference.InsertedItem = {tableNameT}._rowid_
+            return db.ExecuteQuery<T>(@$"SELECT {TableNameOfT}.* 
+ FROM {TableNameOfT}
+ INNER JOIN ObjectReference ON ObjectReference.InsertedItem = {TableNameOfT}._rowid_
  WHERE ObjectReference.Uri = @uri ", new { uri = collectedUri.ToString() });
         }
         /// <summary>
@@ -234,9 +233,9 @@ namespace RafaelEstevam.Simple.Spider.Storage
         /// <returns>Stored items</returns>
         public IEnumerable<T> GetItemsWithUriContaining(string uriContains)
         {
-            return db.ExecuteQuery<T>(@$"SELECT {tableNameT}.* 
- FROM {tableNameT}
- INNER JOIN ObjectReference ON ObjectReference.InsertedItem = {tableNameT}._rowid_
+            return db.ExecuteQuery<T>(@$"SELECT {TableNameOfT}.* 
+ FROM {TableNameOfT}
+ INNER JOIN ObjectReference ON ObjectReference.InsertedItem = {TableNameOfT}._rowid_
  WHERE ObjectReference.Uri LIKE @uri ", new { uri = $"%{uriContains}%" });
         }
 
