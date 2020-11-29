@@ -256,7 +256,7 @@ void run()
     spider.Execute();
 }
 ```
-*[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_Chaining.cs)*
+*[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrapeAPI_Chaining.cs)*
 
 ### Easy single resource fetch
 
@@ -309,7 +309,7 @@ void parsedResult_event(object sender, ParserEventArgs<QuotesObject> args)
     }
 }
 ```
-*[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrape_Scroll_Deserialize.cs)*
+*[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrapeAPI_Scroll_Deserialize.cs)*
 
 
 ## Some [Helpers](https://github.com/RafaelEstevamReis/SimpleSpider/tree/master/Simple.Lib/Helper)
