@@ -11,6 +11,8 @@ namespace RafaelEstevam.Simple.Spider.Test
 
             // Spider Samples:
             //Sample.BooksToScrape.run();
+            //Sample.QuotesToScrape_Chaining.run();
+            //Sample.QuotesToScrapeAPI_Chaining.run(); // similar, but Json-based (API)
             //Sample.QuotesToScrapeAPI_Scroll.run();
             //Sample.QuotesToScrapeAPI_Scroll_Deserialize.run();
 
