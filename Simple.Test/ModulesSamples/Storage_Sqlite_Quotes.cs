@@ -19,6 +19,9 @@ namespace RafaelEstevam.Simple.Spider.Test.ModulesSamples
                                    new Uri("http://quotes.toscrape.com/"),
                                           init);
 
+            Console.WriteLine($"The sqlite database is at {storage.DatabaseFilePath}");
+            Console.WriteLine($"The quotes are being stored in the table {storage.TableNameOfT}");
+
             spider.FetchCompleted += spider_FetchCompleted;
             spider.ShouldFetch += Spider_ShouldFetch;
             spider.Execute();
@@ -52,7 +55,7 @@ namespace RafaelEstevam.Simple.Spider.Test.ModulesSamples
                 {
                     Author = q["small > .author"].GetValue(),
                     Text = q["span > .text"].GetValue(),
-                    Tags = string.Join(';', q["a > .tag"].Select(o => o.GetValue()))
+                    Tags = string.Join(';', q["a > .tag"].GetValues())
                 };
 
                 ((SimpleSpider)Sender).Storage.AddItem(args.Link, quote);

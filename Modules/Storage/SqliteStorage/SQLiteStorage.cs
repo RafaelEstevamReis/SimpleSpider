@@ -23,7 +23,7 @@ namespace RafaelEstevam.Simple.Spider.Storage
         protected Sqlite.Database db;
 
         /// <summary>
-        /// Gets the database full path
+        /// Gets the database full path, available after spider initialization
         /// </summary>
         public string DatabaseFilePath => db?.DatabaseFileName;
         /// <summary>
