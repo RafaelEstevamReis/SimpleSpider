@@ -4,7 +4,7 @@ using RafaelEstevam.Simple.Spider.Parsers;
 
 namespace RafaelEstevam.Simple.Spider.Test.Sample
 {
-    public class QuotesToScrape_Scroll_Deserialize
+    public class QuotesToScrapeAPI_Scroll_Deserialize
     {
         public static void run()
         {

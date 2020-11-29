@@ -4,7 +4,7 @@ using RafaelEstevam.Simple.Spider.Downloaders;
 
 namespace RafaelEstevam.Simple.Spider.Test.Sample
 {
-    public class QuotesToScrape_Chaining
+    public class QuotesToScrapeAPI_Chaining
     {
         public static void run()
         {
