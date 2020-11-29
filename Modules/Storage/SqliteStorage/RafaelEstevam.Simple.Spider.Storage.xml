@@ -102,12 +102,17 @@
             </summary>
             <typeparam name="T">Type of data to be stored</typeparam>
         </member>
-        <member name="P:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1.DatabaseFilePath">
+        <member name="F:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1.db">
             <summary>
-            Gets the database full path
+            Exposes the internal database "engine"
             </summary>
         </member>
-        <member name="P:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1.TableNameOfT">
+        <member name="P:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1.DatabaseFilePath">
+            <summary>
+            Gets the database full path, available after spider initialization
+            </summary>
+        </member>
+        <member name="F:RafaelEstevam.Simple.Spider.Storage.SQLiteStorage`1.TableNameOfT">
             <summary>
             Gets the name of the table used to store the items
             </summary>

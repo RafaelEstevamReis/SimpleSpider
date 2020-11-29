@@ -778,6 +778,69 @@
             </summary>
             <param name="Header">Headers reference to add to</param>
         </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Extensions.TextExtensions">
+            <summary>
+            Extensions to deal with text
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.TextExtensions.TruncateMax(System.String,System.Int32)">
+            <summary>
+            Truncates a string to a specified max length
+            </summary>
+            <param name="Text">Text to be truncated</param>
+            <param name="MaxLength">Length to be truncated at</param>
+            <returns>Original string or new truncated one</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.TextExtensions.IsWhiteSpace(System.String)">
+            <summary>
+            Indicates whether all characters are categorized as white space
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.TextExtensions.IsDigit(System.String)">
+            <summary>
+            Indicates whether all characters are categorized as decimal digit
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.TextExtensions.IsLetterOrDigit(System.String)">
+            <summary>
+            Indicates whether all characters are categorized as a leeter or a decimal digit
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.TextExtensions.IsLetter(System.String)">
+            <summary>
+            Indicates whether all characters are categorized as letter
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.TextExtensions.IsLower(System.String)">
+            <summary>
+            Indicates whether all characters are categorized as lowercase letter
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.TextExtensions.IsUpper(System.String)">
+            <summary>
+            Indicates whether all characters are categorized as upperercase letter
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.TextExtensions.HasAnyWhiteSpace(System.String)">
+            <summary>
+            Indicates whether any characters are categorized as white space
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.TextExtensions.HasAnyDigit(System.String)">
+            <summary>
+            Indicates whether any characters are categorized as decimal digit
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.TextExtensions.HasAnyLetterOrDigit(System.String)">
+            <summary>
+            Indicates whether any characters are categorized as a leeter or a decimal digit
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.TextExtensions.HasAnyLetter(System.String)">
+            <summary>
+            Indicates whether any characters are categorized as letter
+            </summary>
+        </member>
         <member name="T:RafaelEstevam.Simple.Spider.Files">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
