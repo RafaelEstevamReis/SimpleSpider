@@ -1,4 +1,5 @@
 ﻿using System;
+using RafaelEstevam.Simple.Spider.Extensions;
 using RafaelEstevam.Simple.Spider.Test.Sample;
 
 namespace RafaelEstevam.Simple.Spider.Test.ModulesSamples
@@ -53,8 +54,8 @@ namespace RafaelEstevam.Simple.Spider.Test.ModulesSamples
             {
                 var quote = new Quote()
                 {
-                    Author = q["small > .author"].GetValue(),
-                    Text = q["span > .text"].GetValue(),
+                    Text = q["span > .text"].GetValue().HtmlDecode(),
+                    Author = q["small > .author"].GetValue().HtmlDecode(),
                     Tags = string.Join(';', q["a > .tag"].GetValues())
                 };
 

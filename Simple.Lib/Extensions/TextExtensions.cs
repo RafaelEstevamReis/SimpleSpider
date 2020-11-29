@@ -8,6 +8,14 @@ namespace RafaelEstevam.Simple.Spider.Extensions
     public static class TextExtensions
     {
         /// <summary>
+        /// Decodes text using helper HtmlParseHelper.HtmlDecode
+        /// </summary>
+        public static string HtmlDecode(this string EncodedHtml)
+        {
+            return Helper.HtmlParseHelper.HtmlDecode(EncodedHtml);
+        }
+
+        /// <summary>
         /// Truncates a string to a specified max length
         /// </summary>
         /// <param name="Text">Text to be truncated</param>
