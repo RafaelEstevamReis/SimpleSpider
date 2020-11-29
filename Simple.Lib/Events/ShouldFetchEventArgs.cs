@@ -49,6 +49,49 @@
         /// </summary>
         public Reasons Reason { get; set; } = Reasons.None;
 
+        #region Enable Cancel chain
+
+        /// <summary>
+        /// Sets [Cancel] to True if Link.Uri contains [PartialUrl]
+        /// </summary>
+        /// <param name="PartialUrl">String to be searched</param>
+        public ShouldFetchEventArgs CancelIfContains(string PartialUrl)
+        {
+            if (Link.Contains(PartialUrl)) Cancel = true;
+            return this;
+        }
+        /// <summary>
+        /// Sets [Cancel] to True if Link.Uri DO NOT contains [PartialUrl]
+        /// </summary>
+        /// <param name="PartialUrl">String to be searched</param>
+        public ShouldFetchEventArgs CancelIfNotContains(string PartialUrl)
+        {
+            if (!Link.Contains(PartialUrl)) Cancel = true;
+            return this;
+        }
+
+
+        /// <summary>
+        /// Sets [Cancel] to FALSE if Link.Uri contains [PartialUrl]
+        /// </summary>
+        /// <param name="PartialUrl">String to be searched</param>
+        public ShouldFetchEventArgs AllowIfContains(string PartialUrl)
+        {
+            if (Link.Contains(PartialUrl)) Cancel = false;
+            return this;
+        }
+        /// <summary>
+        /// Sets [Cancel] to FALSE if Link.Uri DO NOT contains [PartialUrl]
+        /// </summary>
+        /// <param name="PartialUrl">String to be searched</param>
+        public ShouldFetchEventArgs AllowIfNotContains(string PartialUrl)
+        {
+            if (!Link.Contains(PartialUrl)) Cancel = false;
+            return this;
+        }
+
+        #endregion
+
         /// <summary>
         /// Creates a new ShouldFetchEventArgs
         /// </summary>

@@ -720,6 +720,30 @@
             Informs reason to do not fetch
             </summary>
         </member>
+        <member name="M:RafaelEstevam.Simple.Spider.ShouldFetchEventArgs.CancelIfContains(System.String)">
+            <summary>
+            Sets [Cancel] to True if Link.Uri contains [PartialUrl]
+            </summary>
+            <param name="PartialUrl">String to be searched</param>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.ShouldFetchEventArgs.CancelIfNotContains(System.String)">
+            <summary>
+            Sets [Cancel] to True if Link.Uri DO NOT contains [PartialUrl]
+            </summary>
+            <param name="PartialUrl">String to be searched</param>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.ShouldFetchEventArgs.AllowIfContains(System.String)">
+            <summary>
+            Sets [Cancel] to FALSE if Link.Uri contains [PartialUrl]
+            </summary>
+            <param name="PartialUrl">String to be searched</param>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.ShouldFetchEventArgs.AllowIfNotContains(System.String)">
+            <summary>
+            Sets [Cancel] to FALSE if Link.Uri DO NOT contains [PartialUrl]
+            </summary>
+            <param name="PartialUrl">String to be searched</param>
+        </member>
         <member name="M:RafaelEstevam.Simple.Spider.ShouldFetchEventArgs.#ctor(RafaelEstevam.Simple.Spider.Link)">
             <summary>
             Creates a new ShouldFetchEventArgs
