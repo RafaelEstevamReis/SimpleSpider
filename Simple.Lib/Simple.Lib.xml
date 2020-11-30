@@ -759,50 +759,50 @@
             Creates a new ShouldFetchEventArgs
             </summary>
         </member>
-        <member name="T:RafaelEstevam.Simple.Spider.Events.ShouldUseCache">
+        <member name="T:RafaelEstevam.Simple.Spider.ShouldUseCache">
             <summary>
             Represents a method that checks if should use the cache
             </summary>
             <param name="Sender">The source of the event</param>
             <param name="args">Object allowing cancel the caching load process</param>
         </member>
-        <member name="T:RafaelEstevam.Simple.Spider.Events.ShouldUseCacheEventArgs">
+        <member name="T:RafaelEstevam.Simple.Spider.ShouldUseCacheEventArgs">
             <summary>
             Arguments to de ShouldFetch event
             </summary>
         </member>
-        <member name="P:RafaelEstevam.Simple.Spider.Events.ShouldUseCacheEventArgs.PageCacheDate">
+        <member name="P:RafaelEstevam.Simple.Spider.ShouldUseCacheEventArgs.PageCacheDate">
             <summary>
             Gets when the cache was generated
             </summary>
         </member>
-        <member name="P:RafaelEstevam.Simple.Spider.Events.ShouldUseCacheEventArgs.PageCacheAge">
+        <member name="P:RafaelEstevam.Simple.Spider.ShouldUseCacheEventArgs.PageCacheAge">
             <summary>
             Gets the cache age
             </summary>
         </member>
-        <member name="P:RafaelEstevam.Simple.Spider.Events.ShouldUseCacheEventArgs.Cancel">
+        <member name="P:RafaelEstevam.Simple.Spider.ShouldUseCacheEventArgs.Cancel">
             <summary>
             Instruct the spider to NOT use this cache
             </summary>
         </member>
-        <member name="M:RafaelEstevam.Simple.Spider.Events.ShouldUseCacheEventArgs.CancelIfContains(System.String)">
+        <member name="M:RafaelEstevam.Simple.Spider.ShouldUseCacheEventArgs.CancelIfContains(System.String)">
             <summary>
             Sets [Cancel] to True if Link.Uri contains [PartialUrl]
             </summary>
             <param name="PartialUrl">String to be searched</param>
         </member>
-        <member name="M:RafaelEstevam.Simple.Spider.Events.ShouldUseCacheEventArgs.CancelIfOlderThan(System.TimeSpan)">
+        <member name="M:RafaelEstevam.Simple.Spider.ShouldUseCacheEventArgs.CancelIfOlderThan(System.TimeSpan)">
             <summary>
             Sets [Cancel] to True if PageCacheAge is older than [span]
             </summary>
         </member>
-        <member name="M:RafaelEstevam.Simple.Spider.Events.ShouldUseCacheEventArgs.CancelIfNewerThan(System.TimeSpan)">
+        <member name="M:RafaelEstevam.Simple.Spider.ShouldUseCacheEventArgs.CancelIfNewerThan(System.TimeSpan)">
             <summary>
             Sets [Cancel] to True if PageCacheAge is newer than [span]
             </summary>
         </member>
-        <member name="M:RafaelEstevam.Simple.Spider.Events.ShouldUseCacheEventArgs.#ctor(RafaelEstevam.Simple.Spider.Link)">
+        <member name="M:RafaelEstevam.Simple.Spider.ShouldUseCacheEventArgs.#ctor(RafaelEstevam.Simple.Spider.Link)">
             <summary>
             Creates a new ShouldUseCacheEventArgs
             </summary>
@@ -2198,6 +2198,11 @@
         <member name="E:RafaelEstevam.Simple.Spider.SimpleSpider.FetchRewrite">
             <summary>
             Allow change the Uri just before it is added to the queue
+            </summary>
+        </member>
+        <member name="E:RafaelEstevam.Simple.Spider.SimpleSpider.ShouldUseCache">
+            <summary>
+            Check if some cached resource should be renewed
             </summary>
         </member>
         <member name="P:RafaelEstevam.Simple.Spider.SimpleSpider.Configuration">

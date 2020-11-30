@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RafaelEstevam.Simple.Spider.Events
+namespace RafaelEstevam.Simple.Spider
 {
     /// <summary>
     /// Represents a method that checks if should use the cache

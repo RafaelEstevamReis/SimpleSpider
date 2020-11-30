@@ -1,5 +1,4 @@
 ﻿using System;
-using RafaelEstevam.Simple.Spider.Events;
 
 namespace RafaelEstevam.Simple.Spider.Interfaces
 {

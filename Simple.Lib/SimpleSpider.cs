@@ -48,6 +48,10 @@ namespace RafaelEstevam.Simple.Spider
         /// Allow change the Uri just before it is added to the queue
         /// </summary>
         public event FetchRewrite FetchRewrite;
+        /// <summary>
+        /// Check if some cached resource should be renewed
+        /// </summary>
+        public event ShouldUseCache ShouldUseCache;
 
         /// <summary>
         /// Spider configurations and parameters
@@ -180,12 +184,14 @@ namespace RafaelEstevam.Simple.Spider
             Cacher.FetchCompleted += Cacher_FetchCompleted;
             Cacher.FetchFailed += Cacher_FetchFailed;
             Cacher.ShouldFetch += Cacher_ShouldFetch;
+            Cacher.ShouldUseCache += Cacher_ShouldUseCache;
 
             Downloader.Initialize(qDownload, Configuration);
             Downloader.FetchCompleted += Downloader_FetchCompleted;
             Downloader.FetchFailed += Downloader_FetchFailed;
             Downloader.ShouldFetch += Downloader_ShouldFetch;
         }
+
         private void logInitialStatus()
         {
             log.Information("Initialization complete");
@@ -493,6 +499,26 @@ namespace RafaelEstevam.Simple.Spider
         {
             args.Source = FetchEventArgs.EventSource.Cacher;
             shouldFetch(Sender, args);
+        }
+        private void Cacher_ShouldUseCache(object Sender, ShouldUseCacheEventArgs args)
+        {
+            args.Source = FetchEventArgs.EventSource.Cacher;
+
+            // Main CallBack
+            if (ShouldUseCache != null)
+            {
+                foreach (ShouldUseCache e in ShouldUseCache.GetInvocationList())
+                {
+                    try
+                    {
+                        e.DynamicInvoke(this, args);
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error(ex, "Error on ShouldUseCache event");
+                    }
+                }
+            }
         }
 
         private void shouldFetch(object Sender, ShouldFetchEventArgs args)

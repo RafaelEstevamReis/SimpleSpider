@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using RafaelEstevam.Simple.Spider.Events;
 using RafaelEstevam.Simple.Spider.Helper;
 using RafaelEstevam.Simple.Spider.Interfaces;
 

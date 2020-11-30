@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using RafaelEstevam.Simple.Spider.Events;
 using RafaelEstevam.Simple.Spider.Interfaces;
 
 namespace RafaelEstevam.Simple.Spider.Cachers
