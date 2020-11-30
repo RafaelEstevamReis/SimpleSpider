@@ -8,14 +8,15 @@
     <Authors>Rafael Estevam</Authors>
     <Company>RafaelEstevam.net</Company>
     <Product>Simple Spider Sqlite Storage</Product>
-    <Description>Sqlite-based storage engine to the SimpleSpider</Description>
+    <Description>Sqlite-based storage engine to the SimpleSpider
+See examples and documentation on the GitHub page</Description>
     <PackageLicenseExpression></PackageLicenseExpression>
     <RepositoryUrl>https://github.com/RafaelEstevamReis/SimpleSpider</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>spider web crawling sqlite</PackageTags>
-    <Version>0.8.1</Version>
-    <PackageReleaseNotes>Working release
-Commit 74898f3</PackageReleaseNotes>
+    <Version>0.8.2</Version>
+    <PackageReleaseNotes>See examples and documentation on the GitHub page
+Commit 4919673</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
