@@ -333,7 +333,7 @@ namespace RafaelEstevam.Simple.Spider
                 if (hDispatched.Contains(lnk.Uri.ToString())) return true;
                 hDispatched.Add(lnk.Uri.ToString());
 
-                if (Cacher.HasCache(lnk.Uri))
+                if (Cacher.HasCache(lnk))
                 {
                     qCache.Enqueue(lnk);
                 }

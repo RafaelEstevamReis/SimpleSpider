@@ -1,4 +1,5 @@
 ﻿using System;
+using RafaelEstevam.Simple.Spider.Events;
 
 namespace RafaelEstevam.Simple.Spider.Interfaces
 {
@@ -8,11 +9,16 @@ namespace RafaelEstevam.Simple.Spider.Interfaces
     public interface ICacher : IFetcher
     {
         /// <summary>
+        /// Occurs before fetch to check if the cache can be used
+        /// </summary>
+        event ShouldUseCache ShouldUseCache;
+
+        /// <summary>
         /// Returns if this module has a cache for this resource
         /// </summary>
-        /// <param name="uri">Resource the be checked for</param>
+        /// <param name="link">Resource the be checked for</param>
         /// <returns>True if has a cache for the resource</returns>
-        bool HasCache(Uri uri);
+        bool HasCache(Link link);
         /// <summary>
         /// Create cache for this fetched resource
         /// </summary>

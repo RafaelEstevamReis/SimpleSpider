@@ -1,7 +1,7 @@
 ﻿namespace RafaelEstevam.Simple.Spider
 {
     /// <summary>
-    ///  Represents a method that checks if should fetch data
+    /// Represents a method that checks if should fetch data
     /// </summary>
     /// <param name="Sender">The source of the event</param>
     /// <param name="args">Object allowing cancel the fetching process</param>
@@ -69,7 +69,6 @@
             if (!Link.Contains(PartialUrl)) Cancel = true;
             return this;
         }
-
 
         /// <summary>
         /// Sets [Cancel] to FALSE if Link.Uri contains [PartialUrl]

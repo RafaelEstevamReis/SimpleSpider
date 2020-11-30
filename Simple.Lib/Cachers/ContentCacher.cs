@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using RafaelEstevam.Simple.Spider.Events;
 using RafaelEstevam.Simple.Spider.Helper;
 using RafaelEstevam.Simple.Spider.Interfaces;
 
@@ -48,6 +49,10 @@ namespace RafaelEstevam.Simple.Spider.Cachers
         /// Occurs before fetch to check if it should fetch this resource
         /// </summary>
         public event ShouldFetch ShouldFetch;
+        /// <summary>
+        /// Occurs before fetch to check if the cache can be used
+        /// </summary>
+        public event ShouldUseCache ShouldUseCache;
 
         /// <summary>
         /// Initialize the cacher
@@ -81,18 +86,31 @@ namespace RafaelEstevam.Simple.Spider.Cachers
         /// <summary>
         /// Gets if a cache exists
         /// </summary>
-        /// <param name="uri">Uri to check for</param>
+        /// <param name="link">Uri to check for</param>
         /// <returns>True if has a cache, False otherwise</returns>
-        public bool HasCache(Uri uri)
+        public bool HasCache(Link link)
         {
             if (!config.Cache_Enable) return false;
 
-            var fi = new FileInfo(getCacheFileFullName(uri));
+            var fi = new FileInfo(getCacheFileFullName(link.Uri));
             if (!fi.Exists) return false;
 
             if (config.Cache_Lifetime != null)
             {
                 if (DateTime.Now - fi.LastWriteTime > config.Cache_Lifetime.Value) return false;
+            }
+
+            if (ShouldUseCache != null)
+            {
+                var args = new ShouldUseCacheEventArgs(link)
+                {
+                    PageCacheDate = fi.LastWriteTime,
+                    Source = FetchEventArgs.EventSource.Cacher,
+                };
+
+                ShouldUseCache(this, args);
+
+                if (args.Cancel) return false;
             }
 
             return true;

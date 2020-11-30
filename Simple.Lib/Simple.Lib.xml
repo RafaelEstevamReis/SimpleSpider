@@ -34,6 +34,11 @@
             Occurs before fetch to check if it should fetch this resource
             </summary>
         </member>
+        <member name="E:RafaelEstevam.Simple.Spider.Cachers.ContentCacher.ShouldUseCache">
+            <summary>
+            Occurs before fetch to check if the cache can be used
+            </summary>
+        </member>
         <member name="M:RafaelEstevam.Simple.Spider.Cachers.ContentCacher.Initialize(System.Collections.Concurrent.ConcurrentQueue{RafaelEstevam.Simple.Spider.Link},RafaelEstevam.Simple.Spider.Configuration)">
             <summary>
             Initialize the cacher
@@ -47,11 +52,11 @@
             </summary>
             <param name="FetchComplete">Fetch data to save</param>
         </member>
-        <member name="M:RafaelEstevam.Simple.Spider.Cachers.ContentCacher.HasCache(System.Uri)">
+        <member name="M:RafaelEstevam.Simple.Spider.Cachers.ContentCacher.HasCache(RafaelEstevam.Simple.Spider.Link)">
             <summary>
             Gets if a cache exists
             </summary>
-            <param name="uri">Uri to check for</param>
+            <param name="link">Uri to check for</param>
             <returns>True if has a cache, False otherwise</returns>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Cachers.ContentCacher.Start">
@@ -84,17 +89,22 @@
             Unused on this fetcher
             </summary>
         </member>
+        <member name="E:RafaelEstevam.Simple.Spider.Cachers.NullCacher.ShouldUseCache">
+            <summary>
+            Unused on this fetcher
+            </summary>
+        </member>
         <member name="M:RafaelEstevam.Simple.Spider.Cachers.NullCacher.GenerateCacheFor(RafaelEstevam.Simple.Spider.FetchCompleteEventArgs)">
             <summary>
             Instructs the cacher to generate a cache for the new resource
             </summary>
             <param name="FetchComplete">Fetch data to save</param>
         </member>
-        <member name="M:RafaelEstevam.Simple.Spider.Cachers.NullCacher.HasCache(System.Uri)">
+        <member name="M:RafaelEstevam.Simple.Spider.Cachers.NullCacher.HasCache(RafaelEstevam.Simple.Spider.Link)">
             <summary>
             Gets if a cache exists, always False for this cacher
             </summary>
-            <param name="uri">Uri to check for</param>
+            <param name="link">Uri to check for</param>
             <returns>always false for this cacher</returns>
         </member>
         <member name="P:RafaelEstevam.Simple.Spider.Cachers.NullCacher.IsProcessing">
@@ -461,34 +471,6 @@
             Return the WebRequest for this WebClient
             </summary>
         </member>
-        <member name="T:RafaelEstevam.Simple.Spider.FetchT`1">
-            <summary>
-            Multi-purpose Fetch event args
-            </summary>
-            <typeparam name="T">Type of the argument</typeparam>
-            <param name="Sender">Event sender</param>
-            <param name="args">Event arguments</param>
-        </member>
-        <member name="T:RafaelEstevam.Simple.Spider.FetchTEventArgs`1">
-            <summary>
-            FetchT event EventArgs
-            </summary>
-        </member>
-        <member name="P:RafaelEstevam.Simple.Spider.FetchTEventArgs`1.Link">
-            <summary>
-            Link from where the resource was fetched
-            </summary>
-        </member>
-        <member name="P:RafaelEstevam.Simple.Spider.FetchTEventArgs`1.Arg">
-            <summary>
-            Gets or Sets T argument
-            </summary>
-        </member>
-        <member name="M:RafaelEstevam.Simple.Spider.FetchTEventArgs`1.#ctor(RafaelEstevam.Simple.Spider.Link,`0)">
-            <summary>
-            Creates a new instance of FetchTEventArgs
-            </summary>
-        </member>
         <member name="T:RafaelEstevam.Simple.Spider.FetchComplete">
             <summary>
             Represents a method that passes fetch completed data
@@ -668,9 +650,37 @@
             Defines if should log the rewrite operation
             </summary>
         </member>
+        <member name="T:RafaelEstevam.Simple.Spider.FetchT`1">
+            <summary>
+            Multi-purpose Fetch event args
+            </summary>
+            <typeparam name="T">Type of the argument</typeparam>
+            <param name="Sender">Event sender</param>
+            <param name="args">Event arguments</param>
+        </member>
+        <member name="T:RafaelEstevam.Simple.Spider.FetchTEventArgs`1">
+            <summary>
+            FetchT event EventArgs
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.FetchTEventArgs`1.Link">
+            <summary>
+            Link from where the resource was fetched
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.FetchTEventArgs`1.Arg">
+            <summary>
+            Gets or Sets T argument
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.FetchTEventArgs`1.#ctor(RafaelEstevam.Simple.Spider.Link,`0)">
+            <summary>
+            Creates a new instance of FetchTEventArgs
+            </summary>
+        </member>
         <member name="T:RafaelEstevam.Simple.Spider.ShouldFetch">
             <summary>
-             Represents a method that checks if should fetch data
+            Represents a method that checks if should fetch data
             </summary>
             <param name="Sender">The source of the event</param>
             <param name="args">Object allowing cancel the fetching process</param>
@@ -747,6 +757,54 @@
         <member name="M:RafaelEstevam.Simple.Spider.ShouldFetchEventArgs.#ctor(RafaelEstevam.Simple.Spider.Link)">
             <summary>
             Creates a new ShouldFetchEventArgs
+            </summary>
+        </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Events.ShouldUseCache">
+            <summary>
+            Represents a method that checks if should use the cache
+            </summary>
+            <param name="Sender">The source of the event</param>
+            <param name="args">Object allowing cancel the caching load process</param>
+        </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Events.ShouldUseCacheEventArgs">
+            <summary>
+            Arguments to de ShouldFetch event
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Events.ShouldUseCacheEventArgs.PageCacheDate">
+            <summary>
+            Gets when the cache was generated
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Events.ShouldUseCacheEventArgs.PageCacheAge">
+            <summary>
+            Gets the cache age
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Events.ShouldUseCacheEventArgs.Cancel">
+            <summary>
+            Instruct the spider to NOT use this cache
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Events.ShouldUseCacheEventArgs.CancelIfContains(System.String)">
+            <summary>
+            Sets [Cancel] to True if Link.Uri contains [PartialUrl]
+            </summary>
+            <param name="PartialUrl">String to be searched</param>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Events.ShouldUseCacheEventArgs.CancelIfOlderThan(System.TimeSpan)">
+            <summary>
+            Sets [Cancel] to True if PageCacheAge is older than [span]
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Events.ShouldUseCacheEventArgs.CancelIfNewerThan(System.TimeSpan)">
+            <summary>
+            Sets [Cancel] to True if PageCacheAge is newer than [span]
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Events.ShouldUseCacheEventArgs.#ctor(RafaelEstevam.Simple.Spider.Link)">
+            <summary>
+            Creates a new ShouldUseCacheEventArgs
             </summary>
         </member>
         <member name="T:RafaelEstevam.Simple.Spider.Extensions.RequestHeaderExtension">
@@ -925,6 +983,7 @@
             </summary>
             <param name="Key">The key of the element to add</param>
             <param name="Value">The value of the element to add</param>
+            <returns>Returns this instance for chaining</returns>
         </member>
         <member name="P:RafaelEstevam.Simple.Spider.HeaderCollection.Count">
             <summary>
@@ -1739,11 +1798,16 @@
             Represents a module to fetch resources from the disk/memory
             </summary>
         </member>
-        <member name="M:RafaelEstevam.Simple.Spider.Interfaces.ICacher.HasCache(System.Uri)">
+        <member name="E:RafaelEstevam.Simple.Spider.Interfaces.ICacher.ShouldUseCache">
+            <summary>
+            Occurs before fetch to check if the cache can be used
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Interfaces.ICacher.HasCache(RafaelEstevam.Simple.Spider.Link)">
             <summary>
             Returns if this module has a cache for this resource
             </summary>
-            <param name="uri">Resource the be checked for</param>
+            <param name="link">Resource the be checked for</param>
             <returns>True if has a cache for the resource</returns>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Interfaces.ICacher.GenerateCacheFor(RafaelEstevam.Simple.Spider.FetchCompleteEventArgs)">

@@ -107,9 +107,11 @@ namespace RafaelEstevam.Simple.Spider
         /// </summary>
         /// <param name="Key">The key of the element to add</param>
         /// <param name="Value">The value of the element to add</param>
-        public void AddItem(string Key, string Value)
+        /// <returns>Returns this instance for chaining</returns>
+        public HeaderCollection AddItem(string Key, string Value)
         {
             dicValues[Key] = Value;
+            return this;
         }
 
         /// <summary>

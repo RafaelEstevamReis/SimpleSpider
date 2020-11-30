@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using RafaelEstevam.Simple.Spider.Events;
 using RafaelEstevam.Simple.Spider.Interfaces;
 
 namespace RafaelEstevam.Simple.Spider.Cachers
@@ -22,6 +23,10 @@ namespace RafaelEstevam.Simple.Spider.Cachers
         /// Unused on this fetcher
         /// </summary>
         public event ShouldFetch ShouldFetch;
+        /// <summary>
+        /// Unused on this fetcher
+        /// </summary>
+        public event ShouldUseCache ShouldUseCache;
 #pragma warning restore 67
 
         /// <summary>
@@ -32,9 +37,9 @@ namespace RafaelEstevam.Simple.Spider.Cachers
         /// <summary>
         /// Gets if a cache exists, always False for this cacher
         /// </summary>
-        /// <param name="uri">Uri to check for</param>
+        /// <param name="link">Uri to check for</param>
         /// <returns>always false for this cacher</returns>
-        public bool HasCache(Uri uri) => false;
+        public bool HasCache(Link link) => false;
         /// <summary>
         /// Gets if is processing, always False for this cacher
         /// </summary>
