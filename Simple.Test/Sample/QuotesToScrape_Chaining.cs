@@ -30,6 +30,12 @@ namespace RafaelEstevam.Simple.Spider.Test.Sample
                        .AllowIfContains("/tag/choices/") // I like to have choices =)
                        ;
 
+            //Defines pages (or ages) that should not use local cache
+            spider.ShouldUseCache += (_, args)
+                // can be chained too
+                  => args.CancelIfOlderThan(new TimeSpan(24, 0, 0));
+
+
             // Sets up the fetch completed callback
             spider.FetchCompleted += Spider_FetchCompleted;
             // execute

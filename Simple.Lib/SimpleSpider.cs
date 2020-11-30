@@ -201,7 +201,7 @@ namespace RafaelEstevam.Simple.Spider
             log.Information($" > Cacher:     {Cacher}");
             log.Information($" > Downloader: {Downloader}");
             log.Information($" > Storage:    {Storage}");
-            log.Information($" > Parsers:    {Parsers.Count}");
+            log.Information($" > Parsers:    {(Parsers.Count == 0 ? "-" : Parsers.Count.ToString())}");
             foreach (var p in Parsers)
             {
                 log.Information($"   > {p.MimeTypes} | {p.GetType().Name}");
