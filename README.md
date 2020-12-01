@@ -1,21 +1,36 @@
  **BREAKING CHANGE: Altered NAMESPACE and the NuGet package**
 
-# Simple.Spider
+# Simple Spider
 
-A simple and modular web spider written in C#. Multi Target with:
+![.NET Core](https://github.com/RafaelEstevamReis/SimpleSpider/workflows/.NET%20Core/badge.svg)
+[![NuGet](https://buildstats.info/nuget/RafaelEstevam.Simple.Spider)](https://www.nuget.org/packages/RafaelEstevam.Simple.Spider/)
+[![The MIT License](https://img.shields.io/github/license/RafaelEstevamReis/SimpleSpider)](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/LICENSE)
+
+Old package: 
+[![NuGet](https://buildstats.info/nuget/Net.RafaelEstevam.Spider.Simple.Lib)](http://nuget.org/packages/Net.RafaelEstevam.Spider.Simple.Lib)
+
+
+A simple to implement and modular web spider written in C#. Multi Target with:
 * .Net 5.0
 * .Net Core 3.1
 * .NET Standard 2.1
 
-[![The MIT License](https://img.shields.io/github/license/RafaelEstevamReis/SimpleSpider)](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/LICENSE)
-[![NuGet](https://buildstats.info/nuget/RafaelEstevam.Simple.Spider)](https://www.nuget.org/packages/RafaelEstevam.Simple.Spider/)
-![.NET Core](https://github.com/RafaelEstevamReis/SimpleSpider/workflows/.NET%20Core/badge.svg)
+## Why I should use a "simple" spider instead of a full stack framework ?
 
-Old package: [![NuGet](https://buildstats.info/nuget/Net.RafaelEstevam.Spider.Simple.Lib)](http://nuget.org/packages/Net.RafaelEstevam.Spider.Simple.Lib)
+The main focus of this project is to create a library that is simple to implement and operate.
 
+It's lightweight, use less resources and fewer libraries as possible
+
+Ideal scenarios:
+ * Personal bots; want to know when something enter a sale or became available ?
+ * Lots of small projects; It's easy to implement help the creation of small bots
+ * A good number of small bots can be archived with a few lines of code
+ * With new .Net5.0 Top-level statements, entire applications can be achieved with very little effort
+ 
 # Content
 <!-- TOC -->
-- [Simple.Spider](#simplespider)
+- [Simple Spider](#simple-spider)
+  - [Why I should use a "simple" spider instead of a full stack framework ?](#why-i-should-use-a-simple-spider-instead-of-a-full-stack-framework-)
 - [Content](#content)
   - [Some advantages](#some-advantages)
   - [Installation](#installation)
