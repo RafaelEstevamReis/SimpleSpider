@@ -48,7 +48,7 @@ namespace RafaelEstevam.Simple.Spider.Test.ModulesSamples
         private static void spider_FetchCompleted(object Sender, FetchCompleteEventArgs args)
         {
             var hObj = args.GetHObject();
-
+            // get all quotes
             var divQuotes = hObj["div > .quote"];
             foreach (var q in divQuotes)
             {

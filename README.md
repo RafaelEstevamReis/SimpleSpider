@@ -25,7 +25,7 @@ Ideal scenarios:
  * Personal bots; want to know when something enter a sale or became available ?
  * Lots of small projects; It's easy to implement help the creation of small bots
  * A good number of small bots can be archived with a few lines of code
- * With new .Net5.0 Top-level statements, entire applications can be achieved with very little effort
+ * With new .Net5.0 Top-level statements, [entire applications](#complete-spider-application-with-sqlite-storage-in-less-than-50-lines) can be achieved with very little effort
  
 # Content
 <!-- TOC -->
@@ -42,6 +42,7 @@ Ideal scenarios:
     - [Easy initialization with chaining](#easy-initialization-with-chaining)
     - [Easy single resource fetch](#easy-single-resource-fetch)
     - [Use Json to deserialize Quotes](#use-json-to-deserialize-quotes)
+    - [Complete spider application with SQLite storage in less than 50 lines](#complete-spider-application-with-sqlite-storage-in-less-than-50-lines)
   - [Some Helpers](#some-helpers)
   - [Giants' shoulders](#giants-shoulders)
 <!-- /TOC -->
@@ -325,6 +326,55 @@ void parsedResult_event(object sender, ParserEventArgs<QuotesObject> args)
 }
 ```
 *[see full source](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/Sample/QuotesToScrapeAPI_Scroll_Deserialize.cs)*
+
+### Complete spider application with SQLite storage in less than 50 lines
+
+With Uses .Net5.0 Top-level statements, you can create an complete application to crawl a site, collect your data, storage in SQLite and display them into the console in less than 50 lines (including comments)
+
+```C#
+using System;
+using RafaelEstevam.Simple.Spider;
+using RafaelEstevam.Simple.Spider.Extensions;
+using RafaelEstevam.Simple.Spider.Storage;
+
+// Creates a new instance (can be chained in init)
+var storage = new SQLiteStorage<Quote>();
+
+// Initialize with a good set of configs
+var init = InitializationParams.Default002().SetStorage(storage);
+
+var spider = new SimpleSpider("QuotesToScrape", new Uri("http://quotes.toscrape.com/"), init);
+
+Console.WriteLine($"The sqlite database is at {storage.DatabaseFilePath}");
+Console.WriteLine($"The quotes are being stored in the table '{storage.TableNameOfT}'");
+
+spider.FetchCompleted += spider_FetchCompleted;
+spider.Execute();
+
+// process each page
+static void spider_FetchCompleted(object Sender, FetchCompleteEventArgs args)
+{
+    var hObj = args.GetHObject();
+    // get all quotes, divs with class "quote"
+    foreach (var q in hObj["div > .quote"])
+    {
+        var quote = new Quote()
+        {
+            Text = q["span > .text"].GetValue().HtmlDecode(),
+            Author = q["small > .author"].GetValue().HtmlDecode(),
+            Tags = string.Join(';', q["a > .tag"].GetValues())
+        };
+        // store them
+        ((SimpleSpider)Sender).Storage.AddItem(args.Link, quote);
+    }
+}
+class Quote
+{
+    public string Author { get; set; }
+    public string Text { get; set; }
+    public string Tags { get; set; }
+}
+```
 
 
 ## Some [Helpers](https://github.com/RafaelEstevamReis/SimpleSpider/tree/master/Simple.Lib/Helper)
