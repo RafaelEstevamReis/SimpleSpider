@@ -56,6 +56,9 @@ Ideal scenarios:
 * Automatic Json deserialize <T>
 * Modular Parser engine (you can add your own parsers!)
   * JSON and XML already included
+* Modular Storage Engine to easly save what you collect (you can add your own!)
+  * The main library has a [JsonLines engine](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Lib/Storage/JsonLinesStorage.cs)
+  * External (Modules folder) has a [SQLite one](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Modules/Storage/SqliteStorage/SQLiteStorage.cs)
 * Modular Caching engine (you can add your own!)
   * Stand alone Cache engine included, no need to external softwares
 * Modular Downloader engine (you can add your own!)
