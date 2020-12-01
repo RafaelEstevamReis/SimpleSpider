@@ -375,6 +375,7 @@ class Quote
     public string Tags { get; set; }
 }
 ```
+Based on [SQLite module example](https://github.com/RafaelEstevamReis/SimpleSpider/blob/master/Simple.Test/ModulesSamples/Storage_Sqlite_Quotes.cs), which has less than 70 lines of code ;-)
 
 
 ## Some [Helpers](https://github.com/RafaelEstevamReis/SimpleSpider/tree/master/Simple.Lib/Helper)
