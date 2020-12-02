@@ -332,7 +332,7 @@ void parsedResult_event(object sender, ParserEventArgs<QuotesObject> args)
 
 ### Complete spider application with SQLite storage in less than 50 lines
 
-With Uses .Net5.0 Top-level statements, you can create an complete application to crawl a site, collect your data, storage in SQLite and display them into the console in less than 50 lines (including comments)
+With Uses .Net5.0 Top-level statements, you can create a complete application to crawl a site, collect your data, storage in SQLite and display them into the console in less than 50 lines (including comments)
 
 ```C#
 using System;
