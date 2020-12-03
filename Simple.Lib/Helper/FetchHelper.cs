@@ -40,6 +40,26 @@ namespace RafaelEstevam.Simple.Spider.Helper
         /// Occurs before fetching a resource
         /// </summary>
         public static event EventHandler<WebClient> BeforeFetch;
+        
+        /// <summary>
+        /// Gets or sets the cache max age
+        /// </summary>
+        public static TimeSpan MaxCacheAge { get; set; } = TimeSpan.MaxValue;
+
+        /// <summary>
+        /// Gets last fetched data. All fetchs calls FetchResource, so all calls fills this property. 
+        /// This do NOT apply to cached values
+        /// </summary>
+        public static byte[] LastFetchedData { get; private set; }
+        /// <summary>
+        /// Gets last fetched text. Almosts all fetchs calls FetchResourceText, so almost all calls fills this property. 
+        /// This DO apply to cached values
+        /// </summary>
+        public static string LastFetchedText { get; private set; }
+        /// <summary>
+        /// Gets last fetched uri
+        /// </summary>
+        public static Uri LastFetchedUri { get; private set; }
 
         /// <summary>
         /// Fetch resource from uri
@@ -58,17 +78,25 @@ namespace RafaelEstevam.Simple.Spider.Helper
         /// <returns>Byte array with data fetched</returns>
         public static byte[] FetchResource(Uri uri, bool enableCaching)
         {
-            //all cache functions calls that one
+            //all methods calls that one
             string cacheFile = null;
             if (enableCaching)
             {
                 cacheFile = generateCacheFileName(uri);
                 if (File.Exists(cacheFile))
                 {
-                    if (Logger == null) Console.WriteLine($"{DateTime.Now.ToShortTimeString()} [CACHE] {uri}");
-                    else Logger.Information($"[CACHE] {uri}");
+                    if ((DateTime.Now - File.GetLastWriteTime(cacheFile)) > MaxCacheAge)
+                    {
+                        if (Logger == null) Console.WriteLine($"{DateTime.Now.ToShortTimeString()} [EXP] {uri} | {cacheFile}");
+                        else Logger.Information($"[EXP] {uri} | {cacheFile}");
+                    }
+                    else
+                    {
+                        if (Logger == null) Console.WriteLine($"{DateTime.Now.ToShortTimeString()} [CACHE] {uri}");
+                        else Logger.Information($"[CACHE] {uri}");
 
-                    return File.ReadAllBytes(cacheFile);
+                        return File.ReadAllBytes(cacheFile);
+                    }
                 }
             }
 
@@ -81,7 +109,8 @@ namespace RafaelEstevam.Simple.Spider.Helper
             {
                 data = getClient().DownloadData(uri);
             }
-
+            LastFetchedUri = uri;
+            LastFetchedData = data;
             if (enableCaching) File.WriteAllBytes(cacheFile, data);
 
             return data;
@@ -112,7 +141,9 @@ namespace RafaelEstevam.Simple.Spider.Helper
             var data = FetchResource(uri, enableCaching);
             if (enc == null) enc = Encoding.UTF8;
 
-            return enc.GetString(data);
+            var text = enc.GetString(data);
+            LastFetchedText = text;
+            return text;
         }
 
         /// <summary>
@@ -184,12 +215,13 @@ namespace RafaelEstevam.Simple.Spider.Helper
         /// Fetch resource from uri and deserialize T from it
         /// </summary>
         /// <param name="uri">Uri to fetch from></param>
-        /// <param name="enc">Defines which encoding should be used</param>
         /// <param name="settings">JsonSerializerSettings Settings</param>
+        /// <param name="enc">Defines which encoding should be used</param>
+        /// <param name="enableCaching">Defines if should use caching</param>
         /// <returns>T deserialized with data fetched</returns>
-        public static T FetchResourceJson<T>(Uri uri, JsonSerializerSettings settings, Encoding enc = null)
+        public static T FetchResourceJson<T>(Uri uri, JsonSerializerSettings settings, Encoding enc = null, bool enableCaching = false)
         {
-            var json = FetchResourceText(uri, enc);
+            var json = FetchResourceText(uri, enc, enableCaching);
             return JsonConvert.DeserializeObject<T>(json, settings);
         }
 

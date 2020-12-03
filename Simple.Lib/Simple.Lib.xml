@@ -1198,6 +1198,28 @@
             Occurs before fetching a resource
             </summary>
         </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Helper.FetchHelper.MaxCacheAge">
+            <summary>
+            Gets or sets the cache max age
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Helper.FetchHelper.LastFetchedData">
+            <summary>
+            Gets last fetched data. All fetchs calls FetchResource, so all calls fills this property. 
+            This do NOT apply to cached values
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Helper.FetchHelper.LastFetchedText">
+            <summary>
+            Gets last fetched text. Almosts all fetchs calls FetchResourceText, so almost all calls fills this property. 
+            This DO apply to cached values
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Helper.FetchHelper.LastFetchedUri">
+            <summary>
+            Gets last fetched uri
+            </summary>
+        </member>
         <member name="M:RafaelEstevam.Simple.Spider.Helper.FetchHelper.FetchResource(System.Uri)">
             <summary>
             Fetch resource from uri
@@ -1273,13 +1295,14 @@
             <param name="enableCaching">Defines if should use caching</param>
             <returns>T deserialized with data fetched</returns>
         </member>
-        <member name="M:RafaelEstevam.Simple.Spider.Helper.FetchHelper.FetchResourceJson``1(System.Uri,Newtonsoft.Json.JsonSerializerSettings,System.Text.Encoding)">
+        <member name="M:RafaelEstevam.Simple.Spider.Helper.FetchHelper.FetchResourceJson``1(System.Uri,Newtonsoft.Json.JsonSerializerSettings,System.Text.Encoding,System.Boolean)">
             <summary>
             Fetch resource from uri and deserialize T from it
             </summary>
             <param name="uri">Uri to fetch from></param>
-            <param name="enc">Defines which encoding should be used</param>
             <param name="settings">JsonSerializerSettings Settings</param>
+            <param name="enc">Defines which encoding should be used</param>
+            <param name="enableCaching">Defines if should use caching</param>
             <returns>T deserialized with data fetched</returns>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Helper.FetchHelper.FetchResourceXml``1(System.Uri,System.Text.Encoding,System.Boolean)">
