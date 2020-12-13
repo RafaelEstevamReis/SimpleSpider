@@ -25,10 +25,10 @@ namespace RafaelEstevam.Simple.Spider.UnitTests.HelperTests.HashTests
         }
 
         [Fact]
-        public void Helpers_HashCrc32_UrlThisTes()
+        public void Helpers_HashCrc32_UrlThisTest()
         {
-            string url = "Waiting commit";
-            //Assert.Equal("Waiting commit", Crc32.CalcCRC32Hex(url));
+            string url = "https://github.com/RafaelEstevamReis/SimpleSpider/blob/3f4917f321e980e8a58fe889afb569b4c830a4af/Simple.UnitTests/HelperTests/HashTests/Crc32Tests.cs#L30";
+            Assert.Equal("2ebe6ed1", Crc32.CalcCRC32Hex(url));
         }
     }
 }
