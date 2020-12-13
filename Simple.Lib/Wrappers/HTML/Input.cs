@@ -4,6 +4,7 @@ namespace RafaelEstevam.Simple.Spider.Wrappers.HTML
 {
     /// <summary>
     /// Represents an html Input tag
+    /// <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input">HTML element docs</a>
     /// </summary>
     public class Input : Tag, ITagValue, ITagType, ILabelable
     {

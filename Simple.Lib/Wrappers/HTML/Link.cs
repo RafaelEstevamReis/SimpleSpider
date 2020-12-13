@@ -4,6 +4,7 @@ namespace RafaelEstevam.Simple.Spider.Wrappers.HTML
 {
     /// <summary>
     /// Represents an html Link tag
+    /// <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link">HTML element docs</a>
     /// </summary>
     public class Link : Tag
     {

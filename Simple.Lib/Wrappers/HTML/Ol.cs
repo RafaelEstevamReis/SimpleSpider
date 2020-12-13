@@ -5,6 +5,7 @@ namespace RafaelEstevam.Simple.Spider.Wrappers.HTML
 {
     /// <summary>
     /// Represents an html Ordered List tag
+    /// <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol">HTML element docs</a>
     /// </summary>
     public class Ol : Tag
     {

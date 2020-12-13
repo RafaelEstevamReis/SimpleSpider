@@ -2697,6 +2697,32 @@
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.Anchor">
             <summary>
             Represents an html Anchor tag
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">HTML element docs</a>
+            </summary>
+        </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.Anchor.Targets">
+            <summary>
+            Enum for all html anchor target options
+            </summary>
+        </member>
+        <member name="F:RafaelEstevam.Simple.Spider.Wrappers.HTML.Anchor.Targets.Self">
+            <summary>
+            (Default) the current browsing context
+            </summary>
+        </member>
+        <member name="F:RafaelEstevam.Simple.Spider.Wrappers.HTML.Anchor.Targets.Blank">
+            <summary>
+            A new tab or window
+            </summary>
+        </member>
+        <member name="F:RafaelEstevam.Simple.Spider.Wrappers.HTML.Anchor.Targets.Parent">
+            <summary>
+             the parent browsing context of the current one
+            </summary>
+        </member>
+        <member name="F:RafaelEstevam.Simple.Spider.Wrappers.HTML.Anchor.Targets.Top">
+            <summary>
+            the topmost browsing context
             </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HTML.Anchor.#ctor(HtmlAgilityPack.HtmlDocument)">
@@ -2777,6 +2803,7 @@
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.Article">
             <summary>
             Represents an html Article tag
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/article">HTML element docs</a>
             </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HTML.Article.#ctor(HtmlAgilityPack.HtmlDocument)">
@@ -2792,6 +2819,7 @@
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.Button">
             <summary>
             Represents an html Button tag
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">HTML element docs</a>
             </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HTML.Button.#ctor(HtmlAgilityPack.HtmlDocument)">
@@ -2827,6 +2855,7 @@
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.Data">
             <summary>
             Represents an html Data tag
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/data">HTML element docs</a>
             </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HTML.Data.#ctor(HtmlAgilityPack.HtmlDocument)">
@@ -2847,6 +2876,7 @@
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.Div">
             <summary>
             Represents an html Div tag
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div">HTML element docs</a>
             </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HTML.Div.#ctor(HtmlAgilityPack.HtmlDocument)">
@@ -2862,6 +2892,7 @@
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.Form">
             <summary>
             Represents an html Tag tag
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form">HTML element docs</a>
             </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HTML.Form.#ctor(HtmlAgilityPack.HtmlDocument)">
@@ -2913,6 +2944,7 @@
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.IFrame">
             <summary>
             Represents an html IFrame tag
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe">HTML element docs</a>
             </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HTML.IFrame.#ctor(HtmlAgilityPack.HtmlDocument)">
@@ -2948,6 +2980,7 @@
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.Img">
             <summary>
             Represents an html Image tag
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img">HTML element docs</a>
             </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HTML.Img.#ctor(HtmlAgilityPack.HtmlDocument)">
@@ -2983,6 +3016,7 @@
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.Input">
             <summary>
             Represents an html Input tag
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input">HTML element docs</a>
             </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HTML.Input.#ctor(HtmlAgilityPack.HtmlDocument)">
@@ -3028,6 +3062,7 @@
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.Label">
             <summary>
             Represents an html Label tag
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label">HTML element docs</a>
             </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HTML.Label.#ctor(HtmlAgilityPack.HtmlDocument)">
@@ -3053,6 +3088,7 @@
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.Li">
             <summary>
             Represents an html List Item tag
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li">HTML element docs</a>
             </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HTML.Li.#ctor(HtmlAgilityPack.HtmlDocument)">
@@ -3068,6 +3104,7 @@
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.Link">
             <summary>
             Represents an html Link tag
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link">HTML element docs</a>
             </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HTML.Link.#ctor(HtmlAgilityPack.HtmlDocument)">
@@ -3093,6 +3130,7 @@
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.Meta">
             <summary>
             Represents an html Anchor tag
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta">HTML element docs</a>
             </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HTML.Meta.#ctor(HtmlAgilityPack.HtmlDocument)">
@@ -3133,6 +3171,7 @@
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.Ol">
             <summary>
             Represents an html Ordered List tag
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol">HTML element docs</a>
             </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HTML.Ol.#ctor(HtmlAgilityPack.HtmlDocument)">
@@ -3153,6 +3192,7 @@
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.Option">
             <summary>
             Represents an html Option tag
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option">HTML element docs</a>
             </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HTML.Option.#ctor(HtmlAgilityPack.HtmlDocument)">
@@ -3188,6 +3228,7 @@
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.Paragraph">
             <summary>
             Represents an html Paragraph tag
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p">HTML element docs</a>
             </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HTML.Paragraph.#ctor(HtmlAgilityPack.HtmlDocument)">
@@ -3203,6 +3244,7 @@
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.Param">
             <summary>
             Represents an html Param tag
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/param">HTML element docs</a>
             </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HTML.Param.#ctor(HtmlAgilityPack.HtmlDocument)">
@@ -3228,6 +3270,7 @@
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.Select">
             <summary>
             Represents an html Select tag
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select">HTML element docs</a>
             </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HTML.Select.#ctor(HtmlAgilityPack.HtmlDocument)">
@@ -3264,6 +3307,7 @@
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.Span">
             <summary>
             Represents an html Span tag
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span">HTML element docs</a>
             </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HTML.Span.#ctor(HtmlAgilityPack.HtmlDocument)">
@@ -3563,6 +3607,7 @@
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.Ul">
             <summary>
             Represents an html Unordered List tag
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul">HTML ul element</a>
             </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HTML.Ul.#ctor(HtmlAgilityPack.HtmlDocument)">

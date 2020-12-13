@@ -4,6 +4,7 @@ namespace RafaelEstevam.Simple.Spider.Wrappers.HTML
 {
     /// <summary>
     /// Represents an html Image tag
+    /// <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img">HTML element docs</a>
     /// </summary>
     public class Img : Tag, ITagSrc
     {

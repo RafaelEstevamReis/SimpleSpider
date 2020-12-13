@@ -5,6 +5,7 @@ namespace RafaelEstevam.Simple.Spider.Wrappers.HTML
 {
     /// <summary>
     /// Represents an html Unordered List tag
+    /// <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul">HTML ul element</a>
     /// </summary>
     public class Ul : Tag
     {

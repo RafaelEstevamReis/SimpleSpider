@@ -6,14 +6,30 @@ namespace RafaelEstevam.Simple.Spider.Wrappers.HTML
 {
     /// <summary>
     /// Represents an html Anchor tag
+    /// <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">HTML element docs</a>
     /// </summary>
     public class Anchor : Tag
     {
+        /// <summary>
+        /// Enum for all html anchor target options
+        /// </summary>
         public enum Targets
         {
+            /// <summary>
+            /// (Default) the current browsing context
+            /// </summary>
             Self,
+            /// <summary>
+            /// A new tab or window
+            /// </summary>
             Blank,
+            /// <summary>
+            ///  the parent browsing context of the current one
+            /// </summary>
             Parent,
+            /// <summary>
+            /// the topmost browsing context
+            /// </summary>
             Top,
         }
 
