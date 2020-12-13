@@ -112,6 +112,8 @@ namespace RafaelEstevam.Simple.Spider.Cachers
         }
         private string getCacheFileFullName(Uri uri)
         {
+            // {CacheFodler} / {Hash[2]} / {query_file_name}_{hash[16]}.cache[.gz]
+
             throw new NotImplementedException();
         }
 
