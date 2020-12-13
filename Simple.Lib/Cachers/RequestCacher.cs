@@ -72,6 +72,9 @@ namespace RafaelEstevam.Simple.Spider.Cachers
         public void GenerateCacheFor(FetchCompleteEventArgs FetchComplete)
         {
             var fileInfo = getCacheFileInfo(FetchComplete.Link);
+
+            if (!Directory.Exists(fileInfo.DirectoryName)) Directory.CreateDirectory(fileInfo.DirectoryName);
+
             using (var fs = fileInfo.OpenWrite())
             {
                 FetchCompleteEventArgs.SaveFetchResult(FetchComplete, fs);
@@ -112,9 +115,29 @@ namespace RafaelEstevam.Simple.Spider.Cachers
         }
         private string getCacheFileFullName(Uri uri)
         {
-            // {CacheFodler} / {Hash[2]} / {query_file_name}_{hash[16]}.cache[.gz]
+            // {CacheFolder} / {Hash1[2]} / {query_file_name}_{hash1}{hash2}.tmp
 
-            throw new NotImplementedException();
+            // do not include domain, nor query
+            // keep similar files in same folder
+            //  will reduce spread but easy manual lookup
+            var aPath = uri.AbsolutePath;
+            var pathHash = Crc32.CalcCRC32Hex(aPath);
+            
+            var lastSegment = aPath;
+            if (lastSegment.Length > 16) lastSegment = aPath[^16..^0];
+            lastSegment = lastSegment.Replace('/', '_');
+
+            var completeWithQuery = uri.Host + uri.PathAndQuery;
+            var complHash = Crc32.CalcCRC32Hex(completeWithQuery);
+
+            string file = sanitizeFileName($"{lastSegment}_{pathHash}{complHash}.tmp");
+
+            return Path.Combine(cacheDir.FullName, pathHash[0..2], file);
+        }
+        private static string sanitizeFileName(string file)
+        {
+            var invalidChars = Path.GetInvalidFileNameChars();
+            return string.Join("_", file.Split(invalidChars, StringSplitOptions.RemoveEmptyEntries));
         }
 
 
