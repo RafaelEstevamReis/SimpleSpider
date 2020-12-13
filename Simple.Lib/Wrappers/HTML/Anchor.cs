@@ -9,6 +9,14 @@ namespace RafaelEstevam.Simple.Spider.Wrappers.HTML
     /// </summary>
     public class Anchor : Tag
     {
+        public enum Targets
+        {
+            Self,
+            Blank,
+            Parent,
+            Top,
+        }
+
         /// <summary>
         /// Initializes a new instance
         /// </summary>
@@ -32,8 +40,47 @@ namespace RafaelEstevam.Simple.Spider.Wrappers.HTML
         }
 
         /// <summary>
+        /// Gets the Download attribute of the tag
+        /// </summary>
+        public string Download => Attributes["download"];
+        /// <summary>
+        /// Indicates whenever Download is present or not
+        /// </summary>
+        public bool IsDownload => Download != null;
+
+        /// <summary>
+        /// Gets the Ping attribute of the tag already splitted
+        /// </summary>
+        public string[] Ping => Attributes["ping"]?.Split(' ');
+
+        /// <summary>
         /// Gets the Target attribute of the tag
         /// </summary>
         public string Target => Attributes["target"];
+        /// <summary>
+        /// Gets the Target attribute of the tag as Targets enum
+        /// </summary>
+        public Targets TargetType
+        {
+            get
+            {
+                string target = Target;
+
+                if (target.EndsWith("blank", StringComparison.InvariantCultureIgnoreCase))
+                    return Targets.Blank;
+                if (target.EndsWith("parent", StringComparison.InvariantCultureIgnoreCase))
+                    return Targets.Blank;
+                if (target.EndsWith("top", StringComparison.InvariantCultureIgnoreCase))
+                    return Targets.Blank;
+
+                return Targets.Self;
+            }
+        }
+
+        /// <summary>
+        /// Gets the Type (mime-type) attribute of the tag
+        /// </summary>
+        public string Type => Attributes["type"];
+
     }
 }

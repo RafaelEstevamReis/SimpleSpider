@@ -2721,9 +2721,34 @@
             <param name="ParentUri">Parent Uri to combine to</param>
             <returns>An Uri combined without whitespaces</returns>
         </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Wrappers.HTML.Anchor.Download">
+            <summary>
+            Gets the Download attribute of the tag
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Wrappers.HTML.Anchor.IsDownload">
+            <summary>
+            Indicates whenever Download is present or not
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Wrappers.HTML.Anchor.Ping">
+            <summary>
+            Gets the Ping attribute of the tag already splitted
+            </summary>
+        </member>
         <member name="P:RafaelEstevam.Simple.Spider.Wrappers.HTML.Anchor.Target">
             <summary>
             Gets the Target attribute of the tag
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Wrappers.HTML.Anchor.TargetType">
+            <summary>
+            Gets the Target attribute of the tag as Targets enum
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Wrappers.HTML.Anchor.Type">
+            <summary>
+            Gets the Type (mime-type) attribute of the tag
             </summary>
         </member>
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.AnchorExtensions">
