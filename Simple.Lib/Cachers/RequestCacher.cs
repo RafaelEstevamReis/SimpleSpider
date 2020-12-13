@@ -124,7 +124,7 @@ namespace RafaelEstevam.Simple.Spider.Cachers
             var pathHash = Crc32.CalcCRC32Hex(aPath);
             
             var lastSegment = aPath;
-            if (lastSegment.Length > 16) lastSegment = aPath[^16..^0];
+            if (lastSegment.Length > 32) lastSegment = aPath[^32..^0];
             lastSegment = lastSegment.Replace('/', '_');
 
             var completeWithQuery = uri.Host + uri.PathAndQuery;
