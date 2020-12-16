@@ -111,9 +111,10 @@ namespace RafaelEstevam.Simple.Spider.Cachers
 
         private FileInfo getCacheFileInfo(Uri uri)
         {
-            return new FileInfo(getCacheFileFullName(uri));
+            return new FileInfo(getCacheFileFullName(cacheDir, uri));
         }
-        private string getCacheFileFullName(Uri uri)
+
+        public static string getCacheFileFullName(DirectoryInfo cacheDir, Uri uri)
         {
             // {CacheFolder} / {Hash1[2]} / {query_file_name}_{hash1}{hash2}.tmp
 
@@ -139,7 +140,6 @@ namespace RafaelEstevam.Simple.Spider.Cachers
             var invalidChars = Path.GetInvalidFileNameChars();
             return string.Join("_", file.Split(invalidChars, StringSplitOptions.RemoveEmptyEntries));
         }
-
 
         private void doStuff(object obj)
         {
