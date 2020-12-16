@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using RafaelEstevam.Simple.Spider.Helper;
 using RafaelEstevam.Simple.Spider.Interfaces;
 
 namespace RafaelEstevam.Simple.Spider.Cachers
 {
+    /// <summary>
+    /// A complete cacher, stores the header, response and contents of the resource fetched locally
+    /// </summary>
     public class RequestCacher : ICacher
     {
         CancellationTokenSource cancellationToken;
@@ -18,6 +18,9 @@ namespace RafaelEstevam.Simple.Spider.Cachers
         private Configuration config;
         private Thread[] thread;
 
+        /// <summary>
+        /// Gets how many threads were setted to be used
+        /// </summary>
         public int ThreadCount
         {
             get;
@@ -27,20 +30,46 @@ namespace RafaelEstevam.Simple.Spider.Cachers
             private set;
 #endif
         }
-
+        /// <summary>
+        /// Gets if is processing
+        /// </summary>
         public bool IsProcessing { get; private set; }
 
-        public event ShouldUseCache ShouldUseCache;
+        /// <summary>
+        /// Occurs when fetch is complete 
+        /// </summary>
         public event FetchComplete FetchCompleted;
+        /// <summary>
+        /// Occurs when fetch fails
+        /// </summary>
         public event FetchFail FetchFailed;
+        /// <summary>
+        /// Occurs before fetch to check if it should fetch this resource
+        /// </summary>
         public event ShouldFetch ShouldFetch;
+        /// <summary>
+        /// Occurs before fetch to check if the cache can be used
+        /// </summary>
+        public event ShouldUseCache ShouldUseCache;
 
+
+        /// <summary>
+        /// Creates a new instance
+        /// </summary>
+        /// <param name="ThreadCount">Defines how many threads should be used. The number must be between 1 and 128</param>
         public RequestCacher(int ThreadCount = 4)
         {
+            if (ThreadCount < 1) throw new ArgumentOutOfRangeException("Thread Count should be at least one");
+            if (ThreadCount > 128) throw new ArgumentOutOfRangeException("Thread Count should less than 129");
+
             cancellationToken = new CancellationTokenSource();
             this.ThreadCount = ThreadCount;
         }
-
+        /// <summary>
+        /// Initialize the cacher
+        /// </summary>
+        /// <param name="WorkQueue">The queue to be used</param>
+        /// <param name="Config">The configuration to be used</param>
         public void Initialize(ConcurrentQueue<Link> WorkQueue, Configuration Config)
         {
             var cachePath = new DirectoryInfo(Path.Combine(Config.SpiderDirectory.FullName, "CACHE"));
@@ -56,7 +85,9 @@ namespace RafaelEstevam.Simple.Spider.Cachers
                 thread[i].Name = $"thdCache[{i}]";
             }
         }
-
+        /// <summary>
+        /// Starts the Cacher operation
+        /// </summary>
         public void Start()
         {
             if (cancellationToken.Token.IsCancellationRequested) return;
@@ -64,11 +95,17 @@ namespace RafaelEstevam.Simple.Spider.Cachers
             for (int i = 0; i < thread.Length; i++)
                 thread[i].Start();
         }
+        /// <summary>
+        /// Stops the Cacher operation
+        /// </summary>
         public void Stop()
         {
             cancellationToken.Cancel();
         }
-
+        /// <summary>
+        /// Instructs the cacher to generate a cache for the new resource
+        /// </summary>
+        /// <param name="FetchComplete">Fetch data to save</param>
         public void GenerateCacheFor(FetchCompleteEventArgs FetchComplete)
         {
             var fileInfo = getCacheFileInfo(FetchComplete.Link);
@@ -80,7 +117,11 @@ namespace RafaelEstevam.Simple.Spider.Cachers
                 FetchCompleteEventArgs.SaveFetchResult(FetchComplete, fs);
             }
         }
-
+        /// <summary>
+        /// Gets if a cache exists
+        /// </summary>
+        /// <param name="link">Uri to check for</param>
+        /// <returns>True if has a cache, False otherwise</returns>
         public bool HasCache(Link link)
         {
             if (!config.Cache_Enable) return false;
@@ -113,7 +154,12 @@ namespace RafaelEstevam.Simple.Spider.Cachers
         {
             return new FileInfo(getCacheFileFullName(cacheDir.FullName, uri));
         }
-
+        /// <summary>
+        /// Returns the full file name that will be used to save a resource
+        /// </summary>
+        /// <param name="cacheDirFullName">Current cache directory</param>
+        /// <param name="uri">Uri of the resource</param>
+        /// <returns>Full file name</returns>
         public static string getCacheFileFullName(string cacheDirFullName, Uri uri)
         {
             // {CacheFolder} / {Hash1[2]} / {query_file_name}_{hash1}{hash2}.tmp
