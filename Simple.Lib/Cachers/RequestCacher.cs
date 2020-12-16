@@ -111,10 +111,10 @@ namespace RafaelEstevam.Simple.Spider.Cachers
 
         private FileInfo getCacheFileInfo(Uri uri)
         {
-            return new FileInfo(getCacheFileFullName(cacheDir, uri));
+            return new FileInfo(getCacheFileFullName(cacheDir.FullName, uri));
         }
 
-        public static string getCacheFileFullName(DirectoryInfo cacheDir, Uri uri)
+        public static string getCacheFileFullName(string cacheDirFullName, Uri uri)
         {
             // {CacheFolder} / {Hash1[2]} / {query_file_name}_{hash1}{hash2}.tmp
 
@@ -133,7 +133,7 @@ namespace RafaelEstevam.Simple.Spider.Cachers
 
             string file = sanitizeFileName($"{lastSegment}_{pathHash}{complHash}.tmp");
 
-            return Path.Combine(cacheDir.FullName, pathHash[0..2], file);
+            return Path.Combine(cacheDirFullName, pathHash[0..2], file);
         }
         private static string sanitizeFileName(string file)
         {
