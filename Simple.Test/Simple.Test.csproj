@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Simple.Sqlite" Version="0.4.24" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Modules\Storage\SqliteStorage\Storage.Sqlite.csproj" />
     <ProjectReference Include="..\Simple.Lib\Simple.Lib.csproj" />
   </ItemGroup>
