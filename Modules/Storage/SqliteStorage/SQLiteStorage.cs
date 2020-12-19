@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
 using RafaelEstevam.Simple.Spider.Interfaces;
+using Simple.Sqlite;
 
 namespace RafaelEstevam.Simple.Spider.Storage
 {
@@ -20,7 +21,7 @@ namespace RafaelEstevam.Simple.Spider.Storage
         /// <summary>
         /// Exposes the internal database "engine"
         /// </summary>
-        protected Sqlite.Database db;
+        protected SqliteDB db;
 
         /// <summary>
         /// Gets the database full path, available after spider initialization
@@ -57,8 +58,8 @@ namespace RafaelEstevam.Simple.Spider.Storage
         /// </summary>
         public void Initialize(Configuration Config)
         {
-            db = new Sqlite.Database(System.IO.Path.Combine(Config.SpiderDataDirectory.FullName,
-                                                            $"SqliteStorage_{TableNameOfT}.sqlite"));
+            db = new SqliteDB(System.IO.Path.Combine(Config.SpiderDataDirectory.FullName,
+                                                     $"SqliteStorage_{TableNameOfT}.sqlite"));
 
             db.CreateTables()
               .Add<T>()

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net5.0</TargetFrameworks>
+    <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>RafaelEstevam.Simple.Spider.Storage</RootNamespace>
     <AssemblyName>RafaelEstevam.Simple.Spider.Storage</AssemblyName>
     <PackageId>RafaelEstevam.Simple.Spider.SqliteStorage</PackageId>
@@ -41,6 +41,12 @@ Commit 4919673</PackageReleaseNotes>
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
+    <PackageReference Include="Simple.Sqlite">
+      <Version>0.4.21</Version>
+    </PackageReference>
   </ItemGroup>
   
 </Project>
