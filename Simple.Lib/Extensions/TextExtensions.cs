@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text;
 
 namespace RafaelEstevam.Simple.Spider.Extensions
 {
@@ -99,6 +100,32 @@ namespace RafaelEstevam.Simple.Spider.Extensions
         public static bool HasAnyLetter(this string Text)
         {
             return Text.Any(c => char.IsLetter(c));
+        }
+        /// <summary>
+        /// Removes repeated whitespaces from strings
+        /// </summary>
+        /// <param name="Text">Text to be cleaned</param>
+        /// <param name="ReplaceBySpace">Should replace whitespace chars with regular space?</param>
+        /// <returns>New cleaned string</returns>
+        public static string RemoveExcessiveWhitespaces(this string Text, bool ReplaceBySpace = true)
+        {
+            if (string.IsNullOrEmpty(Text)) return Text;
+
+            var sb = new StringBuilder();
+            bool lastWasWhitespace = false;
+
+            foreach (var c in Text)
+            {
+                var currentIsWS = char.IsWhiteSpace(c);
+                if (currentIsWS && lastWasWhitespace) continue;
+
+                if (currentIsWS && ReplaceBySpace) sb.Append(" ");
+                else sb.Append(c);
+
+                lastWasWhitespace = currentIsWS;
+            }
+
+            return sb.ToString().Trim();
         }
     }
 }
