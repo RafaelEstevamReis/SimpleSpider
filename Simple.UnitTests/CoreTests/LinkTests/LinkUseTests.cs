@@ -77,5 +77,18 @@ namespace RafaelEstevam.Simple.Spider.UnitTests.CoreTests.LinkTests
             // UriConversion
             Assert.Equal(Books, lnk);
         }
+
+        [Fact]
+        public void Core_LinkTests_Parts()
+        {
+            var uri = new Uri("https://www.w3.org/TR/WD-html40-970917/htmlweb.html");
+            var lnk = new Link(uri, null);
+
+            var parts = lnk.Parts;
+
+            Assert.Equal(new string[] { "www.w3.org", "TR", "WD-html40-970917", "htmlweb.html" },
+                         parts);
+
+        }
     }
 }

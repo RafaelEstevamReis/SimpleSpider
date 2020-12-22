@@ -904,6 +904,14 @@
             Indicates whether any characters are categorized as letter
             </summary>
         </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.TextExtensions.RemoveExcessiveWhitespaces(System.String,System.Boolean)">
+            <summary>
+            Removes repeated whitespaces from strings
+            </summary>
+            <param name="Text">Text to be cleaned</param>
+            <param name="ReplaceBySpace">Should replace whitespace chars with regular space?</param>
+            <returns>New cleaned string</returns>
+        </member>
         <member name="T:RafaelEstevam.Simple.Spider.Files">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
@@ -1626,6 +1634,13 @@
             Remove whitespace from string <a href="https://stackoverflow.com/questions/6219454/efficient-way-to-remove-all-whitespace-from-string/30732794#30732794"/>
             </summary>
         </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Helper.UriHelper.SplitParts(System.Uri)">
+            <summary>
+            Splits a Uri in its components: Host + Segments without final slashes
+            </summary>
+            <param name="uri">Uri to be splitted</param>
+            <returns>Parts splitted</returns>
+        </member>
         <member name="T:RafaelEstevam.Simple.Spider.Helper.XElementHelper">
             <summary>
             Helper to do stuff with pages parsed as XElement 
@@ -2106,6 +2121,19 @@
             </summary>
             <param name="PartialUrl">String to be searched</param>
             <returns>True if contains, false otherwise</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Link.EndsWith(System.String)">
+            <summary>
+            Check if current Uri ends with a specified string
+            </summary>
+            <param name="FinalUrl">String to be searched</param>
+            <returns>True if ends with, false otherwise</returns>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Link.Parts">
+            <summary>
+            Gets all Uri Parts. Uses: 
+            <see cref="M:RafaelEstevam.Simple.Spider.Helper.UriHelper.SplitParts(System.Uri)"/>
+            </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Link.GetHashCode">
             <summary>
