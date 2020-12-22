@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 
 namespace RafaelEstevam.Simple.Spider.Helper
 {
@@ -99,6 +101,27 @@ namespace RafaelEstevam.Simple.Spider.Helper
         {
             // split then join, but is fast enough without using UNSAFE
             return string.Join("", str.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
+        }
+        /// <summary>
+        /// Splits a Uri in its components: Host + Segments without final slashes
+        /// </summary>
+        /// <param name="uri">Uri to be splitted</param>
+        /// <returns>Parts splitted</returns>
+        public static IEnumerable<string> SplitParts(Uri uri)
+        {
+            yield return uri.Host;
+
+            foreach (var s in uri.Segments.Skip(1))
+            {
+                if (s.EndsWith("/"))
+                {
+                    yield return s[..^1];
+                }
+                else
+                {
+                    yield return s;
+                }
+            }
         }
     }
 }
