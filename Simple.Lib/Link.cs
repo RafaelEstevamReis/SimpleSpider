@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace RafaelEstevam.Simple.Spider
 {
@@ -43,7 +44,7 @@ namespace RafaelEstevam.Simple.Spider
         /// Specify and additional CallBack for this resource. Can not be saved/Loaded
         /// </summary>
         public FetchComplete FetchCompleteCallBack { get; set; } = null;
-
+        
         private Link() { } // Empty, not safe
 
         /// <summary>
@@ -210,6 +211,28 @@ namespace RafaelEstevam.Simple.Spider
         {
             return Uri.ToString().Contains(PartialUrl);
         }
+        /// <summary>
+        /// Check if current Uri ends with a specified string
+        /// </summary>
+        /// <param name="FinalUrl">String to be searched</param>
+        /// <returns>True if ends with, false otherwise</returns>
+        public bool EndsWith(string FinalUrl)
+        {
+            return Uri.ToString().Contains(FinalUrl);
+        }
+        /// <summary>
+        /// Gets all Uri Parts. Uses: 
+        /// <see cref="Helper.UriHelper.SplitParts"/>
+        /// </summary>
+        public string[] Parts
+        {
+            get
+            {
+                return Helper.UriHelper.SplitParts(Uri)
+                                       .ToArray();
+            }
+        }
+
 
         /// <summary>
         /// Serves as the default hash function 
