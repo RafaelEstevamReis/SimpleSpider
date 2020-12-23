@@ -90,5 +90,29 @@ namespace RafaelEstevam.Simple.Spider.UnitTests.CoreTests.LinkTests
                          parts);
 
         }
+        [Fact]
+        public void Core_LinkTests_PartsNoQuery()
+        {
+            var uri = new Uri("https://www.w3.org/TR/WD-html40-970917/htmlweb.html?a=b&c=d");
+            var lnk = new Link(uri, null);
+
+            var parts = lnk.Parts;
+
+            Assert.Equal(new string[] { "www.w3.org", "TR", "WD-html40-970917", "htmlweb.html" },
+                         parts);
+
+        }
+        [Fact]
+        public void Core_LinkTests_PartsQueryNoFragment()
+        {
+            var uri = new Uri("https://www.w3.org/TR/WD-html40-970917/htmlweb.html#ABC");
+            var lnk = new Link(uri, null);
+
+            var parts = lnk.Parts;
+
+            Assert.Equal(new string[] { "www.w3.org", "TR", "WD-html40-970917", "htmlweb.html" },
+                         parts);
+
+        }
     }
 }
