@@ -4,6 +4,9 @@ using System.Text;
 
 namespace RafaelEstevam.Simple.Spider.Storage
 {
+    /// <summary>
+    /// Implements a InMemory storage for collected items (dynamic)
+    /// </summary>
     public class InMemoryStorage : Interfaces.IStorage
     {
         List<dynamic> items;

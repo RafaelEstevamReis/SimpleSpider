@@ -1489,6 +1489,11 @@
             Cookie container used to store server cookies
             </summary>
         </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Helper.RequestHelper.InternalHttpClient">
+            <summary>
+            Gets the internal HttpClient, handle with care
+            </summary>
+        </member>
         <member name="M:RafaelEstevam.Simple.Spider.Helper.RequestHelper.#ctor(System.Boolean)">
             <summary>
             Create a new instance
@@ -2378,6 +2383,97 @@
         <member name="P:RafaelEstevam.Simple.Spider.SimpleSpider.SpiderData._Redirect301">
             <summary>
             DO NOT USE - Serializable version of internal dictionary
+            </summary>
+        </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Storage.InMemoryStorage">
+            <summary>
+            Implements a InMemory storage for collected items (dynamic)
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.InMemoryStorage.AddItem(RafaelEstevam.Simple.Spider.Link,System.Object)">
+            <summary>
+            Adds an item to the collection
+            </summary>
+            <param name="link">Link where the object was found. Its is not stored</param>
+            <param name="item">Item to be collected</param>
+            <returns>Returns true aways</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.InMemoryStorage.Count">
+            <summary>
+            Counts the number of items collected
+            </summary>
+            <returns>Returns the number of items collected</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.InMemoryStorage.Initialize(RafaelEstevam.Simple.Spider.Configuration)">
+            <summary>
+            Initializes the storager
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.InMemoryStorage.LoadData">
+            <summary>
+            InMemory data does not save data!
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.InMemoryStorage.SaveData(System.Boolean)">
+            <summary>
+            InMemory data does not save data!
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.InMemoryStorage.RetrieveAllItems">
+            <summary>
+            Retrieve all stored items
+            </summary>
+        </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Storage.InMemoryStorage`1">
+            <summary>
+            Implements a InMemory storage for collected T items
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.InMemoryStorage`1.AddItem(RafaelEstevam.Simple.Spider.Link,`0)">
+            <summary>
+            Adds an item to the collection
+            </summary>
+            <param name="link">Link where the object was found. Its is not stored</param>
+            <param name="item">Item to be collected</param>
+            <returns>Returns true aways</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.InMemoryStorage`1.AddItem(RafaelEstevam.Simple.Spider.Link,System.Object)">
+            <summary>
+            Adds an item to the collection
+            </summary>
+            <param name="link">Link where the object was found. Its is not stored</param>
+            <param name="item">Item to be collected</param>
+            <returns>Returns true aways</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.InMemoryStorage`1.Count">
+            <summary>
+            Counts the number of items collected
+            </summary>
+            <returns>Returns the number of items collected</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.InMemoryStorage`1.Initialize(RafaelEstevam.Simple.Spider.Configuration)">
+            <summary>
+            Initializes the storager
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.InMemoryStorage`1.LoadData">
+            <summary>
+            InMemory data does not save data!
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.InMemoryStorage`1.SaveData(System.Boolean)">
+            <summary>
+            InMemory data does not save data!
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.InMemoryStorage`1.RetrieveAllItems">
+            <summary>
+            Retrieve all stored items
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Storage.InMemoryStorage`1.ReadAll">
+            <summary>
+            Retrieve all stored items
             </summary>
         </member>
         <member name="T:RafaelEstevam.Simple.Spider.Storage.JsonLinesStorage">

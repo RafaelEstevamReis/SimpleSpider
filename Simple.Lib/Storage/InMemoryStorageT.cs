@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace RafaelEstevam.Simple.Spider.Storage
 {
+    /// <summary>
+    /// Implements a InMemory storage for collected T items
+    /// </summary>
     public class InMemoryStorage<T> : Interfaces.IStorage
     {
         List<T> items;
