@@ -45,6 +45,10 @@ namespace RafaelEstevam.Simple.Spider.Helper
         /// Cookie container used to store server cookies
         /// </summary>
         public CookieContainer Cookies { get; }
+        /// <summary>
+        /// Gets the internal HttpClient, handle with care
+        /// </summary>
+        public HttpClient InternalHttpClient => httpClient;
 
         HttpClient httpClient;
         /// <summary>
