@@ -118,10 +118,16 @@ namespace RafaelEstevam.Simple.Spider.Helper
         private static string generateCacheFileName(Uri uri)
         {
             string uriFileName = $"{uri.Host}{uri.PathAndQuery.Replace("/", ".")}.cache";
+            uriFileName = sanitizeFileName(uriFileName);
             var dir = generateCacheDirName();
             if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
 
             return Path.Combine(dir, uriFileName);
+        }
+        private static string sanitizeFileName(string file)
+        {
+            var invalidChars = Path.GetInvalidFileNameChars();
+            return string.Join("_", file.Split(invalidChars, StringSplitOptions.RemoveEmptyEntries));
         }
         private static string generateCacheDirName()
         {
