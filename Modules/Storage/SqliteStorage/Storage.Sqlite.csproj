@@ -14,7 +14,7 @@ See examples and documentation on the GitHub page</Description>
     <RepositoryUrl>https://github.com/RafaelEstevamReis/SimpleSpider</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>spider web crawling sqlite</PackageTags>
-    <Version>0.8.3</Version>
+    <Version>0.8.4</Version>
     <PackageReleaseNotes>See examples and documentation on the GitHub page
 Commit 0730987</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -29,8 +29,8 @@ Commit 0730987</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Simple.Sqlite" Version="0.4.43" />
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.6" />
+    <PackageReference Include="Simple.Sqlite" Version="0.4.63" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.7" />
   </ItemGroup>
 
   <ItemGroup>
