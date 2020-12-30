@@ -129,6 +129,85 @@
             Stops this cacher
             </summary>
         </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Cachers.RequestCacher">
+            <summary>
+            A complete cacher, stores the header, response and contents of the resource fetched locally
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Cachers.RequestCacher.ThreadCount">
+            <summary>
+            Gets how many threads were setted to be used
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Cachers.RequestCacher.IsProcessing">
+            <summary>
+            Gets if is processing
+            </summary>
+        </member>
+        <member name="E:RafaelEstevam.Simple.Spider.Cachers.RequestCacher.FetchCompleted">
+            <summary>
+            Occurs when fetch is complete 
+            </summary>
+        </member>
+        <member name="E:RafaelEstevam.Simple.Spider.Cachers.RequestCacher.FetchFailed">
+            <summary>
+            Occurs when fetch fails
+            </summary>
+        </member>
+        <member name="E:RafaelEstevam.Simple.Spider.Cachers.RequestCacher.ShouldFetch">
+            <summary>
+            Occurs before fetch to check if it should fetch this resource
+            </summary>
+        </member>
+        <member name="E:RafaelEstevam.Simple.Spider.Cachers.RequestCacher.ShouldUseCache">
+            <summary>
+            Occurs before fetch to check if the cache can be used
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Cachers.RequestCacher.#ctor(System.Int32)">
+            <summary>
+            Creates a new instance
+            </summary>
+            <param name="ThreadCount">Defines how many threads should be used. The number must be between 1 and 128</param>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Cachers.RequestCacher.Initialize(System.Collections.Concurrent.ConcurrentQueue{RafaelEstevam.Simple.Spider.Link},RafaelEstevam.Simple.Spider.Configuration)">
+            <summary>
+            Initialize the cacher
+            </summary>
+            <param name="WorkQueue">The queue to be used</param>
+            <param name="Config">The configuration to be used</param>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Cachers.RequestCacher.Start">
+            <summary>
+            Starts the Cacher operation
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Cachers.RequestCacher.Stop">
+            <summary>
+            Stops the Cacher operation
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Cachers.RequestCacher.GenerateCacheFor(RafaelEstevam.Simple.Spider.FetchCompleteEventArgs)">
+            <summary>
+            Instructs the cacher to generate a cache for the new resource
+            </summary>
+            <param name="FetchComplete">Fetch data to save</param>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Cachers.RequestCacher.HasCache(RafaelEstevam.Simple.Spider.Link)">
+            <summary>
+            Gets if a cache exists
+            </summary>
+            <param name="link">Uri to check for</param>
+            <returns>True if has a cache, False otherwise</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Cachers.RequestCacher.getCacheFileFullName(System.String,System.Uri)">
+            <summary>
+            Returns the full file name that will be used to save a resource
+            </summary>
+            <param name="cacheDirFullName">Current cache directory</param>
+            <param name="uri">Uri of the resource</param>
+            <returns>Full file name</returns>
+        </member>
         <member name="T:RafaelEstevam.Simple.Spider.Configuration">
             <summary>
             Class to hold the configuration for the spider
@@ -1116,6 +1195,26 @@
             <param name="Text">Texto to be converted</param>
             <param name="OnError">Value returned if conversion fails</param>
             <returns>Value converted or OnError value</returns>
+        </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Helper.Crc32">
+            <summary>
+            Internal use olly - DO NOT USE
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Helper.Crc32.CalcCRC32(System.Byte[])">
+            <summary>
+            Internal use olly - DO NOT USE
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Helper.Crc32.CalcCRC32Hex(System.Byte[])">
+            <summary>
+            Internal use olly - DO NOT USE
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Helper.Crc32.CalcCRC32Hex(System.String)">
+            <summary>
+            Internal use olly - DO NOT USE
+            </summary>
         </member>
         <member name="T:RafaelEstevam.Simple.Spider.Helper.CSVHelper">
             <summary>
