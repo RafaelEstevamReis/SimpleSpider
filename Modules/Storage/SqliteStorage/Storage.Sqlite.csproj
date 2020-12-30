@@ -25,7 +25,7 @@ Commit 4919673</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.1|AnyCPU'">
-    <DocumentationFile>B:\Repositórios\PublicSimpleSpider\Modules\Storage\SqliteStorage\RafaelEstevam.Simple.Spider.Storage.xml</DocumentationFile>
+    <DocumentationFile>RafaelEstevam.Simple.Spider.Storage.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
