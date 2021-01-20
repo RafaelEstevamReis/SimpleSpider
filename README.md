@@ -1,4 +1,4 @@
- **BREAKING CHANGE: Altered NAMESPACE and the NuGet package**
+ **The the NuGet package was changed**
 
 # Simple Spider
 
