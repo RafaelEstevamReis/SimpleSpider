@@ -7,7 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-[assembly: InternalsVisibleToAttribute("Simple.UnitTests")]
+[assembly: InternalsVisibleTo("Simple.UnitTests")]
 namespace RafaelEstevam.Simple.Spider.Helper
 {
     /// <summary>
