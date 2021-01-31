@@ -1290,6 +1290,28 @@
             <param name="hasHeader">Defines if the first row is the header</param>
             <returns>A datatable with data</returns>
         </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Helper.FastCsv">
+            <summary>
+            Helper to read huge csv files
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Helper.FastCsv.ReadDelimiter(System.IO.Stream,System.Text.Encoding,System.Char)">
+            <summary>
+            Read CSV data from a data stream
+            </summary>
+            <param name="stream">Base stream to read from</param>
+            <param name="encoding">Encoding to be used</param>
+            <param name="delimiter">Delimiter to be used</param>
+            <returns>Enumeration of rows, Each row is a string[] of columns</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Helper.FastCsv.ReadDelimiter(System.IO.StreamReader,System.Char)">
+            <summary>
+            Read CSV data from a text stream
+            </summary>
+            <param name="sr">Base stream to read from</param>
+            <param name="delimiter">Delimiter to be used</param>
+            <returns>Enumeration of rows, Each row is a string[] of columns</returns>
+        </member>
         <member name="T:RafaelEstevam.Simple.Spider.Helper.FetchHelper">
             <summary>
             Helper to fetch stuff

@@ -1,18 +1,40 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
 
+[assembly: InternalsVisibleTo("Simple.UnitTests")]
 namespace RafaelEstevam.Simple.Spider.Helper
-{
+{    
+    /// <summary>
+     /// Helper to read huge csv files
+     /// </summary>
     public class FastCsv
     {
-        static int blockSize = 1024;
+        static int blockSize = 4 * 1024; // 4k
+        /// <summary>
+        /// Read CSV data from a data stream
+        /// </summary>
+        /// <param name="stream">Base stream to read from</param>
+        /// <param name="encoding">Encoding to be used</param>
+        /// <param name="delimiter">Delimiter to be used</param>
+        /// <returns>Enumeration of rows, Each row is a string[] of columns</returns>
+        public static IEnumerable<string[]> ReadDelimiter(Stream stream, Encoding encoding = null, char delimiter = ';')
+        {
+            encoding ??= Encoding.UTF8;
 
-        public static IEnumerable<string[]> ReadCsv(Stream stream, Encoding encoding, char delimiter)
+            using StreamReader sr = new StreamReader(stream, encoding);
+            return ReadDelimiter(sr, delimiter);
+        }
+        /// <summary>
+        /// Read CSV data from a text stream
+        /// </summary>
+        /// <param name="sr">Base stream to read from</param>
+        /// <param name="delimiter">Delimiter to be used</param>
+        /// <returns>Enumeration of rows, Each row is a string[] of columns</returns>
+        public static IEnumerable<string[]> ReadDelimiter(StreamReader sr, char delimiter = ';')
         {
             List<string> columns = new List<string>();
-            using StreamReader sr = new StreamReader(stream, encoding);
-
             char[] buffer = new char[blockSize];
             int len;
             bool quoted = false;
