@@ -47,7 +47,8 @@ namespace RafaelEstevam.Simple.Spider.Helper
             {
                 if (c == '"')
                 {
-                    isQuoted = !isQuoted;
+                    //                      \/ Only start quoting at start
+                    isQuoted = !isQuoted && sb.Length == 0;
                     continue;
                 }
                 if (!isQuoted && c == delimiter)
