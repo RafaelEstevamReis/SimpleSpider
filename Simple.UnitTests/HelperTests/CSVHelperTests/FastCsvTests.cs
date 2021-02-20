@@ -30,7 +30,6 @@ namespace RafaelEstevam.Simple.Spider.UnitTests.HelperTests.CSVHelperTests
             var lines = FastCsv.ReadDelimiter(sr, ',').ToArray();
 
             Assert.Equal(result, lines);
-
         }
 
         [Fact]
@@ -109,6 +108,19 @@ air, moon roof, loaded"",4799.00
             var lines = FastCsv.ReadDelimiter(sr, ',').ToArray();
 
             Assert.Equal(result, lines);
+        }
+
+        [Fact]
+        public void FastCsv_Garbage()
+        {
+            string toTest = "NO_CAND\";\"DS_CARGO\";\"CD_CARGO\";\"NR_CAND";
+            string[] result = { "NO_CAND", "DS_CARGO", "CD_CARGO", "NR_CAND" };
+
+            using var str = new MemoryStream(Encoding.ASCII.GetBytes(toTest));
+            using var sr = new StreamReader(str);
+            var lines = FastCsv.ReadDelimiter(sr).ToArray();
+
+            Assert.Equal(result, lines[0]);
         }
     }
 }

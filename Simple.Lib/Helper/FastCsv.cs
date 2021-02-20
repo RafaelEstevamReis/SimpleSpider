@@ -53,6 +53,9 @@ namespace RafaelEstevam.Simple.Spider.Helper
                             i++; // ignore this
                             continue; // ignore next
                         }
+                        // not double quote in the middle of the field ?
+                        // not allowed
+                        if (!quoted && currentField.Length > 0) continue;
 
                         quoted = !quoted;
                         continue;
