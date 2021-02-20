@@ -33,5 +33,30 @@ namespace RafaelEstevam.Simple.Spider.UnitTests.HelperTests.CSVHelperTests
             //RFC4180 - multiline is outside of the scope
             Assert.Equal(result, CSVHelper.splitLine(line, ','));
         }
+
+        [Fact]
+        public void CSVHelpers_SplitLineTests_WrongQuoting()
+        {
+            string line = "NO_CAND\";\"DS_CARGO\";\"CD_CARGO\";\"NR_CAND";
+            string[] result = { "NO_CAND", "DS_CARGO", "CD_CARGO", "NR_CAND" };
+
+            Assert.Equal(result, CSVHelper.splitLine(line, ';'));
+        }
+        [Fact]
+        public void CSVHelpers_SplitLineTests_WrongQuoting_RealCase()
+        {
+            // This line broke the algorithm while reading public data about brazil's election candidates
+            string line = "NO_CAND\";\"DS_CARGO\";\"CD_CARGO\";\"NR_CAND\";\"SG_UE_SUP\";\"NO_UE\";\"SG_UE\";\"NR_PART\";\"SG_PART\";\"VR_DESPESA\";\"DT_DOC_DESP\";\"RTRIM(LTRIM(DR.DS_TITULO))\";\"CD_TITULO\";\"DECODE(REC.TP_RECURSO,0,'EMESPÉCIE',1,'CHEQUE',2,'ESTIMADO','NÃOINFORMADO')\";\"TP_RECURSO\";\"NR_DOC_DESP\";\"DS_TIPO_DOCUMENTO\";\"CD_DOC\";\"NO_FOR\";\"CD_CPF_CGC\";\"DS_MUNIC\";\"RV_MEANING";
+
+            string[] result = { "NO_CAND", "DS_CARGO", "CD_CARGO", "NR_CAND", "SG_UE_SUP",
+                                "NO_UE", "SG_UE", "NR_PART", "SG_PART", "VR_DESPESA",
+                                "DT_DOC_DESP", "RTRIM(LTRIM(DR.DS_TITULO))", "CD_TITULO",
+                                "DECODE(REC.TP_RECURSO,0,'EMESPÉCIE',1,'CHEQUE',2,'ESTIMADO','NÃOINFORMADO')",
+                                "TP_RECURSO", "NR_DOC_DESP", "DS_TIPO_DOCUMENTO", "CD_DOC",
+                                "NO_FOR", "CD_CPF_CGC", "DS_MUNIC", "RV_MEANING" };
+
+
+            Assert.Equal(result, CSVHelper.splitLine(line, ';'));
+        }
     }
 }
