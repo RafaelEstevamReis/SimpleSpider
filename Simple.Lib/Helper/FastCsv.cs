@@ -11,28 +11,27 @@ namespace RafaelEstevam.Simple.Spider.Helper
      /// </summary>
     public class FastCsv
     {
-        static int blockSize = 4 * 1024; // 4k
+        int blockSize = 4 * 1024; // 4k
+
+        public Encoding Encoding { get; set; } = Encoding.UTF8;
+        public char Delimiter { get; set; } = ';';
+
         /// <summary>
         /// Read CSV data from a data stream
         /// </summary>
         /// <param name="stream">Base stream to read from</param>
-        /// <param name="encoding">Encoding to be used</param>
-        /// <param name="delimiter">Delimiter to be used</param>
         /// <returns>Enumeration of rows, Each row is a string[] of columns</returns>
-        public static IEnumerable<string[]> ReadDelimiter(Stream stream, Encoding encoding = null, char delimiter = ';')
+        public IEnumerable<string[]> ReadDelimiter(Stream stream)
         {
-            encoding ??= Encoding.UTF8;
-
-            using StreamReader sr = new StreamReader(stream, encoding);
-            return ReadDelimiter(sr, delimiter);
+            using StreamReader sr = new StreamReader(stream, Encoding);
+            return ReadDelimiter(sr, Delimiter);
         }
         /// <summary>
         /// Read CSV data from a text stream
         /// </summary>
-        /// <param name="sr">Base stream to read from</param>
-        /// <param name="delimiter">Delimiter to be used</param>
+        /// <param name="stream">Base stream to read from</param>
         /// <returns>Enumeration of rows, Each row is a string[] of columns</returns>
-        public static IEnumerable<string[]> ReadDelimiter(StreamReader sr, char delimiter = ';')
+        public IEnumerable<string[]> ReadDelimiter(StreamReader stream)
         {
             List<string> columns = new List<string>();
             char[] buffer = new char[blockSize];
@@ -40,7 +39,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
             bool quoted = false;
             StringBuilder currentField = new StringBuilder();
 
-            while ((len = sr.ReadBlock(buffer, 0, blockSize)) > 0)
+            while ((len = stream.ReadBlock(buffer, 0, blockSize)) > 0)
             {
                 for (int i = 0; i < len; i++)
                 {
@@ -60,7 +59,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
                         quoted = !quoted;
                         continue;
                     }
-                    else if (buffer[i] == delimiter && !quoted)
+                    else if (buffer[i] == Delimiter && !quoted)
                     {
                         columns.Add(currentField.ToString());
                         currentField.Clear();
@@ -89,6 +88,33 @@ namespace RafaelEstevam.Simple.Spider.Helper
             if (end.Length == 1 && end[0].Length == 0) yield break;
 
             yield return end;
+        }
+
+        /// <summary>
+        /// Read CSV data from a data stream
+        /// </summary>
+        /// <param name="stream">Base stream to read from</param>
+        /// <param name="encoding">Encoding to be used</param>
+        /// <param name="delimiter">Delimiter to be used</param>
+        /// <returns>Enumeration of rows, Each row is a string[] of columns</returns>
+        public static IEnumerable<string[]> ReadDelimiter(Stream stream, Encoding encoding = null, char delimiter = ';')
+        {
+            FastCsv fast = new FastCsv();
+            if (encoding != null) fast.Encoding = encoding;
+            fast.Delimiter = delimiter;
+            return fast.ReadDelimiter(stream);
+        }
+        /// <summary>
+        /// Read CSV data from a text stream
+        /// </summary>
+        /// <param name="stream">Base stream to read from</param>
+        /// <param name="delimiter">Delimiter to be used</param>
+        /// <returns>Enumeration of rows, Each row is a string[] of columns</returns>
+        public static IEnumerable<string[]> ReadDelimiter(StreamReader stream, char delimiter = ';')
+        {
+            FastCsv fast = new FastCsv();
+            fast.Delimiter = delimiter;
+            return fast.ReadDelimiter(stream);
         }
     }
 }
