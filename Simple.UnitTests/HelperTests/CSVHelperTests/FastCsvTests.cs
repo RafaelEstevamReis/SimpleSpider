@@ -86,13 +86,13 @@ namespace RafaelEstevam.Simple.Spider.UnitTests.HelperTests.CSVHelperTests
         [Fact]
         public void FastCsv_FeatureSupport_WikipediaExample2()
         {
+            // must force \r\n to test in multiple enviroments
             string toTest =
 @"Year,Make,Model,Description,Price
 1997,Ford,E350,""ac, abs, moon"",3000.00
 1999,Chevy,""Venture """"Extended Edition"""""","""",4900.00
 1999,Chevy,""Venture """"Extended Edition, Very Large"""""",,5000.00
-1996,Jeep,Grand Cherokee,""MUST SELL!
-air, moon roof, loaded"",4799.00
+1996,Jeep,Grand Cherokee,""MUST SELL!" + "\r\n" + @"air, moon roof, loaded"",4799.00
 ";
 
             string[][] result = new string[][] {
