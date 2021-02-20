@@ -15,6 +15,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
 
         public Encoding Encoding { get; set; } = Encoding.UTF8;
         public char Delimiter { get; set; } = ';';
+        public bool SupportQuotedLineBreaks { get; set; } = true;
 
         /// <summary>
         /// Read CSV data from a data stream
@@ -23,8 +24,8 @@ namespace RafaelEstevam.Simple.Spider.Helper
         /// <returns>Enumeration of rows, Each row is a string[] of columns</returns>
         public IEnumerable<string[]> ReadDelimiter(Stream stream)
         {
-            using StreamReader sr = new StreamReader(stream, Encoding);
-            return ReadDelimiter(sr, Delimiter);
+            StreamReader sr = new StreamReader(stream, Encoding);
+            return ReadDelimiter(sr);
         }
         /// <summary>
         /// Read CSV data from a text stream
@@ -64,16 +65,30 @@ namespace RafaelEstevam.Simple.Spider.Helper
                         columns.Add(currentField.ToString());
                         currentField.Clear();
                     }
-                    else if (buffer[i] == '\n' && !quoted)
+                    else if (buffer[i] == '\n')
                     {
-                        columns.Add(currentField.ToString());
-                        currentField.Clear();
-                        yield return columns.ToArray();
-                        columns.Clear();
+                        if (!SupportQuotedLineBreaks || !quoted)
+                        {
+                            columns.Add(currentField.ToString());
+                            currentField.Clear();
+                            yield return columns.ToArray();
+                            columns.Clear();
+                        }
+                        else
+                        {
+                            currentField.Append(buffer[i]);
+                        }
                     }
-                    else if (buffer[i] == '\r' && !quoted)
+                    else if (buffer[i] == '\r')
                     {
-                        // ignore
+                        if (!SupportQuotedLineBreaks || !quoted)
+                        {
+                            //ignore
+                        }
+                        else
+                        {
+                            currentField.Append(buffer[i]);
+                        }
                     }
                     else
                     {

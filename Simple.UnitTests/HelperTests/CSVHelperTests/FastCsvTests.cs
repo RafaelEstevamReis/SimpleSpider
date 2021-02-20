@@ -122,5 +122,25 @@ air, moon roof, loaded"",4799.00
 
             Assert.Equal(result, lines[0]);
         }
+        [Fact]
+        public void FastCsv_MultiLineGarbage()
+        {
+            string toTest =
+@"NO_CAND"";""DS_CARGO"";""CD_CARGO"";""NR_CAND
+1234"";""A32"";""10"";""9999";
+            string[][] result = new string[][] {
+                new string[] { "NO_CAND", "DS_CARGO", "CD_CARGO", "NR_CAND" },
+                new string[] { "1234", "A32", "10", "9999" }
+            };
+
+            var ms = new MemoryStream(Encoding.ASCII.GetBytes(toTest));
+            FastCsv fast = new FastCsv()
+            {
+                SupportQuotedLineBreaks = false,
+            };
+            var lines = fast.ReadDelimiter(ms).ToArray();
+
+            Assert.Equal(result, lines);
+        }
     }
 }
