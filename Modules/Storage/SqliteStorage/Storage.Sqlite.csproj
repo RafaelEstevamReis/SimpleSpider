@@ -29,7 +29,7 @@ Commit dd4d7ba</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Simple.Sqlite" Version="0.4.79" />
+    <PackageReference Include="Simple.Sqlite" Version="0.5.100" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.7" />
   </ItemGroup>
 
