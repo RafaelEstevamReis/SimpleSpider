@@ -46,6 +46,14 @@ namespace RafaelEstevam.Simple.Spider.Helper
                 {
                     if (buffer[i] == '"')
                     {
+                        // double-quotes
+                        if (quoted && i < len - 1 && buffer[i + 1] == '"')
+                        {
+                            currentField.Append(buffer[i]);
+                            i++; // ignore this
+                            continue; // ignore next
+                        }
+
                         quoted = !quoted;
                         continue;
                     }
