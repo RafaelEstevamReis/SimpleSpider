@@ -1295,6 +1295,35 @@
             Helper to read huge csv files
             </summary>
         </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Helper.FastCsv.Encoding">
+            <summary>
+            Encoding to be used on read
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Helper.FastCsv.Delimiter">
+            <summary>
+            Delimiter character
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Helper.FastCsv.SupportQuotedLineBreaks">
+            <summary>
+            Defines if quoted fields can contain line-breaks
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Helper.FastCsv.ReadDelimiter(System.IO.Stream)">
+            <summary>
+            Read CSV data from a data stream
+            </summary>
+            <param name="stream">Base stream to read from</param>
+            <returns>Enumeration of rows, Each row is a string[] of columns</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Helper.FastCsv.ReadDelimiter(System.IO.StreamReader)">
+            <summary>
+            Read CSV data from a text stream
+            </summary>
+            <param name="stream">Base stream to read from</param>
+            <returns>Enumeration of rows, Each row is a string[] of columns</returns>
+        </member>
         <member name="M:RafaelEstevam.Simple.Spider.Helper.FastCsv.ReadDelimiter(System.IO.Stream,System.Text.Encoding,System.Char)">
             <summary>
             Read CSV data from a data stream
@@ -1308,7 +1337,7 @@
             <summary>
             Read CSV data from a text stream
             </summary>
-            <param name="sr">Base stream to read from</param>
+            <param name="stream">Base stream to read from</param>
             <param name="delimiter">Delimiter to be used</param>
             <returns>Enumeration of rows, Each row is a string[] of columns</returns>
         </member>

@@ -12,9 +12,17 @@ namespace RafaelEstevam.Simple.Spider.Helper
     public class FastCsv
     {
         int blockSize = 4 * 1024; // 4k
-
+        /// <summary>
+        /// Encoding to be used on read
+        /// </summary>
         public Encoding Encoding { get; set; } = Encoding.UTF8;
+        /// <summary>
+        /// Delimiter character
+        /// </summary>
         public char Delimiter { get; set; } = ';';
+        /// <summary>
+        /// Defines if quoted fields can contain line-breaks
+        /// </summary>
         public bool SupportQuotedLineBreaks { get; set; } = true;
 
         /// <summary>
