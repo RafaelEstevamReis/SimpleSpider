@@ -73,9 +73,11 @@ namespace RafaelEstevam.Simple.Spider.Helper
             }
 
             columns.Add(currentField.ToString());
-            currentField.Clear();
-            yield return columns.ToArray();
+            var end = columns.ToArray();
 
+            if (end.Length == 1 && end[0].Length == 0) yield break;
+
+            yield return end;
         }
     }
 }
