@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using RafaelEstevam.Simple.Spider.Helper;
 
-namespace RafaelEstevam.Simple.Spider.Helper
+namespace RafaelEstevam.Simple.Spider.Specialized.Apache
 {
-    public class ApacheListing
+    public class Listing
     {
         public Uri Uri { get; }
 
         Queue<Uri> toVisit;
         HashSet<string> visited;
 
-        public ApacheListing(string url)
+        public Listing(string url)
             : this(new Uri(url)) { }
-        public ApacheListing(Uri uri)
+        public Listing(Uri uri)
         {
             Uri = uri;
             toVisit = new Queue<Uri>();
@@ -125,23 +126,87 @@ namespace RafaelEstevam.Simple.Spider.Helper
             }
         }
 
-        public class ListingInfo
+        public static ListingDirectory BuildTree(IEnumerable<ListingInfo> listings)
         {
-            public bool IsDirectory { get; set; }
-            public Uri Parent { get; set; }
-            public Uri Uri { get; set; }
-            public DateTime LastModified { get; set; }
-            public long FileSize { get; set; }
-            public string Size { get; set; }
-            public string FileName { get; set; }
-            public string FileExtension { get; set; }
+            var allItems = listings.OrderBy(o => o.Uri.ToString())
+                                   .Distinct()
+                                   .ToArray(); // keep enumeration "active"
+
+            var root = allItems.First();
+
+            var dicDirs = allItems.Where(i => i.IsDirectory)
+                                  .ToDictionary(o => o.Uri, o => new ListingDirectory(o));
+
+            foreach (var i in allItems)
+            {
+                // remove "Parent dir link"
+                if (i.Parent.ToString().Length > i.Uri.ToString().Length) continue;
+
+                var parent = dicDirs[i.Parent];
+
+                if (i.IsDirectory) parent.Directories.Add(dicDirs[i.Uri]);
+                else parent.Files.Add(ListingFile.Create(i));
+            }
+
+            return dicDirs[root.Uri];
+        }
+    }
+
+    public class ListingDirectory
+    {
+        public ListingInfo Entity { get; }
+        public List<ListingDirectory> Directories { get; }
+        public List<ListingFile> Files { get; }
+
+        public ListingDirectory(ListingInfo entity)
+        {
+            Directories = new List<ListingDirectory>();
+            Files = new List<ListingFile>();
+            Entity = entity;
         }
 
-        public class ListingOptions
+        public bool HasFiles => Files.Count > 0;
+        public bool HasDirectories => Directories.Count > 0;
+        public bool IsEmpty => !(HasFiles || HasDirectories);
+
+        public IEnumerable<ListingDirectory> GetAllDescendants()
         {
-            public bool  NoParent { get; set; }
-            public ShouldFetch ShouldFetch { get; set; }
-            public bool AllowCaching { get; set; }
+            return Directories.SelectMany(d => d.GetAllDescendantsAndSelf());
+        }
+        public IEnumerable<ListingDirectory> GetAllDescendantsAndSelf()
+        {
+            yield return this;
+            foreach (var d in GetAllDescendants()) yield return d;
+        }
+
+        public override string ToString()
+        {
+            return Entity.ToString();
+        }
+    }
+    public class ListingFile : ListingInfo
+    {
+        private ListingFile() { }
+        public static ListingFile Create(ListingInfo entity)
+        {
+            if (entity.IsDirectory) throw new ArgumentException("Must be a file");
+
+            return new ListingFile()
+            {
+                IsDirectory = false,
+                Uri = entity.Uri,
+                Parent = entity.Parent,
+                FileName = entity.FileName,
+                FileExtension = entity.FileExtension,
+                FileSize = entity.FileSize,
+                Size = entity.Size,
+                LastModified = entity.LastModified,
+
+            };
+        }
+        public override string ToString()
+        {
+            return $"{FileName} [{Size}]";
         }
     }
 }
