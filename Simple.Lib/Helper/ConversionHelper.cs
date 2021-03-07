@@ -63,7 +63,11 @@ namespace RafaelEstevam.Simple.Spider.Helper
             if (double.TryParse(Text, NumberStyles.Any, CultureInfo.InvariantCulture, out double v)) return v;
             return OnError;
         }
-
+        /// <summary>
+        /// Extract digits, comma and dot from input string
+        /// </summary>
+        /// <param name="Text">Input string</param>
+        /// <returns>All digits, commas and dots</returns>
         public static string ExtractNumbers(string Text)
         {
             StringBuilder sb = new StringBuilder();

@@ -1196,6 +1196,13 @@
             <param name="OnError">Value returned if conversion fails</param>
             <returns>Value converted or OnError value</returns>
         </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Helper.ConversionHelper.ExtractNumbers(System.String)">
+            <summary>
+            Extract digits, comma and dot from input string
+            </summary>
+            <param name="Text">Input string</param>
+            <returns>All digits, commas and dots</returns>
+        </member>
         <member name="T:RafaelEstevam.Simple.Spider.Helper.Crc32">
             <summary>
             Internal use olly - DO NOT USE
@@ -2533,6 +2540,191 @@
         <member name="P:RafaelEstevam.Simple.Spider.SimpleSpider.SpiderData._Redirect301">
             <summary>
             DO NOT USE - Serializable version of internal dictionary
+            </summary>
+        </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Specialized.Apache.Listing">
+            <summary>
+            Apache listing
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Specialized.Apache.Listing.Uri">
+            <summary>
+            Gets current listing uri
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Specialized.Apache.Listing.#ctor(System.String)">
+            <summary>
+            Creates a new instance
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Specialized.Apache.Listing.#ctor(System.Uri)">
+            <summary>
+            Creates a new instance
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Specialized.Apache.Listing.GetListing(RafaelEstevam.Simple.Spider.Specialized.Apache.ListingOptions)">
+            <summary>
+            Start listing all files an folders starting with provided Uri
+            </summary>
+            <param name="options">Listing preferences and parameters</param>
+            <returns>All listings</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Specialized.Apache.Listing.BuildTree(System.Collections.Generic.IEnumerable{RafaelEstevam.Simple.Spider.Specialized.Apache.ListingInfo})">
+            <summary>
+            Builds a directory tree from a listing
+            </summary>
+            <param name="listings">Listing to build from</param>
+            <returns>A tree structure</returns>
+        </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingDirectory">
+            <summary>
+            Represents a directory listed
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingDirectory.Entity">
+            <summary>
+            Gets the underlying ListinInfo object
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingDirectory.Directories">
+            <summary>
+            Get sub directories
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingDirectory.Files">
+            <summary>
+            Gets all files in this directory
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingDirectory.#ctor(RafaelEstevam.Simple.Spider.Specialized.Apache.ListingInfo)">
+            <summary>
+            Creates a new instance
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingDirectory.HasFiles">
+            <summary>
+            Gets if this directory has files
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingDirectory.HasDirectories">
+            <summary>
+            Gets if this directory has sub directories
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingDirectory.IsEmpty">
+            <summary>
+            Gets if this directory has any files of sub directories
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingDirectory.GetAllDescendants">
+            <summary>
+            List all directories descendants of this one
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingDirectory.GetAllDescendantsAndSelf">
+            <summary>
+            List all directories descendants including this one
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingDirectory.ToString">
+            <summary>
+            String representation of current object
+            </summary>
+        </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingFile">
+            <summary>
+            Represents a file listed
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingFile.Create(RafaelEstevam.Simple.Spider.Specialized.Apache.ListingInfo)">
+            <summary>
+            Creates a new ListingFile instance from a ListingInfo
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingFile.ToString">
+            <summary>
+            String representation of current file
+            </summary>
+        </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingInfo">
+            <summary>
+            Listing item information
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingInfo.IsDirectory">
+            <summary>
+            Gets if current item is an directory
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingInfo.Parent">
+            <summary>
+            Uri from where this item were fetched
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingInfo.Uri">
+            <summary>
+            Item Uri
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingInfo.LastModified">
+            <summary>
+            LastModified column
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingInfo.FileSize">
+            <summary>
+            Calculated file size
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingInfo.Size">
+            <summary>
+            Reported file size in human readable form
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingInfo.FileName">
+            <summary>
+            File name
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingInfo.FileExtension">
+            <summary>
+            File extension
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingInfo.Equals(RafaelEstevam.Simple.Spider.Specialized.Apache.ListingInfo)">
+            <summary>
+            Check if argument is the same as this one
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingInfo.GetHashCode">
+            <summary>
+            Gets the hash code
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingInfo.ToString">
+            <summary>
+            String representation of this item
+            </summary>
+        </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingOptions">
+            <summary>
+            Options for apache listing 
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingOptions.NoParent">
+            <summary>
+            Do not follow links up
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingOptions.AllowCaching">
+            <summary>
+            Enables caching
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Specialized.Apache.ListingOptions.ShouldFetch">
+            <summary>
+            Callback the choose if a directory should be fetched 
             </summary>
         </member>
         <member name="T:RafaelEstevam.Simple.Spider.Storage.InMemoryStorage">

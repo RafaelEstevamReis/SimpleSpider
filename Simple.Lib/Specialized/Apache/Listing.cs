@@ -6,22 +6,37 @@ using RafaelEstevam.Simple.Spider.Helper;
 
 namespace RafaelEstevam.Simple.Spider.Specialized.Apache
 {
+    /// <summary>
+    /// Apache listing
+    /// </summary>
     public class Listing
     {
+        /// <summary>
+        /// Gets current listing uri
+        /// </summary>
         public Uri Uri { get; }
 
         Queue<Uri> toVisit;
         HashSet<string> visited;
-
+        /// <summary>
+        /// Creates a new instance
+        /// </summary>
         public Listing(string url)
             : this(new Uri(url)) { }
+        /// <summary>
+        /// Creates a new instance
+        /// </summary>
         public Listing(Uri uri)
         {
             Uri = uri;
             toVisit = new Queue<Uri>();
             visited = new HashSet<string>();
         }
-
+        /// <summary>
+        /// Start listing all files an folders starting with provided Uri
+        /// </summary>
+        /// <param name="options">Listing preferences and parameters</param>
+        /// <returns>All listings</returns>
         public IEnumerable<ListingInfo> GetListing(ListingOptions options)
         {
             toVisit.Enqueue(Uri);
@@ -186,7 +201,11 @@ namespace RafaelEstevam.Simple.Spider.Specialized.Apache
 
             return Convert.ToInt64(numbers);
         }
-
+        /// <summary>
+        /// Builds a directory tree from a listing
+        /// </summary>
+        /// <param name="listings">Listing to build from</param>
+        /// <returns>A tree structure</returns>
         public static ListingDirectory BuildTree(IEnumerable<ListingInfo> listings)
         {
             var allItems = listings.OrderBy(o => o.Uri.ToString())
@@ -210,64 +229,6 @@ namespace RafaelEstevam.Simple.Spider.Specialized.Apache
             }
 
             return dicDirs[root.Uri];
-        }
-    }
-
-    public class ListingDirectory
-    {
-        public ListingInfo Entity { get; }
-        public List<ListingDirectory> Directories { get; }
-        public List<ListingFile> Files { get; }
-
-        public ListingDirectory(ListingInfo entity)
-        {
-            Directories = new List<ListingDirectory>();
-            Files = new List<ListingFile>();
-            Entity = entity;
-        }
-
-        public bool HasFiles => Files.Count > 0;
-        public bool HasDirectories => Directories.Count > 0;
-        public bool IsEmpty => !(HasFiles || HasDirectories);
-
-        public IEnumerable<ListingDirectory> GetAllDescendants()
-        {
-            return Directories.SelectMany(d => d.GetAllDescendantsAndSelf());
-        }
-        public IEnumerable<ListingDirectory> GetAllDescendantsAndSelf()
-        {
-            yield return this;
-            foreach (var d in GetAllDescendants()) yield return d;
-        }
-
-        public override string ToString()
-        {
-            return Entity.ToString();
-        }
-    }
-    public class ListingFile : ListingInfo
-    {
-        private ListingFile() { }
-        public static ListingFile Create(ListingInfo entity)
-        {
-            if (entity.IsDirectory) throw new ArgumentException("Must be a file");
-
-            return new ListingFile()
-            {
-                IsDirectory = false,
-                Uri = entity.Uri,
-                Parent = entity.Parent,
-                FileName = entity.FileName,
-                FileExtension = entity.FileExtension,
-                FileSize = entity.FileSize,
-                Size = entity.Size,
-                LastModified = entity.LastModified,
-
-            };
-        }
-        public override string ToString()
-        {
-            return $"{FileName} [{Size}]";
         }
     }
 }
