@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Text;
 
 namespace RafaelEstevam.Simple.Spider.Helper
 {
@@ -61,6 +62,20 @@ namespace RafaelEstevam.Simple.Spider.Helper
         {
             if (double.TryParse(Text, NumberStyles.Any, CultureInfo.InvariantCulture, out double v)) return v;
             return OnError;
+        }
+
+        public static string ExtractNumbers(string Text)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var c in Text)
+            {
+                if (char.IsDigit(c)) sb.Append(c);
+                else if(c == ',') sb.Append(c);
+                else if(c == '.') sb.Append(c);
+            }
+
+            return sb.ToString();
         }
     }
 }
