@@ -25,6 +25,12 @@ namespace RafaelEstevam.Simple.Spider.Specialized.Apache
         public IEnumerable<ListingInfo> GetListing(ListingOptions options)
         {
             toVisit.Enqueue(Uri);
+            yield return new ListingInfo()
+            {
+                IsDirectory = true,
+                Parent = Uri,
+                Uri = Uri
+            };
 
             while (toVisit.TryDequeue(out Uri uri))
             {
@@ -73,9 +79,62 @@ namespace RafaelEstevam.Simple.Spider.Specialized.Apache
             visited.Add(url);
 
             var rows = doc.DocumentNode.SelectNodes("//table/tr");
-            return processRows(rows, uri, options);
+            var pre = doc.DocumentNode.SelectSingleNode("//pre");
+            if (rows != null)
+            {
+                return processRows(rows, uri, options);
+            }
+            else if (pre != null)
+            {
+                var nodes = pre.ChildNodes.ToArray(); // index-based
+                return processPreLines(nodes, uri, options);
+            }
+            else
+            {
+                throw new NotImplementedException("This version of the apache directory listing is not supported yet");
+            }
         }
+        private IEnumerable<ListingInfo> processPreLines( HtmlAgilityPack.HtmlNode[] nodes, Uri uri, ListingOptions options)
+        {
+            // [9] is header's <hr>
+            for (int i = 10; i < nodes.Length; i += 2)
+            {
+                if (nodes[i].Name == "hr") break;
 
+                var text = nodes[i + 1];
+                var textParts = text.InnerText.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+                var href = nodes[i].GetAttributeValue("href", "");
+                var lnkText = nodes[i].InnerText;
+                bool isParent = lnkText == "Parent Directory";
+                if(isParent) textParts = new string[] {" ", " ", "-" };
+
+                bool isDir = href.EndsWith("/");
+
+                if (isParent && options.NoParent) continue;
+
+                DateTime.TryParse(textParts[0] + " " + textParts[1], out DateTime lastModified);
+
+                string size = textParts[2];
+                long numSize = processTextualSize(size);
+
+                //bool isDir = dir || isParent;
+                string fileName = "";
+                if (!isDir) fileName = href;
+
+                yield return new ListingInfo()
+                {
+                    Parent = uri,
+                    Uri = new Uri(uri, href),
+                    LastModified = lastModified,
+                    Size = size,
+                    FileSize = numSize,
+                    IsDirectory = isDir,
+                    FileName = fileName,
+                    FileExtension = fileName.Split('.')[^1]
+                };
+            }
+        }
         private IEnumerable<ListingInfo> processRows(HtmlAgilityPack.HtmlNodeCollection rows, Uri uri, ListingOptions options)
         {
             foreach (var row in rows)
@@ -87,26 +146,16 @@ namespace RafaelEstevam.Simple.Spider.Specialized.Apache
                 bool dir = cells[0].InnerHtml.Contains("/icons/folder.gif");
                 bool isParent = cells[0].InnerHtml.Contains("/icons/back.gif");
 
+                if (isParent && options.NoParent) continue;
+
                 var href = cells[3].GetAttributeValue("href", "");
                 string strLastMod = cells[5].InnerText;
-                DateTime lastModified;
-                DateTime.TryParse(strLastMod, out lastModified);
+
+                DateTime.TryParse(strLastMod, out DateTime lastModified);
 
                 string size = cells[7].InnerText.Trim();
 
-                if (isParent && options.NoParent) continue;
-
-                long numSize = 0;
-                if (!size.Contains("-"))
-                {
-                    var numbers = ConversionHelper.ToDouble(ConversionHelper.ExtractNumbers(size), 0);
-
-                    if (size[^1] == 'K') numbers *= 1024;
-                    else if (size[^1] == 'M') numbers *= 1024 * 1024;
-                    else if (size[^1] == 'G') numbers *= 1024 * 1024 * 1024;
-
-                    numSize = Convert.ToInt64(numbers);
-                }
+                long numSize = processTextualSize(size);
 
                 bool isDir = dir || isParent;
                 string fileName = "";
@@ -125,6 +174,18 @@ namespace RafaelEstevam.Simple.Spider.Specialized.Apache
                 };
             }
         }
+        private long processTextualSize(string size)
+        {
+            if (size.Contains("-")) return 0;
+
+            var numbers = ConversionHelper.ToDouble(ConversionHelper.ExtractNumbers(size), 0);
+
+            if (size[^1] == 'K') numbers *= 1024;
+            else if (size[^1] == 'M') numbers *= 1024 * 1024;
+            else if (size[^1] == 'G') numbers *= 1024 * 1024 * 1024;
+
+            return Convert.ToInt64(numbers);
+        }
 
         public static ListingDirectory BuildTree(IEnumerable<ListingInfo> listings)
         {
@@ -140,7 +201,7 @@ namespace RafaelEstevam.Simple.Spider.Specialized.Apache
             foreach (var i in allItems)
             {
                 // remove "Parent dir link"
-                if (i.Parent.ToString().Length > i.Uri.ToString().Length) continue;
+                if (i.Parent.ToString().Length >= i.Uri.ToString().Length) continue;
 
                 var parent = dicDirs[i.Parent];
 
