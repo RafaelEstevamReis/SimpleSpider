@@ -886,34 +886,49 @@
             Creates a new ShouldUseCacheEventArgs
             </summary>
         </member>
-        <member name="T:RafaelEstevam.Simple.Spider.Extensions.RequestHeaderExtension">
+        <member name="T:RafaelEstevam.Simple.Spider.RequestHeaderExtension">
             <summary>
             Request Headers extensions
             </summary>
         </member>
-        <member name="M:RafaelEstevam.Simple.Spider.Extensions.RequestHeaderExtension.AddBaseRequestHeaders(RafaelEstevam.Simple.Spider.HeaderCollection)">
+        <member name="M:RafaelEstevam.Simple.Spider.RequestHeaderExtension.AddBaseRequestHeaders(RafaelEstevam.Simple.Spider.HeaderCollection)">
             <summary>
             Adds generic User-Agent, Accept-Language, Accept-Encoding, Accept, Dnt, and Upgrade-Insecure-Requests
             </summary>
             <param name="Header">Headers reference to add to</param>
         </member>
-        <member name="M:RafaelEstevam.Simple.Spider.Extensions.RequestHeaderExtension.AddFirefoxRequestHeaders(RafaelEstevam.Simple.Spider.HeaderCollection)">
+        <member name="M:RafaelEstevam.Simple.Spider.RequestHeaderExtension.AddFirefoxRequestHeaders(RafaelEstevam.Simple.Spider.HeaderCollection)">
             <summary>
             Adds AddBaseRequestHeaders() then a firefox UA
             </summary>
             <param name="Header">Headers reference to add to</param>
         </member>
-        <member name="M:RafaelEstevam.Simple.Spider.Extensions.RequestHeaderExtension.AddChromeW10RequestHeaders(RafaelEstevam.Simple.Spider.HeaderCollection)">
+        <member name="M:RafaelEstevam.Simple.Spider.RequestHeaderExtension.AddChromeW10RequestHeaders(RafaelEstevam.Simple.Spider.HeaderCollection)">
             <summary>
             Adds AddBaseRequestHeaders() then a Chrome Windows10 UA
             </summary>
             <param name="Header">Headers reference to add to</param>
         </member>
-        <member name="M:RafaelEstevam.Simple.Spider.Extensions.RequestHeaderExtension.AddChromeLinuxRequestHeaders(RafaelEstevam.Simple.Spider.HeaderCollection)">
+        <member name="M:RafaelEstevam.Simple.Spider.RequestHeaderExtension.AddChromeLinuxRequestHeaders(RafaelEstevam.Simple.Spider.HeaderCollection)">
             <summary>
             Adds AddBaseRequestHeaders() then a Chrome Linux X11 x64 UA
             </summary>
             <param name="Header">Headers reference to add to</param>
+        </member>
+        <member name="T:RafaelEstevam.Simple.Spider.SimpleSpiderExtensions">
+            <summary>
+            Extensions for SimpleSpider
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.SimpleSpiderExtensions.AddPages(RafaelEstevam.Simple.Spider.SimpleSpider,System.Collections.Generic.IEnumerable{RafaelEstevam.Simple.Spider.Wrappers.HTML.Anchor},RafaelEstevam.Simple.Spider.Link)">
+            <summary>
+            Adds Anchors to fech
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.SimpleSpiderExtensions.AddPage(RafaelEstevam.Simple.Spider.SimpleSpider,RafaelEstevam.Simple.Spider.Wrappers.HTML.Anchor,RafaelEstevam.Simple.Spider.Link)">
+            <summary>
+            Add an Anchor to fech
+            </summary>
         </member>
         <member name="T:RafaelEstevam.Simple.Spider.Extensions.TextExtensions">
             <summary>
@@ -990,6 +1005,81 @@
             <param name="Text">Text to be cleaned</param>
             <param name="ReplaceBySpace">Should replace whitespace chars with regular space?</param>
             <returns>New cleaned string</returns>
+        </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Extensions.UriExtensions">
+            <summary>
+            Helper for Uri stuff
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.UriExtensions.Combine(System.Uri,System.String,System.Boolean)">
+            <summary>
+            Combines a Uri with a Relative Url into a new combined Uri
+            </summary>
+            <param name="parent">Base Uri</param>
+            <param name="relative">Relative Url</param>
+            <param name="RemoveWhitespace">Indicates whenever it should remove all whitespaces from Url before combining</param>
+            <returns>New combined Uri</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.UriExtensions.HasFragment(System.Uri)">
+            <summary>
+            Returns if uri has a Fragment
+            </summary>
+            <param name="uri">Uri to check</param>
+            <returns>Returns true if it has a fragment, else otherwise</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.UriExtensions.HasQuery(System.Uri)">
+            <summary>
+            Returns if uri has a Query
+            </summary>
+            <param name="uri">Uri to check</param>
+            <returns>Returns true if it has a query, else otherwise</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.UriExtensions.RemoveFragment(System.Uri)">
+            <summary>
+            Removes the fragment from a Uri
+            </summary>
+            <param name="uri">Uri to remove from</param>
+            <returns>A new Uri without the fragment</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.UriExtensions.RemoveQuery(System.Uri)">
+            <summary>
+            Removes the query from a Uri
+            </summary>
+            <param name="uri">Uri to remove from</param>
+            <returns>A new Uri without the query</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.UriExtensions.RemoveQueryAndFragment(System.Uri)">
+            <summary>
+            Removes the query and/or the fragment from a Uri
+            </summary>
+            <param name="uri">Uri to remove from</param>
+            <returns>A new Uri without the query and fragment</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.UriExtensions.UrlWithoutHost(System.Uri)">
+            <summary>
+            Returns Url without the host part
+            </summary>
+            <param name="uri">Uri to return from</param>
+            <returns>Returns the Url</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.UriExtensions.GetQueryInfo(System.Uri)">
+            <summary>
+            Returns Uri.Query items as a NameValueCollection
+            </summary>
+            <param name="uri">Uri containing the query string to parse</param>
+            <returns>A System.Collections.Specialized.NameValueCollection of query parameters and values</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.UriExtensions.RemoveWhitespaceChars(System.String)">
+            <summary>
+            Remove whitespace from string <a href="https://stackoverflow.com/questions/6219454/efficient-way-to-remove-all-whitespace-from-string/30732794#30732794"/>
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Extensions.UriExtensions.SplitParts(System.Uri)">
+            <summary>
+            Splits a Uri in its components: Host + Segments without final slashes
+            </summary>
+            <param name="uri">Uri to be splitted</param>
+            <returns>Parts splitted</returns>
         </member>
         <member name="T:RafaelEstevam.Simple.Spider.Files">
             <summary>
@@ -2294,7 +2384,12 @@
         <member name="P:RafaelEstevam.Simple.Spider.Link.Parts">
             <summary>
             Gets all Uri Parts. Uses: 
-            <see cref="M:RafaelEstevam.Simple.Spider.Helper.UriHelper.SplitParts(System.Uri)"/>
+            <see cref="M:RafaelEstevam.Simple.Spider.Extensions.UriExtensions.SplitParts(System.Uri)"/>
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Link.GetQuery">
+            <summary>
+            Returns Uri.Query items as a NameValueCollection
             </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Link.GetHashCode">

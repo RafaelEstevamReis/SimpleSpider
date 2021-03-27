@@ -223,7 +223,7 @@ namespace RafaelEstevam.Simple.Spider
         }
         /// <summary>
         /// Gets all Uri Parts. Uses: 
-        /// <see cref="Helper.UriExtensions.SplitParts"/>
+        /// <see cref="Extensions.UriExtensions.SplitParts"/>
         /// </summary>
         public string[] Parts
         {
