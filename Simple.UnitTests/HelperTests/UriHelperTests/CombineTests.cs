@@ -12,7 +12,7 @@ namespace RafaelEstevam.Simple.Spider.UnitTests.HelperTests.UriHelperTests
         [InlineData("http://test.net/", "apache/", "http://test.net/apache/")]
         public void UriHelper_CombineTests_Simple(string parent, string relative, string result)
         {
-            string actual = UriHelper.Combine(new Uri(parent), relative).ToString();
+            string actual = UriExtensions.Combine(new Uri(parent), relative).ToString();
             Assert.Equal(result, actual);
         }
 
@@ -22,7 +22,7 @@ namespace RafaelEstevam.Simple.Spider.UnitTests.HelperTests.UriHelperTests
         public void UriHelper_CombineTests_WDhtml40_970917(string parent, string relative, string result)
         {
             //https://www.w3.org/TR/WD-html40-970917/htmlweb.html
-            Assert.Equal(result, UriHelper.Combine(new Uri(parent), relative).ToString());
+            Assert.Equal(result, UriExtensions.Combine(new Uri(parent), relative).ToString());
         }
     }
 }

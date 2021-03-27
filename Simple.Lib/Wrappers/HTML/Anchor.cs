@@ -52,7 +52,7 @@ namespace RafaelEstevam.Simple.Spider.Wrappers.HTML
         /// <returns>An Uri combined without whitespaces</returns>
         public Uri GetUri(Uri ParentUri)
         {
-            return UriHelper.Combine(ParentUri, Href, true);
+            return UriExtensions.Combine(ParentUri, Href, true);
         }
 
         /// <summary>

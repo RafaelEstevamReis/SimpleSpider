@@ -8,6 +8,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
     /// <summary>
     /// Helper for Uri stuff
     /// </summary>
+    [Obsolete("Use UriExtension instead")]
     public static class UriHelper
     {
         /// <summary>
@@ -107,7 +108,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
         /// </summary>
         /// <param name="uri">Uri to be splitted</param>
         /// <returns>Parts splitted</returns>
-        public static IEnumerable<string> SplitParts(Uri uri)
+        public static IEnumerable<string> SplitParts(this Uri uri)
         {
             yield return uri.Host;
 
