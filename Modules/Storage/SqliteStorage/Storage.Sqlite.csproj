@@ -16,7 +16,7 @@ See examples and documentation on the GitHub page</Description>
     <PackageTags>spider web crawling sqlite</PackageTags>
     <Version>0.8.7</Version>
     <PackageReleaseNotes>See examples and documentation on the GitHub page
-Commit c2e7d22
+Commit 5abba04
 </PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
