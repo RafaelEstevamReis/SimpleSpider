@@ -55,7 +55,7 @@ namespace RafaelEstevam.Simple.Spider.Downloaders
             IncludeRequestHeaders = new HeaderCollection();
             if (AddDefaultHeaders)
             {
-                Extensions.RequestHeaderExtension.AddBaseRequestHeaders(IncludeRequestHeaders);
+                IncludeRequestHeaders.AddBaseRequestHeaders();
                 IncludeRequestHeaders["Accept-Encoding"] = "gzip, deflate";
             }
         }

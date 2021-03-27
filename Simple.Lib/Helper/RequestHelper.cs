@@ -72,7 +72,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
             }
             httpClient = new HttpClient(hdl);
             RequestHeaders = new HeaderCollection();
-            Extensions.RequestHeaderExtension.AddBaseRequestHeaders(RequestHeaders);
+            RequestHeaders.AddBaseRequestHeaders();
             RequestHeaders["Accept-Encoding"] = "gzip, deflate";
         }
         /// <summary>
