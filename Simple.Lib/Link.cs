@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
@@ -222,17 +223,20 @@ namespace RafaelEstevam.Simple.Spider
         }
         /// <summary>
         /// Gets all Uri Parts. Uses: 
-        /// <see cref="Helper.UriHelper.SplitParts"/>
+        /// <see cref="Helper.UriExtensions.SplitParts"/>
         /// </summary>
         public string[] Parts
         {
             get
             {
-                return Helper.UriHelper.SplitParts(Uri)
-                                       .ToArray();
+                return Extensions.UriExtensions.SplitParts(Uri)
+                                               .ToArray();
             }
         }
-
+        /// <summary>
+        /// Returns Uri.Query items as a NameValueCollection
+        /// </summary>
+        public NameValueCollection GetQuery() => Extensions.UriExtensions.GetQueryInfo(Uri);
 
         /// <summary>
         /// Serves as the default hash function 

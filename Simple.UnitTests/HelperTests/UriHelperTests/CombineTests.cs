@@ -1,5 +1,5 @@
 ﻿using System;
-using RafaelEstevam.Simple.Spider.Helper;
+using RafaelEstevam.Simple.Spider.Extensions;
 using Xunit;
 
 namespace RafaelEstevam.Simple.Spider.UnitTests.HelperTests.UriHelperTests

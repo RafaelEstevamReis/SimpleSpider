@@ -1,6 +1,6 @@
 ﻿using System;
 using HtmlAgilityPack;
-using RafaelEstevam.Simple.Spider.Helper;
+using RafaelEstevam.Simple.Spider.Extensions;
 
 namespace RafaelEstevam.Simple.Spider.Wrappers.HTML
 {
