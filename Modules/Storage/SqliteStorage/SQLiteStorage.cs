@@ -206,7 +206,7 @@ namespace RafaelEstevam.Simple.Spider.Storage
         /// <returns>Stored items</returns>
         public IEnumerable<T> GetItemsWith(string Property, object Value)
         {
-            return db.ExecuteQuery<T>($"SELECT * FROM {TableNameOfT} WHERE {Property} = @Value ", new { Value });
+            return db.Query<T>($"SELECT * FROM {TableNameOfT} WHERE {Property} = @Value ", new { Value });
         }
         /// <summary>
         /// Retrieve items collected between [start] and [end]
@@ -214,7 +214,7 @@ namespace RafaelEstevam.Simple.Spider.Storage
         /// <returns>Stored items</returns>
         public IEnumerable<T> GetItemsCollectedBeween(DateTime start, DateTime end)
         {
-            return db.ExecuteQuery<T>(@$"SELECT {TableNameOfT}.* 
+            return db.Query<T>(@$"SELECT {TableNameOfT}.* 
  FROM {TableNameOfT}
  INNER JOIN ObjectReference ON ObjectReference.InsertedItem = {TableNameOfT}._rowid_
  WHERE ObjectReference.CrawTime BETWEEN @start AND @end ", new { start, end });
@@ -225,7 +225,7 @@ namespace RafaelEstevam.Simple.Spider.Storage
         /// <returns>Stored items</returns>
         public IEnumerable<T> GetItemsCollectedAt(Uri collectedUri)
         {
-            return db.ExecuteQuery<T>(@$"SELECT {TableNameOfT}.* 
+            return db.Query<T>(@$"SELECT {TableNameOfT}.* 
  FROM {TableNameOfT}
  INNER JOIN ObjectReference ON ObjectReference.InsertedItem = {TableNameOfT}._rowid_
  WHERE ObjectReference.Uri = @uri ", new { uri = collectedUri.ToString() });
@@ -237,7 +237,7 @@ namespace RafaelEstevam.Simple.Spider.Storage
         /// <returns>Stored items</returns>
         public IEnumerable<T> GetItemsWithUriContaining(string uriContains)
         {
-            return db.ExecuteQuery<T>(@$"SELECT {TableNameOfT}.* 
+            return db.Query<T>(@$"SELECT {TableNameOfT}.* 
  FROM {TableNameOfT}
  INNER JOIN ObjectReference ON ObjectReference.InsertedItem = {TableNameOfT}._rowid_
  WHERE ObjectReference.Uri LIKE @uri ", new { uri = $"%{uriContains}%" });
