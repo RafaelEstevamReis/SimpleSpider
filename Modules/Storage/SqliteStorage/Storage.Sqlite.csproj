@@ -14,9 +14,9 @@ See examples and documentation on the GitHub page</Description>
     <RepositoryUrl>https://github.com/RafaelEstevamReis/SimpleSpider</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>spider web crawling sqlite</PackageTags>
-    <Version>0.8.7</Version>
+    <Version>0.8.9</Version>
     <PackageReleaseNotes>See examples and documentation on the GitHub page
-Commit 5abba04
+Commit 02c9b0d
 </PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
