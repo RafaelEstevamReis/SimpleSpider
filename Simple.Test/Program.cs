@@ -28,7 +28,7 @@ namespace RafaelEstevam.Simple.Spider.Test
             //ModulesSamples.Storage_Sqlite_Quotes.run();
 
             // Specialied modules
-            Sample.Specialized.ApacheListing.run();
+            //Sample.Specialized.ApacheListing.run();
 
             // IgnoreMe file to internal screwing around
             //  Add a file named IgnoreMe.cs with a static void run() on it to play around with the spider
