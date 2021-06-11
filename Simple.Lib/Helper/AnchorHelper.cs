@@ -33,7 +33,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
                 string sHref = htmlContent[href..end];
 
                 if (sHref.Contains('"')) quote = '"';
-                if (sHref.Contains('\'')) quote = '\'';
+                else if (sHref.Contains('\'')) quote = '\'';
 
                 sHref = sHref.Substring(sHref.IndexOf(quote) + 1);
                 sHref = sHref.Substring(0, sHref.IndexOf(quote));
