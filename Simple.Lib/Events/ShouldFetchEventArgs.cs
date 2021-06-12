@@ -89,6 +89,17 @@
             return this;
         }
 
+        public ShouldFetchEventArgs AllowIfIsRoot()
+        {
+            if (Link.Uri.PathAndQuery == "/") Cancel = true;
+            return this;
+        }
+        public ShouldFetchEventArgs CancelIfIsRoot()
+        {
+            if (Link.Uri.PathAndQuery == "/") Cancel = false;
+            return this;
+        }
+
         #endregion
 
         /// <summary>
