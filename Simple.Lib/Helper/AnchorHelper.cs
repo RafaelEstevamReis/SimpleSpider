@@ -39,7 +39,10 @@ namespace RafaelEstevam.Simple.Spider.Helper
                 sHref = sHref.Substring(0, sHref.IndexOf(quote));
 
                 if (sHref.StartsWith("javascript:")) continue;
-                yield return request.Combine(sHref);
+                var uri = request.Combine(sHref);
+                if (uri == null) continue;
+
+                yield return uri;
             }
         }
 
