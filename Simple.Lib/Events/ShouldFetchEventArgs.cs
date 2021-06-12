@@ -51,6 +51,17 @@
 
         #region Enable Cancel chain
 
+        public ShouldFetchEventArgs CancelAll(string PartialUrl)
+        {
+            Cancel = true;
+            return this;
+        }
+        public ShouldFetchEventArgs AllowAll(string PartialUrl)
+        {
+            Cancel = false;
+            return this;
+        }
+
         /// <summary>
         /// Sets [Cancel] to True if Link.Uri contains [PartialUrl]
         /// </summary>
