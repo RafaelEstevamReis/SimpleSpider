@@ -91,12 +91,12 @@
 
         public ShouldFetchEventArgs AllowIfIsRoot()
         {
-            if (Link.Uri.PathAndQuery == "/") Cancel = true;
+            if (Link.Uri.PathAndQuery == "/") Cancel = false;
             return this;
         }
         public ShouldFetchEventArgs CancelIfIsRoot()
         {
-            if (Link.Uri.PathAndQuery == "/") Cancel = false;
+            if (Link.Uri.PathAndQuery == "/") Cancel = true;
             return this;
         }
 
