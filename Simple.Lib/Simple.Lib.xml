@@ -550,6 +550,28 @@
             Return the WebRequest for this WebClient
             </summary>
         </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Error">
+            <summary>
+            Represents a method that passes an error info
+            </summary>
+            <param name="Sender">The source of the event</param>
+            <param name="args">Object containing error data</param>
+        </member>
+        <member name="T:RafaelEstevam.Simple.Spider.ErrorEventArgs">
+            <summary>
+            Arguments to de Error event
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.ErrorEventArgs.Exception">
+            <summary>
+            Exception data
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.ErrorEventArgs.Source">
+            <summary>
+            Source from this event
+            </summary>
+        </member>
         <member name="T:RafaelEstevam.Simple.Spider.FetchComplete">
             <summary>
             Represents a method that passes fetch completed data
@@ -2511,6 +2533,11 @@
         <member name="E:RafaelEstevam.Simple.Spider.SimpleSpider.ShouldUseCache">
             <summary>
             Check if some cached resource should be renewed
+            </summary>
+        </member>
+        <member name="E:RafaelEstevam.Simple.Spider.SimpleSpider.OnError">
+            <summary>
+            Reports errors on spider execution
             </summary>
         </member>
         <member name="P:RafaelEstevam.Simple.Spider.SimpleSpider.Configuration">

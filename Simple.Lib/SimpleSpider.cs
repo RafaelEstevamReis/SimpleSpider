@@ -52,6 +52,9 @@ namespace RafaelEstevam.Simple.Spider
         /// Check if some cached resource should be renewed
         /// </summary>
         public event ShouldUseCache ShouldUseCache;
+        /// <summary>
+        /// Reports errors on spider execution
+        /// </summary>
         public event Error OnError;
 
         /// <summary>
