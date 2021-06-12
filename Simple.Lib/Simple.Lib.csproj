@@ -13,12 +13,12 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>spider web crawling</PackageTags>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>0.8.1</Version>
+    <Version>0.8.2</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>A simple to use and modular spider for web crawling with an example rich GitHub repository
 (work in progress)</Description>
     <PackageReleaseNotes>See examples and documentation on the GitHub page
-Commit 5abba04
+Commit 53d4d6b
 Release Candidate
 </PackageReleaseNotes>
   </PropertyGroup>
