@@ -374,6 +374,7 @@ namespace RafaelEstevam.Simple.Spider
         {
             foreach (var p in PagesToVisit)
             {
+                if (p == null) continue;
                 yield return AddPage(p, SourcePage);
             }
         }
