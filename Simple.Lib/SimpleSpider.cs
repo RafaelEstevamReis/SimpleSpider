@@ -52,6 +52,7 @@ namespace RafaelEstevam.Simple.Spider
         /// Check if some cached resource should be renewed
         /// </summary>
         public event ShouldUseCache ShouldUseCache;
+        public event Error OnError;
 
         /// <summary>
         /// Spider configurations and parameters
@@ -217,13 +218,14 @@ namespace RafaelEstevam.Simple.Spider
 
                 var links = AnchorHelper.GetAnchors(args.Link.Uri, args.Html);
 
-                // Add the collected links to the queue
+                //Add the collected links to the queue
                 AddPages(links, args.Link);
             }
             catch (Exception ex)
             {
                 Configuration.Auto_AnchorsLinks = false;
                 log.Error(ex, "Failed while auto-collecting links. Auto-collection disabled");
+                OnError?.Invoke(this, new ErrorEventArgs() { Source = FetchEventArgs.EventSource.Scheduler, Exception = ex });
             }
         }
         private void fetchRewrite_AutoRewrite(object Sender, FetchRewriteEventArgs args)
@@ -241,6 +243,7 @@ namespace RafaelEstevam.Simple.Spider
             {
                 Configuration.Auto_RewriteRemoveFragment = false;
                 log.Error(ex, "Failed while auto-removing fragments. Auto-removing disabled");
+                OnError?.Invoke(this, new ErrorEventArgs() { Source = FetchEventArgs.EventSource.Scheduler, Exception = ex });
             }
         }
 
@@ -318,6 +321,7 @@ namespace RafaelEstevam.Simple.Spider
                 catch (Exception ex)
                 {
                     log.Error(ex, "Failed to save spider internal data");
+                    OnError?.Invoke(this, new ErrorEventArgs() { Source = FetchEventArgs.EventSource.Scheduler, Exception = ex });
                 }
             }
             try
@@ -327,6 +331,7 @@ namespace RafaelEstevam.Simple.Spider
             catch (Exception ex)
             {
                 log.Error(ex, "Failed to save storage data");
+                OnError?.Invoke(this, new ErrorEventArgs() { Source = FetchEventArgs.EventSource.Scheduler, Exception = ex });
             }
         }
 
@@ -459,10 +464,12 @@ namespace RafaelEstevam.Simple.Spider
             {
                 log.Error(ex, "Failed to generate cache with an IO Exception. Spider will be paused");
                 Configuration.Paused = true;
+                OnError?.Invoke(this, new ErrorEventArgs() { Source = FetchEventArgs.EventSource.Downloader, Exception = ex });
             }
             catch (Exception ex)
             {
                 log.Error(ex, "Failed to generate cache");
+                OnError?.Invoke(this, new ErrorEventArgs() { Source = FetchEventArgs.EventSource.Downloader, Exception = ex });
             }
             args.Source = FetchEventArgs.EventSource.Downloader;
 
@@ -516,6 +523,7 @@ namespace RafaelEstevam.Simple.Spider
                     catch (Exception ex)
                     {
                         log.Error(ex, "Error on ShouldUseCache event");
+                        OnError?.Invoke(this, new ErrorEventArgs() { Source = FetchEventArgs.EventSource.Cacher, Exception = ex });
                     }
                 }
             }
@@ -566,6 +574,7 @@ namespace RafaelEstevam.Simple.Spider
                     catch (Exception ex)
                     {
                         log.Error(ex, "Error on FetchComplete event");
+                        OnError?.Invoke(this, new ErrorEventArgs() { Source = FetchEventArgs.EventSource.Scheduler, Exception = ex });
                     }
                 }
             }
