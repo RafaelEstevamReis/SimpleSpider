@@ -17,7 +17,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
         /// <param name="parent">Base Uri</param>
         /// <param name="relative">Relative Url</param>
         /// <param name="RemoveWhitespace">Indicates whenever it should remove all whitespaces from Url before combining</param>
-        /// <returns>New combined Uri</returns>
+        /// <returns>New combined Uri; returns nulls if an invalid path is given</returns>
         public static Uri Combine(this Uri parent, string relative, bool RemoveWhitespace = false)
         {
             Uri uri;
