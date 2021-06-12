@@ -20,9 +20,16 @@ namespace RafaelEstevam.Simple.Spider.Helper
         /// <returns>New combined Uri</returns>
         public static Uri Combine(this Uri parent, string relative, bool RemoveWhitespace = false)
         {
+            Uri uri;
+            if (relative.Contains("://"))
+            {
+                // full link ?
+                if (Uri.TryCreate(relative, UriKind.Absolute, out uri)) return uri;
+            }
             if (RemoveWhitespace) relative = RemoveWhitespaceChars(relative);
 
-            return new Uri(parent, relative);
+            if (Uri.TryCreate(parent, relative, out uri)) return uri;
+            return null;
         }
 
         /// <summary>
