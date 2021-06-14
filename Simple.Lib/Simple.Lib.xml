@@ -831,6 +831,16 @@
             Informs reason to do not fetch
             </summary>
         </member>
+        <member name="M:RafaelEstevam.Simple.Spider.ShouldFetchEventArgs.CancelAll">
+            <summary>
+            Sets [Cancel] to True
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.ShouldFetchEventArgs.AllowAll">
+            <summary>
+            Sets [Cancel] to False
+            </summary>
+        </member>
         <member name="M:RafaelEstevam.Simple.Spider.ShouldFetchEventArgs.CancelIfContains(System.String)">
             <summary>
             Sets [Cancel] to True if Link.Uri contains [PartialUrl]
@@ -854,6 +864,16 @@
             Sets [Cancel] to FALSE if Link.Uri DO NOT contains [PartialUrl]
             </summary>
             <param name="PartialUrl">String to be searched</param>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.ShouldFetchEventArgs.AllowIfIsRoot">
+            <summary>
+            Sets [Cancel] to False, if PathAndQuery is "/"
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.ShouldFetchEventArgs.CancelIfIsRoot">
+            <summary>
+            Sets [Cancel] to True, if PathAndQuery is "/"
+            </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.ShouldFetchEventArgs.#ctor(RafaelEstevam.Simple.Spider.Link)">
             <summary>
@@ -1852,7 +1872,7 @@
             <param name="parent">Base Uri</param>
             <param name="relative">Relative Url</param>
             <param name="RemoveWhitespace">Indicates whenever it should remove all whitespaces from Url before combining</param>
-            <returns>New combined Uri</returns>
+            <returns>New combined Uri; returns nulls if an invalid path is given</returns>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Helper.UriHelper.HasFragment(System.Uri)">
             <summary>
