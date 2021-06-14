@@ -50,13 +50,18 @@
         public Reasons Reason { get; set; } = Reasons.None;
 
         #region Enable Cancel chain
-
-        public ShouldFetchEventArgs CancelAll(string PartialUrl)
+        /// <summary>
+        /// Sets [Cancel] to True
+        /// </summary>
+        public ShouldFetchEventArgs CancelAll()
         {
             Cancel = true;
             return this;
         }
-        public ShouldFetchEventArgs AllowAll(string PartialUrl)
+        /// <summary>
+        /// Sets [Cancel] to False
+        /// </summary>
+        public ShouldFetchEventArgs AllowAll()
         {
             Cancel = false;
             return this;
@@ -100,11 +105,17 @@
             return this;
         }
 
+        /// <summary>
+        /// Sets [Cancel] to False, if PathAndQuery is "/"
+        /// </summary>
         public ShouldFetchEventArgs AllowIfIsRoot()
         {
             if (Link.Uri.PathAndQuery == "/") Cancel = false;
             return this;
         }
+        /// <summary>
+        /// Sets [Cancel] to True, if PathAndQuery is "/"
+        /// </summary>
         public ShouldFetchEventArgs CancelIfIsRoot()
         {
             if (Link.Uri.PathAndQuery == "/") Cancel = true;
