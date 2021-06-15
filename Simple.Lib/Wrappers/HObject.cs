@@ -380,6 +380,10 @@ namespace RafaelEstevam.Simple.Spider.Wrappers
                 .Where(t => !string.IsNullOrEmpty(t))
                 .ToArray();
         }
+        /// <summary>
+        /// Get all child nodes and self recursively
+        /// </summary>
+        public IEnumerable<HtmlNode> GetAllChildsNodesAndSelf() => getAllNodesAndSelf(nodes);
 
         private static IEnumerable<HtmlNode> getAllNodesAndSelf(IEnumerable<HtmlNode> nodes)
         {
