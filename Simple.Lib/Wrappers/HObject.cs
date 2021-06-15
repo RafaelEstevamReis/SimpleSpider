@@ -296,6 +296,7 @@ namespace RafaelEstevam.Simple.Spider.Wrappers
         {
             return new HObject(xpath(Query).ToArray());
         }
+
         private IEnumerable<HtmlNode> xpath(string Query)
         {
             foreach (var n in nodes)
@@ -355,6 +356,41 @@ namespace RafaelEstevam.Simple.Spider.Wrappers
         public string[] TrimAll()
         {
             return nodes.Select(x => x.InnerText.Trim()).ToArray();
+        }
+        /// <summary>
+        /// Returns an array with all #text elements contents
+        /// </summary>
+        public string[] GetTexts()
+        {
+            //return nodes.SelectMany(x => x.ChildNodes).Select(x => x.InnerText.Trim()).ToArray();
+            return getAllNodesAndSelf(nodes)
+                .Where(n => n.NodeType == HtmlNodeType.Text)
+                .Select(n => n.InnerText)
+                .ToArray();
+        }
+
+        /// <summary>
+        /// Returns an array with all #text elements contents trimmed
+        /// </summary>
+        public string[] TrimAllText()
+        {
+            //return nodes.SelectMany(x => x.ChildNodes).Select(x => x.InnerText.Trim()).ToArray();
+            return GetTexts()
+                .Select(t => t.Trim())
+                .Where(t => !string.IsNullOrEmpty(t))
+                .ToArray();
+        }
+
+        private static IEnumerable<HtmlNode> getAllNodesAndSelf(IEnumerable<HtmlNode> nodes)
+        {
+            return nodes.SelectMany(n => getAllNodesAndSelf(n));
+        }
+        private static IEnumerable<HtmlNode> getAllNodesAndSelf(HtmlNode node)
+        {
+            yield return node;
+
+            var childs = getAllNodesAndSelf(node.ChildNodes.Cast<HtmlNode>());
+            foreach (var c in childs) yield return c;
         }
 
         /// <summary>
