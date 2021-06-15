@@ -3210,6 +3210,16 @@
             </summary>
             <returns>String array of the values trimmed</returns>
         </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HObject.GetTexts">
+            <summary>
+            Returns an array with all #text elements contents
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HObject.TrimAllText">
+            <summary>
+            Returns an array with all #text elements contents trimmed
+            </summary>
+        </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HObject.GetAttributeValue(System.String)">
             <summary>
             Gets the value of attribute named AttributeName of the first item
