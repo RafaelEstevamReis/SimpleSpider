@@ -1860,6 +1860,73 @@
             <param name="formData">Form data to be encoded</param>
             <returns>A FormUrlEncodedContent object</returns>
         </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Helper.RequestInfo">
+            <summary>
+            Helper class to get information with request
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Helper.RequestInfo.SendRequest(System.Uri)">
+            <summary>
+            Send a Get request to an Uri
+            </summary>
+            <returns>Information about the request</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Helper.RequestInfo.SendRequest(System.Uri,System.Net.Http.HttpMethod,System.Net.Http.HttpContent)">
+            <summary>
+            Send a request to an Uri
+            </summary>
+            <returns>Information about the request</returns>
+        </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Helper.RequestInfo.Result">
+            <summary>
+            Request result information
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Helper.RequestInfo.Result.RequestUri">
+            <summary>
+            Uri used
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Helper.RequestInfo.Result.RequestMethod">
+            <summary>
+            Method used
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Helper.RequestInfo.Result.StatusCode">
+            <summary>
+            Status code received
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Helper.RequestInfo.Result.ReasonPhrase">
+            <summary>
+            Status reason phrase
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Helper.RequestInfo.Result.RequestHeaders">
+            <summary>
+            Headers used on request
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Helper.RequestInfo.Result.ResponseHeaders">
+            <summary>
+            Headers received on response
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Helper.RequestInfo.Result.RawContent">
+            <summary>
+            Content received
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Helper.RequestInfo.Result.Content">
+            <summary>
+            Content received as UTF8
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Helper.RequestInfo.Result.RequestDuration">
+            <summary>
+            Request duration time
+            </summary>
+        </member>
         <member name="T:RafaelEstevam.Simple.Spider.Helper.UriHelper">
             <summary>
             Helper for Uri stuff
