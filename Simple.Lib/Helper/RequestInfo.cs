@@ -13,7 +13,17 @@ namespace RafaelEstevam.Simple.Spider.Helper
         static readonly HttpClient httpClient;
         static RequestInfo()
         {
-            httpClient = new HttpClient();
+            httpClient = new HttpClient(new HttpClientHandler()
+            {
+                AllowAutoRedirect = false,
+
+#if NETSTANDARD2_1
+                AutomaticDecompression = DecompressionMethods.GZip 
+                                         | DecompressionMethods.Deflate,
+#else
+                AutomaticDecompression = DecompressionMethods.All,
+#endif
+            });
         }
         /// <summary>
         /// Send a Get request to an Uri
@@ -35,7 +45,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
 
             var duration = DateTime.UtcNow - dtInicio;
 
-            var rawData = RequestHelper.loadResponseDataDecompress(resp.Content.ReadAsByteArrayAsync().Result);
+            var rawData = resp.Content.ReadAsByteArrayAsync().Result;
             Result result = new Result
             {
                 RequestUri = uri,
@@ -48,6 +58,12 @@ namespace RafaelEstevam.Simple.Spider.Helper
                 RequestDuration = duration,
                 Content = Encoding.UTF8.GetString(rawData)
             };
+
+            if (result.StatusCode == HttpStatusCode.Moved
+               || result.StatusCode == HttpStatusCode.MovedPermanently)
+            {
+                result.Location = result.ResponseHeaders["Location"];
+            }
 
             return result;
         }
@@ -92,6 +108,10 @@ namespace RafaelEstevam.Simple.Spider.Helper
             /// Request duration time
             /// </summary>
             public TimeSpan RequestDuration { get; set; }
+            /// <summary>
+            /// Location Header
+            /// </summary>
+            public string Location { get; internal set; }
         }
     }
 }
