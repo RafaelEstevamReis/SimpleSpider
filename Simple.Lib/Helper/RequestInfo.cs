@@ -35,16 +35,19 @@ namespace RafaelEstevam.Simple.Spider.Helper
 
             var duration = DateTime.UtcNow - dtInicio;
 
-            Result result = new Result();
-            result.RequestUri = uri;
-            result.RequestMethod = method;
-            result.RequestHeaders = RequestHelper.processHeaders(req.Headers);
-            result.StatusCode = resp.StatusCode;
-            result.ReasonPhrase = resp.ReasonPhrase;
-            result.ResponseHeaders = RequestHelper.processHeaders(resp.Headers);
-            result.RawContent = RequestHelper.loadResponseDataDecompress(resp.Content.ReadAsByteArrayAsync().Result);
-            result.Content = Encoding.UTF8.GetString(result.RawContent);
-            result.RequestDuration = duration;
+            var rawData = RequestHelper.loadResponseDataDecompress(resp.Content.ReadAsByteArrayAsync().Result);
+            Result result = new Result
+            {
+                RequestUri = uri,
+                RequestMethod = method,
+                RequestHeaders = RequestHelper.processHeaders(req.Headers),
+                StatusCode = resp.StatusCode,
+                ReasonPhrase = resp.ReasonPhrase,
+                ResponseHeaders = RequestHelper.processHeaders(resp.Headers),
+                RawContent = rawData,
+                RequestDuration = duration,
+                Content = Encoding.UTF8.GetString(rawData)
+            };
 
             return result;
         }
