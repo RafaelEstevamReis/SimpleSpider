@@ -219,12 +219,29 @@ namespace RafaelEstevam.Simple.Spider
                 if (!Configuration.Auto_AnchorsLinks) return;
                 if (string.IsNullOrEmpty(args.Html)) return;
 
-                var links = AnchorHelper.GetAnchors(args.Link.Uri, args.Html);
+                if (args.Html.StartsWith("<?xml"))
+                {
+                    // rss
+                    foreach (var link in args.Html.Split("<link"))
+                    {
+                        if (link == null) continue;
+                        if (link.Length < 5) continue;
+                        if (link[1] == '?') continue;
 
-                //Add the collected links to the queue
-                AddPages(links, args.Link);
+                        var content = link.Substring(link.IndexOf('>') + 1);
+                        content = content.Substring(0, content.IndexOf('<'));
+
+                        if (content.StartsWith("http")) AddPage(new Uri(content), args.Link);
+                    }
+                }
+                else
+                {
+                    var links = AnchorHelper.GetAnchors(args.Link.Uri, args.Html);
+                    //Add the collected links to the queue
+                    AddPages(links, args.Link);
+                }
             }
-            catch (Exception ex)
+            catch (IOException ex)
             {
                 Configuration.Auto_AnchorsLinks = false;
                 log.Error(ex, "Failed while auto-collecting links. Auto-collection disabled");
