@@ -2197,6 +2197,12 @@
             </summary>
             <param name="DownloadDelay">Config.DownloadDelay in milliseconds</param>
         </member>
+        <member name="M:RafaelEstevam.Simple.Spider.InitializationParams.Default003(System.Int32)">
+            <summary>
+            Frozen in time default: RequestCacher, HttpClientDownloader with headers, NoLimitCaching, AutoAnchorsLinks enabled, and rewrites fragments
+            </summary>
+            <param name="DownloadDelay">Config.DownloadDelay in milliseconds</param>
+        </member>
         <member name="T:RafaelEstevam.Simple.Spider.Interfaces.ICacher">
             <summary>
             Represents a module to fetch resources from the disk/memory
