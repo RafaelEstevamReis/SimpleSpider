@@ -160,6 +160,10 @@ namespace RafaelEstevam.Simple.Spider
             return $"HeaderCollection[{dicValues.Count}]";
         }
 
+        public bool TryGet(string key, out string value)
+        {
+            return dicValues.TryGetValue(key, out value);
+        }
 
         /// <summary>
         /// Saves the Header in a line-based http-like format
