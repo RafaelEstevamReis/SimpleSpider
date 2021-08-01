@@ -163,15 +163,21 @@ namespace RafaelEstevam.Simple.Spider
 
             if (Configuration.Logger == null)
             {
-                Configuration.Spider_LogFile = Path.Combine(spiderPath.FullName, $"{ spiderName }.log");
-
-                Configuration.Logger = new LoggerConfiguration()
-                   .MinimumLevel.Debug()
-                   .WriteTo.Console()
-                   .WriteTo.File(Configuration.Spider_LogFile, rollingInterval: RollingInterval.Day)
-                   .CreateLogger();
+                initializeWithSerilog(spiderName, spiderPath);
             }
         }
+
+        private void initializeWithSerilog(string spiderName, DirectoryInfo spiderPath)
+        {
+            Configuration.Spider_LogFile = Path.Combine(spiderPath.FullName, $"{ spiderName }.log");
+
+            Configuration.Logger = new LoggerConfiguration()
+               .MinimumLevel.Debug()
+               .WriteTo.Console()
+               .WriteTo.File(Configuration.Spider_LogFile, rollingInterval: RollingInterval.Day)
+               .CreateLogger();
+        }
+
         private void initializeQueues()
         {
             qAdded = new ConcurrentQueue<Link>();
