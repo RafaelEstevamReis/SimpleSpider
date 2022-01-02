@@ -17,6 +17,7 @@ namespace RafaelEstevam.Simple.Spider
                 //will not affect this template
                 .SetCacher(new ContentCacher())
                 .SetDownloader(new WebClientDownloader())
+                .SetLinkCollector(new LinkProcessors.SimpleProcessor())
                 .SetStorage(null)
                 .SetConfig(c => c.Enable_Caching()
                                  .Set_CachingNoLimit()
@@ -40,6 +41,7 @@ namespace RafaelEstevam.Simple.Spider
                 //will not affect this template
                 .SetCacher(new ContentCacher()) // more stable for the time (the only one, but still)
                 .SetDownloader(new WebClientDownloader())
+                .SetLinkCollector(new LinkProcessors.SimpleProcessor())
                 .SetStorage(null)
                 .SetConfig(c => c.Disable_AutoRewriteRemoveFragment()
                                  .Enable_Caching()
@@ -64,6 +66,7 @@ namespace RafaelEstevam.Simple.Spider
                 //will not affect this template
                 .SetCacher(new ContentCacher()) // more stable for the time (the only one, but still)
                 .SetDownloader(new HttpClientDownloader(true))
+                .SetLinkCollector(new LinkProcessors.SimpleProcessor())
                 .SetStorage(null)
                 .SetConfig(c => c.Enable_AutoRewriteRemoveFragment()
                                  .Enable_Caching()
@@ -87,6 +90,7 @@ namespace RafaelEstevam.Simple.Spider
                 //will not affect this template
                 .SetCacher(new RequestCacher())
                 .SetDownloader(new HttpClientDownloader(true))
+                .SetLinkCollector(new LinkProcessors.SimpleProcessor())
                 .SetStorage(null)
                 .SetConfig(c => c.Enable_AutoRewriteRemoveFragment()
                                  .Enable_Caching()

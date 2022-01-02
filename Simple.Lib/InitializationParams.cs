@@ -35,6 +35,7 @@ namespace RafaelEstevam.Simple.Spider
         /// Gets or sets the storage engine to be used by the spider
         /// </summary>
         public IStorage StorageEngine { get; set; }
+        public IPageLinkCollector LinkCollector { get; set; }
         /// <summary>
         /// Gets or sets the working SpiderDirectory to be used by the spider
         /// </summary>
@@ -68,17 +69,22 @@ namespace RafaelEstevam.Simple.Spider
         /// <summary>
         /// Instructs spider to use this specific Cacher
         /// </summary>
-        public InitializationParams SetCacher(ICacher Cacher)
+        public InitializationParams SetCacher(ICacher cacher)
         {
-            this.Cacher = Cacher;
-            return this; // Chaining
+            Cacher = cacher;
+            return this; // Chaining 
         }
         /// <summary>
         /// Instructs spider to use this specific Downloader
         /// </summary>
-        public InitializationParams SetDownloader(IDownloader Downloader)
+        public InitializationParams SetDownloader(IDownloader downloader)
         {
-            this.Downloader = Downloader;
+            Downloader = downloader;
+            return this; // Chaining
+        }
+        public InitializationParams SetLinkCollector(IPageLinkCollector linkCollector)
+        {
+            LinkCollector = linkCollector;
             return this; // Chaining
         }
         /// <summary>
