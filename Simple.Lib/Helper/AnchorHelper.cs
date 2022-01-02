@@ -31,9 +31,15 @@ namespace RafaelEstevam.Simple.Spider.Helper
                 if (href > end) continue; //this <a don't have href
 
                 string sHref = htmlContent[href..end];
-
-                if (sHref.Contains('"')) quote = '"';
-                else if (sHref.Contains('\'')) quote = '\'';
+                // Checa quotem só no começo
+                if (sHref.Substring(0, 5).Contains('"')) quote = '"';
+                else if (sHref.Substring(0, 5).Contains('\'')) quote = '\'';
+                else
+                {
+                    // no quote:  `href=/` 
+                    // <a href=https://twitter.com/nome_doSite rel=noopener >
+                    continue; 
+                }
 
                 sHref = sHref.Substring(sHref.IndexOf(quote) + 1);
                 sHref = sHref.Substring(0, sHref.IndexOf(quote));
