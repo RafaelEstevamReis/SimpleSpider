@@ -85,6 +85,7 @@ namespace RafaelEstevam.Simple.Spider
         /// Current storage engine
         /// </summary>
         public IStorage Storage { get; }
+        public IPageLinkCollector LinkCollector { get; }
 
         /// <summary>
         /// Spider private work data, mess with care
@@ -119,6 +120,12 @@ namespace RafaelEstevam.Simple.Spider
 
             Configuration = @params?.ConfigurationPrototype ?? new Configuration();
             initializeConfiguration(spiderName, @params);
+            
+            LinkCollector = @params?.LinkCollector;
+            if (Configuration.Auto_AnchorsLinks && LinkCollector == null)
+            {
+                LinkCollector = new LinkProcessors.SimpleProcessor();
+            }
 
             initializeQueues();
             // initialize read-only
@@ -223,29 +230,10 @@ namespace RafaelEstevam.Simple.Spider
             try
             {
                 if (!Configuration.Auto_AnchorsLinks) return;
+                if (LinkCollector == null) return;
                 if (string.IsNullOrEmpty(args.Html)) return;
 
-                if (args.Html.StartsWith("<?xml"))
-                {
-                    // rss
-                    foreach (var link in args.Html.Split("<link"))
-                    {
-                        if (link == null) continue;
-                        if (link.Length < 5) continue;
-                        if (link[1] == '?') continue;
-
-                        var content = link.Substring(link.IndexOf('>') + 1);
-                        content = content.Substring(0, content.IndexOf('<'));
-
-                        if (content.StartsWith("http")) AddPage(new Uri(content), args.Link);
-                    }
-                }
-                else
-                {
-                    var links = AnchorHelper.GetAnchors(args.Link.Uri, args.Html);
-                    //Add the collected links to the queue
-                    AddPages(links, args.Link);
-                }
+                executeLinkProcessor(LinkCollector, args.Link.Uri, args.Html);
             }
             catch (IOException ex)
             {
@@ -254,6 +242,31 @@ namespace RafaelEstevam.Simple.Spider
                 OnError?.Invoke(this, new ErrorEventArgs() { Source = FetchEventArgs.EventSource.Scheduler, Exception = ex });
             }
         }
+        private void executeLinkProcessor(IPageLinkCollector linkCollector, Uri uri, string html)
+        {
+            if (linkCollector == null) return;
+            if (!LinkCollector.CanProcessPage(uri, html))
+            {
+                // recursively call the fallback processor
+                executeLinkProcessor(LinkCollector.FallBackProcessor, uri, html);
+                return;
+            }
+
+            try
+            {
+                var links = LinkCollector.GetLinks(uri, html)
+                    .ToArray(); // execute
+                AddPages(links, uri);
+            }
+            catch
+            {
+                if (!LinkCollector.ExecuteFallBackIfError) throw;
+                if (LinkCollector.FallBackProcessor == null) throw;
+
+                executeLinkProcessor(LinkCollector.FallBackProcessor, uri, html);
+            }
+        }
+
         private void fetchRewrite_AutoRewrite(object Sender, FetchRewriteEventArgs args)
         {
             try
