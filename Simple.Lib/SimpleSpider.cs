@@ -120,7 +120,7 @@ namespace RafaelEstevam.Simple.Spider
 
             Configuration = @params?.ConfigurationPrototype ?? new Configuration();
             initializeConfiguration(spiderName, @params);
-            
+
             LinkCollector = @params?.LinkCollector;
             if (Configuration.Auto_AnchorsLinks && LinkCollector == null)
             {
@@ -335,6 +335,17 @@ namespace RafaelEstevam.Simple.Spider
                 else
                 {
                     idleTimeout = 0;
+                }
+
+                if (saveCount == 0
+                    || saveCount == 250
+                    || saveCount == 500
+                    || saveCount == 750)
+                {
+                    double percent = 100;
+                    int total = hDispatched.Count;
+                    if (total > 0) percent = (hExecuted.Count * 100.0) / total;
+                    log.Debug($"[SCH] Queue: {qAdded.Count}|{qCache.Count}|{qDownload.Count} Dispatched: {hDispatched.Count} Finished: {hExecuted.Count} [{percent:N2}%]");
                 }
 
                 if (saveCount++ > 1000) // Each loop is 0,1 or 0,5s, 1 min => ~600
