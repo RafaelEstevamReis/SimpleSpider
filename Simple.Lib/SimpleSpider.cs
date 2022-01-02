@@ -233,7 +233,7 @@ namespace RafaelEstevam.Simple.Spider
                 if (LinkCollector == null) return;
                 if (string.IsNullOrEmpty(args.Html)) return;
 
-                executeLinkProcessor(LinkCollector, args.Link.Uri, args.Html);
+                executeLinkProcessor(this, LinkCollector, args.Link.Uri, args.Html);
             }
             catch (IOException ex)
             {
@@ -242,28 +242,28 @@ namespace RafaelEstevam.Simple.Spider
                 OnError?.Invoke(this, new ErrorEventArgs() { Source = FetchEventArgs.EventSource.Scheduler, Exception = ex });
             }
         }
-        private void executeLinkProcessor(IPageLinkCollector linkCollector, Uri uri, string html)
+        private static void executeLinkProcessor(SimpleSpider spider, IPageLinkCollector linkCollector, Uri uri, string html)
         {
             if (linkCollector == null) return;
-            if (!LinkCollector.CanProcessPage(uri, html))
+            if (!linkCollector.CanProcessPage(uri, html))
             {
                 // recursively call the fallback processor
-                executeLinkProcessor(LinkCollector.FallBackProcessor, uri, html);
+                executeLinkProcessor(spider, linkCollector.FallBackProcessor, uri, html);
                 return;
             }
 
             try
             {
-                var links = LinkCollector.GetLinks(uri, html)
+                var links = linkCollector.GetLinks(uri, html)
                     .ToArray(); // execute
-                AddPages(links, uri);
+                spider.AddPages(links, uri);
             }
             catch
             {
-                if (!LinkCollector.ExecuteFallBackIfError) throw;
-                if (LinkCollector.FallBackProcessor == null) throw;
+                if (!linkCollector.ExecuteFallBackIfError) throw;
+                if (linkCollector.FallBackProcessor == null) throw;
 
-                executeLinkProcessor(LinkCollector.FallBackProcessor, uri, html);
+                executeLinkProcessor(spider, linkCollector.FallBackProcessor, uri, html);
             }
         }
 
@@ -345,7 +345,9 @@ namespace RafaelEstevam.Simple.Spider
                     double percent = 100;
                     int total = hDispatched.Count;
                     if (total > 0) percent = (hExecuted.Count * 100.0) / total;
-                    log.Debug($"[SCH] Queue: {qAdded.Count}|{qCache.Count}|{qDownload.Count} Dispatched: {hDispatched.Count} Finished: {hExecuted.Count} [{percent:N2}%]");
+                    //log.Debug($"[SCH] Queue: {qAdded.Count}|{qCache.Count}|{qDownload.Count} Dispatched: {hDispatched.Count} Finished: {hExecuted.Count} [{percent:N2}%]");
+                    //log.Debug($"[SCH] Progress: {percent:N2}% Dispatched: {hDispatched.Count:N0} Finished: {hExecuted.Count:N0} Queue: {qAdded.Count:N0} Cacher: {qCache.Count:N0} Downloader: {qDownload.Count:N0}");
+                    log.Information($"[SCH] [{percent:N2}%] Total: {hDispatched.Count:N0} Processed: {hExecuted.Count:N0} Queue: {qAdded.Count:N0} Cacher: {qCache.Count:N0} Downloader: {qDownload.Count:N0}");
                 }
 
                 if (saveCount++ > 1000) // Each loop is 0,1 or 0,5s, 1 min => ~600
