@@ -38,7 +38,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
                 {
                     // no quote:  `href=/` 
                     // <a href=https://twitter.com/nome_doSite rel=noopener >
-                    continue; 
+                    continue;
                 }
 
                 sHref = sHref.Substring(sHref.IndexOf(quote) + 1);
@@ -57,12 +57,29 @@ namespace RafaelEstevam.Simple.Spider.Helper
         /// </summary>
         public static IEnumerable<Uri> GetAnchors(Uri request, HtmlDocument root)
         {
-            return root.DocumentNode
+            var hRefValues = root.DocumentNode
                 .SelectNodes(".//a")
                 .Select(x => x.Attributes["href"])
                 .Where(att => att != null)
                 .Where(at => !at.Value.Contains("javascript:"))
-                .Select(at => new Uri(request, at.Value));
+                //.Where(at => at.Value.Length > 10 || !(at.Value.StartsWith("http://") || at.Value.StartsWith("https://")))
+                .Select(at => at.Value);
+
+            return tentaCriarUri(request, hRefValues);
+        }
+        private static IEnumerable<Uri> tentaCriarUri(Uri request, IEnumerable<string> hRefValues)
+        {
+            foreach (var val in hRefValues)
+            {
+                if (Uri.TryCreate(request, val, out Uri uri))
+                {
+                    yield return uri;
+                }
+                else
+                {
+                    // invalid uri
+                }
+            }
         }
     }
 }
