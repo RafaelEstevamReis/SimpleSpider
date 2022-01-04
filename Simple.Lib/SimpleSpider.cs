@@ -181,6 +181,7 @@ namespace RafaelEstevam.Simple.Spider
             Configuration.Logger = new LoggerConfiguration()
                .MinimumLevel.Debug()
                .WriteTo.Console()
+               //.WriteTo.Async(writeTo => writeTo.Console())
                .WriteTo.File(Configuration.Spider_LogFile, rollingInterval: RollingInterval.Day)
                .CreateLogger();
         }
@@ -439,13 +440,13 @@ namespace RafaelEstevam.Simple.Spider
         {
             if (pageToVisit.Host != BaseUri.Host && !Configuration.SpiderAllowHostViolation)
             {
-                if (!hViolated.Contains(pageToVisit.Host)) // ignore the entire domain
+                lock (hViolated)
                 {
-                    lock (hViolated)
+                    if (!hViolated.Contains(pageToVisit.Host)) // ignore the entire domain
                     {
                         hViolated.Add(pageToVisit.Host);
+                        log.Warning($"[WRN] Host Violation {pageToVisit}");
                     }
-                    log.Warning($"[WRN] Host Violation {pageToVisit}");
                 }
                 return null;
             }
