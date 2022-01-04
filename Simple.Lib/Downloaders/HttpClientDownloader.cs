@@ -95,10 +95,13 @@ namespace RafaelEstevam.Simple.Spider.Downloaders
             IsProcessing = false;
             while (run)
             {
-                Thread.Sleep(Math.Max(100, config.DownloadDelay));
                 if (cancellationToken.Token.IsCancellationRequested) break;
 
-                if (IsProcessing) continue;
+                if (IsProcessing)
+                {
+                    Thread.Sleep(250);
+                    continue;
+                }
 
                 if (config.Paused || config.Paused_Downloader)
                 {
@@ -127,6 +130,7 @@ namespace RafaelEstevam.Simple.Spider.Downloaders
 
                     IsProcessing = false;
                 }
+                Thread.Sleep(Math.Max(100, config.DownloadDelay));
             }
         }
         private void fetch(Link current)
