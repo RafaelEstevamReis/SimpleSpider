@@ -233,7 +233,7 @@ namespace RafaelEstevam.Simple.Spider
                 if (LinkCollector == null) return;
                 if (string.IsNullOrEmpty(args.Html)) return;
 
-                executeLinkProcessor(this, LinkCollector, args.Link.Uri, args.Html);
+                executeLinkProcessor(this, LinkCollector, args);
             }
             catch (IOException ex)
             {
@@ -242,28 +242,28 @@ namespace RafaelEstevam.Simple.Spider
                 OnError?.Invoke(this, new ErrorEventArgs() { Source = FetchEventArgs.EventSource.Scheduler, Exception = ex });
             }
         }
-        private static void executeLinkProcessor(SimpleSpider spider, IPageLinkCollector linkCollector, Uri uri, string html)
+        private static void executeLinkProcessor(SimpleSpider spider, IPageLinkCollector linkCollector, FetchCompleteEventArgs args)
         {
             if (linkCollector == null) return;
-            if (!linkCollector.CanProcessPage(uri, html))
+            if (!linkCollector.CanProcessPage(args))
             {
                 // recursively call the fallback processor
-                executeLinkProcessor(spider, linkCollector.FallBackProcessor, uri, html);
+                executeLinkProcessor(spider, linkCollector.FallBackProcessor, args);
                 return;
             }
 
             try
             {
-                var links = linkCollector.GetLinks(uri, html)
+                var links = linkCollector.GetLinks(args)
                     .ToArray(); // execute
-                spider.AddPages(links, uri);
+                spider.AddPages(links, args.Link);
             }
             catch
             {
                 if (!linkCollector.ExecuteFallBackIfError) throw;
                 if (linkCollector.FallBackProcessor == null) throw;
 
-                executeLinkProcessor(spider, linkCollector.FallBackProcessor, uri, html);
+                executeLinkProcessor(spider, linkCollector.FallBackProcessor, args);
             }
         }
 
@@ -389,24 +389,21 @@ namespace RafaelEstevam.Simple.Spider
 
         private bool workQueue()
         {
-            if (qAdded.TryDequeue(out Link lnk))
+            if (!qAdded.TryDequeue(out Link lnk)) return false;
+
+            if (alreadyExecuted(lnk.Uri)) return true;
+            if (hDispatched.Contains(lnk.Uri.ToString())) return true;
+            hDispatched.Add(lnk.Uri.ToString());
+
+            if (Cacher.HasCache(lnk))
             {
-                if (alreadyExecuted(lnk.Uri)) return true;
-
-                if (hDispatched.Contains(lnk.Uri.ToString())) return true;
-                hDispatched.Add(lnk.Uri.ToString());
-
-                if (Cacher.HasCache(lnk))
-                {
-                    qCache.Enqueue(lnk);
-                }
-                else
-                {
-                    qDownload.Enqueue(lnk);
-                }
-                return true;
+                qCache.Enqueue(lnk);
             }
-            return false;
+            else
+            {
+                qDownload.Enqueue(lnk);
+            }
+            return true;
         }
 
         /// <summary>
@@ -477,9 +474,17 @@ namespace RafaelEstevam.Simple.Spider
 
             if (alreadyExecuted(lnk.Uri)) return null;
 
-            var args = new ShouldFetchEventArgs(lnk);
-            ShouldFetch?.Invoke(this, args);
-            if (args.Cancel) return null;
+            try
+            {
+                var args = new ShouldFetchEventArgs(lnk);
+                ShouldFetch?.Invoke(this, args);
+                if (args.Cancel) return null;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "ShouldFetch error");
+                OnError?.Invoke(this, new ErrorEventArgs() { Source = FetchEventArgs.EventSource.Scheduler, Exception = ex });
+            }
 
             qAdded.Enqueue(lnk);
             return lnk;

@@ -11,13 +11,12 @@ namespace RafaelEstevam.Simple.Spider.LinkProcessors
         public IPageLinkCollector FallBackProcessor => new SimpleProcessor();
         public bool ExecuteFallBackIfError => true;
 
-        public bool CanProcessPage(Uri request, string htmlContent) 
-            => htmlContent.Length > 30 && htmlContent.Substring(0, 20).Contains("html", StringComparison.InvariantCultureIgnoreCase);
-
-        public IEnumerable<Uri> GetLinks(Uri request, string htmlContent)
+        public bool CanProcessPage(FetchCompleteEventArgs args) 
+            => args.Html.Length > 30 && args.Html.Substring(0, 20).Contains("html", StringComparison.InvariantCultureIgnoreCase);
+        
+        public IEnumerable<Uri> GetLinks(FetchCompleteEventArgs args)
         {
-            var document = HtmlParseHelper.ParseHtmlDocument(htmlContent);
-            return AnchorHelper.GetAnchors(request, document);
+            return AnchorHelper.GetAnchors(args.Link, args.GetDocument());
         }
     }
 }

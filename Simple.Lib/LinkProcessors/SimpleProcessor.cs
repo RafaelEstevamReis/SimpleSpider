@@ -10,10 +10,11 @@ namespace RafaelEstevam.Simple.Spider.LinkProcessors
         public IPageLinkCollector FallBackProcessor => null;
         public bool ExecuteFallBackIfError => false;
 
-        public bool CanProcessPage(Uri request, string htmlContent) => true;
+        public bool CanProcessPage(FetchCompleteEventArgs args) => true;
 
-        public IEnumerable<Uri> GetLinks(Uri request, string htmlContent)
+        public IEnumerable<Uri> GetLinks(FetchCompleteEventArgs args)
         {
+            string htmlContent = args.Html;
             // AnchorHelper.GetAnchors(request, htmlContent);
             if (htmlContent.StartsWith("<?xml"))
             {
@@ -32,7 +33,7 @@ namespace RafaelEstevam.Simple.Spider.LinkProcessors
             }
             else
             {
-                foreach (var l in AnchorHelper.GetAnchors(request, htmlContent)) yield return l;
+                foreach (var l in AnchorHelper.GetAnchors(args.Link, htmlContent)) yield return l;
             }
         }
     }
