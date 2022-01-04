@@ -63,7 +63,7 @@ namespace RafaelEstevam.Simple.Spider
 
         HtmlDocument document;
         /// <summary>
-        /// Parses the Result bytes with HtmlAgilityPack
+        /// Parses the Result bytes with HtmlAgilityPack and caches it in this object (LazyLoad)
         /// </summary>
         public HtmlDocument GetDocument()
         {
