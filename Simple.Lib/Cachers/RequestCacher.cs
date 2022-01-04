@@ -56,14 +56,14 @@ namespace RafaelEstevam.Simple.Spider.Cachers
         /// <summary>
         /// Creates a new instance
         /// </summary>
-        /// <param name="ThreadCount">Defines how many threads should be used. The number must be between 1 and 128</param>
-        public RequestCacher(int ThreadCount = 4)
+        /// <param name="threadCount">Defines how many threads should be used. The number must be between 1 and 128</param>
+        public RequestCacher(int threadCount = 4)
         {
-            if (ThreadCount < 1) throw new ArgumentOutOfRangeException("Thread Count should be at least one");
-            if (ThreadCount > 128) throw new ArgumentOutOfRangeException("Thread Count should less than 129");
+            if (threadCount < 1) throw new ArgumentOutOfRangeException("Thread Count should be at least one");
+            if (threadCount > 128) throw new ArgumentOutOfRangeException("Thread Count should less than 129");
 
             cancellationToken = new CancellationTokenSource();
-            this.ThreadCount = ThreadCount;
+            ThreadCount = threadCount;
         }
         /// <summary>
         /// Initialize the cacher
