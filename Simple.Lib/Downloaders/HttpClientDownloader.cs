@@ -130,7 +130,7 @@ namespace RafaelEstevam.Simple.Spider.Downloaders
 
                     IsProcessing = false;
                 }
-                Thread.Sleep(Math.Max(100, config.DownloadDelay));
+                Thread.Sleep(Math.Max(10, config.DownloadDelay));
             }
         }
         private void fetch(Link current)
