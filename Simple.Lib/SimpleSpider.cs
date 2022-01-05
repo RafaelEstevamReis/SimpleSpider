@@ -57,6 +57,8 @@ namespace RafaelEstevam.Simple.Spider
         /// </summary>
         public event Error OnError;
 
+        public Func<Link, bool> AddPageFilter;
+
         /// <summary>
         /// Spider configurations and parameters
         /// </summary>
@@ -452,6 +454,19 @@ namespace RafaelEstevam.Simple.Spider
             }
 
             var lnk = new Link(pageToVisit, sourcePage);
+
+            try
+            {
+                if (AddPageFilter != null && !AddPageFilter(lnk))
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "AddPageFilter error");
+                OnError?.Invoke(this, new ErrorEventArgs() { Source = FetchEventArgs.EventSource.Scheduler, Exception = ex });
+            }
 
             if (FetchRewrite != null)
             {
