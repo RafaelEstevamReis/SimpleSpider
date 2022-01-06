@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using HtmlAgilityPack;
 
 namespace RafaelEstevam.Simple.Spider.Wrappers
@@ -297,6 +298,9 @@ namespace RafaelEstevam.Simple.Spider.Wrappers
             return new HObject(xpath(Query).ToArray());
         }
 
+        #endregion
+
+        #region Other methods
         private IEnumerable<HtmlNode> xpath(string Query)
         {
             foreach (var n in nodes)
@@ -334,6 +338,14 @@ namespace RafaelEstevam.Simple.Spider.Wrappers
             return nodes.FirstOrDefault()?.InnerText;
         }
         /// <summary>
+        /// Returns first element InnerHtml
+        /// </summary>
+        public string GetHtml()
+        {
+            return nodes.FirstOrDefault()?.InnerHtml;
+        }
+
+        /// <summary>
         /// Returns first element Value trimmed
         /// </summary>
         /// <returns>The trimmed string Value of the element</returns>
@@ -348,6 +360,13 @@ namespace RafaelEstevam.Simple.Spider.Wrappers
         public string[] GetValues()
         {
             return nodes.Select(x => x.InnerText).ToArray();
+        }
+        /// <summary>
+        /// Returns an array with all InnerHtml values
+        /// </summary>
+        public string[] GetHtmls()
+        {
+            return nodes.Select(x => x.InnerHtml).ToArray();
         }
         /// <summary>
         /// Returns an array with all Elements values trimmed
@@ -368,6 +387,52 @@ namespace RafaelEstevam.Simple.Spider.Wrappers
                 .Select(n => n.InnerText)
                 .ToArray();
         }
+        /// <summary>
+        /// Returns all #text nodes concatenated with spaces and lines breaked on `br` with `\n`
+        /// </summary>
+        public string GetText()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var n in getAllNodesAndSelf(nodes))
+            {
+                if (n.NodeType == HtmlNodeType.Text)
+                {
+                    sb.Append(n.InnerText.Trim());
+                    sb.Append(' ');
+                }
+                if (n.Name == "br")
+                {
+                    sb.Append('\n');
+                }
+
+                //.Where(n => n.NodeType == HtmlNodeType.Text)
+                //.Select(n => n.InnerText)
+                //.ToArray();
+            }
+            return sb.ToString().Trim();
+        }
+
+        /// <summary>
+        /// Returns an array with all #text elements contents recursively
+        /// </summary>
+        public string[] GetInnerTexts()
+        {
+            return getAllNodesAndSelf(nodes)
+                .Where(n => n.NodeType == HtmlNodeType.Text)
+                .Select(n => n.InnerText)
+                .ToArray();
+        }
+        /// <summary>
+        /// Returns an array with childs #text elements contents
+        /// </summary>
+        public string[] GetChildTexts()
+        {
+            return nodes.SelectMany(x => x.ChildNodes)
+                        .Where(n => n.NodeType == HtmlNodeType.Text)
+                        .Select(x => x.InnerText.Trim())
+                        .ToArray();
+        }
 
         /// <summary>
         /// Returns an array with all #text elements contents trimmed
@@ -383,7 +448,18 @@ namespace RafaelEstevam.Simple.Spider.Wrappers
         /// <summary>
         /// Get all child nodes and self recursively
         /// </summary>
-        public IEnumerable<HtmlNode> GetAllChildsNodesAndSelf() => getAllNodesAndSelf(nodes);
+        public IEnumerable<HtmlNode> GetAllChildsNodesAndSelf()
+            => getAllNodesAndSelf(nodes);
+        /// <summary>
+        /// Get all child nodes recursively
+        /// </summary>
+        public IEnumerable<HtmlNode> GetAllChildsNodes()
+            => nodes.SelectMany(n => getAllNodes(n));
+        /// <summary>
+        /// Get all direct child nodes
+        /// </summary>
+        public IEnumerable<HtmlNode> GetChildsNodes()
+            => nodes.SelectMany(n => n.ChildNodes.Cast<HtmlNode>());
 
         private static IEnumerable<HtmlNode> getAllNodesAndSelf(IEnumerable<HtmlNode> nodes)
         {
@@ -395,6 +471,10 @@ namespace RafaelEstevam.Simple.Spider.Wrappers
 
             var childs = getAllNodesAndSelf(node.ChildNodes.Cast<HtmlNode>());
             foreach (var c in childs) yield return c;
+        }
+        private static IEnumerable<HtmlNode> getAllNodes(HtmlNode node)
+        {
+            return getAllNodesAndSelf(node.ChildNodes.Cast<HtmlNode>());
         }
 
         /// <summary>
