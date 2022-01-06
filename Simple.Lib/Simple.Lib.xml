@@ -3270,6 +3270,11 @@
             </summary>
             <returns>The string Value of the element</returns>
         </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HObject.GetHtml">
+            <summary>
+            Returns first element InnerHtml
+            </summary>
+        </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HObject.Trim">
             <summary>
             Returns first element Value trimmed
@@ -3282,6 +3287,11 @@
             </summary>
             <returns>String array of the values</returns>
         </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HObject.GetHtmls">
+            <summary>
+            Returns an array with all InnerHtml values
+            </summary>
+        </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HObject.TrimAll">
             <summary>
             Returns an array with all Elements values trimmed
@@ -3293,6 +3303,21 @@
             Returns an array with all #text elements contents
             </summary>
         </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HObject.GetText">
+            <summary>
+            Returns all #text nodes concatenated with spaces and lines breaked on `br` with `\n`
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HObject.GetInnerTexts">
+            <summary>
+            Returns an array with all #text elements contents recursively
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HObject.GetChildTexts">
+            <summary>
+            Returns an array with childs #text elements contents
+            </summary>
+        </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HObject.TrimAllText">
             <summary>
             Returns an array with all #text elements contents trimmed
@@ -3301,6 +3326,16 @@
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HObject.GetAllChildsNodesAndSelf">
             <summary>
             Get all child nodes and self recursively
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HObject.GetAllChildsNodes">
+            <summary>
+            Get all child nodes recursively
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HObject.GetChildsNodes">
+            <summary>
+            Get all direct child nodes
             </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HObject.GetAttributeValue(System.String)">
