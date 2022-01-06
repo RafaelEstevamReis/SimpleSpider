@@ -15,8 +15,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Version>0.8.7</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>A simple to use and modular spider for web crawling with an example rich GitHub repository
-(work in progress)</Description>
+    <Description>A simple to use and modular spider for web crawling with an example rich GitHub repository</Description>
     <PackageReleaseNotes>See examples and documentation on the GitHub page
 Commit 4f0d211
 Release Candidate
