@@ -398,8 +398,11 @@ namespace RafaelEstevam.Simple.Spider.Wrappers
             {
                 if (n.NodeType == HtmlNodeType.Text)
                 {
+                    if (sb.Length > 0 && !char.IsWhiteSpace(sb[^1]))
+                    {
+                        sb.Append(' ');
+                    }
                     sb.Append(n.InnerText.Trim());
-                    sb.Append(' ');
                 }
                 if (n.Name == "br")
                 {
