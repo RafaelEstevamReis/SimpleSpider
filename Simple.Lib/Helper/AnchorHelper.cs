@@ -32,8 +32,8 @@ namespace RafaelEstevam.Simple.Spider.Helper
 
                 string sHref = htmlContent[href..end];
                 // Checa quotem só no começo
-                if (sHref.Substring(0, 5).Contains('"')) quote = '"';
-                else if (sHref.Substring(0, 5).Contains('\'')) quote = '\'';
+                if (sHref.Substring(0, 6).Contains('"')) quote = '"';
+                else if (sHref.Substring(0, 6).Contains('\'')) quote = '\'';
                 else
                 {
                     // no quote:  `href=/` 
