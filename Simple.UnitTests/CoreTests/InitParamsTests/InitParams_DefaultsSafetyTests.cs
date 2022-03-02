@@ -19,6 +19,7 @@ namespace RafaelEstevam.Simple.Spider.UnitTests.CoreTests.InitParamsTests
             string[] expected = {
                 "Cacher: RafaelEstevam.Simple.Spider.Cachers.ContentCacher",
                 "Downloader: RafaelEstevam.Simple.Spider.Downloaders.WebClientDownloader",
+                "LinkCollector: RafaelEstevam.Simple.Spider.LinkProcessors.SimpleProcessor",
                 "SpiderDirectory: ",
                 "Parsers: 0",
                 "Config.SpiderDirectory ",
@@ -52,6 +53,7 @@ namespace RafaelEstevam.Simple.Spider.UnitTests.CoreTests.InitParamsTests
             string[] expected = {
                 "Cacher: RafaelEstevam.Simple.Spider.Cachers.ContentCacher",
                 "Downloader: RafaelEstevam.Simple.Spider.Downloaders.WebClientDownloader",
+                "LinkCollector: RafaelEstevam.Simple.Spider.LinkProcessors.SimpleProcessor",
                 "SpiderDirectory: ",
                 "Parsers: 0",
                 "Config.SpiderDirectory ",
@@ -86,6 +88,7 @@ namespace RafaelEstevam.Simple.Spider.UnitTests.CoreTests.InitParamsTests
             string[] expected = {
                 "Cacher: RafaelEstevam.Simple.Spider.Cachers.ContentCacher",
                 "Downloader: RafaelEstevam.Simple.Spider.Downloaders.HttpClientDownloader",
+                "LinkCollector: RafaelEstevam.Simple.Spider.LinkProcessors.SimpleProcessor",
                 "SpiderDirectory: ",
                 "Parsers: 0",
                 "Config.SpiderDirectory ",
