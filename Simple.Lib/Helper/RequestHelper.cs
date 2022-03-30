@@ -86,7 +86,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
             mergeHeaders(req, RequestHeaders);
             BeforeRequest?.Invoke(this, new FetchTEventArgs<HttpRequestMessage>(new Link(uri, uri), req));
 
-            if (Logger != null) Logger.Information($"[GET] {uri}");
+            if (Logger != null) Logger.Information("[GET] {uri}", uri);
 
             var resp = await httpClient.SendAsync(req);
 
@@ -127,7 +127,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
             BeforeRequest?.Invoke(this, new FetchTEventArgs<HttpRequestMessage>(new Link(uri, uri), req));
 
             req.Content = postData;
-            if (Logger != null) Logger.Information($"[POST] {uri}");
+            if (Logger != null) Logger.Information("[POST] {uri}", uri);
             var resp = await httpClient.SendAsync(req);
 
             await processSendResult(req, resp, new Link(uri, uri));
