@@ -93,7 +93,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
                     else
                     {
                         if (Logger == null) Console.WriteLine($"{DateTime.Now.ToShortTimeString()} [CACHE] {uri}");
-                        else Logger.Information($"[CACHE] {uri}");
+                        else Logger.Information("[CACHE] {uri}", uri);
 
                         return File.ReadAllBytes(cacheFile);
                     }
@@ -101,7 +101,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
             }
 
             if (Logger == null) Console.WriteLine($"{DateTime.Now.ToShortTimeString()} [FETCH] {uri}");
-            else Logger.Information($"[FETCH] {uri}");
+            else Logger.Information("[FETCH] {uri}", uri);
 
             byte[] data;
             //only one thread can perform wc operations
