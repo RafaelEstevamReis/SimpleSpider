@@ -57,7 +57,14 @@ namespace RafaelEstevam.Simple.Spider
         /// </summary>
         public event Error OnError;
 
+        /// <summary>
+        /// AddPage filter
+        /// </summary>
         public Func<Link, bool> AddPageFilter;
+        /// <summary>
+        /// Overrides Host violation logic
+        /// </summary>
+        public Func<Uri, Uri, bool> HostViolationFilter;
 
         /// <summary>
         /// Spider configurations and parameters
@@ -440,7 +447,7 @@ namespace RafaelEstevam.Simple.Spider
         }
         private Link addPage(Uri pageToVisit, Uri sourcePage)
         {
-            if (pageToVisit.Host != BaseUri.Host && !Configuration.SpiderAllowHostViolation)
+            if (!Configuration.SpiderAllowHostViolation && isHostViolation(pageToVisit, BaseUri))
             {
                 lock (hViolated)
                 {
@@ -505,6 +512,19 @@ namespace RafaelEstevam.Simple.Spider
             qAdded.Enqueue(lnk);
             return lnk;
         }
+        /// <summary>
+        /// Check if is a violation
+        /// </summary>
+        private bool isHostViolation(Uri pageToVisit, Uri baseUri)
+        {
+            if (HostViolationFilter is null)
+            {
+                return pageToVisit.Host != BaseUri.Host;
+            }
+
+            return HostViolationFilter(pageToVisit, BaseUri);
+        }
+
         private bool alreadyExecuted(Uri pageToVisit)
         {
             return hExecuted.Contains(pageToVisit.ToString());
