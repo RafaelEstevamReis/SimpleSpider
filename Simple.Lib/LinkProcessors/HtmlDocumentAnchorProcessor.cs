@@ -2,7 +2,6 @@
 using RafaelEstevam.Simple.Spider.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace RafaelEstevam.Simple.Spider.LinkProcessors
 {
