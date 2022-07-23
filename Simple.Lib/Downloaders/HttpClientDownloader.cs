@@ -111,28 +111,37 @@ namespace RafaelEstevam.Simple.Spider.Downloaders
 
                 if (queue.TryDequeue(out Link current))
                 {
-                    var args = new ShouldFetchEventArgs(current);
-                    ShouldFetch(this, args);
-                    if (args.Cancel) continue;
-
-                    IsProcessing = true;
-                    config.Logger.Information($"[WEB] {current.Uri.UrlWithoutHost()}");
-                    current.FetchStart = DateTime.Now;
-
-                    try
-                    {
-                        fetch(current);
-                    }
-                    catch (Exception ex)
-                    {
-                        FetchFailed(this, new FetchFailEventArgs(current, 0, ex, new HeaderCollection()));
-                    }
-
-                    IsProcessing = false;
+                    preFetch(current);
                 }
                 Thread.Sleep(Math.Max(10, config.DownloadDelay));
             }
         }
+        private void preFetch(Link current)
+        {
+            var args = new ShouldFetchEventArgs(current);
+            ShouldFetch(this, args);
+            if (args.Cancel)
+            {
+                //FetchFailed(this, new FetchFailEventArgs(current, 0, null, new HeaderCollection()));
+                return;
+            }
+
+            IsProcessing = true;
+            config.Logger.Information($"[WEB] {current.Uri.UrlWithoutHost()}");
+            current.FetchStart = DateTime.Now;
+
+            try
+            {
+                fetch(current);
+            }
+            catch (Exception ex)
+            {
+                FetchFailed(this, new FetchFailEventArgs(current, 0, ex, new HeaderCollection()));
+            }
+
+            IsProcessing = false;
+        }
+
         private void fetch(Link current)
         {
             var req = new HttpRequestMessage(HttpMethod.Get, current.Uri);
@@ -163,7 +172,12 @@ namespace RafaelEstevam.Simple.Spider.Downloaders
                     var newUri = current.Uri.Combine(resp.Headers.Location.ToString());
                     current.ResourceMoved(newUri);
                     config.Logger.Information($"[MOV] {current.MovedUri} -> {current.Uri}");
-                    fetch(current);
+                    //FetchFailed(this, new FetchFailEventArgs(current, 0, null, new HeaderCollection()));
+                    FetchFailed(this, new FetchFailEventArgs(current,
+                                                             (int)resp.StatusCode,
+                                                             null,  //new HttpRequestException($"[{(int)resp.StatusCode}] {resp.ReasonPhrase}"),
+                                                             new HeaderCollection(reqHeaders)));
+                    preFetch(current);
                     return;
                 }
 
