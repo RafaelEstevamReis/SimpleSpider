@@ -487,7 +487,7 @@ namespace RafaelEstevam.Simple.Spider
                 }
             }
 
-            if (SpiderWorkData.Moved301.ContainsKey(lnk.Uri.ToString()))
+            while (SpiderWorkData.Moved301.ContainsKey(lnk.Uri.ToString()))
             {
                 string newUri = SpiderWorkData.Moved301[lnk.Uri.ToString()];
                 lnk.ResourceMoved(new Uri(newUri));
@@ -538,12 +538,19 @@ namespace RafaelEstevam.Simple.Spider
             {
                 hExecuted.Add(args.Link.Uri.ToString());
             }
-            log.Error($"[ERR] {args.Error.Message} {args.Link}");
+            if (args.Error != null)
+            {
+                log.Error($"[ERR] {args.Error.Message} {args.Link}");
+            }
             args.Source = FetchEventArgs.EventSource.Downloader;
 
             if (args.HttpErrorCode == 404)
             {
                 SpiderWorkData.Error404.Add(args.Link.Uri.ToString());
+            }
+            if (args.Link.MovedUri != null)
+            {
+                SpiderWorkData.Moved301[args.Link.MovedUri.ToString()] = args.Link.Uri.ToString();
             }
 
             FetchFailed?.Invoke(this, args);
