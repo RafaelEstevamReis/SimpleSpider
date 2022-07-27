@@ -2638,6 +2638,16 @@
             Reports errors on spider execution
             </summary>
         </member>
+        <member name="F:RafaelEstevam.Simple.Spider.SimpleSpider.AddPageFilter">
+            <summary>
+            AddPage filter
+            </summary>
+        </member>
+        <member name="F:RafaelEstevam.Simple.Spider.SimpleSpider.HostViolationFilter">
+            <summary>
+            Overrides Host violation logic
+            </summary>
+        </member>
         <member name="P:RafaelEstevam.Simple.Spider.SimpleSpider.Configuration">
             <summary>
             Spider configurations and parameters
@@ -2712,6 +2722,11 @@
             <param name="PageToVisit">Uri to fetch</param>
             <param name="SourcePage">Uri where the PageToVisit was found</param>
             <returns>Link object</returns>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.SimpleSpider.isHostViolation(System.Uri,System.Uri)">
+            <summary>
+            Check if is a violation
+            </summary>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.SimpleSpider.QueueFinished">
             <summary>
