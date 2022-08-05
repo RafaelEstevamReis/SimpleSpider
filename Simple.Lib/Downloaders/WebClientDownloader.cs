@@ -8,6 +8,10 @@ using RafaelEstevam.Simple.Spider.Interfaces;
 
 namespace RafaelEstevam.Simple.Spider.Downloaders
 {
+#if NET5_0_OR_GREATER
+    [Obsolete("'WebClient' is obsolete")]
+#endif
+
     /// <summary>
     /// Simple Downloader using WebClient
     /// </summary>

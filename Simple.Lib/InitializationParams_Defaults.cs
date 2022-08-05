@@ -1,10 +1,14 @@
 ﻿using RafaelEstevam.Simple.Spider.Cachers;
 using RafaelEstevam.Simple.Spider.Downloaders;
+using System;
 
 namespace RafaelEstevam.Simple.Spider
 {
     public partial class InitializationParams
     {
+#if NET5_0_OR_GREATER
+        [Obsolete("'WebClient' is obsolete")]
+#endif
         /// <summary>
         /// Frozen in time default: Minimal features, nothing enabled
         /// </summary>
@@ -27,6 +31,9 @@ namespace RafaelEstevam.Simple.Spider
                                  .Disable_AutoAnchorsLinks());
         }
 
+#if NET5_0_OR_GREATER
+        [Obsolete("'WebClient' is obsolete")]
+#endif
         /// <summary>
         /// Frozen in time default: ContentCacher, WebClientDownloader, NoLimitCaching, and AutoAnchorsLinks enabled
         /// </summary>

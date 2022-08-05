@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -10,6 +11,9 @@ namespace RafaelEstevam.Simple.Spider.UnitTests.CoreTests.InitParamsTests
     /// </summary>
     public class InitParams_DefaultsSafetyTests
     {
+#if NET5_0_OR_GREATER
+        [Obsolete("'WebClient' is obsolete")]
+#endif
         [Fact]
         public void InitializationParams_SafetyCheck_Default000()
         {
@@ -44,6 +48,9 @@ namespace RafaelEstevam.Simple.Spider.UnitTests.CoreTests.InitParamsTests
                 Assert.Equal(expected[i], ls[i]);
             }
         }
+#if NET5_0_OR_GREATER
+        [Obsolete("'WebClient' is obsolete")]
+#endif
         [Fact]
         public void InitializationParams_SafetyCheck_Default001()
         {

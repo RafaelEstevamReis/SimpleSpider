@@ -1,11 +1,15 @@
 ﻿using RafaelEstevam.Simple.Spider.Cachers;
 using RafaelEstevam.Simple.Spider.Downloaders;
+using System;
 using Xunit;
 
 namespace RafaelEstevam.Simple.Spider.UnitTests.CoreTests.InitParamsTests
 {
     public class InitParams_DefaultsTests
     {
+#if NET5_0_OR_GREATER
+        [Obsolete("'WebClient' is obsolete")]
+#endif
         [Fact]
         public void InitializationParams_Default000()
         {
@@ -30,6 +34,9 @@ namespace RafaelEstevam.Simple.Spider.UnitTests.CoreTests.InitParamsTests
             Assert.False(cfg.Auto_AnchorsLinks);
         }
 
+#if NET5_0_OR_GREATER
+        [Obsolete("'WebClient' is obsolete")]
+#endif
         [Fact]
         public void InitializationParams_Default001()
         {
