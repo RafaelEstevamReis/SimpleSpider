@@ -470,11 +470,6 @@
             Stops the Downloader operation
             </summary>
         </member>
-        <member name="T:RafaelEstevam.Simple.Spider.Downloaders.WebClientDownloader">
-            <summary>
-            Simple Downloader using WebClient
-            </summary>
-        </member>
         <member name="M:RafaelEstevam.Simple.Spider.Downloaders.WebClientDownloader.ExposeInternalWebClient">
             <summary>
             Exposes the internal webclient
@@ -1932,6 +1927,31 @@
             Location Header
             </summary>
         </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Helper.RssClient">
+            <summary>
+            RSS client with cookies support
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Helper.RssClient.GetAsync(System.String)">
+            <summary>
+            Fetch an URI with cookies and parse as RSS
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Helper.RssClient.GetAsync(System.Uri)">
+            <summary>
+            Fetch an URI with cookies and parse as RSS
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Helper.RssClient.Parse(System.String)">
+            <summary>
+            Parse XML as RSS
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Helper.RssClient.Download(System.Uri,System.Text.Encoding)">
+            <summary>
+            Fetch an Uri as XML and parse as RSS
+            </summary>
+        </member>
         <member name="T:RafaelEstevam.Simple.Spider.Helper.UriHelper">
             <summary>
             Helper for Uri stuff
@@ -2178,18 +2198,6 @@
             <summary>
             Allows to a chainable Action to set some configurations
             </summary>
-        </member>
-        <member name="M:RafaelEstevam.Simple.Spider.InitializationParams.Default000(System.Int32)">
-            <summary>
-            Frozen in time default: Minimal features, nothing enabled
-            </summary>
-            <param name="DownloadDelay">Config.DownloadDelay in milliseconds</param>
-        </member>
-        <member name="M:RafaelEstevam.Simple.Spider.InitializationParams.Default001(System.Int32)">
-            <summary>
-            Frozen in time default: ContentCacher, WebClientDownloader, NoLimitCaching, and AutoAnchorsLinks enabled
-            </summary>
-            <param name="DownloadDelay">Config.DownloadDelay in milliseconds</param>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.InitializationParams.Default002(System.Int32)">
             <summary>
