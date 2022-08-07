@@ -46,9 +46,17 @@ namespace RafaelEstevam.Simple.Spider.Downloaders
         /// <param name="AddDefaultHeaders">Specify when initialize some default headers</param>
         public HttpClientDownloader(bool AddDefaultHeaders = false)
         {
+
             var hdl = new HttpClientHandler()
             {
-                AllowAutoRedirect = false
+                UseCookies = true,
+                CookieContainer = new System.Net.CookieContainer(),
+                AllowAutoRedirect = false,
+#if NETSTANDARD2_1
+                AutomaticDecompression = System.Net.DecompressionMethods.GZip | System.Net.DecompressionMethods.Deflate,
+#else
+                AutomaticDecompression = System.Net.DecompressionMethods.All
+#endif
             };
             httpClient = new HttpClient(hdl);
             cancellationToken = new CancellationTokenSource();
@@ -153,11 +161,11 @@ namespace RafaelEstevam.Simple.Spider.Downloaders
             var reqHeaders = RequestHelper.processHeaders(req.Headers);
 
             current.FetchEnd = DateTime.Now;
+            byte[] content = RequestHelper.loadResponseDataDecompress(resp.Content.ReadAsByteArrayAsync().Result);
+
             if (resp.IsSuccessStatusCode)
             {
                 var respHeaders = RequestHelper.processHeaders(resp.Headers);
-
-                byte[] content = RequestHelper.loadResponseDataDecompress(resp.Content.ReadAsByteArrayAsync().Result);
 
                 FetchCompleted(this, new FetchCompleteEventArgs(current,
                                   content,
