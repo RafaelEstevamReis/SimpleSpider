@@ -15,7 +15,7 @@ namespace RafaelEstevam.Simple.Spider
             Header.AddItem("Accept-Language", "en-GB,en-US;q=0.9,en;q=0.8");
             //Header.AddItem("Accept-Encoding", "gzip, deflate");
             // Refer: -
-            Header.AddItem("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*; q = 0.8");
+            Header.AddItem("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             Header.AddItem("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Safari/537.36");
             Header.AddItem("Dnt", "1");
             Header.AddItem("Upgrade-Insecure-Requests", "1");
@@ -27,7 +27,7 @@ namespace RafaelEstevam.Simple.Spider
         public static void AddFirefoxRequestHeaders(this HeaderCollection Header)
         {
             AddBaseRequestHeaders(Header);
-            Header.AddItem("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0");
+            Header.AddItem("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:103.0) Gecko/20100101 Firefox/103.0");
         }
         /// <summary>
         /// Adds AddBaseRequestHeaders() then a Chrome Windows10 UA
