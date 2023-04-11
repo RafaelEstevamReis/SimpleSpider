@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net5.0;netcoreapp3.1;netstandard2.1;</TargetFrameworks>
+    <TargetFrameworks>net6.0;netcoreapp3.1;netstandard2.1;</TargetFrameworks>
     <RootNamespace>RafaelEstevam.Simple.Spider</RootNamespace>
     <PackageId>RafaelEstevam.Simple.Spider</PackageId>
     <Authors>Rafael Estevam</Authors>
@@ -13,13 +13,10 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>spider web crawling</PackageTags>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>0.9.3</Version>
+    <Version>0.9.4</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>A simple to use and modular spider for web crawling with an example rich GitHub repository</Description>
-    <PackageReleaseNotes>See examples and documentation on the GitHub page
-Commit 119899d
-Release Candidate
-</PackageReleaseNotes>
+    <PackageReleaseNotes>See examples and documentation on the GitHub page</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
