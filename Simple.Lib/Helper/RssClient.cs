@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -55,7 +56,6 @@ namespace RafaelEstevam.Simple.Spider.Helper
         /// </summary>
         public static RssModel Download(Uri uri, Encoding enc = null)
             => FetchHelper.FetchResourceXml<RssModel>(uri, enc, false);
-
     }
 
     [XmlRoot("rss")]
@@ -78,12 +78,23 @@ namespace RafaelEstevam.Simple.Spider.Helper
 
             [XmlElement("item")]
             public rssChannelItem[] item { get; set; }
+
+            public override string ToString()
+                => title;
         }
         public class rssChannelItem
         {
             public rssEnclosure enclosure { get; set; }
             public string title { get; set; }
             public string description { get; set; }
+            public string content { get; set; }
+
+            [XmlElement("encoded", Namespace = "http://purl.org/rss/1.0/modules/content/")]
+            public string encodedContent { get; set; }
+
+            [XmlElement("content", Namespace = "http://search.yahoo.com/mrss/")]
+            public MediaContent mediaContent { get; set; }
+
             public string creator { get; set; }
             public string credit { get; set; }
             public string pubDate { get; set; }
@@ -91,8 +102,11 @@ namespace RafaelEstevam.Simple.Spider.Helper
             public string link { get; set; }
             public string guid { get; set; }
 
-            [XmlElementAttribute("category")]
+            [XmlElement("category")]
             public rssCategory[] categories { get; set; }
+
+            public override string ToString()
+                => title;
         }
         public class rssEnclosure
         {
@@ -102,15 +116,40 @@ namespace RafaelEstevam.Simple.Spider.Helper
             public string length { get; set; }
             [XmlAttribute("type")]
             public string mimeType { get; set; }
+
+            public override string ToString()
+                => url;
         }
         public class rssCategory
         {
-
-            [System.Xml.Serialization.XmlAttribute()]
+            [XmlAttribute()]
             public string domain { get; set; }
-
-            [System.Xml.Serialization.XmlText()]
+            [XmlText()]
             public string Value { get; set; }
+
+            public override string ToString()
+                => Value;
+        }
+
+        [XmlRoot(Namespace = "http://search.yahoo.com/mrss/", IsNullable = false)]
+        public partial class MediaContent
+        {
+            public string title { get; set; }
+            public string description { get; set; }
+            [XmlAttribute()]
+            public string url { get; set; }
+            [XmlAttribute()]
+            public string type { get; set; }
+            [XmlAttribute()]
+            public string expression { get; set; }
+            [XmlAttribute()]
+            public ushort width { get; set; }
+            [XmlAttribute()]
+            public ushort height { get; set; }
+
+            public override string ToString()
+                => title ?? url;
         }
     }
+
 }
