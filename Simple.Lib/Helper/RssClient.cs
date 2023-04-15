@@ -14,6 +14,10 @@ namespace RafaelEstevam.Simple.Spider.Helper
     public class RssClient
     {
         private HttpClient client;
+        /// <summary>
+        /// Transforms current XML before deserializing
+        /// </summary>
+        public Func<string, string> TransformXML { get; set; } = null;
 
         public RssClient()
         {
@@ -36,6 +40,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
             msg.EnsureSuccessStatusCode();
 
             var xml = await msg.Content.ReadAsStringAsync();
+            if (TransformXML != null) xml = TransformXML(xml);
             return Parse(xml);
         }
 
@@ -59,6 +64,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
 
             var bytes = await msg.Content.ReadAsByteArrayAsync();
             var xml = encoding.GetString(bytes);
+            if (TransformXML != null) xml = TransformXML(xml);
             return Parse(xml);
         }
 
@@ -108,6 +114,8 @@ namespace RafaelEstevam.Simple.Spider.Helper
         {
             public rssEnclosure enclosure { get; set; }
             public string title { get; set; }
+            [XmlElement(Namespace = "http://purl.org/dc/elements/1.1/")]
+            public string subject { get; set; }
             public string description { get; set; }
             public string content { get; set; }
 
@@ -120,6 +128,8 @@ namespace RafaelEstevam.Simple.Spider.Helper
             public string creator { get; set; }
             public string credit { get; set; }
             public string pubDate { get; set; }
+            [XmlElement(Namespace = "http://purl.org/dc/elements/1.1/")]
+            public string date { get; set; }
             public string author { get; set; }
             public string link { get; set; }
             public string guid { get; set; }
