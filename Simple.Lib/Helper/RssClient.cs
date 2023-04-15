@@ -130,7 +130,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
             public string pubDate { get; set; }
             [XmlElement(Namespace = "http://purl.org/dc/elements/1.1/")]
             public string date { get; set; }
-            public string author { get; set; }
+            public rssAuthor author { get; set; }
             public string link { get; set; }
             public string guid { get; set; }
 
@@ -139,6 +139,14 @@ namespace RafaelEstevam.Simple.Spider.Helper
 
             public override string ToString()
                 => title;
+        }
+        public class rssAuthor
+        {
+            [XmlElement("name")]
+            public string Name { get; set; }
+
+            [XmlText]
+            public string Value { get; set; }
         }
         public class rssEnclosure
         {
@@ -164,7 +172,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
         }
 
         [XmlRoot(Namespace = "http://search.yahoo.com/mrss/", IsNullable = false)]
-        public partial class MediaContent
+        public class MediaContent
         {
             public string title { get; set; }
             public string description { get; set; }
