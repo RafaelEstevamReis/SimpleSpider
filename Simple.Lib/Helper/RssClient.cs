@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -22,7 +21,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
             var handler = new HttpClientHandler() { CookieContainer = cookieContainer };
             client = new HttpClient(handler);
         }
-        
+
         /// <summary>
         /// Fetch an URI with cookies and parse as RSS
         /// </summary>
@@ -37,6 +36,29 @@ namespace RafaelEstevam.Simple.Spider.Helper
             msg.EnsureSuccessStatusCode();
 
             var xml = await msg.Content.ReadAsStringAsync();
+            return Parse(xml);
+        }
+
+        /// <summary>
+        /// Fetch an URI with cookies and parse as RSS
+        /// </summary>
+        public async Task<RssModel> GetAsync(string url, Encoding encoding)
+            => await GetAsync(new Uri(url), encoding);
+        /// <summary>
+        /// Fetch an URI with cookies and parse as RSS
+        /// </summary>
+        public async Task<RssModel> GetAsync(Uri uri, Encoding encoding)
+        {
+            if (encoding is null)
+            {
+                throw new ArgumentNullException(nameof(encoding));
+            }
+
+            var msg = await client.GetAsync(uri);
+            msg.EnsureSuccessStatusCode();
+
+            var bytes = await msg.Content.ReadAsByteArrayAsync();
+            var xml = encoding.GetString(bytes);
             return Parse(xml);
         }
 
