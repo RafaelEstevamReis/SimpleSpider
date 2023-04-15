@@ -1967,6 +1967,16 @@
             Fetch an URI with cookies and parse as RSS
             </summary>
         </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Helper.RssClient.GetAsync(System.String,System.Text.Encoding)">
+            <summary>
+            Fetch an URI with cookies and parse as RSS
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Helper.RssClient.GetAsync(System.Uri,System.Text.Encoding)">
+            <summary>
+            Fetch an URI with cookies and parse as RSS
+            </summary>
+        </member>
         <member name="M:RafaelEstevam.Simple.Spider.Helper.RssClient.Parse(System.String)">
             <summary>
             Parse XML as RSS
