@@ -144,9 +144,10 @@ namespace RafaelEstevam.Simple.Spider.Helper
         {
             [XmlElement("name")]
             public string Name { get; set; }
-
             [XmlText]
             public string Value { get; set; }
+            public override string ToString()
+                => Name ?? Value;
         }
         public class rssEnclosure
         {
