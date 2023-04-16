@@ -5,9 +5,9 @@ using System.Text;
 namespace RafaelEstevam.Simple.Spider.Helper
 {
     /// <summary>
-    /// Internal use olly - DO NOT USE
+    /// Internal use only
     /// </summary>
-    public class Crc32
+    internal class Crc32
     {
         // this should be improved
         // I did not choose which library should be used, yet
