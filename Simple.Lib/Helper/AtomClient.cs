@@ -65,7 +65,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
     {
         public string id { get; set; }
         public feedTitle title { get; set; }
-        public System.DateTime updated { get; set; }
+        public DateTime updated { get; set; }        
         public feedLink link { get; set; }
         public feedAuthor author { get; set; }
         public string generator { get; set; }
@@ -76,8 +76,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
         [XmlElement("entry")]
         public feedEntry[] entry { get; set; }
 
-
-        public partial class feedTitle
+        public class feedTitle
         {
             [XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/XML/1998/namespace")]
             public string lang { get; set; }
@@ -87,8 +86,18 @@ namespace RafaelEstevam.Simple.Spider.Helper
             public override string ToString()
                 => Value;
         }
+        public class feedContent
+        {
+            [XmlAttribute]
+            public string type { get; set; }
+            [XmlText()]
+            public string Value { get; set; }
 
-        public partial class feedLink
+            public override string ToString()
+                => Value;
+        }
+
+        public class feedLink
         {
             [XmlAttribute()]
             public string rel { get; set; }
@@ -97,7 +106,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
             public override string ToString()
                 => href;
         }
-        public partial class feedAuthor
+        public class feedAuthor
         {
             public string name { get; set; }
             public string email { get; set; }
@@ -105,7 +114,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
             public override string ToString()
                 => name;
         }
-        public partial class feedCategory
+        public class feedCategory
         {
             [XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/XML/1998/namespace")]
             public string lang { get; set; }
@@ -117,7 +126,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
             public override string ToString()
                 => label;
         }
-        public partial class feedRights
+        public class feedRights
         {
             [XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/XML/1998/namespace")]
             public string lang { get; set; }
@@ -126,7 +135,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
             public override string ToString()
                 => Value;
         }
-        public partial class feedEntry
+        public class feedEntry
         {
             public string id { get; set; }
 
@@ -134,6 +143,11 @@ namespace RafaelEstevam.Simple.Spider.Helper
             public uint identifier { get; set; }
             public DateTime updated { get; set; }
             public DateTime published { get; set; }
+
+            public feedContent description { get; set; }
+            public feedContent content { get; set; }
+            public string url { get; set; }
+
             [XmlElement("category")]
             public feedEntryCategory[] category { get; set; }
             public string rights { get; set; }
@@ -148,7 +162,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
                 => title?.Value ?? subject;
         }
 
-        public partial class feedEntryCategory
+        public class feedEntryCategory
         {
             [XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/XML/1998/namespace")]
             public string lang { get; set; }
@@ -161,7 +175,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
                 => label;
         }
 
-        public partial class feedEntryTitle
+        public class feedEntryTitle
         {
             [XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/XML/1998/namespace")]
             public string lang { get; set; }
@@ -171,7 +185,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
             public override string ToString()
                 => Value;
         }
-        public partial class feedEntrySummary
+        public class feedEntrySummary
         {
             [XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/XML/1998/namespace")]
             public string lang { get; set; }
@@ -181,7 +195,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
                 => Value;
         }
 
-        public partial class feedEntryLink
+        public class feedEntryLink
         {
             [XmlElement(Namespace = "http://purl.org/dc/elements/1.1/")]
             public string title { get; set; }
@@ -200,7 +214,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
             public override string ToString()
                 => href;
         }
-        public partial class contentThumbnail
+        public class contentThumbnail
         {
             [XmlElement(Namespace = "http://www.w3.org/2005/Atom")]
             public img img { get; set; }
@@ -214,7 +228,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
             public override string ToString()
                 => url;
         }
-        public partial class img
+        public class img
         {
             [XmlAttribute()]
             public string alt { get; set; }
@@ -226,11 +240,6 @@ namespace RafaelEstevam.Simple.Spider.Helper
             public string src { get; set; }
             public override string ToString()
                 => src;
-        }
-        public partial class content
-        {
-            [XmlElement("thumbnail")]
-            public contentThumbnail[] thumbnail { get; set; }
         }
     }
 }
