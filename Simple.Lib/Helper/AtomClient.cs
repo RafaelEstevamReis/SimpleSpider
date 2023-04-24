@@ -157,6 +157,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
             public string subject { get; set; }
             [XmlElement("link")]
             public feedEntryLink[] link { get; set; }
+            public feedAuthor author { get; set; }
 
             public override string ToString()
                 => title?.Value ?? subject;
