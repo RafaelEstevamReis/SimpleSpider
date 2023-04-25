@@ -125,11 +125,12 @@ namespace RafaelEstevam.Simple.Spider.Helper
             [XmlElement("content", Namespace = "http://search.yahoo.com/mrss/")]
             public MediaContent mediaContent { get; set; }
 
-            public string creator { get; set; }
             public string credit { get; set; }
             public string pubDate { get; set; }
             [XmlElement(Namespace = "http://purl.org/dc/elements/1.1/")]
             public string date { get; set; }
+            [XmlElement(Namespace = "http://purl.org/dc/elements/1.1/")]
+            public string creator { get; set; }
             public rssAuthor author { get; set; }
             public string link { get; set; }
             public string guid { get; set; }
