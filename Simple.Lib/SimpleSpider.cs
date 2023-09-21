@@ -1,15 +1,14 @@
-﻿using System;
+﻿using RafaelEstevam.Simple.Spider.Cachers;
+using RafaelEstevam.Simple.Spider.Downloaders;
+using RafaelEstevam.Simple.Spider.Helper;
+using RafaelEstevam.Simple.Spider.Interfaces;
+using Serilog;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using Newtonsoft.Json;
-using RafaelEstevam.Simple.Spider.Cachers;
-using RafaelEstevam.Simple.Spider.Downloaders;
-using RafaelEstevam.Simple.Spider.Helper;
-using RafaelEstevam.Simple.Spider.Interfaces;
-using Serilog;
 
 namespace RafaelEstevam.Simple.Spider
 {
@@ -433,6 +432,17 @@ namespace RafaelEstevam.Simple.Spider
                 if (p == null) continue;
                 yield return AddPage(p, SourcePage);
             }
+        }
+        
+        /// <summary>
+        /// Removes from Finished list and adds to Downloader queue
+        /// </summary>
+        public void ReprocessPage(Link link)
+        {
+            // removes from execution list
+            hExecuted.Remove(link.Uri.ToString());
+            // Adds to downloader
+            qDownload.Enqueue(link);
         }
 
         /// <summary>
