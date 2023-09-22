@@ -15,7 +15,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
         /// Transforms current XML before deserializing
         /// </summary>
         public Func<string, string> TransformXML { get; set; } = null;
-
+        public Encoding Encoding { get; set; } = null;
 
         public AtomClient()
         {
@@ -37,9 +37,16 @@ namespace RafaelEstevam.Simple.Spider.Helper
             var msg = await client.GetAsync(uri);
             msg.EnsureSuccessStatusCode();
 
-            var xml = await msg.Content.ReadAsStringAsync();
+            var xml = await getText(msg);
             if (TransformXML != null) xml = TransformXML(xml);
             return Parse(xml);
+        }
+        private async Task<string> getText(HttpResponseMessage msg)
+        {
+            if (Encoding == null) return await msg.Content.ReadAsStringAsync();
+
+            var content = await msg.Content.ReadAsByteArrayAsync();
+            return Encoding.GetString(content);
         }
 
         /// <summary>
