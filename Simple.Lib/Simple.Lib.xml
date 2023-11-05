@@ -2566,6 +2566,21 @@
             </summary>
             <returns>A hash code for the current object</returns>
         </member>
+        <member name="T:RafaelEstevam.Simple.Spider.PageFetcherHelepr">
+            <summary>
+            Fetchs Pages
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.PageFetcherHelepr.RequestAsync(System.Net.Http.HttpRequestMessage)">
+            <summary>
+            Requests a Page
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.PageFetcherHelepr.GetHtmlAsync(System.String)">
+            <summary>
+            Gets a Page
+            </summary>
+        </member>
         <member name="T:RafaelEstevam.Simple.Spider.PageFetcher">
             <summary>
             Fetchs Pages
