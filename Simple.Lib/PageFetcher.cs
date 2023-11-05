@@ -29,7 +29,9 @@ namespace RafaelEstevam.Simple.Spider
             };
             client = new HttpClient(handler);
         }
-
+        /// <summary>
+        /// Requests a Page
+        /// </summary>
         public static async Task<PageResponse> RequestAsync(HttpRequestMessage request)
         {
             initialize();
@@ -37,6 +39,9 @@ namespace RafaelEstevam.Simple.Spider
             var response = await client.SendAsync(request);
             return await PageResponse.BuildAsync(response);
         }
+        /// <summary>
+        /// Gets a Page
+        /// </summary>
         public static async Task<PageResponse> GetHtmlAsync(string url)
         {
             initialize();

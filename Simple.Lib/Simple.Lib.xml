@@ -470,11 +470,6 @@
             Stops the Downloader operation
             </summary>
         </member>
-        <member name="T:RafaelEstevam.Simple.Spider.Downloaders.WebClientDownloader">
-            <summary>
-            Simple Downloader using WebClient
-            </summary>
-        </member>
         <member name="M:RafaelEstevam.Simple.Spider.Downloaders.WebClientDownloader.ExposeInternalWebClient">
             <summary>
             Exposes the internal webclient
@@ -2244,18 +2239,6 @@
             Allows to a chainable Action to set some configurations
             </summary>
         </member>
-        <member name="M:RafaelEstevam.Simple.Spider.InitializationParams.Default000(System.Int32)">
-            <summary>
-            Frozen in time default: Minimal features, nothing enabled
-            </summary>
-            <param name="DownloadDelay">Config.DownloadDelay in milliseconds</param>
-        </member>
-        <member name="M:RafaelEstevam.Simple.Spider.InitializationParams.Default001(System.Int32)">
-            <summary>
-            Frozen in time default: ContentCacher, WebClientDownloader, NoLimitCaching, and AutoAnchorsLinks enabled
-            </summary>
-            <param name="DownloadDelay">Config.DownloadDelay in milliseconds</param>
-        </member>
         <member name="M:RafaelEstevam.Simple.Spider.InitializationParams.Default002(System.Int32)">
             <summary>
             Frozen in time default: ContentCacher, HttpClientDownloader with headers, NoLimitCaching, AutoAnchorsLinks enabled, and rewrites fragments
@@ -2582,6 +2565,77 @@
             Serves as the default hash function 
             </summary>
             <returns>A hash code for the current object</returns>
+        </member>
+        <member name="T:RafaelEstevam.Simple.Spider.PageFetcher">
+            <summary>
+            Fetchs Pages
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.PageFetcher.RequestAsync(System.Net.Http.HttpRequestMessage)">
+            <summary>
+            Requests a Page
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.PageFetcher.GetHtmlAsync(System.String)">
+            <summary>
+            Gets a Page
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.PageResponse.Headers">
+            <summary>
+            Gets the collection of HTTP response headers
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.PageResponse.ContentHeaders">
+            <summary>
+            Gets the collection of HTTP content headers
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.PageResponse.RequestMessage">
+            <summary>
+            Gets the request message which led to this response message
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.PageResponse.IsSuccessStatusCode">
+            <summary>
+            Gets a value that indicates if the HTTP response was successful
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.PageResponse.ReasonPhrase">
+            <summary>
+            Gets the reason phrase which typically is sent by servers together with
+            the status code
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.PageResponse.StatusCode">
+            <summary>
+            Gets the status code of the HTTP response
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.PageResponse.ResponseString">
+            <summary>
+            Gets the string response of the request
+            </summary>
+        </member>
+        <member name="P:RafaelEstevam.Simple.Spider.PageResponse.Response">
+            <summary>
+            Gets the original bytes
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.PageResponse.AsHObject">
+            <summary>
+            Gets a HObject from response 
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.PageResponse.FromJson``1">
+            <summary>
+            Deserialize a json
+            </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.PageResponse.FromXml``1">
+            <summary>
+            Deserialize a xml
+            </summary>
         </member>
         <member name="T:RafaelEstevam.Simple.Spider.Parsers.HObjectParser">
             <summary>
@@ -3514,6 +3568,11 @@
             Returns the Values of all elements of the collection
             </summary>
             <param name="h">A HObject to be converted</param>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.Wrappers.HObject.FromHTML(System.String)">
+            <summary>
+            Parses from HTML
+            </summary>
         </member>
         <member name="T:RafaelEstevam.Simple.Spider.Wrappers.HTML.Anchor">
             <summary>
