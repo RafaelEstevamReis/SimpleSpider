@@ -15,6 +15,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
     /// <summary>
     /// Helper to fetch stuff
     /// </summary>
+    [Obsolete("Use PageFetcher instead")]
     public static class FetchHelper
     {
         /// <summary>
