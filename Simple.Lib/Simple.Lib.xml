@@ -470,6 +470,11 @@
             Stops the Downloader operation
             </summary>
         </member>
+        <member name="T:RafaelEstevam.Simple.Spider.Downloaders.WebClientDownloader">
+            <summary>
+            Simple Downloader using WebClient
+            </summary>
+        </member>
         <member name="M:RafaelEstevam.Simple.Spider.Downloaders.WebClientDownloader.ExposeInternalWebClient">
             <summary>
             Exposes the internal webclient
@@ -2238,6 +2243,18 @@
             <summary>
             Allows to a chainable Action to set some configurations
             </summary>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.InitializationParams.Default000(System.Int32)">
+            <summary>
+            Frozen in time default: Minimal features, nothing enabled
+            </summary>
+            <param name="DownloadDelay">Config.DownloadDelay in milliseconds</param>
+        </member>
+        <member name="M:RafaelEstevam.Simple.Spider.InitializationParams.Default001(System.Int32)">
+            <summary>
+            Frozen in time default: ContentCacher, WebClientDownloader, NoLimitCaching, and AutoAnchorsLinks enabled
+            </summary>
+            <param name="DownloadDelay">Config.DownloadDelay in milliseconds</param>
         </member>
         <member name="M:RafaelEstevam.Simple.Spider.InitializationParams.Default002(System.Int32)">
             <summary>

@@ -13,7 +13,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>spider web crawling</PackageTags>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>0.9.11</Version>
+    <Version>0.9.12</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>A simple to use and modular spider for web crawling with an example rich GitHub repository</Description>
     <PackageReleaseNotes>See examples and documentation on the GitHub page</PackageReleaseNotes>
