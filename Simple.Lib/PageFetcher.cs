@@ -13,9 +13,9 @@ namespace RafaelEstevam.Simple.Spider
     /// <summary>
     /// Fetchs Pages
     /// </summary>
-    public static class PageFetcher
+    public static class PageFetcherHelepr
     {
-        public static HttpClient client { get; private set; }
+        private static HttpClient client;
 
         static void initialize()
         {
@@ -49,7 +49,53 @@ namespace RafaelEstevam.Simple.Spider
             var response = await client.GetAsync(url);
             return await PageResponse.BuildAsync(response);
         }
+    }
+    /// <summary>
+    /// Fetchs Pages
+    /// </summary>
+    public class PageFetcher
+    {
+        private HttpClient client;
 
+        public PageFetcher() { }
+        public PageFetcher(HttpClientHandler hdl)
+        {
+            client = new HttpClient(hdl);
+        }
+        public PageFetcher(HttpClient client) { this.client = client; }
+
+        void checkInitialize()
+        {
+            if (client != null) return;
+
+            var handler = new HttpClientHandler()
+            {
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
+                UseCookies = true,
+                CookieContainer = new CookieContainer(),
+            };
+            client = new HttpClient(handler);
+        }
+        /// <summary>
+        /// Requests a Page
+        /// </summary>
+        public async Task<PageResponse> RequestAsync(HttpRequestMessage request)
+        {
+            checkInitialize();
+
+            var response = await client.SendAsync(request);
+            return await PageResponse.BuildAsync(response);
+        }
+        /// <summary>
+        /// Gets a Page
+        /// </summary>
+        public async Task<PageResponse> GetHtmlAsync(string url)
+        {
+            checkInitialize();
+
+            var response = await client.GetAsync(url);
+            return await PageResponse.BuildAsync(response);
+        }
     }
     public class PageResponse
     {
