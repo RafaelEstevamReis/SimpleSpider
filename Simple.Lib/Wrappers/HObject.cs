@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HtmlAgilityPack;
+using RafaelEstevam.Simple.Spider.Helper;
 
 namespace RafaelEstevam.Simple.Spider.Wrappers
 {
@@ -613,6 +614,13 @@ namespace RafaelEstevam.Simple.Spider.Wrappers
         {
             return h.GetValues();
         }
-
+        /// <summary>
+        /// Parses from HTML
+        /// </summary>
+        public static HObject FromHTML(string html)
+        {
+            var document = HtmlParseHelper.ParseHtmlDocument(html);
+            return new HObject(document);
+        }
     }
 }
