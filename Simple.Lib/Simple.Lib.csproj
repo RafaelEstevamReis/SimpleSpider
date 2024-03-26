@@ -1,65 +1,65 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFrameworks>net6.0;netcoreapp3.1;netstandard2.1;</TargetFrameworks>
-    <RootNamespace>RafaelEstevam.Simple.Spider</RootNamespace>
-    <PackageId>RafaelEstevam.Simple.Spider</PackageId>
-    <Authors>Rafael Estevam</Authors>
-    <Company>RafaelEstevam.net</Company>
-    <Product>Simple Spider</Product>
-    <PackageLicenseExpression></PackageLicenseExpression>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageProjectUrl>https://github.com/RafaelEstevamReis/SimpleSpider</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/RafaelEstevamReis/SimpleSpider</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageTags>spider web crawling</PackageTags>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>0.9.12</Version>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>A simple to use and modular spider for web crawling with an example rich GitHub repository</Description>
-    <PackageReleaseNotes>See examples and documentation on the GitHub page</PackageReleaseNotes>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net6.0;netcoreapp3.1;netstandard2.1;</TargetFrameworks>
+		<RootNamespace>RafaelEstevam.Simple.Spider</RootNamespace>
+		<PackageId>RafaelEstevam.Simple.Spider</PackageId>
+		<Authors>Rafael Estevam</Authors>
+		<Company>RafaelEstevam.net</Company>
+		<Product>Simple Spider</Product>
+		<PackageLicenseExpression></PackageLicenseExpression>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageProjectUrl>https://github.com/RafaelEstevamReis/SimpleSpider</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/RafaelEstevamReis/SimpleSpider</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>spider web crawling</PackageTags>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<Version>0.9.12</Version>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<Description>A simple to use and modular spider for web crawling with an example rich GitHub repository</Description>
+		<PackageReleaseNotes>See examples and documentation on the GitHub page</PackageReleaseNotes>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DocumentationFile></DocumentationFile>
+		<DebugType>full</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DebugType>embedded</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-    <DocumentationFile>Simple.Lib.xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DebugType>embedded</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+		<DocumentationFile>Simple.Lib.xml</DocumentationFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.54" />
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Serilog" Version="3.0.1" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
-    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.59" />
+		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Serilog" Version="3.0.1" />
+		<PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
+		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Files.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Files.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="Files.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Files.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="Files.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Files.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Files.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Files.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
 
 </Project>
