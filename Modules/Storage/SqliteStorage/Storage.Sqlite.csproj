@@ -30,7 +30,7 @@ Commit 02c9b0d
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Simple.Sqlite" Version="1.0.5" />
+    <PackageReference Include="Simple.Sqlite" Version="1.2.0" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
   </ItemGroup>
 
