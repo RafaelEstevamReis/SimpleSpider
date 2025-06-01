@@ -15,6 +15,10 @@ namespace RafaelEstevam.Simple.Spider.Helper
     {
         private HttpClient client;
         /// <summary>
+        /// Exposes internal HttpClient
+        /// </summary>
+        public HttpClient InternalClient => client;
+        /// <summary>
         /// Transforms current XML before deserializing
         /// </summary>
         public Func<string, string> TransformXML { get; set; } = null;
