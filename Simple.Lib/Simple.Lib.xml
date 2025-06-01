@@ -1962,6 +1962,11 @@
             RSS client with cookies support
             </summary>
         </member>
+        <member name="P:RafaelEstevam.Simple.Spider.Helper.RssClient.InternalClient">
+            <summary>
+            Exposes internal HttpClient
+            </summary>
+        </member>
         <member name="P:RafaelEstevam.Simple.Spider.Helper.RssClient.TransformXML">
             <summary>
             Transforms current XML before deserializing
