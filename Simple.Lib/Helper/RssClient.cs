@@ -2,6 +2,8 @@
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -22,13 +24,30 @@ namespace RafaelEstevam.Simple.Spider.Helper
         /// Transforms current XML before deserializing
         /// </summary>
         public Func<string, string> TransformXML { get; set; } = null;
+        /// <summary>
+        /// Sets default encoding
+        /// </summary>
         public Encoding Encoding { get; set; } = null;
+        /// <summary>
+        /// Ignores SSL errors, allows Man-in-the-midle attacks, don't use this option
+        /// </summary>
+        public bool IgnoreSSLCertificateErrors { get; set; } = false;
 
         public RssClient()
         {
             var cookieContainer = new CookieContainer();
-            var handler = new HttpClientHandler() { CookieContainer = cookieContainer };
+            var handler = new HttpClientHandler()
+            {
+                CookieContainer = cookieContainer,
+                ServerCertificateCustomValidationCallback = certificateCallBack
+            };
             client = new HttpClient(handler);
+        }
+        private bool certificateCallBack(HttpRequestMessage message, X509Certificate2 certificate, X509Chain chain, SslPolicyErrors errors)
+        {
+            if (IgnoreSSLCertificateErrors) return true;
+            // Only non-errors
+            return errors == SslPolicyErrors.None;
         }
 
         /// <summary>
@@ -51,7 +70,7 @@ namespace RafaelEstevam.Simple.Spider.Helper
         }
         private async Task<string> getText(HttpResponseMessage msg)
         {
-            if(Encoding == null) return await msg.Content.ReadAsStringAsync();
+            if (Encoding == null) return await msg.Content.ReadAsStringAsync();
 
             var content = await msg.Content.ReadAsByteArrayAsync();
             return Encoding.GetString(content);
