@@ -1,47 +1,50 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;net5.0</TargetFrameworks>
-    <RootNamespace>RafaelEstevam.Simple.Spider.Storage</RootNamespace>
-    <AssemblyName>RafaelEstevam.Simple.Spider.Storage</AssemblyName>
-    <PackageId>RafaelEstevam.Simple.Spider.SqliteStorage</PackageId>
-    <Authors>Rafael Estevam</Authors>
-    <Company>RafaelEstevam.net</Company>
-    <Product>Simple Spider Sqlite Storage</Product>
-    <Description>Sqlite-based storage engine to the SimpleSpider
-See examples and documentation on the GitHub page</Description>
-    <PackageLicenseExpression></PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/RafaelEstevamReis/SimpleSpider</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageTags>spider web crawling sqlite</PackageTags>
-    <Version>0.8.9</Version>
-    <PackageReleaseNotes>See examples and documentation on the GitHub page
-Commit 02c9b0d
-</PackageReleaseNotes>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.1;net5.0</TargetFrameworks>
+		<RootNamespace>RafaelEstevam.Simple.Spider.Storage</RootNamespace>
+		<AssemblyName>RafaelEstevam.Simple.Spider.Storage</AssemblyName>
+		<PackageId>RafaelEstevam.Simple.Spider.SqliteStorage</PackageId>
+		<Authors>Rafael Estevam</Authors>
+		<Company>RafaelEstevam.net</Company>
+		<Product>Simple Spider Sqlite Storage</Product>
+		<Description>
+			Sqlite-based storage engine to the SimpleSpider
+			See examples and documentation on the GitHub page
+		</Description>
+		<PackageLicenseExpression></PackageLicenseExpression>
+		<RepositoryUrl>https://github.com/RafaelEstevamReis/SimpleSpider</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>spider web crawling sqlite</PackageTags>
+		<Version>0.8.10</Version>
+		<PackageReleaseNotes>
+			See examples and documentation on the GitHub page
+			Commit 02c9b0d
+		</PackageReleaseNotes>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
+		<DocumentationFile></DocumentationFile>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.1|AnyCPU'">
-    <DocumentationFile>RafaelEstevam.Simple.Spider.Storage.xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.1|AnyCPU'">
+		<DocumentationFile>RafaelEstevam.Simple.Spider.Storage.xml</DocumentationFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Simple.Sqlite" Version="1.5.1" />
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Simple.Sqlite" Version="1.5.1" />
+		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Simple.Lib\Simple.Lib.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Simple.Lib\Simple.Lib.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\..\..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
 </Project>
